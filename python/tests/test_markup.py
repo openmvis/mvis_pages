@@ -94,7 +94,9 @@ def test_tiles_prefer_the_median_and_handle_one_camera(variant):
     one = dict(r, cams=r["cams"][:1], reproj_rms_px=0.4)
     del one["reproj_median_px"]
     html = m.tiles(one)
-    assert "Reprojection RMS" in html and "<b>–</b>" in html
+    assert "Reprojection RMS" in html and "baseline" not in html          # one global-shutter camera: no baseline tile
+    rolling = m.tiles(one, 32.55)
+    assert "Readout time" in rolling and "32.5" in rolling and "baseline" not in rolling
 
 
 def test_each_hides_all_but_the_first_tab():
