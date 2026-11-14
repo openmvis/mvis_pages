@@ -27,7 +27,7 @@ def test_t265_is_first_and_labels_keep_full_names(pub):
 
 def test_groups_follow_the_chosen_order(pub):
     assert [(g["title"], g["slugs"]) for g in sensor_groups(pub)] == [
-        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
+        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "realsense-d435i", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
         ("Head-worn cameras", ["gi-ego1", "gi-ego1gs", "xq20"]),
         ("VR headsets", ["valve-index", "hp-reverb-g2", "samsung-odyssey-plus"]),
         ("360° cameras", ["insta360-one-rs-1inch-360"]),
@@ -51,7 +51,7 @@ def test_card_name_does_not_repeat_the_maker(pub):
 def test_card_tags_are_shutter_cameras_imu_in_that_order_and_hold_no_licence(pub):
     for slug, c in _cards(pub).items():
         tags = c["tags"]
-        assert re.fullmatch(r"\d+ cameras", tags[-2]) and re.fullmatch(r"[\d.]+ k?Hz IMU", tags[-1]), slug
+        assert re.fullmatch(r"\d+ cameras?", tags[-2]) and re.fullmatch(r"[\d.]+ k?Hz IMU", tags[-1]), slug
         assert len(tags) == 2 or (len(tags) == 3 and "shutter" in tags[0]), slug
         assert not any("CC BY" in t for t in tags), slug
 
@@ -65,7 +65,8 @@ def test_unknown_shutter_is_left_out_of_the_tags(pub):
 # Live without a demo or hosted data, at the user's request (alg-avs111c 2026-11-06; cyperstereo 2026-11-11, which has a demo since): no permission to host the bag.
 # insta360-one-rs-1inch-360 (2026-11-12): third-party recordings under CC BY-NC-SA, linked at their source and not re-hosted; no demo clip yet.
 NO_DEMO_NOT_HOSTED = ("cyperstereo", "insta360-one-rs-1inch-360")   # alg-avs111c hosted since 2026-11-14
-NOT_HOSTED = NO_DEMO_NOT_HOSTED
+# realsense-d435i (2026-11-14): a collaborator's recordings, shared with us, no licence stated; not hosted.
+NOT_HOSTED = NO_DEMO_NOT_HOSTED + ("realsense-d435i",)
 
 
 def test_every_page_has_a_cited_photo_a_short_type_and_a_demo(pub):
