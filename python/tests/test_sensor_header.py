@@ -149,3 +149,12 @@ def test_header_parts_rewrites_the_page_for_a_datasheet(variant):
     one = H.header_parts("rig", F.pub_entry("photo"), vs[:1], parts_for("rig", F.pub_entry("photo"), {"board": {"rows": 2, "cols": 2, "tag_mm": 30, "spacing": 0.3}},
                                                                          vs[:1], [], "https://d", "/m", {str(i): ["1" * 6] * 6 for i in range(4)}))
     assert one["glance"].startswith("<p>")
+
+
+def test_fold_keys_follow_the_tab():
+    from mvis_site.sensor_header import per_tab
+    vs = [{"x": 1}, {"x": 2}]
+    one = per_tab(vs[:1], lambda v: f'td {v["x"]}')
+    two = per_tab(vs, lambda v: f'td {v["x"]}')
+    assert one == "td 1"
+    assert two == '<span class=v data-v="0">td 1</span><span class=v data-v="1" hidden>td 2</span>'
