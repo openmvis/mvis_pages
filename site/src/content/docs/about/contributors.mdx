@@ -62,9 +62,8 @@ MVIS implements the method of the MVIS paper (Yang, Geneva and Huang, IJRR
 
 ## Citing MVIS
 
-Cite the software and the MVIS paper, as
-[`CITATION.cff`](https://github.com/openmvis/openmvis/blob/main/CITATION.cff)
-asks. The paper is the preferred citation.
+Cite the MVIS paper, the preferred citation in
+[`CITATION.cff`](https://github.com/openmvis/openmvis/blob/main/CITATION.cff):
 
 ```bibtex
 @article{yang2024mvis,
@@ -79,33 +78,24 @@ asks. The paper is the preferred citation.
 }
 ```
 
-The software, with the version you ran:
+## Cite the project: OpenMVIS
 
-```bibtex
-@software{mvis,
-  title   = {{OpenMVIS}: open-source multi-visual-inertial sensor calibration},
-  author  = {Yang, Yulin},
-  version = {0.1.0},
-  year    = {2026},
-  url     = {https://github.com/openmvis/openmvis},
-}
-```
-
-## Citing the benchmark
-
-If you compare against the benchmark results, cite the benchmark:
+One entry covers the toolbox, this site and the benchmark results. Its DOI is the
+Zenodo concept DOI, which resolves to the latest release; each release also has
+its own version DOI on [Zenodo](https://doi.org/10.5281/zenodo.24239182).
 
 ```bibtex
 @misc{openmvis,
-  title  = {{OpenMVIS}: A Benchmark for Multi-Visual-Inertial Sensor Calibration},
+  title  = {{OpenMVIS}: open-source multi-visual-inertial sensor calibration},
   author = {{OpenMVIS Contributors}},
   year   = {2026},
+  doi    = {10.5281/zenodo.24239182},
   url    = {https://openmvis.com}
 }
 ```
 
-Results come in dated batches. Name the batch you used, so the comparison stays
-citable after later batches land:
+Results come in dated batches. If you compare against them, name the batch you
+used, so the comparison stays citable after later batches land:
 
 > OpenMVIS leaderboard, batch 2026-11-10a, accessed &lt;date&gt;.
 > https://openmvis.com/benchmark/results/
@@ -113,15 +103,26 @@ citable after later batches land:
 The batch shown on the [Leaderboard](/benchmark/results/) is the current one.
 [Methodology](/benchmark/methodology/) explains what the numbers mean.
 
-## Citing the datasets
+## Citing the datasets: cite Calibench-VI
 
 When your results depend on a dataset, cite the dataset as well as MVIS.
 
-- **VI-Rig recordings (our own):** cite Calibench for every VI-Rig set. For the
+- **VI-Rig recordings (our own):** cite Calibench-VI for every VI-Rig set. For the
   4-IMU sets (`virig-4imus-3cams`, `virig-4imus-3cams-aruco` and
   `virig-4imus-4cams`), also cite the MVIS paper above. `virig-5imus-4cams` has
-  no paper yet; cite Calibench only. The Calibench entry is on
-  [Datasets](/datasets/).
+  no paper yet; cite Calibench-VI only.
 - **Third-party datasets:** cite the original authors. The
   [dataset card](https://huggingface.co/datasets/calibench-vi/datasets) lists
   the citation each one requires.
+
+```bibtex
+@misc{calibench2026,
+  author       = {Yang, Yulin},
+  title        = {Calibench-VI: the visual-inertial calibration benchmark},
+  year         = {2026},
+  howpublished = {Hugging Face Datasets},
+  note         = {https://huggingface.co/datasets/calibench-vi/datasets}
+}
+```
+
+The same entries are on [Datasets](/datasets/#citation).
