@@ -134,16 +134,24 @@ def rig_drawing(v: dict) -> str:
             out.append(f'<g class=cam transform="translate({x:.1f} {y:.1f}) rotate({deg:.1f})"><rect x="-11" y="-3" width="22" height="9" rx="2.5" fill="{col}"/><rect x="-4.5" y="-6" width="9" height="4" rx="1" fill="{col}"/></g>')
             taken.append((x - 14, y - 12, x + 14, y + 12))
         taken.append((ix - 7, iy - 7, ix + 7, iy + 7))
-        # Baseline sits under everything on the plate, so its line never crosses a label.
+        # A side-by-side baseline bracket sits under everything on the plate, so its line never crosses a label.
         bot = max(P(np.array(p))[1] for p in [*pos, *tips, np.zeros(3)]) + 34
-        dim = ""
+        dim, late = "", None
         if len(cams) > 1:
             (x0, y0), (x1, y1) = P(pos[0]), P(pos[1])
-            dim = f'<path class=dl d="M{x0:.1f} {bot - 6:.1f}V{bot + 4:.1f}M{x1:.1f} {bot - 6:.1f}V{bot + 4:.1f}M{x0:.1f} {bot:.1f}H{x1:.1f}"/>'
             t = f'baseline {baseline_mm(cams):.1f} mm'
-            dim += txt((x0 + x1) / 2, bot + 16, t)
-            taken.append(box((x0 + x1) / 2, bot + 16, t))
-            taken.append((min(x0, x1), bot - 6, max(x0, x1), bot + 4))
+            if abs(y1 - y0) <= 0.25 * abs(x1 - x0):  # side by side, nearly level: bracket under the plate
+                dim = f'<path class=dl d="M{x0:.1f} {bot - 6:.1f}V{bot + 4:.1f}M{x1:.1f} {bot - 6:.1f}V{bot + 4:.1f}M{x0:.1f} {bot:.1f}H{x1:.1f}"/>'
+                dim += txt((x0 + x1) / 2, bot + 16, t)
+                taken.append(box((x0 + x1) / 2, bot + 16, t))
+                taken.append((min(x0, x1), bot - 6, max(x0, x1), bot + 4))
+            else:  # not side by side (e.g. back to back): a dashed line from cam0 to cam1, labelled at its middle
+                out.insert(0, f'<line class="lever bl" x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}"/>')  # under the cameras
+                mx, my = (x0 + x1) / 2, (y0 + y1) / 2
+                n = math.hypot(x1 - x0, y1 - y0) or 1.0
+                nx, ny = (y1 - y0) / n, -(x1 - x0) / n
+                cands = [(mx + nx * d * k, my + ny * d * k + 4) for d in (0, 14, 22, 32, 44) for k in (1, -1)]
+                late = (cands, t)  # placed last, after the IMU, camera and lever labels
         out.append(imu(P, taken, H))
         for i, c in enumerate(cams):
             x, y = P(pos[i])
@@ -152,6 +160,8 @@ def rig_drawing(v: dict) -> str:
             x, y = P(pos[i])
             cands = [(ix + (x - ix) * k, iy + (y - iy) * k + d) for k in (.5, .4, .6, .3, .7) for d in (4, -12, 20)]
             out.append(place(taken, cands, f'{float(np.linalg.norm(pos[i])):.1f} mm', H))
+        if late:  # no room by the line: fall back to the spot under the plate
+            dim += place(taken, late[0], late[1], H) or txt(sum(P(p)[0] for p in pos[:2]) / 2, bot + 16, late[1])
         return "".join(out) + dim
 
     def draw_front(P, H):
