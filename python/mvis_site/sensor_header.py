@@ -203,6 +203,13 @@ def specs_html(p: dict, v: dict) -> str:
     return f'<div class=scroll><table class=spec-table><tbody>{"".join(out)}</tbody></table></div>{note}'
 
 
+def per_tab(vs: list, fn) -> str:
+    """A fold's one-line key for each tab: inline spans the tab buttons show and hide like the `.v` blocks."""
+    if len(vs) == 1:
+        return fn(vs[0])
+    return "".join(f'<span class=v data-v="{i}"{" hidden" if i else ""}>{fn(v)}</span>' for i, v in enumerate(vs))
+
+
 def fold(fid: str, title: str, key: str, body: str) -> str:
     return f'<details class=fold id="{fid}"><summary>{e(title)} <span>{key}</span></summary><div>{body}</div></details>'
 
@@ -226,7 +233,6 @@ def header_parts(slug: str, p: dict, vs: list, parts: dict) -> dict:
     band = re.search(r'<div class=band>.*</div>$', parts["glance"], re.S).group(0)
     tabs = re.search(r'<div class=vtabs.*?</div>', parts["lead"], re.S)
     parts["glance"] = (tabs.group(0) if tabs else "") + f'<p>{e(p["lead"])}</p>' + band + TILE_TERMS + f'<p class=sd-note>{e(p["limits"][0])}</p>'
-    r0 = vs[0]["run"]
     parts["process"] = (PROCESS_VIEWS_LEAD if any(x.get("views") for x in vs) else
                         "<p>The path of the rig around the board, as MVIS solved it. Press Play or drag the bar to follow it. Use the buttons to change the view.</p>")
     parts["process"] += each({"variants": vs}, lambda x, i: process_block(slug, x, i))
@@ -235,9 +241,11 @@ def header_parts(slug: str, p: dict, vs: list, parts: dict) -> dict:
     parts["rig"] = (f'<p>The solved rig in 3D, to scale. Tap a sensor to see its values. In full screen you can rotate and zoom. Grid squares are 20 mm.</p>{MAP_STAGE}{map_panel()}'
                     '<h3 class=rig-h>To scale, from above and the front</h3>' + each({"variants": vs}, lambda x, i: rig_drawing(x) + rig_table(x))
                     + '<p class=rig-note>Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.</p>')
-    parts["detail"] = (fold("lens", "Lens", "Calibrated field of view", parts["lens"]) + fold("imu", "IMU", f'Gyro–accel time offset t_ga {num(r0.get("t_ga_ms"), 2, True)} ms', parts["imu"])
-                       + fold("timing", "Timing", f'{td_label(r0["cams"][0]["td_ms"], vs[0]["readout_ms"][0])[0]} {num(r0["cams"][0]["td_ms"], 2, True)} ms', parts["timing"])
-                       + (fold("board-shape", "Board shape", f'peak to peak {shaped[0]["board_shape"]["p2p_mm"]:.1f} mm', parts["board_shape"])
-                          if (shaped := [x for x in vs if x.get("board_shape")]) and parts.get("board_shape") else "")
+    tga_key = per_tab(vs, lambda x: f'Gyro–accel time offset t_ga {num(x["run"].get("t_ga_ms"), 2, True)} ms')
+    td_key = per_tab(vs, lambda x: f'{td_label(x["run"]["cams"][0]["td_ms"], x["readout_ms"][0])[0]} {num(x["run"]["cams"][0]["td_ms"], 2, True)} ms')
+    parts["detail"] = (fold("lens", "Lens", "Calibrated field of view", parts["lens"]) + fold("imu", "IMU", tga_key, parts["imu"])
+                       + fold("timing", "Timing", td_key, parts["timing"])
+                       + (fold("board-shape", "Board shape", per_tab(vs, lambda x: f'peak to peak {x["board_shape"]["p2p_mm"]:.1f} mm' if x.get("board_shape") else ""), parts["board_shape"])
+                          if any(x.get("board_shape") for x in vs) and parts.get("board_shape") else "")
                        + fold("full-results", "Full results", "Every solved parameter", parts["results"]))
     return parts
