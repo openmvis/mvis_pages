@@ -307,7 +307,7 @@ sensors:
       - [Recordings, "3 recordings of 112, 144 and 148 s. Shown: the 148 s one, cam0 4,433 frames, cam1 4,432, IMU 29,516 samples"]
       - [Format, "ROS2 bag with compressed images, converted to EuRoC layout"]
       - [Board, "ChArUco 14×9 squares, 40 mm squares, 30 mm markers"]
-      - [Data, "__HUB:community/alg-avs111c/data/__. The 148 s recording shown here, normal frames, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/alg-avs111c/data/__. All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
       - [Configs and results, "__HUB:community/alg-avs111c/__"]
     method: "Both cameras and the IMU, global shutter, default IMU noise, t_ga estimated, camera intrinsics free. The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Batch of 2026-11-11."
     limits:
@@ -789,6 +789,7 @@ sensors:
       - [Boards, "AprilGrid 7×12, tag 150 mm, spacing 0.25 (camera + IMU). AprilGrid 6×6, tag 80 mm, spacing 0.3 (camera pair)"]
       - [Licence, CC BY-NC-SA 3.0]
       - [Hosted, "Not hosted here; download from the challenge dataset"]
+      - [Configs and results, "__HUB:community/insta360-one-rs-1inch-360/__. CC BY 4.0; the reports show frames from the challenge recordings, so they stay CC BY-NC-SA 3.0"]
     data_link: {url: "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/tree/main/camera_calibration", label: "Hilti-Trimble SLAM Challenge 2026: camera_calibration"}
     method: "Each lens alone with the IMU, then both placed in the one IMU frame. Only the well-excited part of each recording is used: the camera turns about all three axes from 130 s (front) and 100 s (back), and the last 10 s, where it is put down, are left out; 92 s and 97 s. Camera intrinsics (enhanced unified model, EUCM, as in the organisers' calibration) start from a single-camera solve and stay free; the shape of the 7×12 board, rolling-shutter readout, camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise measured on the camera-pair recording, where the camera stands still, and widened about 2.8×. Solved 2026-11-12."
     limits:
