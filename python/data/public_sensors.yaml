@@ -385,13 +385,13 @@ sensors:
     key: cyperstereo
     title: CyperStereo four-camera module
     description: Four-camera global-shutter RGB module from Tujian with a Bosch BMI088, calibrated with MVIS as four cameras + IMU.
-    lead: Four-camera inertial module from Shenzhen Tujian Intelligent Technology (图间智能). Four global-shutter RGB cameras sit on separate 25 × 25 mm boards, cabled to one controller with a Bosch BMI088 IMU; two cameras have 160° lenses and two have 200° lenses, and the baseline is set by how the boards are mounted. One recording, solved as four cameras + IMU.
+    lead: Four-camera inertial module from Shenzhen Tujian Intelligent Technology (图间智能). Four global-shutter RGB cameras sit on separate 25 × 25 mm boards, cabled to one controller with a Bosch BMI088 IMU; two cameras have 160° lenses and two have 200° lenses, and the baseline is set by how the boards are mounted. Solved as four cameras + IMU from the maker's fixed recording, after a timing fix.
     chips: [4 cameras, Global shutter, 200° fisheye, 200 Hz IMU]
-    demo: {from: "cyperstereo_small", note: "The 3D scene MVIS recovered from this recording, first 20 s, each camera in turn."}
+    demo: {from: "cyperstereo2_small", note: "The 3D scene MVIS recovered from the fixed recording, first 20 s, each camera in turn."}
     card: {name: "CyperStereo", maker: Tujian, tags: [Global shutter, 4 cameras, 200 Hz IMU], sensors: "4 global-shutter RGB fisheye + BMI088 @ 200 Hz", format: "ROS bag", shows: "Four wide-angle cameras (160° and 200°) and an IMU solved together"}
     source: https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/contents.html
     source_label: CyperStereo product documentation
-    checked: 2026-11-11
+    checked: 2026-11-15
     company: {name: Shenzhen Tujian Intelligent Technology, url: "https://tujian.tech"}
     hardware:
       - [Maker, Shenzhen Tujian Intelligent Technology (深圳市图间智能科技有限公司), Maker]
@@ -403,16 +403,16 @@ sensors:
       - [IMU, "Bosch BMI088, 200 Hz", Measured]
       - [Link and power, "USB 3.0, UVC; 1.5–2 W at 5 V", Maker]
     dataset:
-      - [Recordings, "1 recording, 74.6 s, hand-held. About 1,120 frames per camera, 14,920 IMU samples"]
+      - [Recordings, "2 recordings, hand-held. Shown: the fixed recording sent 2026-11-15, 39.5 s, 593 frames per camera, 7,893 IMU samples. The first recording (74.6 s, 2026-11-10) had a 0.8 ms camera-to-IMU and a 4.4 ms gyro-to-accel offset, both gone after the maker's fix"]
       - [Format, ROS1 bag]
       - [Board, "AprilGrid 6×6, tag 55 mm, spacing 0.3"]
       - [Data, "Recording not hosted: it belongs to Tujian, which hasn't granted a licence or permission to host it yet"]
       - [Configs and results, "__HUB:community/cyperstereo/__. The configs, the starting calibration and this page's results; the configs read the recording, so they can't be replayed without it"]
-    method: "All four cameras and the IMU together. Camera intrinsics (Kannala–Brandt kb4) from four single-camera solves of the same recording, then held fixed; IMU scale and misalignment, gyro-to-accel offset t_ga and camera time offsets estimated. IMU noise from the BMI088 datasheet, about 2.5× wider. Solved 2026-11-11."
+    method: "All four cameras and the IMU together. Camera intrinsics (Kannala–Brandt kb4) from four single-camera solves of the same recording, then held fixed; IMU scale and misalignment, gyro-to-accel offset t_ga and camera time offsets estimated. IMU noise from the BMI088 datasheet, about 2.5× wider. Same settings as for the first recording. Solved 2026-11-15."
     limits:
       - No independent reference, so these values show what MVIS solved, not how close they are to the truth.
-      - "The board never reached the outer side of the two 200° images (about two-thirds of each image is covered), so the lens model there is extrapolated."
-      - "IMU χ²/dof is 0.03. A simulated recording with this motion and noise exactly as set gives about 0.06, so the noise set for the solve is about 1.3× the real noise."
+      - "The board never reached the outer side of the two 200° images (about half of each image is covered), so the lens model there is extrapolated."
+      - "IMU χ²/dof is 0.03 with the noise set as for the first recording, whose digital twin put that noise at about 1.3× the real noise. No twin has been run for this recording."
       - "The tag size is taken from the target file sent with the data and isn't confirmed on the printed board. It scales every baseline and lever arm."
     header:
       type: "Four-camera global-shutter RGB module with a 6-axis IMU"
