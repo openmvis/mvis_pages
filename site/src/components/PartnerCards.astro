@@ -1,0 +1,115 @@
+---
+// Thank-you cards for the makers and partners who shared device recordings (About → Acknowledgements).
+// Logos come from each company's own website; a company without one gets its name on the plate.
+import looper from '../assets/partners/looperrobotics.webp';
+import gilabs from '../assets/partners/gilabs.svg';
+import alg from '../assets/partners/alg.png';
+import tujian from '../assets/partners/tujian.png';
+import dibuli from '../assets/partners/dibuli.svg';
+
+type Link = { label: string; href: string };
+type Partner = {
+  name: string;
+  full?: string;
+  site: string;
+  logo?: { src: string };
+  shared: string;
+  devices: Link[];
+  people?: string[];
+  contact?: Link[];
+};
+
+const partners: Partner[] = [
+  {
+    name: 'LooperRobotics', site: 'https://looper-robotics.com/', logo: looper,
+    shared: 'Hand-held and robot-arm recordings',
+    devices: [{ label: 'Insight 9', href: '/devices/looper-insight9/' }, { label: 'Looper example', href: '/benchmark/examples/looper-insight9/' }],
+    people: ['<a href="https://www.linkedin.com/in/qinrui-yan-3625aa90">Qinrui Yan</a> and <a href="https://www.linkedin.com/in/junjie-tang-271b8033a">Junjie Tang</a>, who collected the recordings and supported sharing this work openly'],
+  },
+  {
+    name: 'General Intelligence Labs', site: 'https://www.gilabs.xyz/', logo: gilabs,
+    shared: 'Head-worn camera recordings, and gilabs-examples on the Hub',
+    devices: [{ label: 'GI Ego1', href: '/devices/gi-ego1/' }, { label: 'GI EGO1GS', href: '/devices/gi-ego1gs/' }],
+    people: ['Xie Junyuan (解浚源)'],
+  },
+  {
+    name: 'ALG Tech', full: 'Shenzhen Aili-Light Technology', site: 'https://www.aili-light.com/', logo: alg,
+    shared: 'GMSL2 stereo module recordings',
+    devices: [{ label: 'AVS111C-Y', href: '/devices/alg-avs111c/' }, { label: 'AVS115D-Y', href: '/devices/alg-avs115d/' }],
+    people: ['Xie Jiebin (谢捷斌), business development'],
+    contact: [{ label: 'jimmy@aili-light.com', href: 'mailto:jimmy@aili-light.com' }],
+  },
+  {
+    name: 'Tujian', full: 'Shenzhen Tujian Intelligent Technology', site: 'https://tujian.tech', logo: tujian,
+    shared: 'Four-camera inertial module recording',
+    devices: [{ label: 'CyperStereo', href: '/devices/cyperstereo/' }],
+  },
+  {
+    name: 'DIBULI', full: '迪博凌（上海）科技有限公司, Shanghai', site: 'https://dibuli.com', logo: dibuli,
+    shared: 'The camera + IMU calibration recordings they publish',
+    devices: [{ label: 'Prism-A4L', href: '/devices/dibuli-prism-a4l/' }],
+    people: ['Li Xiangfu (李相辅)'],
+  },
+  {
+    name: 'Hampo', full: 'Dongguan Hampo Electronic Technology', site: 'https://www.hampotech.com/',
+    shared: 'Stereo fisheye module recording',
+    devices: [{ label: 'Hampo stereo module', href: '/devices/hampo/' }],
+    people: ['Zhou Yuhua (周宇华), sales manager'],
+    contact: [{ label: 'cannychow@dghpdz.cn', href: 'mailto:cannychow@dghpdz.cn' }],
+  },
+  {
+    name: 'Borme', full: 'Shenzhen Feikasi Industrial',
+    site: 'https://www.alibaba.com/product-detail/1080P-Global-Shutter-Binocular-IMU-Camera_1601882874490.html',
+    shared: 'Recordings of two headset units',
+    devices: [{ label: 'XQ20 headset', href: '/devices/xq20/' }],
+    people: ['Zhao Peiyu (赵培禹)'],
+  },
+];
+---
+
+<div class="pc-grid not-content">
+  {partners.map((p) => (
+    <article class="pc-card">
+      <a class="pc-plate" href={p.site} aria-label={`${p.name} website`}>
+        {p.logo ? <img src={p.logo.src} alt={`${p.name} logo`} loading="lazy" /> : <span class="pc-word">{p.name}</span>}
+      </a>
+      <div class="pc-body">
+        <h3 class="pc-name"><a href={p.site}>{p.name}</a></h3>
+        {p.full && <p class="pc-full">{p.full}</p>}
+        <p class="pc-shared">{p.shared}</p>
+        <ul class="pc-devices">
+          {p.devices.map((d) => <li><a href={d.href}>{d.label}</a></li>)}
+        </ul>
+        {p.people && (
+          <p class="pc-people"><span class="pc-label">Thanks to</span> <Fragment set:html={p.people.join('; ')} /></p>
+        )}
+        {p.contact && (
+          <p class="pc-contact">{p.contact.map((c) => <a href={c.href}>{c.label}</a>)}</p>
+        )}
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1rem; margin-top: 1.25rem; }
+  .pc-card { display: flex; flex-direction: column; border: 1px solid var(--sl-color-hairline-light); border-radius: 0.75rem; overflow: hidden; background: var(--sl-color-bg); transition: border-color .15s, transform .15s; }
+  .pc-card:hover { border-color: var(--sl-color-accent); transform: translateY(-2px); }
+  /* Logos are drawn for light backgrounds, so the plate stays white in both themes. */
+  .pc-plate { display: flex; align-items: center; justify-content: center; height: 6rem; padding: 1rem 1.5rem; background: #fff; border-bottom: 1px solid var(--sl-color-hairline-light); text-decoration: none; }
+  .pc-plate img { max-height: 3.25rem; max-width: 100%; object-fit: contain; }
+  .pc-word { font-size: 1.5rem; font-weight: 800; letter-spacing: .02em; color: #1f2937; }
+  .pc-body { padding: 0.9rem 1.1rem 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .pc-name { margin: 0; font-size: 1.1rem; }
+  .pc-name a { color: var(--sl-color-white); text-decoration: none; }
+  .pc-name a:hover { color: var(--sl-color-accent-high); }
+  .pc-full { margin: 0; font-size: 0.8rem; color: var(--sl-color-gray-3); }
+  .pc-shared { margin: 0.2rem 0 0; font-size: 0.9rem; }
+  .pc-devices { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.1rem 0 0; padding: 0; list-style: none; }
+  .pc-devices li { margin: 0; }
+  .pc-devices a { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; background: var(--sl-color-accent-low); color: var(--sl-color-accent-high); font-size: 0.8rem; text-decoration: none; }
+  .pc-devices a:hover { background: var(--sl-color-accent); color: var(--sl-color-black); }
+  .pc-people, .pc-contact { margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--sl-color-gray-2); }
+  .pc-label { font-weight: 600; color: var(--sl-color-white); }
+  .pc-contact a { font-size: 0.8rem; }
+</style>
