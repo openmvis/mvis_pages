@@ -307,7 +307,7 @@ sensors:
       - [Recordings, "3 recordings of 112, 144 and 148 s. Shown: the 148 s one, cam0 4,433 frames, cam1 4,432, IMU 29,516 samples"]
       - [Format, "ROS2 bag with compressed images, converted to EuRoC layout"]
       - [Board, "ChArUco 14×9 squares, 40 mm squares, 30 mm markers"]
-      - [Data, "__HUB:community/alg-avs111c/data/__. The 148 s recording shown here, normal frames, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/alg-avs111c/data/__. All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
       - [Configs and results, "__HUB:community/alg-avs111c/__"]
     method: "Both cameras and the IMU, global shutter, default IMU noise, t_ga estimated, camera intrinsics free. The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Batch of 2026-11-11."
     limits:
@@ -337,10 +337,11 @@ sensors:
     key: alg-avs115d
     title: ALG AVS115D-Y stereo module
     description: GMSL2 rolling-shutter stereo module from ALG Tech with a 6-axis IMU, calibrated with MVIS as stereo + IMU with the rolling-shutter readout estimated.
-    lead: GMSL2 stereo camera module from Shenzhen Aili-Light Technology (ALG Tech, 艾利光), with two 1920×1920 rolling-shutter cameras 65 mm apart and a 6-axis IMU. One hand-held recording in front of a ChArUco board, solved as stereo + IMU with each camera's readout time estimated.
+    lead: GMSL2 stereo camera module from Shenzhen Aili-Light Technology (ALG Tech, 艾利光), with two 1920×1920 rolling-shutter cameras 65 mm apart and a 6-axis IMU. Two hand-held recordings in front of a ChArUco board, the second in stronger light with a much shorter exposure, each solved as stereo + IMU with each camera's readout time estimated.
     chips: [Stereo, Rolling shutter, 200 Hz IMU, GMSL2, CC BY-NC 4.0]
     card: {name: "AVS115D-Y stereo", maker: ALG Tech, tags: [Rolling shutter, 2 cameras, 200 Hz IMU], sensors: "Stereo rolling-shutter + IMU @ 200 Hz", format: "ROS2 bag → EuRoC mav0", shows: "A stereo + IMU solve with the rolling-shutter readout estimated"}
-    demo: {from: "alg-avs115d_small", note: "The 3D scene MVIS recovered from this recording."}
+    demo: {from: "alg-avs115d_small", note: "The 3D scene MVIS recovered from recording 1."}
+    run_labels: [Recording 1, Recording 2]
     source: https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera
     source_label: ALG AVS115D-Y product page
     checked: 2026-11-14
@@ -348,22 +349,25 @@ sensors:
     hardware:
       - [Maker, Shenzhen Aili-Light Technology (ALG Tech), Maker]
       - [Model, "AVS115D-Y, 1920×1920 at 30 fps (AVS115D-B06-M95DFA1-RABI)", Maker]
-      - [Cameras, "2 × 1920×1920, 30 Hz with no dropped frames in this recording; left and right stamps 5 µs apart (median)", Measured]
+      - [Cameras, "2 × 1920×1920, 30 Hz with no dropped frames in either recording; left and right stamps 5 µs apart (median)", Measured]
       - [Image sensor, "1/2.7-inch CMOS, 2.0 µm pixels, rolling shutter", Maker]
       - [Lens, "1.90 mm, 119° × 119°", Maker]
-      - [IMU, "TDK ICM-45686 (named by ALG), 6-axis, up to 6400 Hz on the sheet; 200 Hz in this recording", Maker]
+      - [IMU, "TDK ICM-45686 (named by ALG), 6-axis, up to 6400 Hz on the sheet; 200 Hz in both recordings", Maker]
       - [Link and power, "GMSL2, power over coax, 9 to 12 V, 2.3 W", Maker]
     dataset:
-      - [Recording, "1 recording, 163 s, hand-held. cam0 4,900 frames, cam1 4,899, IMU 32,664 samples"]
+      - [Recordings, "2 hand-held recordings. Recording 1 (2026-11-13): 163 s, cam0 4,900 frames, cam1 4,899, IMU 32,664 samples. Recording 2 (2026-11-14, stronger light, shorter exposure): 101 s, 3,024 frames per camera, IMU 20,164 samples"]
       - [Format, "ROS2 bag with compressed images, converted to EuRoC layout"]
       - [Board, "ChArUco 14×9 squares, 40 mm squares, 30 mm markers"]
-      - [Data, "__HUB:community/alg-avs115d/data/__. Every frame, normal frames, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of this solve are listed next to it. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/alg-avs115d/data/__. Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
       - [Configs and results, "__HUB:community/alg-avs115d/__"]
-    method: "Both cameras and the IMU, rolling shutter with each camera's readout time estimated, Kannala–Brandt (kb4) lenses with intrinsics free, IMU noise set about 5× tighter than MVIS's default to match this unit, t_ga estimated. Some frames were blurred by fast motion; stereo pairs whose board edges were more than 1.5× wider than the median were left out (17 % of the pairs). The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Solved 2026-11-14."
+    method: "Both cameras and the IMU, rolling shutter with each camera's readout time estimated, Kannala–Brandt (kb4) lenses with intrinsics free, IMU noise set about 5× tighter than MVIS's default to match this unit, t_ga estimated. Fast motion blurred some frames; stereo pairs whose board edges were more than 1.5× wider than the median were left out (17 % of the pairs in recording 1, 0.6 % in recording 2). The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Solved 2026-11-14 (recording 1) and 2026-11-15 (recording 2), with the same settings."
     limits:
-      - One recording, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
-      - "The camera-only solve, without the IMU, puts the readout at 25 ms against 31 ms here; the board's motion alone pins it less well, so the joint value is the one shown."
-      - "In a simulated copy of this recording, with noise matched to this unit, MVIS recovered the lever arm within 1.2 mm, the rotation within 0.3 mrad, the time offset within 0.5 ms, the readout within 0.6 ms and the gyro scales within 0.7 %. With MVIS's default IMU noise the same test drifts (lever arm 6 mm along the optical axis, gyro scales 1 to 1.6 %), which is why this solve uses the tighter noise."
+      - No independent reference on this page. These values show what MVIS solved, not how close they are to the truth. The two recordings agree within 1.4 mm on the lever arm, 0.15 % on the gyro scales, 0.8 ms on the readout and 0.1 mm on the baseline.
+      - "The camera-only solve, without the IMU, puts the readout at 25 ms (recording 1) and 21 ms (recording 2) against 31–32 ms here; the board's motion alone pins it less well, so the joint value is the one shown."
+      - "In a simulated copy of recording 1, with noise matched to this unit, MVIS recovered the lever arm within 1.2 mm, the rotation within 0.3 mrad, the time offset within 0.5 ms, the readout within 0.6 ms and the gyro scales within 0.7 %. With MVIS's default IMU noise the same test drifts (lever arm 6 mm along the optical axis, gyro scales 1 to 1.6 %), which is why this solve uses the tighter noise."
+      - "The camera–IMU time offset differs between the recordings: td is −14.3 ms in recording 1 and −1.4 ms in recording 2, each ± 0.1 ms, while everything else repeats. The likely cause is the exposure time. The driver stamps each image a fixed 45 ms before it reaches the host in both bags, so the stamp follows the readout. td refers to the middle of the first row's exposure, which comes before the readout by half the exposure time: a longer exposure moves it earlier and makes td more negative."
+      - "The bags don't record the exposure time. Measured from the motion blur, recording 1 was exposed for about 18 to 21 ms and recording 2 for about 2 to 5 ms. Half of that change is about 8 ms: the right direction, but short of the 13 ms measured, and the rest is still open. On the Dibuli Prism A4L, two exposures 1 ms apart moved td by 0.5 to 0.7 ms per ms of exposure, close to what this explanation predicts."
+      - "In practice, td on this module depends on the exposure, so with auto-exposure it is not one number. Stamp frames at mid-exposure if the driver allows it, or use the td measured at an exposure close to yours; recording 2's value suits short exposures."
     header:
       type: "GMSL2 rolling-shutter stereo camera module with a 6-axis IMU"
       maker: {name: Shenzhen Aili-Light Technology (ALG Tech), url: "https://www.aili-light.com/"}
@@ -372,7 +376,7 @@ sensors:
         - {item: Phone, v: "+86 755 2721 8150", url: "tel:+8675527218150"}
       links: {product: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera", product_label: "ALG AVS115D-Y product page"}
       image: {kind: photo, file: alg-avs115d.jpg, alt: "ALG AVS115D-Y stereo camera module", credit: "Photo: ALG Tech, AVS115D-Y product page", url: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
-      foot: "Values measured in the 163 s recording · Maker values from the AVS115D-Y product page, read 2026-11-14 · CC BY-NC 4.0"
+      foot: "Values measured in the 163 s and 101 s recordings · Maker values from the AVS115D-Y product page, read 2026-11-14 · CC BY-NC 4.0"
       key_specs:
         cameras: {v: "2 × 1920×1920"}
         shutter: {v: Rolling, tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
@@ -785,6 +789,7 @@ sensors:
       - [Boards, "AprilGrid 7×12, tag 150 mm, spacing 0.25 (camera + IMU). AprilGrid 6×6, tag 80 mm, spacing 0.3 (camera pair)"]
       - [Licence, CC BY-NC-SA 3.0]
       - [Hosted, "Not hosted here; download from the challenge dataset"]
+      - [Configs and results, "__HUB:community/insta360-one-rs-1inch-360/__. CC BY 4.0; the reports show frames from the challenge recordings, so they stay CC BY-NC-SA 3.0"]
     data_link: {url: "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/tree/main/camera_calibration", label: "Hilti-Trimble SLAM Challenge 2026: camera_calibration"}
     method: "Each lens alone with the IMU, then both placed in the one IMU frame. Only the well-excited part of each recording is used: the camera turns about all three axes from 130 s (front) and 100 s (back), and the last 10 s, where it is put down, are left out; 92 s and 97 s. Camera intrinsics (enhanced unified model, EUCM, as in the organisers' calibration) start from a single-camera solve and stay free; the shape of the 7×12 board, rolling-shutter readout, camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise measured on the camera-pair recording, where the camera stands still, and widened about 2.8×. Solved 2026-11-12."
     limits:

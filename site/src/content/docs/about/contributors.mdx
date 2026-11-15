@@ -28,64 +28,24 @@ Use this page to see who builds MVIS and how to cite it.
 
 - **Yulin Yang ([yangyulin](https://github.com/yangyulin)):** author of MVIS,
   the regression suite and the benchmark; maintainer.
-- **Yuantai Zhang ([Yuantai-Z](https://github.com/Yuantai-Z)):** camera-only pipeline
+- **Yuantai Zhang ([Yuantai-Z](https://github.com/Yuantai-Z)) and [Xingxing Zuo](https://xingxingzuo.github.io/) (advisor):** camera-only pipeline
   fixes (outlier rejection, pose alignment, frame selection), the ROS1
   recalibration tool (`tools/ros1_recalib`) and RealSense D435i recordings for
   the Device wiki.
-- **Nerako Lee ([nerakoo](https://github.com/nerakoo)):** RealSense D455/D456
+- **Nerako Lee ([nerakoo](https://github.com/nerakoo)) and [Chuchu Chen](https://mae.engineering.gwu.edu/chuchu-chen) (advisor):** RealSense D455/D456
   chessboard recordings and calibration runs for the Device wiki and the
   Calibench-VI community datasets.
 
 The list follows
 [`AUTHORS`](https://github.com/openmvis/openmvis/blob/main/AUTHORS) in the MVIS
-repository. We add people who contribute code, datasets or results.
-How we credit them is in [Governance](/contribute/governance/).
+repository. How we credit contributors is in [Governance](/contribute/governance/).
 The groups and companies who shared recordings are thanked on
 [Acknowledgements](/about/acknowledgements/).
 
-## Authors of the MVIS paper
-
-MVIS implements the method of the MVIS paper (Yang, Geneva and Huang, IJRR
-2024), written at the [Robot Perception and Navigation Group
-(RPNG)](https://sites.udel.edu/robot/), University of Delaware.
-
-<CardGrid>
-  <Card title="Yulin Yang">
-    <Image src={yang} alt="Yulin Yang" width="150" />
-    - [Personal website](https://yangyulin.net)
-    - contact@openmvis.com
-  </Card>
-  <Card title="Patrick Geneva">
-    <Image src={patrick} alt="Patrick Geneva" width="150" />
-    - [Personal website](https://udel.edu/~pgeneva/)
-  </Card>
-  <Card title="Guoquan (Paul) Huang">
-    <Image src={paul} alt="Guoquan (Paul) Huang" width="150" />
-    - [Personal website](https://udel.edu/~ghuang/)
-  </Card>
-</CardGrid>
-
 <a id="citing-open-mvis"></a>
+<a id="cite-the-project-openmvis"></a>
 
-## Citing MVIS
-
-Cite the MVIS paper, the preferred citation in
-[`CITATION.cff`](https://github.com/openmvis/openmvis/blob/main/CITATION.cff):
-
-```bibtex
-@article{yang2024mvis,
-  title   = {Multi-visual-inertial system: Analysis, calibration, and estimation},
-  author  = {Yang, Yulin and Geneva, Patrick and Huang, Guoquan},
-  journal = {The International Journal of Robotics Research},
-  year    = {2024},
-  volume  = {43},
-  number  = {13},
-  pages   = {1995--2026},
-  doi     = {10.1177/02783649241245726}
-}
-```
-
-## Cite the project: OpenMVIS
+## Citing the project: OpenMVIS
 
 One entry covers the toolbox, this site and the benchmark results. Its DOI is the
 Zenodo concept DOI, which resolves to the latest release; each release also has
@@ -110,6 +70,26 @@ used, so the comparison stays citable after later batches land:
 The batch shown on the [Leaderboard](/benchmark/results/) is the current one.
 [Methodology](/benchmark/methodology/) explains what the numbers mean.
 
+<a id="citing-mvis"></a>
+
+## Citing the paper: MVIS
+
+Cite the MVIS paper, the preferred citation in
+[`CITATION.cff`](https://github.com/openmvis/openmvis/blob/main/CITATION.cff):
+
+```bibtex
+@article{yang2024mvis,
+  title   = {Multi-visual-inertial system: Analysis, calibration, and estimation},
+  author  = {Yang, Yulin and Geneva, Patrick and Huang, Guoquan},
+  journal = {The International Journal of Robotics Research},
+  year    = {2024},
+  volume  = {43},
+  number  = {13},
+  pages   = {1995--2026},
+  doi     = {10.1177/02783649241245726}
+}
+```
+
 ## Citing the datasets: Calibench-VI
 
 When your results depend on a dataset, cite the dataset as well as MVIS.
@@ -133,3 +113,25 @@ When your results depend on a dataset, cite the dataset as well as MVIS.
 ```
 
 The same entries are on [Datasets](/datasets/#citation).
+
+## Authors of the MVIS paper
+
+MVIS implements the method of the MVIS paper (Yang, Geneva and Huang, IJRR
+2024), written at the [Robot Perception and Navigation Group
+(RPNG)](https://sites.udel.edu/robot/), University of Delaware.
+
+<CardGrid>
+  <Card title="Yulin Yang">
+    <Image src={yang} alt="Yulin Yang" width="150" />
+    - [Personal website](https://yangyulin.net)
+    - contact@openmvis.com
+  </Card>
+  <Card title="Patrick Geneva">
+    <Image src={patrick} alt="Patrick Geneva" width="150" />
+    - [Personal website](https://udel.edu/~pgeneva/)
+  </Card>
+  <Card title="Guoquan (Paul) Huang">
+    <Image src={paul} alt="Guoquan (Paul) Huang" width="150" />
+    - [Personal website](https://udel.edu/~ghuang/)
+  </Card>
+</CardGrid>

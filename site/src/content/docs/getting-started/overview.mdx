@@ -4,15 +4,13 @@ description: What MVIS is, what it calibrates, and how a calibration run works.
 pageType: concept
 ---
 
-MVIS is an open-source Python toolbox for camera and camera–IMU calibration. It
-handles rigs with several cameras and several IMUs. An IMU (inertial
-measurement unit) is the sensor with a gyroscope and an accelerometer.
+MVIS is open-source multi-visual-inertial sensor calibration: a Python toolbox
+for camera and camera–IMU calibration, from a single camera to multi-camera,
+multi-IMU rigs. An IMU (inertial measurement unit) is the sensor with a
+gyroscope and an accelerometer.
 
 - **Package:** `pymvis`. You import it as `mvis` and run it as the `mvis` command.
-- **Built on:** [GTSAM](https://github.com/borglab/gtsam) factor graphs. A
-  factor graph writes the whole calibration as one least-squares problem over
-  linked unknowns.
-- **Runs on:** Linux and macOS, Python 3.11 and 3.12, with no ROS install.
+- **Runs on:** Linux and macOS (Windows tentative), Python 3.11 and 3.12, with no ROS install.
   See [Requirements](/getting-started/requirements/).
 - **Code:** [github.com/openmvis/openmvis](https://github.com/openmvis/openmvis).
 
