@@ -210,8 +210,13 @@ def per_tab(vs: list, fn) -> str:
     return "".join(f'<span class=v data-v="{i}"{" hidden" if i else ""}>{fn(v)}</span>' for i, v in enumerate(vs))
 
 
+# Folds open when the page loads (user, 2026-11-15): the IMU scales and the timing scale are read at a glance.
+OPEN_FOLDS = ("imu", "timing")
+
+
 def fold(fid: str, title: str, key: str, body: str) -> str:
-    return f'<details class=fold id="{fid}"><summary>{e(title)} <span>{key}</span></summary><div>{body}</div></details>'
+    opened = " open" if fid in OPEN_FOLDS else ""
+    return f'<details class=fold id="{fid}"{opened}><summary>{e(title)} <span>{key}</span></summary><div>{body}</div></details>'
 
 
 TILE_TERMS = ("<p class=sd-note>Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. "

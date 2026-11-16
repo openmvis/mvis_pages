@@ -158,3 +158,10 @@ def test_fold_keys_follow_the_tab():
     two = per_tab(vs, lambda v: f'td {v["x"]}')
     assert one == "td 1"
     assert two == '<span class=v data-v="0">td 1</span><span class=v data-v="1" hidden>td 2</span>'
+
+def test_imu_and_timing_folds_open_on_load():
+    from mvis_site.sensor_header import OPEN_FOLDS, fold
+    assert OPEN_FOLDS == ("imu", "timing")
+    assert fold("imu", "IMU", "k", "b").startswith('<details class=fold id="imu" open>')
+    assert fold("timing", "Timing", "k", "b").startswith('<details class=fold id="timing" open>')
+    assert fold("lens", "Lens", "k", "b").startswith('<details class=fold id="lens">')
