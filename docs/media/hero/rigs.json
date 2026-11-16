@@ -46,7 +46,14 @@
    "td": "−5.41 <small>ms</small>",
    "corners": "80–117",
    "xlabel": "RS readout",
-   "xval": "16.7 <small>ms</small>"
+   "xval": "16.7 <small>ms</small>",
+   "credit": {
+    "holder": "OpenMVIS",
+    "dataset": "VI-Rig 4 IMUs + 4 cameras",
+    "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams",
+    "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
   },
   {
    "key": "virig3",
@@ -86,7 +93,14 @@
    "td": "−4.32 <small>ms</small>",
    "corners": "93–118",
    "xlabel": "cam0–cam1 baseline",
-   "xval": "71.0 <small>mm</small>"
+   "xval": "71.0 <small>mm</small>",
+   "credit": {
+    "holder": "OpenMVIS",
+    "dataset": "VI-Rig 4 IMUs + 3 cameras",
+    "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-3cams",
+    "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
   },
   {
    "key": "looper",
@@ -126,7 +140,14 @@
    "td": "+1.23 <small>ms</small>",
    "corners": "59–115",
    "xlabel": "RS readout",
-   "xval": "32.4 <small>ms</small>"
+   "xval": "32.4 <small>ms</small>",
+   "credit": {
+    "holder": "OpenMVIS, recorded with a LooperRobotics Insight 9",
+    "dataset": "Looper Insight 9 hand-held recordings",
+    "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/looper-insight9",
+    "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
   },
   {
    "key": "dibuli",
@@ -174,7 +195,13 @@
    "td": "+2.06 <small>ms</small>",
    "corners": "64–197",
    "xlabel": "cam0–cam1 baseline",
-   "xval": "85.3 <small>mm</small>"
+   "xval": "85.3 <small>mm</small>",
+   "credit": {
+    "holder": "DIBULI",
+    "dataset": "Prism-A4L example data",
+    "url": "https://files.dibuli.com/sharing/public/Prism/datasets/",
+    "terms": "the maker's example data, under its own terms"
+   }
   },
   {
    "key": "cyperstereo",
@@ -260,7 +287,14 @@
    "td": "−1.43 <small>ms</small>",
    "corners": "104–104",
    "xlabel": "RS readout",
-   "xval": "31.9 <small>ms</small>"
+   "xval": "31.9 <small>ms</small>",
+   "credit": {
+    "holder": "ALG Tech (Shenzhen Aili-Light Technology)",
+    "dataset": "Calibench community, alg-avs115d (recording 2)",
+    "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/alg-avs115d",
+    "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
   },
   {
    "key": "gilabs",
@@ -292,7 +326,14 @@
    "td": "−0.44 <small>ms</small>",
    "corners": "143–144",
    "xlabel": "cam0–cam1 baseline",
-   "xval": "62.1 <small>mm</small>"
+   "xval": "62.1 <small>mm</small>",
+   "credit": {
+    "holder": "OpenMVIS, recorded with a GI EGO1GS; everything except the board is blurred",
+    "dataset": "Calibench community, gi-ego1gs",
+    "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/gi-ego1gs",
+    "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
   },
   {
    "key": "mic",
@@ -324,7 +365,14 @@
    "td": "−0.03 <small>ms</small>",
    "corners": "122–124",
    "xlabel": "cam0–cam1 baseline",
-   "xval": "133.7 <small>mm</small>"
+   "xval": "133.7 <small>mm</small>",
+   "credit": {
+    "holder": "Collabora",
+    "dataset": "Monado SLAM Datasets, MIC",
+    "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+   }
   }
  ]
 }
