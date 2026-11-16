@@ -84,3 +84,13 @@ def test_sensor_json(variant):
     p = F.pub_entry("photo")
     j = S.sensor_json("rig", p, {"a": "b"}, [variant])
     assert j["procs"] == ["/media/sensors/rig/process0.json"] and j["plotly"] == S.PLOTLY_LOCAL and j["card"]["href"] == "/devices/rig/"
+
+
+def test_committed_sensor_css_matches_the_lib():
+    """The site loads site/src/data/sensors/sensor.css, an exported copy of the lib's page CSS. A lib CSS change that
+    isn't re-exported stays off the site (2026-11-15: the mid-frame td note ran into its value). Re-export with
+    site/scripts/export_sensors.py, or write site_css(...) into the part before the views marker."""
+    from pathlib import Path
+    committed = (Path(__file__).resolve().parents[2] / "site/src/data/sensors/sensor.css").read_text()
+    lib_part = committed.split("\n/* MVIS canvas views (mvis.analysis.views) */\n", 1)[0]
+    assert lib_part == S.site_css(assets.page_css(), assets.header_css())
