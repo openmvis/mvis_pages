@@ -1,6 +1,61 @@
 {
  "rigs": [
   {
+   "key": "virig4",
+   "chip": "VI-Rig · 4 cam",
+   "caption": "Recovered by MVIS from mvis_4imus_4cams / bag01: two T265 fisheyes and a rolling-shutter ELP stereo pair.",
+   "duration": 15.0,
+   "live_cycle": 5.0,
+   "tiles": [
+    [
+     "cam0",
+     "T265 fisheye1",
+     "global",
+     "#ffc850",
+     400,
+     376
+    ],
+    [
+     "cam1",
+     "T265 fisheye2",
+     "global",
+     "#a0ffa0",
+     400,
+     376
+    ],
+    [
+     "cam2",
+     "ELP left",
+     "rolling",
+     "#5aaaff",
+     400,
+     300
+    ],
+    [
+     "cam3",
+     "ELP right",
+     "rolling",
+     "#ff8cc8",
+     400,
+     300
+    ]
+   ],
+   "sensors": "4 cam · 4 IMU",
+   "window": "80.0 <small>s</small>",
+   "rms": "0.25 <small>px</small>",
+   "td": "−6.00 <small>ms</small>",
+   "corners": "75–118",
+   "xlabel": "ELP time offset",
+   "xval": "−124.4 <small>ms</small>",
+   "credit": {
+    "holder": "OpenMVIS",
+    "dataset": "VI-Rig 4 IMUs + 4 cameras",
+    "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams",
+    "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
+  },
+  {
    "key": "virig3",
    "chip": "VI-Rig · 3 cam",
    "caption": "Recovered by MVIS from virig_4imus_3cams / april_01.",
@@ -34,7 +89,7 @@
    ],
    "sensors": "3 cam · 4 IMU",
    "window": "80.0 <small>s</small>",
-   "rms": "0.82 <small>px</small>",
+   "rms": "0.25 <small>px</small>",
    "td": "−2.77 <small>ms</small>",
    "corners": "93–119",
    "xlabel": "Kalibr baseline",
@@ -81,7 +136,7 @@
    ],
    "sensors": "3 cam · 1 IMU",
    "window": "66.4 <small>s</small>",
-   "rms": "0.60 <small>px</small>",
+   "rms": "0.17 <small>px</small>",
    "td": "+1.22 <small>ms</small>",
    "corners": "60–116",
    "xlabel": "RS readout",
@@ -92,287 +147,6 @@
     "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/looper-insight9",
     "licence": "CC BY-NC 4.0",
     "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
-   }
-  },
-  {
-   "key": "virig4",
-   "chip": "VI-Rig · 4 cam",
-   "caption": "Recovered by MVIS from mvis_4imus_4cams / bag01: two T265 fisheyes and a rolling-shutter ELP stereo pair.",
-   "duration": 15.0,
-   "live_cycle": 5.0,
-   "tiles": [
-    [
-     "cam0",
-     "T265 fisheye1",
-     "global",
-     "#ffc850",
-     400,
-     376
-    ],
-    [
-     "cam1",
-     "T265 fisheye2",
-     "global",
-     "#a0ffa0",
-     400,
-     376
-    ],
-    [
-     "cam2",
-     "ELP left",
-     "rolling",
-     "#5aaaff",
-     400,
-     300
-    ],
-    [
-     "cam3",
-     "ELP right",
-     "rolling",
-     "#ff8cc8",
-     400,
-     300
-    ]
-   ],
-   "sensors": "4 cam · 4 IMU",
-   "window": "80.0 <small>s</small>",
-   "rms": "1.00 <small>px</small>",
-   "td": "−6.00 <small>ms</small>",
-   "corners": "75–118",
-   "xlabel": "ELP time offset",
-   "xval": "−124.4 <small>ms</small>",
-   "credit": {
-    "holder": "OpenMVIS",
-    "dataset": "VI-Rig 4 IMUs + 4 cameras",
-    "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams",
-    "licence": "CC BY-NC 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
-   }
-  },
-  {
-   "key": "mic",
-   "chip": "Valve Index · MIC",
-   "caption": "Recovered by MVIS from the Monado MIC calibration set (Valve Index, MIC05).",
-   "duration": 15.0,
-   "live_cycle": 5.0,
-   "tiles": [
-    [
-     "cam0",
-     "Index left",
-     "global",
-     "#ffc850",
-     400,
-     400
-    ],
-    [
-     "cam1",
-     "Index right",
-     "global",
-     "#a0ffa0",
-     400,
-     400
-    ]
-   ],
-   "sensors": "2 cam · 1 IMU",
-   "window": "71.6 <small>s</small>",
-   "rms": "0.48 <small>px</small>",
-   "td": "−2.20 <small>ms</small>",
-   "corners": "107–125",
-   "xlabel": "cam0–cam1 baseline",
-   "xval": "133.8 <small>mm</small>",
-   "credit": {
-    "holder": "Collabora",
-    "dataset": "Monado SLAM Datasets, MIC",
-    "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
-    "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
-   }
-  },
-  {
-   "key": "moc",
-   "chip": "Odyssey+ · MOC",
-   "caption": "Recovered by MVIS from the Monado MOC calibration set (Samsung Odyssey+, MOC02).",
-   "duration": 15.0,
-   "live_cycle": 5.0,
-   "tiles": [
-    [
-     "cam0",
-     "Odyssey+ left",
-     "global",
-     "#ffc850",
-     400,
-     300
-    ],
-    [
-     "cam1",
-     "Odyssey+ right",
-     "global",
-     "#a0ffa0",
-     400,
-     300
-    ]
-   ],
-   "sensors": "2 cam · 1 IMU",
-   "window": "43.8 <small>s</small>",
-   "rms": "2.46 <small>px</small>",
-   "td": "−0.87 <small>ms</small>",
-   "corners": "39–48",
-   "xlabel": "cam0–cam1 baseline",
-   "xval": "105.6 <small>mm</small>",
-   "credit": {
-    "holder": "Collabora",
-    "dataset": "Monado SLAM Datasets, MOC",
-    "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
-    "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
-   }
-  },
-  {
-   "key": "mgc",
-   "chip": "Reverb G2 · MGC",
-   "caption": "Recovered by MVIS from the Monado MGC calibration set (HP Reverb G2, MGC04, front camera pair).",
-   "duration": 15.0,
-   "live_cycle": 5.0,
-   "tiles": [
-    [
-     "cam0",
-     "Reverb G2 cam0",
-     "global",
-     "#ffc850",
-     400,
-     300
-    ],
-    [
-     "cam1",
-     "Reverb G2 cam1",
-     "global",
-     "#a0ffa0",
-     400,
-     300
-    ]
-   ],
-   "sensors": "2 cam · 1 IMU",
-   "window": "41.6 <small>s</small>",
-   "rms": "0.76 <small>px</small>",
-   "td": "−1.72 <small>ms</small>",
-   "corners": "87–95",
-   "xlabel": "cam0–cam1 baseline",
-   "xval": "108.4 <small>mm</small>",
-   "credit": {
-    "holder": "Collabora",
-    "dataset": "Monado SLAM Datasets, MGC",
-    "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
-    "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
-   }
-  },
-  {
-   "key": "tumvi",
-   "chip": "TUM-VI raw",
-   "caption": "Recovered by MVIS from TUM-VI raw calib-imu1.",
-   "duration": 15.0,
-   "live_cycle": 5.0,
-   "tiles": [
-    [
-     "cam0",
-     "TUM-VI cam0",
-     "global",
-     "#ffc850",
-     400,
-     400
-    ],
-    [
-     "cam1",
-     "TUM-VI cam1",
-     "global",
-     "#a0ffa0",
-     400,
-     400
-    ]
-   ],
-   "sensors": "2 cam · 1 IMU",
-   "window": "48.9 <small>s</small>",
-   "rms": "0.68 <small>px</small>",
-   "td": "+0.18 <small>ms</small>",
-   "corners": "144–144",
-   "xlabel": "cam0–cam1 baseline",
-   "xval": "101.0 <small>mm</small>",
-   "credit": {
-    "holder": "TUM Computer Vision Group",
-    "dataset": "TUM VI",
-    "url": "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
-    "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
-   }
-  },
-  {
-   "key": "uzhs",
-   "chip": "UZH-FPV · Snapdragon",
-   "caption": "Recovered by MVIS from the UZH-FPV drone racing calibration set: Snapdragon Flight stereo fisheye, outdoor_forward.",
-   "duration": 15.0,
-   "live_cycle": 5.0,
-   "tiles": [
-    [
-     "cam0",
-     "Snapdragon left",
-     "global",
-     "#ffc850",
-     400,
-     300
-    ],
-    [
-     "cam1",
-     "Snapdragon right",
-     "global",
-     "#a0ffa0",
-     400,
-     300
-    ]
-   ],
-   "sensors": "2 cam · 1 IMU",
-   "window": "44.7 <small>s</small>",
-   "rms": "0.28 <small>px</small>",
-   "td": "−7.17 <small>ms</small>",
-   "corners": "77–78",
-   "xlabel": "cam0–cam1 baseline",
-   "xval": "79.4 <small>mm</small>",
-   "credit": {
-    "holder": "UZH Robotics and Perception Group",
-    "dataset": "UZH-FPV",
-    "url": "https://fpv.ifi.uzh.ch/datasets/",
-    "licence": "CC BY-NC-SA 3.0",
-    "licence_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/"
-   }
-  },
-  {
-   "key": "uzhd",
-   "chip": "UZH-FPV · DAVIS",
-   "caption": "Recovered by MVIS from the UZH-FPV drone racing calibration set: the DAVIS event camera's frame output, outdoor_forward.",
-   "duration": 15.0,
-   "live_cycle": 5.0,
-   "tiles": [
-    [
-     "cam0",
-     "DAVIS frames",
-     "global",
-     "#ffc850",
-     400,
-     300
-    ]
-   ],
-   "sensors": "1 cam · 1 IMU",
-   "window": "45.6 <small>s</small>",
-   "rms": "0.33 <small>px</small>",
-   "td": "+5.79 <small>ms</small>",
-   "corners": "73",
-   "xlabel": "Camera model",
-   "xval": "equidistant",
-   "credit": {
-    "holder": "UZH Robotics and Perception Group",
-    "dataset": "UZH-FPV",
-    "url": "https://fpv.ifi.uzh.ch/datasets/",
-    "licence": "CC BY-NC-SA 3.0",
-    "licence_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/"
    }
   },
   {
@@ -417,7 +191,7 @@
    ],
    "sensors": "4 cam · 1 IMU",
    "window": "60.2 <small>s</small>",
-   "rms": "0.92 <small>px</small>",
+   "rms": "0.18 <small>px</small>",
    "td": "+1.97 <small>ms</small>",
    "corners": "64–198",
    "xlabel": "Kalibr baseline",
@@ -427,6 +201,60 @@
     "dataset": "Prism-A4L example data",
     "url": "https://files.dibuli.com/sharing/public/Prism/datasets/",
     "terms": "the maker's example data, under its own terms"
+   }
+  },
+  {
+   "key": "cyperstereo",
+   "chip": "CyperStereo",
+   "caption": "Recovered by MVIS from the CyperStereo four-camera module (four global-shutter RGB cameras, 160° and 200° lenses, + BMI088), the maker's fixed recording.",
+   "duration": 15.0,
+   "live_cycle": 5.0,
+   "tiles": [
+    [
+     "cam0",
+     "cam0",
+     "global",
+     "#ffc850",
+     400,
+     320
+    ],
+    [
+     "cam1",
+     "cam1",
+     "global",
+     "#a0ffa0",
+     400,
+     320
+    ],
+    [
+     "cam2",
+     "cam2",
+     "global",
+     "#5aaaff",
+     400,
+     320
+    ],
+    [
+     "cam3",
+     "cam3",
+     "global",
+     "#ff8cc8",
+     400,
+     320
+    ]
+   ],
+   "sensors": "4 cam · 1 IMU",
+   "window": "36.5 <small>s</small>",
+   "rms": "0.14 <small>px</small>",
+   "td": "+0.01 <small>ms</small>",
+   "corners": "138–143",
+   "xlabel": "cam0–cam1 baseline",
+   "xval": "66.6 <small>mm</small>",
+   "credit": {
+    "holder": "CyperStereo (Shenzhen Tujian Intelligent Technology)",
+    "dataset": "the maker's fixed recording; MVIS configs and results on Calibench community",
+    "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/cyperstereo",
+    "terms": "the maker's recording, not hosted; no licence granted yet"
    }
   },
   {
@@ -455,7 +283,7 @@
    ],
    "sensors": "2 cam · 1 IMU",
    "window": "25.0 <small>s</small>",
-   "rms": "0.76 <small>px</small>",
+   "rms": "0.13 <small>px</small>",
    "td": "−1.33 <small>ms</small>",
    "corners": "136–137",
    "xlabel": "Kalibr baseline",
@@ -466,6 +294,45 @@
     "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/gi-ego1gs",
     "licence": "CC BY-NC 4.0",
     "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
+  },
+  {
+   "key": "mic",
+   "chip": "Valve Index · MIC",
+   "caption": "Recovered by MVIS from the Monado MIC calibration set (Valve Index, MIC05).",
+   "duration": 15.0,
+   "live_cycle": 5.0,
+   "tiles": [
+    [
+     "cam0",
+     "Index left",
+     "global",
+     "#ffc850",
+     400,
+     400
+    ],
+    [
+     "cam1",
+     "Index right",
+     "global",
+     "#a0ffa0",
+     400,
+     400
+    ]
+   ],
+   "sensors": "2 cam · 1 IMU",
+   "window": "71.6 <small>s</small>",
+   "rms": "—",
+   "td": "−2.20 <small>ms</small>",
+   "corners": "107–125",
+   "xlabel": "cam0–cam1 baseline",
+   "xval": "133.8 <small>mm</small>",
+   "credit": {
+    "holder": "Collabora",
+    "dataset": "Monado SLAM Datasets, MIC",
+    "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
    }
   }
  ]
