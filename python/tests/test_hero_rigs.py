@@ -1,4 +1,4 @@
-"""The homepage carousel's rigs.json: the recordings and their order (the user's order, 2026-11-15), and that
+"""The homepage carousel's rigs.json: the recordings and their order (the user's order, 2026-11-15; ALG AVS115D-Y added 2026-11-16), and that
 every rig carries the readouts and credit the hero shows. The media files per rig are checked in
 site/scripts/home-hero.test.mjs; their frame counts and sizes in check_hero_media."""
 import json
@@ -7,7 +7,7 @@ import re
 from mvis_site import SITE
 
 RIGS = json.loads((SITE / "public/media/hero/rigs.json").read_text(encoding="utf-8"))["rigs"]
-HOMEPAGE_ORDER = ["virig4", "virig3", "looper", "dibuli", "cyperstereo", "gilabs", "mic"]
+HOMEPAGE_ORDER = ["virig4", "virig3", "looper", "dibuli", "cyperstereo", "alg_rs2", "gilabs", "mic"]
 READOUTS = ("sensors", "window", "rms", "td", "corners", "xlabel", "xval", "caption", "chip")
 PX = re.compile(r"^\d+\.\d\d <small>px</small>$")
 
@@ -33,7 +33,7 @@ def test_every_rig_has_its_readouts_timing_tiles_and_credit():
 def test_reprojection_median_is_a_px_value_or_a_dash():
     for r in RIGS:
         assert PX.match(r["rms"]) or r["rms"] == "—", (r["key"], r["rms"])
-    # the solve's medians (2026-11-15); Valve Index waits for its MIC05 re-solve
+    # the published solves' medians (2026-11-16 re-render; Valve Index now MIC04)
     assert {r["key"]: r["rms"].split()[0] for r in RIGS} == {
         "virig4": "0.25", "virig3": "0.25", "looper": "0.17", "dibuli": "0.18", "cyperstereo": "0.14",
-        "gilabs": "0.13", "mic": "—"}
+        "alg_rs2": "0.15", "gilabs": "0.13", "mic": "0.19"}

@@ -43,10 +43,10 @@
    "sensors": "4 cam · 4 IMU",
    "window": "80.0 <small>s</small>",
    "rms": "0.25 <small>px</small>",
-   "td": "−6.00 <small>ms</small>",
-   "corners": "75–118",
-   "xlabel": "ELP time offset",
-   "xval": "−124.4 <small>ms</small>",
+   "td": "−5.41 <small>ms</small>",
+   "corners": "80–117",
+   "xlabel": "RS readout",
+   "xval": "16.7 <small>ms</small>",
    "credit": {
     "holder": "OpenMVIS",
     "dataset": "VI-Rig 4 IMUs + 4 cameras",
@@ -90,10 +90,10 @@
    "sensors": "3 cam · 4 IMU",
    "window": "80.0 <small>s</small>",
    "rms": "0.25 <small>px</small>",
-   "td": "−2.77 <small>ms</small>",
-   "corners": "93–119",
-   "xlabel": "Kalibr baseline",
-   "xval": "Δp 2.6 <small>mm</small>",
+   "td": "−4.32 <small>ms</small>",
+   "corners": "93–118",
+   "xlabel": "cam0–cam1 baseline",
+   "xval": "71.0 <small>mm</small>",
    "credit": {
     "holder": "OpenMVIS",
     "dataset": "VI-Rig 4 IMUs + 3 cameras",
@@ -137,10 +137,10 @@
    "sensors": "3 cam · 1 IMU",
    "window": "66.4 <small>s</small>",
    "rms": "0.17 <small>px</small>",
-   "td": "+1.22 <small>ms</small>",
-   "corners": "60–116",
+   "td": "+1.23 <small>ms</small>",
+   "corners": "59–115",
    "xlabel": "RS readout",
-   "xval": "31.6 <small>ms</small>",
+   "xval": "32.4 <small>ms</small>",
    "credit": {
     "holder": "OpenMVIS, recorded with a LooperRobotics Insight 9",
     "dataset": "Looper Insight 9 hand-held recordings",
@@ -192,10 +192,10 @@
    "sensors": "4 cam · 1 IMU",
    "window": "60.2 <small>s</small>",
    "rms": "0.18 <small>px</small>",
-   "td": "+1.97 <small>ms</small>",
-   "corners": "64–198",
-   "xlabel": "Kalibr baseline",
-   "xval": "Δp ≤ 1.8 <small>mm</small>",
+   "td": "+2.06 <small>ms</small>",
+   "corners": "64–197",
+   "xlabel": "cam0–cam1 baseline",
+   "xval": "85.3 <small>mm</small>",
    "credit": {
     "holder": "DIBULI",
     "dataset": "Prism-A4L example data",
@@ -258,9 +258,48 @@
    }
   },
   {
+   "key": "alg_rs2",
+   "chip": "ALG AVS115D-Y",
+   "caption": "Recovered by MVIS from ALG Tech's AVS115D-Y rolling-shutter stereo module (1920×1920, + 6-axis IMU), recording 2.",
+   "duration": 15.0,
+   "live_cycle": 5.0,
+   "tiles": [
+    [
+     "cam0",
+     "AVS115D-Y cam0",
+     "rolling",
+     "#ffc850",
+     400,
+     400
+    ],
+    [
+     "cam1",
+     "AVS115D-Y cam1",
+     "rolling",
+     "#a0ffa0",
+     400,
+     400
+    ]
+   ],
+   "sensors": "2 cam · 1 IMU",
+   "window": "100.8 <small>s</small>",
+   "rms": "0.15 <small>px</small>",
+   "td": "−1.43 <small>ms</small>",
+   "corners": "104–104",
+   "xlabel": "RS readout",
+   "xval": "31.9 <small>ms</small>",
+   "credit": {
+    "holder": "ALG Tech (Shenzhen Aili-Light Technology)",
+    "dataset": "Calibench community, alg-avs115d (recording 2)",
+    "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/alg-avs115d",
+    "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+   }
+  },
+  {
    "key": "gilabs",
    "chip": "GiLabs EGO1GS",
-   "caption": "Recovered by MVIS from a GiLabs EGO1GS head-worn rig (global-shutter 1080p fisheye stereo + 470 Hz IMU), camera and IMU intrinsics estimated.",
+   "caption": "Recovered by MVIS from a GiLabs EGO1GS head-worn rig (global-shutter 1080p fisheye stereo + 470 Hz IMU), camera and IMU intrinsics estimated; everything but the board blurred.",
    "duration": 15.0,
    "live_cycle": 5.0,
    "tiles": [
@@ -282,12 +321,12 @@
     ]
    ],
    "sensors": "2 cam · 1 IMU",
-   "window": "25.0 <small>s</small>",
+   "window": "24.1 <small>s</small>",
    "rms": "0.13 <small>px</small>",
-   "td": "−1.33 <small>ms</small>",
-   "corners": "136–137",
-   "xlabel": "Kalibr baseline",
-   "xval": "Δp 0.1 <small>mm</small>",
+   "td": "−0.44 <small>ms</small>",
+   "corners": "143–144",
+   "xlabel": "cam0–cam1 baseline",
+   "xval": "62.1 <small>mm</small>",
    "credit": {
     "holder": "OpenMVIS, recorded with a GI EGO1GS; everything except the board is blurred",
     "dataset": "Calibench community, gi-ego1gs",
@@ -299,7 +338,7 @@
   {
    "key": "mic",
    "chip": "Valve Index · MIC",
-   "caption": "Recovered by MVIS from the Monado MIC calibration set (Valve Index, MIC05).",
+   "caption": "Recovered by MVIS from the Monado MIC calibration set (Valve Index, MIC04).",
    "duration": 15.0,
    "live_cycle": 5.0,
    "tiles": [
@@ -321,12 +360,12 @@
     ]
    ],
    "sensors": "2 cam · 1 IMU",
-   "window": "71.6 <small>s</small>",
-   "rms": "—",
-   "td": "−2.20 <small>ms</small>",
-   "corners": "107–125",
+   "window": "80.0 <small>s</small>",
+   "rms": "0.19 <small>px</small>",
+   "td": "−0.03 <small>ms</small>",
+   "corners": "122–124",
    "xlabel": "cam0–cam1 baseline",
-   "xval": "133.8 <small>mm</small>",
+   "xval": "133.7 <small>mm</small>",
    "credit": {
     "holder": "Collabora",
     "dataset": "Monado SLAM Datasets, MIC",
