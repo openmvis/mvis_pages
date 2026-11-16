@@ -329,11 +329,15 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
   }
 </style>
 
-<script is:inline define:vars={{ V, RIG_DATA: rigs }}>
+<script type="application/json" id="mhData" set:html={JSON.stringify({ V, rigs }).replace(/</g, "\\u003c")}></script>
+<script>
+  // the player's decisions live in ../scripts/home-hero.js (tested: site/scripts/home-hero.test.mjs)
+  import * as H from "../scripts/home-hero.js";
   (function () {
-    function mu(f) { return "/media/hero/" + f + "?v=" + (V[f] || "0"); }
-    var RIGS = {}, ORDER = [];
-    RIG_DATA.forEach(function (r) { ORDER.push(r.key); RIGS[r.key] = r; });
+    var DATA = JSON.parse(document.getElementById("mhData").textContent);
+    var V = DATA.V, RIG_DATA = DATA.rigs;
+    function mu(f) { return H.mediaUrl(f, V); }
+    var ix = H.indexRigs(RIG_DATA), RIGS = ix.rigs, ORDER = ix.order;
     var hero = document.querySelector(".mh");
     if (!hero) return;
     var video = document.getElementById("mhVideo");
@@ -346,12 +350,12 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
     var conn = navigator.connection || {};
     var lean = !!conn.saveData || /(^|-)2g$/.test(conn.effectiveType || "");
     var current = ORDER[0], layout = null, userPaused = false, onScreen = true, preloaded = {};
-    var LIVE_CYCLE = RIG_DATA[0].live_cycle || 5, POSTER_FRACTION = 0.6, LOOP_S = RIG_DATA[0].duration || 15;
+    var LIVE_CYCLE = RIG_DATA[0].live_cycle || 5, LOOP_S = RIG_DATA[0].duration || 15;
     var sync = [];                 // companion videos that follow the hero clock: {v, k, lat, lastSeek, seekStart}
 
-    function isWide() { return window.innerWidth >= 1100; }
-    function heroSrc(key) { return (isWide() && !lean) ? mu("hero_" + key + ".mp4") : mu("hero_" + key + "_960.mp4"); }
-    function heroPoster(key) { return isWide() ? mu("hero_" + key + ".jpg") : mu("hero_" + key + "_960.jpg"); }
+    function isWide() { return H.isWide(window.innerWidth); }
+    function heroSrc(key) { return mu(H.heroFile(key, isWide(), lean)); }
+    function heroPoster(key) { return mu(H.heroPosterFile(key, isWide())); }
     function safePlay(v) { var p = v.play(); return (p && p.catch) ? p : Promise.resolve(); }
     function setToggle() { toggle.textContent = video.paused ? "Play" : "Pause"; }
 
@@ -364,7 +368,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
       v.muted = true; v.playsInline = true; v.preload = "metadata";
       v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
       v.width = c[4]; v.height = c[5];
-      var base = key + "_" + c[0] + (small ? "_240" : "");
+      var base = H.tileBase(key, c[0], small);
       v.poster = mu(base + ".jpg"); v.src = mu(base + ".mp4"); v.dataset.src = mu(base + ".mp4"); v.dataset.cam = c[0];
       fig.appendChild(cap); fig.appendChild(v); li.appendChild(fig);
       return { li: li, v: v };
@@ -374,7 +378,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
       var s = { v: v, k: k, lat: 0.15, lastSeek: 0, seekStart: 0, lastT: -1, lastAdvance: performance.now(), lastRecover: 0, recoveries: 0 };
       // measure how long a seek really takes on this device, so the next one can aim ahead
       v.addEventListener("seeked", function () {
-        if (s.seekStart) { s.lat = Math.min(1.5, 0.5 * s.lat + 0.5 * (performance.now() - s.seekStart) / 1000); s.seekStart = 0; }
+        if (s.seekStart) { s.lat = H.seekLatency(s.lat, performance.now() - s.seekStart); s.seekStart = 0; }
       });
       sync.push(s);
     }
@@ -395,7 +399,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
     function applyReadout(key) {
       var r = RIGS[key];
       hero.querySelectorAll("[data-k]").forEach(function (el) {
-        var val = el.dataset.k === "caption" ? r.caption : r[el.dataset.k];
+        var val = H.readoutValue(r, el.dataset.k);
         if (val != null) el.innerHTML = val;
       });
     }
@@ -454,7 +458,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
     //  - never start a seek while one is running (a new seek cancels the old one: that was the freeze)
     //  - drift under 0.5 s: nudge playbackRate instead of seeking
     //  - larger drift: one seek aimed ahead by the measured seek latency, at most once per second
-    var SEEK_DRIFT = 0.5, SEEK_COOLDOWN = 1000, STALL_MS = 1500, RECOVER_GAP_MS = 3000, MAX_RECOVERIES = 6;
+    // (limits and formulas: H.SEEK_DRIFT, H.SEEK_COOLDOWN, H.STALL_MS, H.RECOVER_GAP_MS, H.MAX_RECOVERIES)
 
     // Watchdog: a companion that stops advancing while the hero plays (stalled network request, stuck seek,
     // decoder error) is reloaded from a fresh URL and put back on the hero clock. Browsers differ in why a
@@ -472,42 +476,41 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
       }, { once: true });
     }
     function tick() {
-      var d = video.duration || LOOP_S, now = performance.now();
-      var atPoster = video.paused && !(video.currentTime > 0);
-      var t = atPoster ? POSTER_FRACTION * d : (video.currentTime || 0);
-      var n = RIGS[current].tiles.length, liveK = Math.floor(t / LIVE_CYCLE) % n;
-      var heroHeld = video.paused || video.readyState < 3;     // paused, or buffering: companions wait for the hero
+      var now = performance.now();
+      var clock = H.heroClock({ paused: video.paused, currentTime: video.currentTime, duration: video.duration, loop: LOOP_S });
+      var d = clock.d, atPoster = clock.atPoster, t = clock.t;
+      var n = RIGS[current].tiles.length, liveK = H.liveIndex(t, LIVE_CYCLE, n);
+      var heroHeld = H.heroHeld(video.paused, video.readyState);     // paused, or buffering: companions wait for the hero
       sync.forEach(function (s) {
         var v = s.v;
         if (heroHeld || atPoster) { s.lastAdvance = now; s.lastT = v.currentTime; }
         else if (v.currentTime > s.lastT + 0.01 || v.ended) { s.lastAdvance = now; s.lastT = v.currentTime; }
-        else if ((v.error || now - s.lastAdvance > STALL_MS) && now - s.lastRecover > RECOVER_GAP_MS && s.recoveries < MAX_RECOVERIES && t < (video.duration || LOOP_S) - 1) {
+        else if (H.shouldRecover({ error: v.error, now: now, lastAdvance: s.lastAdvance, lastRecover: s.lastRecover,
+                                   recoveries: s.recoveries, t: t, d: video.duration || LOOP_S })) {
           recover(s, v.error ? "error " + v.error.code : "stalled"); return;
         }
         if (heroHeld) { if (!v.paused) v.pause(); }
         else if (v.paused && !v.ended && !v.seeking) safePlay(v).catch(function () {});
         if (!atPoster && !heroHeld && !video.ended && !v.seeking && v.readyState >= 2) {
-          var drift = (v.currentTime || 0) - t;
-          if (Math.abs(drift) > SEEK_DRIFT && now - s.lastSeek > SEEK_COOLDOWN && t < d - 1) {
+          var act = H.syncAction({ ct: v.currentTime, t: t, d: d, lat: s.lat, now: now, lastSeek: s.lastSeek, rate: v.playbackRate });
+          if (act && act.seek != null) {
             s.lastSeek = now; s.seekStart = now; v.playbackRate = 1;
-            v.currentTime = Math.min(d - 0.05, t + s.lat);
-          } else if (Math.abs(drift) > 0.04) {
-            v.playbackRate = Math.max(0.8, Math.min(1.25, 1 - drift));
-          } else if (v.playbackRate !== 1) {
-            v.playbackRate = 1;
+            v.currentTime = act.seek;
+          } else if (act) {
+            v.playbackRate = act.rate;
           }
         }
         var tile = v.closest(".mh-tile"); if (tile) tile.classList.toggle("live", s.k === liveK);
       });
-      if (!video.paused && video.currentTime > 0.6 * d) preloadNext();
+      if (!video.paused && video.currentTime > H.PRELOAD_AT * d) preloadNext();
       requestAnimationFrame(tick);
     }
 
     // warm the next recording once the current one is 60 % through
     function preloadNext() {
-      var nk = ORDER[(ORDER.indexOf(current) + 1) % ORDER.length];
+      var nk = H.nextKey(ORDER, current);
       if (preloaded[nk] || nk === current) return; preloaded[nk] = true;
-      var srcs = [heroSrc(nk)].concat(isWide() ? RIGS[nk].tiles.map(function (c) { return mu(nk + "_" + c[0] + ".mp4"); }) : []);
+      var srcs = H.preloadFiles(nk, RIGS[nk], isWide(), lean).map(mu);
       // download into the HTTP cache (no hidden <video> players that could lock the same cache entries as the visible ones)
       srcs.forEach(function (src) { if (window.fetch) fetch(src, { priority: "low" }).then(function (r) { return r.arrayBuffer(); }).catch(function () {}); });
     }
@@ -515,20 +518,13 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
     // wide layout: tile column width from the available height; the loop fills the free area right of the text
     function fit() {
       if (!isWide()) { videoBox.style.cssText = ""; tilesEl.style.cssText = ""; return; }
-      var cams = RIGS[current].tiles, cols = cams.length >= 4 ? 2 : 1, rows = Math.ceil(cams.length / cols);
-      var H = hero.clientHeight, barH = barEl.offsetHeight, pad = 24;
-      var avail = H - barH - 2 * pad, aspectSum = 0;
-      for (var r = 0; r < rows; r++) { var m = 0; for (var c = 0; c < cols; c++) { var cam = cams[r * cols + c]; if (cam) m = Math.max(m, cam[5] / cam[4]); } aspectSum += m; }
-      var colW = (avail - rows * 24 - (rows - 1) * 10) / aspectSum;
-      colW = Math.max(110, Math.min(colW, 240, (window.innerWidth * 0.24 - (cols - 1) * 10) / cols));
-      tilesEl.style.gridTemplateColumns = "repeat(" + cols + ", " + Math.floor(colW) + "px)";
+      var heroH = hero.clientHeight, barH = barEl.offsetHeight;
+      var g = H.tileGrid(RIGS[current].tiles, heroH, barH, window.innerWidth);
+      tilesEl.style.gridTemplateColumns = "repeat(" + g.cols + ", " + g.colW + "px)";
       var hb = hero.getBoundingClientRect(), tb = textEl.getBoundingClientRect(), lb = tilesEl.getBoundingClientRect();
-      var right = (lb.width ? lb.left : hb.right - 40) - hb.left - 24;
-      var minLeft = tb.left - hb.left + tb.width * 0.55;
-      var h = H - barH - 2 * pad, w = h * 16 / 9;
-      if (right - w < minLeft) { w = right - minLeft; h = w * 9 / 16; }
-      var left = right - w, top = (H - barH - h) / 2;
-      videoBox.style.cssText = "left:" + Math.round(left) + "px;top:" + Math.round(top) + "px;width:" + Math.round(w) + "px;height:" + Math.round(h) + "px;right:auto;bottom:auto";
+      var box = H.videoBox({ heroH: heroH, barH: barH, right: (lb.width ? lb.left : hb.right - 40) - hb.left - 24,
+                             minLeft: tb.left - hb.left + tb.width * 0.55 });
+      videoBox.style.cssText = "left:" + box.left + "px;top:" + box.top + "px;width:" + box.width + "px;height:" + box.height + "px;right:auto;bottom:auto";
     }
 
     function onLayoutChange() {
@@ -552,7 +548,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
     bigPlay.addEventListener("click", function (e) { e.stopPropagation(); userPaused = false; play(); });
     frame.addEventListener("click", function () { if (video.paused) { userPaused = false; play(); } else { userPaused = true; pause(); } });
     frame.addEventListener("dblclick", function (e) { e.preventDefault(); });
-    video.addEventListener("ended", function () { select(ORDER[(ORDER.indexOf(current) + 1) % ORDER.length], true); });
+    video.addEventListener("ended", function () { select(H.nextKey(ORDER, current), true); });
     video.addEventListener("play", setToggle);
     video.addEventListener("pause", function () { sync.forEach(function (s) { s.v.pause(); }); setToggle(); });
     more.addEventListener("toggle", function () {
