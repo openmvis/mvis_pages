@@ -20,6 +20,11 @@
   "group": "Tracking modules"
  },
  {
+  "label": "Stereolabs ZED 2",
+  "link": "/devices/zed2/",
+  "group": "Tracking modules"
+ },
+ {
   "label": "LooperRobotics Insight 9",
   "link": "/devices/looper-insight9/",
   "group": "Tracking modules"

@@ -27,7 +27,7 @@ def test_t265_is_first_and_labels_keep_full_names(pub):
 
 def test_groups_follow_the_chosen_order(pub):
     assert [(g["title"], g["slugs"]) for g in sensor_groups(pub)] == [
-        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "realsense-d435i", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
+        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "realsense-d435i", "zed2", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
         ("Head-worn cameras", ["gi-ego1", "gi-ego1gs", "xq20"]),
         ("VR headsets", ["valve-index", "hp-reverb-g2", "samsung-odyssey-plus"]),
         ("360° cameras", ["insta360-one-rs-1inch-360"]),
@@ -64,7 +64,8 @@ def test_unknown_shutter_is_left_out_of_the_tags(pub):
 
 # Live without a demo or hosted data, at the user's request (alg-avs111c 2026-11-06; cyperstereo 2026-11-11, which has a demo since): no permission to host the bag.
 # insta360-one-rs-1inch-360 (2026-11-12): third-party recordings under CC BY-NC-SA, linked at their source and not re-hosted; no demo clip yet.
-NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360",)   # alg-avs111c hosted since 2026-11-14; cyperstereo has a demo
+NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360", "zed2")   # alg-avs111c hosted since 2026-11-14; cyperstereo has a demo
+# zed2 (2026-11-17): the WHUVID authors' recording, no licence stated, linked at its source; no demo clip.
 # realsense-d435i (2026-11-14): a collaborator's recordings, shared with us, no licence stated; not hosted.
 NOT_HOSTED = NO_DEMO_NOT_HOSTED + ("realsense-d435i",)
 # cyperstereo (2026-11-15): configs and results on calibench-vi/community, the recording not hosted.
