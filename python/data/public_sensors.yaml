@@ -219,9 +219,8 @@ sensors:
       - [Source, "WHUVID dataset (Wuhan University), calibration recording published by the authors"]
       - [Format, "ROS 1 bag. Two IMU samples repeat the one before (same time and values) and are dropped"]
       - [Board, "AprilGrid 6×6, tag 20.8 mm, spacing 0.3"]
-      - [Licence, "None stated by the dataset"]
-      - [Hosted, "Not hosted here; download from the dataset's page"]
-    data_link: {url: "https://github.com/SleepEarlyLiveLong/WHUVID", label: "WHUVID on GitHub"}
+      - [Data, "__HUB:community/zed2/data/__. The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors; the dataset states no licence, so ask them before reuse"]
+      - [Configs and results, "__HUB:community/zed2/__"]
     method: "Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Solved 2026-11-16."
     limits:
       - "No independent reference. The authors publish a Kalibr calibration from the same recording with a global-shutter camera model; it isn't an independent check."
