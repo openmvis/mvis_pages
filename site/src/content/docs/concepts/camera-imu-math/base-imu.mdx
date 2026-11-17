@@ -65,7 +65,9 @@ $$
 \Delta\mathbf{p}_{k} = \int_{t_k}^{t_{k+1}}\!\!\int_{t_k}^{s} {}^{I_k}_{I_\tau}\mathbf{R}\;{}^{I}\mathbf{a}_\tau\,d\tau\,ds
 $$
 
-MVIS evaluates these with **ACI** (analytic combined IMU integration). Between two
+MVIS evaluates these with **ACI3**: analytic combined IMU integration
+([ACI2](/about/contributors/#citing-aci2), Yang et al., ICRA 2020) extended with the
+IMU intrinsics in the MVIS paper. Between two
 samples it takes the midpoint of the two corrected readings as constant and
 integrates the rotation and the rotated acceleration in closed form. The same
 pass gives:
