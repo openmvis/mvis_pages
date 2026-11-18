@@ -47,7 +47,7 @@ FOV_FOOT = "~ marks a value read past where the board corners reached. Past the 
 
 def _fov_row(k: str, row: dict) -> str:
     html = f'{e(row["v"])}{_tag(row)}'
-    if k == "fov" and row.get("also"):
+    if row.get("also"):   # a second value from another source, e.g. the maker's chip name under a measured rate
         html += f'<br>{e(row["also"]["v"])}{_tag(row["also"])}'
     return html
 
@@ -74,8 +74,8 @@ def header_html(slug: str, p: dict, h: dict, v: dict) -> str:
     missing = [k for k, _ in KEY_ROWS if k not in h["key_specs"]]
     if missing:
         raise SystemExit(f"{p['title']}: header needs {missing}")
-    also = h["key_specs"]["fov"].get("also")
-    for k, row in [*h["key_specs"].items(), *([("fov", also)] if also else [])]:
+    alsos = [(k, r["also"]) for k, r in h["key_specs"].items() if r.get("also")]
+    for k, row in [*h["key_specs"].items(), *alsos]:
         if "tag" not in row:   # no silent default: every value says where it came from
             raise SystemExit(f"{p['title']}: {k} needs a tag (maker, listing or one of {', '.join(_TAG_LABELS)})")
         if row.get("tag") in ("maker", "listing") and not str(row.get("src", "")).startswith("https://"):

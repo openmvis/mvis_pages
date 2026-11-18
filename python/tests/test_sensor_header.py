@@ -29,7 +29,9 @@ def test_auto_baseline_and_plain_rows(variant):
     one = dict(variant, run=dict(variant["run"], cams=variant["run"]["cams"][:1]))
     assert H._auto({"auto": "baseline"}, one) == {"v": "One camera in this run", "tag": "measured"}
     assert H._auto({"v": "x"}, variant) == {"v": "x"}
-    assert H._fov_row("imu", {"v": "y", "tag": "measured", "also": {"v": "z"}}) == "y<span class=sd-tag>Measured</span>"
+    # any row may carry a second value with its own source (the maker's chip under a measured rate)
+    assert H._fov_row("imu", {"v": "y", "tag": "measured", "also": {"v": "z", "tag": "maker", "src": "https://m.example"}}) == (
+        'y<span class=sd-tag>Measured</span><br>z<a class=sd-tag href="https://m.example">Maker ↗</a>')
 
 
 def test_tags():

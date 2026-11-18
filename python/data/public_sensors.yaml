@@ -21,7 +21,8 @@ sensors:
       - [Cameras, "2 × OV9282, 848×800 at 30 Hz", Maker]
       - [Shutter, Global, Maker]
       - [Lens, "Fisheye, about 163°", Maker]
-      - [IMU, "Bosch BMI055, gyro at 200 Hz, accel at 62.5 Hz", Measured]
+      - [IMU, "gyro at 200 Hz, accel at 62.5 Hz", Measured]
+      - [IMU chip, Bosch BMI055, Maker]
     dataset:
       - [Recording, "VI-Rig, recording 1, 80 s window chosen by motion"]
       - [Format, ROS bag]
@@ -44,7 +45,7 @@ sensors:
         shutter: {v: Global, tag: catalog}
         fov: {auto: fov, also: {v: "163° diagonal", tag: maker, src: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}}
         baseline: {auto: baseline}
-        imu: {v: "BMI055, gyro 200 Hz, accel 62.5 Hz", tag: measured}
+        imu: {v: "gyro 200 Hz, accel 62.5 Hz", tag: measured, also: {v: "Bosch BMI055", tag: maker, src: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}}
         output: {v: USB 3, tag: maker, src: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
   realsense-d455:
     group: cameras
@@ -60,7 +61,8 @@ sensors:
       - [Shutter, "Global, on the infrared pair and the RGB camera", Maker]
       - [Infrared pair, "87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp", Maker]
       - [RGB camera, "1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, about 33 Hz (30 requested)", Maker]
-      - [IMU, "Bosch BMI055 (maker); gyro 400 Hz, accelerometer about 250 Hz in this recording", Measured]
+      - [IMU, "gyro 400 Hz, accelerometer about 250 Hz in this recording", Measured]
+      - [IMU chip, "Bosch BMI055 or BMI085, by production revision", Maker]
       - [Link, "USB-C; 124 × 29 × 26 mm", Maker]
     dataset:
       - [Recording, "1 recording, 90 s, hand-held. About 2,700 frames per infrared camera, 2,985 RGB frames, 36,417 IMU samples"]
@@ -86,7 +88,7 @@ sensors:
         shutter: {v: Global, tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
         fov: {auto: fov, also: {v: "87° × 58° depth, 90° × 65° RGB", tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}}
         baseline: {auto: baseline}
-        imu: {v: "BMI055, gyro 400 Hz, accel 250 Hz", tag: measured}
+        imu: {v: "gyro 400 Hz, accel 250 Hz", tag: measured, also: {v: "Bosch BMI055 or BMI085, by production revision", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}}
         output: {v: "USB-C, ROS bag", tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
   realsense-d456:
     group: cameras
@@ -145,7 +147,8 @@ sensors:
       - [Shutter, "Global on the infrared pair, rolling on the RGB camera", Maker]
       - [Infrared pair, "87° × 58° depth field of view; not used here", Maker]
       - [RGB camera, "2 MP, 69° × 42°, up to 1920×1080 at 30 fps; recorded here at 640×480, 30 Hz, exposure fixed at 3 ms", Maker]
-      - [IMU, "Bosch BMI055; gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps", Measured]
+      - [IMU, "gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps", Measured]
+      - [IMU chip, "Bosch BMI055 or BMI085, by production revision", Maker]
       - [Link, "USB-C 3.1 Gen 1; 90 × 25 × 25 mm", Maker]
     dataset:
       - [Recordings, "3 recordings, 80, 67.7 and 77 s, hand-held. About 2,000 to 2,400 RGB frames each, IMU at 200 Hz"]
@@ -170,7 +173,7 @@ sensors:
         shutter: {v: "Rolling (RGB)", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
         fov: {auto: fov, also: {v: "69° × 42° RGB, 87° × 58° depth", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}}
         baseline: {v: "50 mm, infrared pair (not used here)", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}
-        imu: {v: "BMI055, 200 Hz", tag: measured}
+        imu: {v: "200 Hz", tag: measured, also: {v: "Bosch BMI055 or BMI085, by production revision", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}}
         output: {v: "USB-C, EuRoC mav0", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
   zed2:
     group: cameras
@@ -344,11 +347,11 @@ sensors:
       foot: "Values measured in the 148 s recording · Maker values from the AVS111C-Y product page, read 2026-11-06 · CC BY-NC 4.0"
       key_specs:
         cameras: {v: "2 × 1280×800", tag: measured}
-        shutter: {v: Global, tag: maker, src: "https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
+        shutter: {v: Global, tag: maker, src: "https://www.alg-tech.com.cn/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
         fov: {auto: fov}
         baseline: {auto: baseline}
         imu: {v: "6-axis, 200 Hz here", tag: measured}
-        output: {v: "GMSL2, ROS2 bag", tag: measured}
+        output: {v: "ROS2 bag", tag: measured, also: {v: "GMSL 2", tag: maker, src: "https://www.alg-tech.com.cn/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}}
   alg-avs115d:
     group: cameras
     key: alg-avs115d
@@ -394,8 +397,8 @@ sensors:
         shutter: {v: Rolling, tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
         fov: {auto: fov, also: {v: "119° × 119°", tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}}
         baseline: {auto: baseline}
-        imu: {v: "ICM-45686, 200 Hz here", tag: measured}
-        output: {v: "GMSL2, ROS2 bag", tag: measured}
+        imu: {v: "6-axis, 200 Hz here", tag: measured}
+        output: {v: "ROS2 bag", tag: measured, also: {v: "GMSL", tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}}
   cyperstereo:
     group: cameras
     key: cyperstereo
@@ -411,7 +414,8 @@ sensors:
       - ["Wide lenses (cam2, cam3)", "1.67 mm, F2.0, M12; 200° diagonal, 174° × 139°", Maker]
       - ["Narrow lenses (cam0, cam1)", "1.79 mm, F2.0, M12; 160° diagonal, 133° × 112°", Maker]
       - [Synchronization, "Camera to camera 10 µs, camera to IMU 100 µs on the sheet; identical camera stamps in this recording", Maker]
-      - [IMU, "Bosch BMI088, 200 Hz", Measured]
+      - [IMU, "200 Hz", Measured]
+      - [IMU chip, Bosch BMI088, Maker]
       - [Link and power, "USB 3.0, UVC; 1.5–2 W at 5 V", Maker]
     dataset:
       - [Recordings, "1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples"]
@@ -438,8 +442,8 @@ sensors:
         shutter: {v: Global, tag: maker, src: "https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/contents.html"}
         fov: {auto: fov, also: {v: "160° and 200° diagonal", tag: maker, src: "https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/contents.html"}}
         baseline: {auto: baseline}
-        imu: {v: "Bosch BMI088, 200 Hz", tag: measured}
-        output: {v: "USB 3.0 / UVC, ROS bag", tag: measured}
+        imu: {v: "200 Hz", tag: measured, also: {v: "Bosch BMI088", tag: maker, src: "https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/spec_c100.html"}}
+        output: {v: "ROS bag", tag: measured, also: {v: "USB 3.0, UVC", tag: maker, src: "https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/spec_c100.html"}}
   hampo:
     group: cameras
     key: hampo
