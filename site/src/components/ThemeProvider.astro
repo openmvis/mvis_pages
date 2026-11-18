@@ -2,17 +2,16 @@
 import { Icon } from '@astrojs/starlight/components';
 ---
 
-{/* Override of the default Starlight ThemeProvider: defaults to LIGHT when no
-    explicit preference is stored, instead of following prefers-color-scheme.
-    Rationale: research benchmark sites (KITTI, Papers with Code, nuScenes,
-    Hilti) are light-by-default; researchers screenshot for papers and pair
-    with white-background plots. Dark stays available via the picker. */}
+{/* Theme: "Auto" (and no stored choice) follows the visitor's system setting; Light and Dark stay as picked
+    (user, 2026-11-18). Same logic as Starlight's own ThemeProvider. */}
 <script is:inline>
 	window.StarlightThemeProvider = (() => {
 		const storedTheme =
 			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
-		const theme = storedTheme || 'light';
-		document.documentElement.dataset.theme = theme === 'dark' ? 'dark' : 'light';
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
 		return {
 			updatePickers(theme = storedTheme || 'auto') {
 				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
