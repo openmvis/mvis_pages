@@ -188,7 +188,7 @@ def test_header_is_the_sensor_datasheet_with_our_rig_mark_and_links(world):
     th = json.loads(plan.texts[f"{X.EX_DATA}/theirs.json"])["parts"]
     assert "class=ex-ours>Our rig<" in ours["header"] and "ex-ours" not in th["header"]
     assert 'class="sd-btn primary" href="/reference/datasets/a/">Downloads: Data page →' in ours["header"]
-    assert 'href="/benchmark/results/">All runs: Results →' in ours["header"] and 'href="/devices/b/">B wiki →' in th["header"]
+    assert 'href="/benchmark/results/">All runs: Leaderboard →' in ours["header"] and 'href="/devices/b/">B wiki →' in th["header"]
     assert "<dt>Board</dt><dd>AprilGrid</dd>" in ours["header"] and 'href="https://example.org/b">Photo: them ↗' in th["header"]
     assert "class=tiles" in ours["glance"] and "/media/hero/hero_k_960.mp4" in ours["glance"]
     assert "AprilGrid 2 × 3" in ours["dataset"] and "Solve window: 2.5 s." in ours["dataset"]
@@ -222,10 +222,10 @@ def test_no_reference_says_so_and_links_the_eval(world):
     assert X.check_part({"none": "x"}, None, None) == "<div class=ex-callout><p><b>No published reference.</b> x</p></div>"
 
 
-def test_eval_link_falls_back_to_results_until_the_page_exists():
+def test_eval_link_falls_back_to_the_leaderboard_until_the_page_exists():
     p = {"eval": {"slug": "a", "label": "All"}}
-    assert X.eval_link(p, set()) == {"url": "/benchmark/results/", "label": "All: Results"}
-    assert X.eval_link(p, {"a"}) == {"url": "/benchmark/results/a/", "label": "All: Dataset eval"}
+    assert X.eval_link(p, set()) == {"url": "/benchmark/results/", "label": "All: Leaderboard"}
+    assert X.eval_link(p, {"a"}) == {"url": "/benchmark/results/a/", "label": "All: results page"}
     assert X.eval_link({}, {"a"}) is None
 
 

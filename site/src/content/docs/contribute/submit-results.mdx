@@ -4,8 +4,10 @@ description: How the leaderboard is built today, where its records live, and how
 pageType: guide
 ---
 
+import lb from '../../../data/eval/index.json';
+
 Use this page if you want results from your calibration tool next to MVIS,
-Kalibr and Basalt on the [leaderboard](/benchmark/results/).
+Kalibr and Basalt on the [Leaderboard](/benchmark/results/).
 
 :::caution[Open submissions are paused]
 We are replacing the old submission process with a new one. Until it opens,
@@ -17,8 +19,7 @@ issue (see below).
 ## How the leaderboard is built today
 
 - **Who runs it:** we run MVIS, Kalibr and Basalt ourselves on the same
-  recordings. The current numbers are from the batch of 2026-11-10 (batch
-  `2026-11-10a`).
+  recordings. The current numbers are from batch <code>{lb.batch}</code>.
 - **What it shows:** each calibration parameter per tool, as the median and
   spread over the recordings of one test family (a group of recordings of one
   rig, solved with one setup). Real recordings have no ground truth, so a gap
@@ -37,6 +38,7 @@ The results repository has this layout:
 | `schemas/` | the JSON schema of a record |
 | `datasets.json`, `sensors.json` | the dataset and sensor catalogues |
 | `families.json` | datasets to families, with each family's recordings, sensors and caveats |
+| `runs/<dataset>/<date>/` | separate studies outside the leaderboard batch, one folder per dataset and date (for example `runs/virig-5imus-4cams/2026-11-02/`) |
 
 ## Compare your tool now
 

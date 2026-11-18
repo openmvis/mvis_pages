@@ -55,7 +55,7 @@ clean clone passes without any download.
 
 To run them:
 
-1. Log in with `huggingface-cli login`, or set `HF_TOKEN`. The VI-Rig sets are gated: accept their terms on the
+1. Log in with `hf auth login`, or set `HF_TOKEN`. The VI-Rig sets are gated: accept their terms on the
    [dataset page](https://huggingface.co/datasets/calibench-vi/datasets) first.
 2. Pick a folder for the data and set `MVIS_DATASETS` to it. Without it, MVIS
    uses `~/Datasets`.
@@ -63,7 +63,7 @@ To run them:
    to see the catalogue, and `--dataset <key>` to fetch one dataset.
 
 ```bash
-huggingface-cli login
+hf auth login
 export MVIS_DATASETS=/path/to/datasets
 mvis datasets list
 mvis datasets download --dataset <key>
@@ -126,7 +126,7 @@ We also run two larger suites: real benchmark recordings, and digital twins of
 them, each compared parameter by parameter with earlier approved results. They
 need the full dataset collection and many hours of compute, so they are not
 part of the tiers above. The same recordings, solved with MVIS, Kalibr and
-Basalt, make the [leaderboard](/benchmark/results/); [Methodology](/benchmark/methodology/)
+Basalt, make the [Leaderboard](/benchmark/results/); [Methodology](/benchmark/methodology/)
 explains how we run them and [Evaluation & metrics](/reference/evaluation/)
 defines the metrics.
 

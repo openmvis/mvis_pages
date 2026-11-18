@@ -18,6 +18,7 @@
  },
  "links": {
   "example": "/benchmark/examples/looper-insight9/",
+  "dataset": "/datasets/#partner-recordings-on-the-hub",
   "sensor": "/devices/looper-insight9/"
  },
  "study": false,

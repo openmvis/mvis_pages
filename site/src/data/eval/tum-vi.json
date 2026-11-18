@@ -17,7 +17,8 @@
   "credit": "MVIS solve view, from the homepage"
  },
  "links": {
-  "example": "/benchmark/examples/tum-vi/"
+  "example": "/benchmark/examples/tum-vi/",
+  "dataset": "/datasets/#third-party-datasets"
  },
  "study": false,
  "batch": "2026-11-10a",

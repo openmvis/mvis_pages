@@ -1,4 +1,4 @@
-# Every word on the Results pages (Leaderboard + one Dataset eval page per dataset) that is not computed from the
+# Every word on the Leaderboard and the results pages (one per dataset) that is not computed from the
 # records. Read by mvis_site/results_eval.py; every string goes through lint.public_problems before anything is written.
 # Order is page order: our VI-Rig datasets first. Nothing is ever ordered by a measured value.
 #
@@ -12,7 +12,7 @@
 leaderboard:
   honest:
     - "<b>Repeatability, not accuracy.</b> These datasets have no ground truth, so no tool is the reference. A cell shows whose estimates scatter least over the recordings every compared tool ran, not who is right."
-    - "<b>Who ran it:</b> the MVIS authors ran every tool, including Kalibr and Basalt, with its documented defaults unless a family's notes say otherwise."
+    - "<b>Who ran it:</b> we ran every tool ourselves, including Kalibr and Basalt, with its documented defaults unless a family's notes say otherwise."
     - "<b>No totals:</b> nothing is added up across cells, families or datasets, and rows are never ordered by a value."
 
 datasets:
@@ -92,7 +92,7 @@ datasets:
     reading:
       - "<b>Two T265 units, one board.</b> Each pair is hardware-synced inside its unit, but the two units are not synced to each other, so each camera-only solve holds one pair (time offset off). The camera + IMU solves hold all four cameras and five IMUs, and their intrinsics start from the 7-recording median of the camera-only solves."
       - "<b>T265 IMU timing.</b> The T265 IMUs' gyro–accel delay t_ga is about −6.6 ms, far from the other IMUs. MVIS estimates it per IMU; it is not a pure time shift (it depends on the motion's frequency), so read it as a compromise value."
-      - "<b>The results files</b> (calibration numbers and run configs, no images) are on Hugging Face beside the data, in its results folder dated 2026-11-02 (see the link above)."
+      - "<b>The results files</b> (calibration numbers and run configs, no images) are on Hugging Face in calibench-vi/results, under runs/virig-5imus-4cams/2026-11-02/."
     families:
       - {id: V5, shutter: global}
       - {id: V5c, shutter: global}
@@ -118,6 +118,7 @@ datasets:
     image: {src: /media/hero/hero_tumvi_960.jpg, alt: "MVIS solving a TUM-VI calibration bag: board, camera path and one fisheye frame", credit: "MVIS solve view, from the homepage"}
     links:
       example: /benchmark/examples/tum-vi/
+      dataset: /datasets/#third-party-datasets
     families:
       - {id: T3, shutter: global}
       - {id: T9, shutter: global}
@@ -138,6 +139,7 @@ datasets:
     image: {src: /media/sensors/looper-insight9/looper-insight9.jpg, alt: "LooperRobotics Insight 9, front view", credit: "Photo: LooperRobotics, Insight 9 product page"}
     links:
       example: /benchmark/examples/looper-insight9/
+      dataset: /datasets/#partner-recordings-on-the-hub
       sensor: /devices/looper-insight9/
     families:
       - {id: T4, shutter: global}
@@ -155,11 +157,13 @@ datasets:
     ours: false
     licence: CC BY 4.0
     intro: "The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset."
-    chips: ["2 headset cameras", "headset IMU", "AprilGrid 6×6, 30 mm"]
+    chips: ["2 of the 4 headset cameras (front pair)", "headset IMU", "AprilGrid 6×6, 30 mm"]
     image: {src: /media/sensors/hp-reverb-g2/hp-reverb-g2.jpg, alt: "HP Reverb G2 headset, front view", credit: "Photo: HP, Reverb G2 press release"}
     links:
       example: /benchmark/examples/monado/
+      dataset: /datasets/#third-party-datasets
       sensor: /devices/hp-reverb-g2/
+      hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_mgc
     families:
       - {id: T5, shutter: global}
       - {id: T12, shutter: global}
@@ -181,6 +185,7 @@ datasets:
     image: {src: /media/hero/hero_uzhd_960.jpg, alt: "MVIS solving a UZH-FPV Davis bag: board, camera path and one camera frame", credit: "MVIS solve view, from the homepage"}
     links:
       example: /benchmark/examples/uzh-fpv/
+      dataset: /datasets/#third-party-datasets
     no_repeatability: "This study has no repeatability cells: it was made before the current schema, and 4 bags per device are too few for the test (it needs 6)."
     reading:
       - "<b>IMU weights.</b> All three tools use IMU sigmas taken from the residuals in UZH's own Kalibr results, not the MVIS defaults. The example page explains how they are derived."

@@ -7,7 +7,7 @@
  "licence": "CC BY 4.0",
  "intro": "The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset.",
  "chips": [
-  "2 headset cameras",
+  "2 of the 4 headset cameras (front pair)",
   "headset IMU",
   "AprilGrid 6×6, 30 mm"
  ],
@@ -18,7 +18,9 @@
  },
  "links": {
   "example": "/benchmark/examples/monado/",
-  "sensor": "/devices/hp-reverb-g2/"
+  "dataset": "/datasets/#third-party-datasets",
+  "sensor": "/devices/hp-reverb-g2/",
+  "hub": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_mgc"
  },
  "study": false,
  "batch": "2026-11-10a",
