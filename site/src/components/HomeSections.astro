@@ -3,9 +3,16 @@
 // site's light/dark toggle applies; wrapped in .not-content to opt out of the
 // markdown typography rules (h2 underline, table header fill).
 import VisitorMap from './VisitorMap.astro';
+import HomeDevices from './HomeDevices.astro';
 ---
 
 <div class="not-content mhs">
+  <section class="mhs-band">
+    <p class="mhs-kicker">Device wiki</p>
+    <h2>Calibrated on real hardware, from many makers.</h2>
+    <HomeDevices />
+  </section>
+
   <section class="mhs-band">
     <div class="mhs-split">
       <div>
