@@ -23,7 +23,7 @@
  },
  "study": false,
  "batch": "2026-11-10a",
- "results_commit": "fe8ee9fd41f168b467aa290a2e4078f443834092",
+ "results_commit": "abfab3641ea05a19bbcd30136676dc305d567d3a",
  "link": "/benchmark/results/looper-insight9/",
  "has_repeatability": true,
  "legacy": [
@@ -87,9 +87,9 @@
    "read_first": "",
    "notes": [],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/MVIS/2026-11-10a/T4.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Kalibr/2026-11-10a/T4.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Basalt/2026-11-10a/T4.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T4.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T4.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T4.json"
    },
    "fit": [],
    "diffs": [
@@ -1644,9 +1644,9 @@
     ]
    ],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/MVIS/2026-11-10a/T11.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Kalibr/2026-11-10a/T11.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Basalt/2026-11-10a/T11.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T11.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T11.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T11.json"
    },
    "fit": [
     {
@@ -4792,16 +4792,21 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -5.2967,
-        "h": 0.20196
+        "c": -5.26543,
+        "h": 0.236362
        },
        "lanes": [
         {
          "col": "calyx",
          "tool": "MVIS",
          "label": "MVIS",
-         "state": "missing",
-         "note": "not in this tool's model"
+         "state": "ok",
+         "med": -5.23415,
+         "sd": 0.0896309,
+         "n": 10,
+         "text": "−5.234",
+         "min": -5.3557,
+         "max": -5.0781
         },
         {
          "col": "mvis",

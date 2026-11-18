@@ -1769,7 +1769,7 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "missing",
-         "note": "not in this tool's model"
+         "note": "no value"
         },
         {
          "col": "mvis",
@@ -4507,7 +4507,7 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "missing",
-         "note": "not in this tool's model"
+         "note": "no value"
         },
         {
          "col": "mvis",

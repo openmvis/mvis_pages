@@ -22,7 +22,7 @@
  },
  "study": false,
  "batch": "2026-11-10a",
- "results_commit": "fe8ee9fd41f168b467aa290a2e4078f443834092",
+ "results_commit": "abfab3641ea05a19bbcd30136676dc305d567d3a",
  "link": "/benchmark/results/tum-vi/",
  "has_repeatability": true,
  "legacy": [
@@ -97,9 +97,9 @@
     ]
    ],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/MVIS/2026-11-10a/T3.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Kalibr/2026-11-10a/T3.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Basalt/2026-11-10a/T3.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T3.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T3.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T3.json"
    },
    "fit": [],
    "diffs": [
@@ -1641,9 +1641,9 @@
    "read_first": "Kalibr's intrinsics and baselines are inputs from an MVIS export; its td and lever are solved given them.",
    "notes": [],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/MVIS/2026-11-10a/T9.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Kalibr/2026-11-10a/T9.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Basalt/2026-11-10a/T9.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T9.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T9.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T9.json"
    },
    "fit": [
     {
@@ -4176,16 +4176,21 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -1.5111,
-        "h": 0.10615
+        "c": -1.52228,
+        "h": 0.108597
        },
        "lanes": [
         {
          "col": "calyx",
          "tool": "MVIS",
          "label": "MVIS",
-         "state": "missing",
-         "note": "not in this tool's model"
+         "state": "ok",
+         "med": -1.53345,
+         "sd": 0.0622298,
+         "n": 4,
+         "text": "−1.533",
+         "min": -1.621,
+         "max": -1.4858
         },
         {
          "col": "mvis",
@@ -4378,9 +4383,9 @@
    "read_first": "Kalibr's intrinsics and baselines are inputs from an MVIS export; its td and lever are solved given them.",
    "notes": [],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/MVIS/2026-11-10a/T10.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Kalibr/2026-11-10a/T10.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/fe8ee9fd41f168b467aa290a2e4078f443834092/Basalt/2026-11-10a/T10.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T10.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T10.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T10.json"
    },
    "fit": [
     {
@@ -6913,16 +6918,21 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -1.63975,
-        "h": 0.103345
+        "c": -1.63675,
+        "h": 0.100045
        },
        "lanes": [
         {
          "col": "calyx",
          "tool": "MVIS",
          "label": "MVIS",
-         "state": "missing",
-         "note": "not in this tool's model"
+         "state": "ok",
+         "med": -1.63375,
+         "sd": 0.0553593,
+         "n": 4,
+         "text": "−1.634",
+         "min": -1.6967,
+         "max": -1.5615
         },
         {
          "col": "mvis",

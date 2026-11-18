@@ -176,7 +176,7 @@ def block(row: dict, method: str, camimu: bool) -> dict | None:
     """The stats block behind a record method on a row: the same mapping as export_threeway.block()."""
     s, b = row.get("stats") or {}, row.get("bstats") or {}
     if method == "MVIS":
-        return s.get("calyx") if camimu else s.get("mvis_all")
+        return (s.get("calyx_all") or s.get("calyx")) if camimu else s.get("mvis_all")
     if method == "MVIS (Kalibr IMU model)":
         return s.get("mvis_all")
     if method == "Kalibr":
@@ -185,7 +185,9 @@ def block(row: dict, method: str, camimu: bool) -> dict | None:
 
 
 # stats block -> the per-recording dict it was computed from
-BLOCK_DICT = (("stats", "mvis_all", "mvis_all"), ("stats", "calyx", "calyx"), ("stats", "kalibr", "kalibr"),
+# calyx_all (stats files since 2026-11-18) covers the whole calyx dict; the matched calyx block is then a subset
+BLOCK_DICT = (("stats", "mvis_all", "mvis_all"), ("stats", "calyx_all", "calyx"), ("stats", "calyx", "calyx"),
+              ("stats", "kalibr", "kalibr"),
               ("stats", "mvis", "mvis"), ("bstats", "basalt_all", "basalt"))
 
 
@@ -225,7 +227,7 @@ def gate(stats: dict, records: dict, batch: str) -> list[str]:
         for row in fam["rows"]:
             for part, name, dname in BLOCK_DICT:
                 st = (row.get(part) or {}).get(name)
-                if not st:
+                if not st or (name == "calyx" and "calyx_all" in (row.get(part) or {})):
                     continue
                 if dname not in row:
                     out.append(f"({T}, {row['sensor']}, {row['key']}, {name}): no per-recording dict to check")
