@@ -27,15 +27,15 @@ def test_single_clip_page_html_is_unchanged():
 
 def test_hub_rows_become_links_to_the_right_repo():
     html = S.dataset_rows({"dataset": [["Hosted", "__HUB:community/xq20/__"], ["Copy", "__HUB:datasets/converted/tum_mic/__. CC BY 4.0"]]}, "https://h")
-    assert '<a href="https://huggingface.co/datasets/calibench-vi/community/tree/main/xq20/">Calibench community, xq20/</a> (access by automatic approval)' in html
-    assert '<a href="https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/tum_mic/">Calibench, converted/tum_mic/</a> (access by automatic approval). CC BY 4.0' in html
+    assert '<a href="https://huggingface.co/datasets/calibench-vi/community/tree/main/xq20/">Calibench-VI community, xq20/</a> (access by automatic approval)' in html
+    assert '<a href="https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/tum_mic/">Calibench-VI, converted/tum_mic/</a> (access by automatic approval). CC BY 4.0' in html
     assert "__HUB" not in html
 
 
 def test_dataset_rows_on_a_plain_folder_page_are_unchanged():
     assert S.dataset_rows({"dataset": [["A", "B"]], "folder": "x/"}, "https://d") == (
         "<tr><td>A</td><td>B</td></tr><tr><td>Licence</td><td>CC BY-NC 4.0, for the data and for this page&#x27;s clip and figures; commercial use by request</td></tr>"
-        '<tr><td>Hosted</td><td><a href="https://d/x/">Calibench, x/</a> (access by automatic approval)</td></tr>')
+        '<tr><td>Hosted</td><td><a href="https://d/x/">Calibench-VI, x/</a> (access by automatic approval)</td></tr>')
 
 
 def test_a_page_that_places_its_own_link_scopes_its_own_licence():

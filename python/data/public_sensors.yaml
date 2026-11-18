@@ -16,12 +16,7 @@ sensors:
     title: Intel RealSense T265
     description: Global-shutter fisheye stereo tracking camera with a BMI055 IMU, calibrated with MVIS on one recording of our rig.
     lead: Tracking camera from Intel with two global-shutter fisheye cameras and a Bosch BMI055 IMU, solved here on its own IMU from one recording of our VI-Rig.
-    chips: [Global shutter, Stereo fisheye, 200 Hz IMU, CC BY-NC 4.0]
-    card: {name: "T265", tags: [Global shutter, 2 cameras, 200 Hz IMU], sensors: "Stereo global-shutter fisheye + BMI055 @ 200 Hz", format: "ROS bag", shows: "A low-cost IMU with a gyro-to-accel time offset"}
-    source: https://www.intelrealsense.com/tracking-camera-t265/
-    source_label: Intel RealSense T265 page
-    checked: 2026-11-03
-    company: {name: Intel RealSense, url: "https://www.intelrealsense.com/"}
+    card: {name: "T265", tags: [Global shutter, 2 cameras, 200 Hz IMU]}
     hardware:
       - [Cameras, "2 × OV9282, 848×800 at 30 Hz", Maker]
       - [Shutter, Global, Maker]
@@ -49,7 +44,7 @@ sensors:
         shutter: {v: Global, tag: catalog}
         fov: {auto: fov, also: {v: "163° diagonal", tag: maker, src: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}}
         baseline: {auto: baseline}
-        imu: {v: "BMI055, gyro 200 Hz, accel 62.5 Hz"}
+        imu: {v: "BMI055, gyro 200 Hz, accel 62.5 Hz", tag: measured}
         output: {v: USB 3, tag: maker, src: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
   realsense-d455:
     group: cameras
@@ -57,13 +52,8 @@ sensors:
     title: RealSense D455
     description: Depth camera with a global-shutter infrared stereo pair, a global-shutter RGB camera and a 6-axis IMU, calibrated with MVIS as three cameras + IMU on one chessboard recording.
     lead: Depth camera from RealSense with a 95 mm global-shutter infrared stereo pair, a global-shutter RGB camera and a 6-axis IMU. One hand-held recording in front of a chessboard on a screen, solved as left infrared + right infrared + RGB + IMU.
-    chips: [Global shutter, 3 cameras, 400 Hz IMU, CC BY-NC 4.0]
     demo: {from: "realsense-d455_small", note: "The 3D scene MVIS recovered from this recording."}
-    card: {name: "D455", maker: RealSense, tags: [Global shutter, 3 cameras, 400 Hz IMU], sensors: "IR stereo + RGB, all global shutter + IMU @ 400 Hz", format: "ROS bag", shows: "Three global-shutter cameras and an IMU solved together from a chessboard on a screen"}
-    source: https://www.realsenseai.com/products/real-sense-depth-camera-d455f/
-    source_label: RealSense D455 page
-    checked: 2026-11-13
-    company: {name: RealSense, url: "https://www.realsenseai.com/"}
+    card: {name: "D455", maker: RealSense, tags: [Global shutter, 3 cameras, 400 Hz IMU]}
     hardware:
       - [Maker, "RealSense (formerly Intel RealSense)", Maker]
       - [Camera module, "RealSense Module D450 with the Vision Processor D4", Maker]
@@ -96,21 +86,16 @@ sensors:
         shutter: {v: Global, tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
         fov: {auto: fov, also: {v: "87° × 58° depth, 90° × 65° RGB", tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}}
         baseline: {auto: baseline}
-        imu: {v: "BMI055, gyro 400 Hz, accel 250 Hz"}
+        imu: {v: "BMI055, gyro 400 Hz, accel 250 Hz", tag: measured}
         output: {v: "USB-C, ROS bag", tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
   realsense-d456:
     group: cameras
     key: realsense-d456
     title: RealSense D456
-    description: Depth camera with a global-shutter infrared stereo pair, a global-shutter RGB camera and a 6-axis IMU, calibrated with MVIS as three cameras + IMU on one chessboard recording.
+    description: IP65 depth camera on the same D450 module as the D455, with a global-shutter infrared stereo pair, a global-shutter RGB camera and a 6-axis IMU, calibrated with MVIS as three cameras + IMU on one chessboard recording.
     lead: Depth camera from RealSense with a 95 mm global-shutter infrared stereo pair, a global-shutter RGB camera and a 6-axis IMU in an IP65 enclosure, built on the same D450 camera module as the D455. One hand-held recording in front of a chessboard on a screen, solved as left infrared + right infrared + RGB + IMU.
-    chips: [Global shutter, 3 cameras, 400 Hz IMU, IP65, CC BY-NC 4.0]
     demo: {from: "realsense-d456_small", note: "The 3D scene MVIS recovered from this recording."}
-    card: {name: "D456", maker: RealSense, tags: [Global shutter, 3 cameras, 400 Hz IMU], sensors: "IR stereo + RGB, all global shutter + IMU @ 400 Hz", format: "ROS bag", shows: "The IP65 version of the D455: three global-shutter cameras and an IMU solved together"}
-    source: https://www.realsenseai.com/products/d456-usb/
-    source_label: RealSense D456 page
-    checked: 2026-11-13
-    company: {name: RealSense, url: "https://www.realsenseai.com/"}
+    card: {name: "D456", maker: RealSense, tags: [Global shutter, 3 cameras, 400 Hz IMU]}
     hardware:
       - [Maker, "RealSense (formerly Intel RealSense)", Maker]
       - [Camera module, "RealSense Module D450 with the Vision Processor D4", Maker]
@@ -144,7 +129,7 @@ sensors:
         shutter: {v: Global, tag: maker, src: "https://www.realsenseai.com/products/d456-usb/"}
         fov: {auto: fov, also: {v: "87° × 58° depth, 90° × 65° RGB", tag: maker, src: "https://www.realsenseai.com/products/d456-usb/"}}
         baseline: {auto: baseline}
-        imu: {v: "6-axis, gyro 400 Hz, accel 200 Hz"}
+        imu: {v: "6-axis, gyro 400 Hz, accel 200 Hz", tag: measured}
         output: {v: "USB-C, ROS bag", tag: maker, src: "https://www.realsenseai.com/products/d456-usb/"}
   realsense-d435i:
     group: cameras
@@ -152,14 +137,9 @@ sensors:
     title: RealSense D435i
     description: Depth camera with a global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU, calibrated with MVIS as RGB + IMU on three AprilGrid recordings.
     lead: Depth camera from RealSense with a 50 mm global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU. Three hand-held recordings in front of an AprilGrid, each solved as RGB + IMU with the rolling-shutter readout estimated.
-    chips: [Rolling shutter, RGB + IMU, 3 recordings, 200 Hz IMU]
     demo: {from: "realsense-d435i_small", note: "The 3D scene MVIS recovered from the first recording."}
     run_labels: [Recording 1, Recording 2, Recording 3]
-    card: {name: "D435i", maker: RealSense, tags: [Rolling shutter, 1 camera, 200 Hz IMU], sensors: "Rolling-shutter RGB + IMU @ 200 Hz", format: "EuRoC mav0", shows: "A rolling-shutter RGB camera and its IMU, three recordings side by side"}
-    source: https://www.realsenseai.com/products/depth-camera-d435i/
-    source_label: RealSense D435i page
-    checked: 2026-11-14
-    company: {name: RealSense, url: "https://www.realsenseai.com/"}
+    card: {name: "D435i", maker: RealSense, tags: [Rolling shutter, 1 camera, 200 Hz IMU]}
     hardware:
       - [Maker, "RealSense (formerly Intel RealSense)", Maker]
       - [Shutter, "Global on the infrared pair, rolling on the RGB camera", Maker]
@@ -190,7 +170,7 @@ sensors:
         shutter: {v: "Rolling (RGB)", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
         fov: {auto: fov, also: {v: "69° × 42° RGB, 87° × 58° depth", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}}
         baseline: {v: "50 mm, infrared pair (not used here)", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}
-        imu: {v: "BMI055, 200 Hz"}
+        imu: {v: "BMI055, 200 Hz", tag: measured}
         output: {v: "USB-C, EuRoC mav0", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
   zed2:
     group: cameras
@@ -198,12 +178,7 @@ sensors:
     title: Stereolabs ZED 2
     description: Rolling-shutter stereo camera with a 120 mm baseline and a 400 Hz IMU, calibrated with MVIS on the public WHUVID calibration recording.
     lead: Stereo depth camera from Stereolabs with two rolling-shutter cameras 120 mm apart, wide 2.1 mm lenses and a built-in IMU at 400 Hz. This is the camera of the WHUVID driving dataset from Wuhan University; both cameras and the IMU are solved together from the authors' own calibration recording, with the rolling-shutter readout estimated.
-    chips: [Rolling shutter, Stereo, 400 Hz IMU, CC BY 4.0]
-    card: {name: "ZED 2", maker: Stereolabs, tags: [Rolling shutter, 2 cameras, 400 Hz IMU], sensors: "Stereo rolling-shutter 720p + IMU @ 400 Hz", format: "ROS bag", shows: "A wide stereo camera with its rolling-shutter readout solved"}
-    source: https://www.stereolabs.com/en-us/products/zed-2
-    source_label: Stereolabs ZED 2 product page
-    checked: 2026-11-17
-    company: {name: Stereolabs, url: "https://www.stereolabs.com/"}
+    card: {name: "ZED 2", maker: Stereolabs, tags: [Rolling shutter, 2 cameras, 400 Hz IMU]}
     hardware:
       - [Maker, Stereolabs, Maker]
       - [Image sensors, "2 × 4 MP 1/3-inch back-illuminated CMOS, 2 µm pixels", Maker]
@@ -246,14 +221,13 @@ sensors:
     title: LooperRobotics Insight 9
     description: Two global-shutter mono cameras, one rolling-shutter colour camera and a 400 Hz IMU, calibrated with MVIS on 4 chessboard recordings of our own unit and on 10 hand-held and 2 robot-arm recordings.
     lead: Sensor head from Looper Robotics with two global-shutter mono cameras, one rolling-shutter colour camera and a 400 Hz IMU. Our own unit on a chessboard, and the hand-held and robot-arm recordings, are shown separately.
-    chips: [Global + rolling shutter, 3 cameras, 400 Hz IMU, Chessboard + hand-held + robot arm, Hand-held data CC BY-NC 4.0]
     example: {url: "/benchmark/examples/looper-insight9/", label: "Looper Insight 9"}
     thanks:
       people:
         - {name: Qinrui Yan, role: "COO & Co-Founder, DeepMirror; Head of LooperRobotics", url: "https://www.linkedin.com/in/qinrui-yan-3625aa90"}
         - {name: Junjie Tang, role: DeepMirror, url: "https://www.linkedin.com/in/junjie-tang-271b8033a"}
       note: They collected the hand-held and robot-arm recordings and supported sharing this work openly.
-    card: {name: "Insight 9", tags: [Global + rolling shutter, 3 cameras, 400 Hz IMU], sensors: "2 mono + 1 rolling-shutter colour + IMU @ 400 Hz", format: "ROS bag → EuRoC mav0", shows: "Camera + IMU solves of our own unit on a chessboard and of 2 robot-arm recordings"}
+    card: {name: "Insight 9", tags: [Global + rolling shutter, 3 cameras, 400 Hz IMU]}
     demo:
       by_variant:
         - {from: "looper-insight9-chessboard_small", note: "The 3D scene MVIS recovered from chessboard take 04 of our own unit. Everything except the board is blurred."}
@@ -300,8 +274,7 @@ sensors:
     title: Dibuli Prism-A4L
     description: Multi-sensor capture box with four global-shutter fisheye cameras and a 6-axis IMU, calibrated with MVIS from the maker's public example data.
     lead: Multi-sensor capture box from Dibuli with four global-shutter fisheye cameras and a 6-axis IMU, solved from the maker's public example data at two exposures.
-    chips: [Global shutter, 4 cameras, 798 Hz IMU, CC BY-NC 4.0]
-    card: {name: "Prism-A4L", maker: Dibuli, tags: [Global shutter, 4 cameras, 798 Hz IMU], sensors: "4 global-shutter fisheye + IMU @ 798 Hz", format: "Camera + IMU bags", shows: "Very wide lenses on an EUCM fit, at two exposures"}
+    card: {name: "Prism-A4L", maker: Dibuli, tags: [Global shutter, 4 cameras, 798 Hz IMU]}
     demo: {from: "dibuli-prism-a4l-new_small", note: "The 3D scene MVIS recovered from the maker's example data, 1,000 µs exposure."}
     hardware:
       - [Cameras, "Up to 4 global-shutter, 1280×1024 MJPEG, 1 to 30 fps", Maker]
@@ -319,7 +292,7 @@ sensors:
       - No independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
       - td changes with exposure. The exact slope is still open.
     header:
-      type: "Multi-sensor synchronized capture device: 1–4 global-shutter cameras, 6-axis IMU"
+      type: "Multi-sensor synchronised capture device: 1–4 global-shutter cameras, 6-axis IMU"
       maker: {name: DIBULI, url: "https://dibuli.com"}
       links: {product: "https://dibuli.com/index.html", more: [{label: Spec sheet, url: "https://dibuli.com/content/docs/Prism-A4L-product-specification.pdf"}, {label: Example data, url: "https://files.dibuli.com/sharing/public/Prism/datasets/"}, {label: SDK, url: "https://github.com/DIBULI/Prism-SDK"}]}
       image: {kind: photo, file: dibuli-prism-a4l.jpg, alt: "Prism-A4L cameras around an optional LiDAR, beside the capture box", credit: "Photo: DIBULI, product page. LiDAR shown is optional", url: "https://dibuli.com/index.html"}
@@ -337,13 +310,8 @@ sensors:
     title: ALG AVS111C-Y stereo module
     description: GMSL2 global-shutter stereo module from ALG Tech with a 6-axis IMU, calibrated with MVIS as stereo + IMU.
     lead: GMSL2 stereo camera module from Shenzhen Aili-Light Technology (ALG Tech, 艾利光), with two global-shutter cameras 50 mm apart and a 6-axis IMU. Three recordings, each solved as stereo + IMU; this page shows the longest. The recordings match ALG's AVS111C-Y; the exact model isn't confirmed by the maker.
-    chips: [Stereo, Global shutter, 200 Hz IMU, GMSL2, CC BY-NC 4.0]
-    card: {name: "AVS111C-Y stereo", maker: ALG Tech, tags: [Global shutter, 2 cameras, 200 Hz IMU], sensors: "Stereo global-shutter + IMU @ 200 Hz", format: "ROS2 bag → EuRoC mav0", shows: "A stereo + IMU solve on a ChArUco board, repeated on three recordings"}
+    card: {name: "AVS111C-Y stereo", maker: ALG Tech, tags: [Global shutter, 2 cameras, 200 Hz IMU]}
     demo: {from: "alg-avs111c_small", note: "The 3D scene MVIS recovered from the 08:41:48 recording, the one solved on this page."}
-    source: https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html
-    source_label: ALG AVS111C-Y product page
-    checked: 2026-11-11
-    company: {name: Shenzhen Aili-Light Technology (ALG Tech), url: "https://www.aili-light.com/"}
     hardware:
       - [Maker, Shenzhen Aili-Light Technology (ALG Tech), Maker]
       - [Closest published model, "AVS111C-Y: 1280×800, 50 mm baseline, 120° × 76°, global shutter. Matched from this recording; the exact model isn't confirmed", Maker]
@@ -375,26 +343,21 @@ sensors:
       image: {kind: photo, file: alg-avs111c.png, alt: "ALG AVS111C-Y stereo camera module", credit: "Photo: ALG Tech, AVS111C-Y product page. Closest published model; exact model not confirmed", url: "https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
       foot: "Values measured in the 148 s recording · Maker values from the AVS111C-Y product page, read 2026-11-06 · CC BY-NC 4.0"
       key_specs:
-        cameras: {v: "2 × 1280×800"}
+        cameras: {v: "2 × 1280×800", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
         fov: {auto: fov}
         baseline: {auto: baseline}
-        imu: {v: "6-axis, 200 Hz here"}
-        output: {v: "GMSL2, ROS2 bag"}
+        imu: {v: "6-axis, 200 Hz here", tag: measured}
+        output: {v: "GMSL2, ROS2 bag", tag: measured}
   alg-avs115d:
     group: cameras
     key: alg-avs115d
     title: ALG AVS115D-Y stereo module
     description: GMSL2 rolling-shutter stereo module from ALG Tech with a 6-axis IMU, calibrated with MVIS as stereo + IMU with the rolling-shutter readout estimated.
     lead: GMSL2 stereo camera module from Shenzhen Aili-Light Technology (ALG Tech, 艾利光), with two 1920×1920 rolling-shutter cameras 65 mm apart and a 6-axis IMU. Two hand-held recordings in front of a ChArUco board, the second in stronger light with a much shorter exposure, each solved as stereo + IMU with each camera's readout time estimated.
-    chips: [Stereo, Rolling shutter, 200 Hz IMU, GMSL2, CC BY-NC 4.0]
-    card: {name: "AVS115D-Y stereo", maker: ALG Tech, tags: [Rolling shutter, 2 cameras, 200 Hz IMU], sensors: "Stereo rolling-shutter + IMU @ 200 Hz", format: "ROS2 bag → EuRoC mav0", shows: "A stereo + IMU solve with the rolling-shutter readout estimated"}
+    card: {name: "AVS115D-Y stereo", maker: ALG Tech, tags: [Rolling shutter, 2 cameras, 200 Hz IMU]}
     demo: {from: "alg-avs115d_small", note: "The 3D scene MVIS recovered from recording 1."}
     run_labels: [Recording 1, Recording 2]
-    source: https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera
-    source_label: ALG AVS115D-Y product page
-    checked: 2026-11-14
-    company: {name: Shenzhen Aili-Light Technology (ALG Tech), url: "https://www.aili-light.com/"}
     hardware:
       - [Maker, Shenzhen Aili-Light Technology (ALG Tech), Maker]
       - [Model, "AVS115D-Y, 1920×1920 at 30 fps (AVS115D-B06-M95DFA1-RABI)", Maker]
@@ -427,25 +390,20 @@ sensors:
       image: {kind: photo, file: alg-avs115d.jpg, alt: "ALG AVS115D-Y stereo camera module", credit: "Photo: ALG Tech, AVS115D-Y product page", url: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
       foot: "Values measured in the 163 s and 101 s recordings · Maker values from the AVS115D-Y product page, read 2026-11-14 · CC BY-NC 4.0"
       key_specs:
-        cameras: {v: "2 × 1920×1920"}
+        cameras: {v: "2 × 1920×1920", tag: measured}
         shutter: {v: Rolling, tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
         fov: {auto: fov, also: {v: "119° × 119°", tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}}
         baseline: {auto: baseline}
-        imu: {v: "ICM-45686, 200 Hz here"}
-        output: {v: "GMSL2, ROS2 bag"}
+        imu: {v: "ICM-45686, 200 Hz here", tag: measured}
+        output: {v: "GMSL2, ROS2 bag", tag: measured}
   cyperstereo:
     group: cameras
     key: cyperstereo
     title: CyperStereo four-camera module
     description: Four-camera global-shutter RGB module from Tujian with a Bosch BMI088, calibrated with MVIS as four cameras + IMU.
     lead: Four-camera inertial module from Shenzhen Tujian Intelligent Technology (图间智能). Four global-shutter RGB cameras sit on separate 25 × 25 mm boards, cabled to one controller with a Bosch BMI088 IMU; two cameras have 160° lenses and two have 200° lenses, and the baseline is set by how the boards are mounted. One recording, solved as four cameras + IMU.
-    chips: [4 cameras, Global shutter, 200° fisheye, 200 Hz IMU]
     demo: {from: "cyperstereo2_small", note: "The 3D scene MVIS recovered from this recording, first 20 s, each camera in turn."}
-    card: {name: "CyperStereo", maker: Tujian, tags: [Global shutter, 4 cameras, 200 Hz IMU], sensors: "4 global-shutter RGB fisheye + BMI088 @ 200 Hz", format: "ROS bag", shows: "Four wide-angle cameras (160° and 200°) and an IMU solved together"}
-    source: https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/contents.html
-    source_label: CyperStereo product documentation
-    checked: 2026-11-15
-    company: {name: Shenzhen Tujian Intelligent Technology, url: "https://tujian.tech"}
+    card: {name: "CyperStereo", maker: Tujian, tags: [Global shutter, 4 cameras, 200 Hz IMU]}
     hardware:
       - [Maker, Shenzhen Tujian Intelligent Technology (深圳市图间智能科技有限公司), Maker]
       - [Image sensor, "SmartSens SC136HGS, RGB, global shutter, back-illuminated, 4 × 4 µm pixels", Maker]
@@ -476,26 +434,20 @@ sensors:
       image: {kind: photo, file: cyperstereo.jpg, alt: "CyperStereo controller board with four camera boards on cables", credit: "Photo: Tujian, CyperStereo product manual", url: "https://tujian.tech"}
       foot: "Values measured in this recording · Maker values from the CyperStereo product manual, read 2026-11-11"
       key_specs:
-        cameras: {v: "4 × 1280×1024 RGB"}
+        cameras: {v: "4 × 1280×1024 RGB", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/contents.html"}
         fov: {auto: fov, also: {v: "160° and 200° diagonal", tag: maker, src: "https://cyperstereo-sdk-docs-zh-cn.readthedocs.io/zh-cn/latest/src/product/contents.html"}}
         baseline: {auto: baseline}
-        imu: {v: "Bosch BMI088, 200 Hz"}
-        output: {v: "USB 3.0 / UVC, ROS bag"}
+        imu: {v: "Bosch BMI088, 200 Hz", tag: measured}
+        output: {v: "USB 3.0 / UVC, ROS bag", tag: measured}
   hampo:
     group: cameras
     key: hampo
     title: Hampo stereo module
     description: Stereo fisheye colour module from Hampo with a 500 Hz IMU, calibrated with MVIS as stereo and as cam0 alone.
     lead: Stereo fisheye colour module from Dongguan Hampo Electronic Technology (翰普), with an IMU at about 500 Hz. One recording, solved as stereo and as cam0 alone.
-    chips: [Stereo, Colour, 505 Hz IMU, CC BY-NC 4.0]
-    card: {name: "Stereo module", maker: Hampo, tags: [2 cameras, 505 Hz IMU], sensors: "Stereo colour fisheye + IMU @ 505 Hz", format: "MP4 → EuRoC mav0", shows: "Stereo and single-camera solves of one recording"}
-    source: https://www.hampotech.com/3372-wifi-ego-camera-module-for-egocentric-data-collection-global-shutter-stereo-6-axis-imu-sd-recording-product/
-    source_label: Hampo USB-3372 product page
-    checked: 2026-11-03
-    company: {name: Dongguan Hampo Electronic Technology, url: "https://www.hampotech.com/"}
+    card: {name: "Stereo module", maker: Hampo, tags: [2 cameras, 505 Hz IMU]}
     hardware:
-      - [Maker, Dongguan Hampo Electronic Technology, Owner]
       - [Closest published model, "USB-3372-V1.0: dual 2MP global shutter, M12 fixed focus, IMU at 100, 200 or 500 Hz, SD storage. The exact model isn't confirmed", Maker]
       - [Cameras, "2 × 1600×1200, H.264, 30 fps, colour", Measured]
       - [Shutter, "Not confirmed on this unit; global on the USB-3372 sheet", Unknown]
@@ -524,20 +476,18 @@ sensors:
       image: {kind: photo, file: hampo.jpg, alt: "Hampo USB-3372 camera board", credit: "Photo: Hampo, USB-3372 launch note. Closest published model; exact model not confirmed", url: "https://www.hampotech.com/news/hampo-launches-wifi-and-bluetooth-enabled-ego-camera-module-for-untethered-embodied-ai-data-collection/"}
       foot: "Values measured in this recording · Data on Hugging Face"
       key_specs:
-        cameras: {v: "2 × 1600×1200, H.264, 30 fps, colour"}
+        cameras: {v: "2 × 1600×1200, H.264, 30 fps, colour", tag: measured}
         shutter: {v: Not confirmed on this unit, tag: not_published}
         fov: {auto: fov}
         baseline: {auto: baseline}
-        imu: {v: 505 Hz}
-        output: {v: MP4 + IMU file}
+        imu: {v: 505 Hz, tag: measured}
+        output: {v: MP4 + IMU file, tag: measured}
   gi-ego1:
     group: head-worn
     title: GI Ego1
     description: Head-worn rolling-shutter fisheye stereo with a 200 Hz IMU, calibrated with MVIS on one recording.
-    lead: One 30-second recording of an AprilGrid, solved with MVIS for camera, IMU and time offsets, with the rolling-shutter readout estimated too.
-    chips: [Rolling shutter, Stereo, 200 Hz IMU, CC BY-NC 4.0]
-    card: {tags: [Rolling shutter, 2 cameras, 200 Hz IMU], sensors: "Stereo rolling-shutter fisheye + IMU @ 200 Hz", format: "MCAP → EuRoC mav0", shows: "Readout estimated with the rig, from one recording"}
-    source: https://www.gilabs.xyz/blog/ego1
+    lead: Head-worn stereo headset from General Intelligence Labs with two colour rolling-shutter fisheye cameras and a 9-DoF IMU. One 30-second recording of an AprilGrid, solved with MVIS for camera, IMU and time offsets, with the rolling-shutter readout estimated too.
+    card: {tags: [Rolling shutter, 2 cameras, 200 Hz IMU]}
     demo: {from: "gi-ego1-blurred_small", note: "The 3D scene MVIS recovered from this recording. Everything except the board is blurred."}
     hardware:
       - [Shutter, "Rolling, readout about 26 ms (solved)", Measured]
@@ -573,11 +523,9 @@ sensors:
   gi-ego1gs:
     group: head-worn
     title: GI EGO1GS
-    description: Head-worn global-shutter fisheye stereo with an IMU at about 470 Hz, calibrated with MVIS on one recording.
-    lead: "Two 30-second recordings of an AprilGrid, solved with MVIS for camera, IMU and time offsets."
-    chips: [Global shutter, Stereo, 400 Hz IMU, CC BY-NC 4.0]
-    card: {tags: [Global shutter, 2 cameras, 400 Hz IMU], sensors: "Stereo global-shutter fisheye + IMU @ 400 Hz", format: "MCAP → EuRoC mav0", shows: "Very wide lenses, and gaps from frames lost at decode"}
-    source: https://www.gilabs.xyz/products/ego1gs
+    description: Head-worn global-shutter fisheye stereo with an IMU published at 400 Hz (471 and 477 Hz in these recordings), calibrated with MVIS on two recordings.
+    lead: "Head-worn stereo headset from General Intelligence Labs with two colour global-shutter cameras 63 mm apart, a 9-DoF IMU and stereo microphones. Two 30-second recordings of an AprilGrid, solved with MVIS for camera, IMU and time offsets."
+    card: {tags: [Global shutter, 2 cameras, 400 Hz IMU]}
     demo: {from: "gi-ego1gs-rec2_small", note: "The 3D scene MVIS recovered from recording 2. Everything except the board is blurred."}
     run_labels: [Recording 1, Recording 2]
     hardware:
@@ -585,7 +533,7 @@ sensors:
       - [Cameras, "2 × 1080p at 30 fps", Maker]
       - [Field of view, "157° × 84°", Maker]
       - [Baseline, 63 mm, Maker]
-      - [IMU rate, "400 Hz published, 470.9 Hz in this recording", Measured]
+      - [IMU rate, "400 Hz published; 470.9 Hz in recording 1, 476.8 Hz in recording 2", Measured]
       - [Audio, Stereo microphones, Maker]
       - [Sensor part numbers, Not published, Unknown]
     dataset:
@@ -623,12 +571,9 @@ sensors:
             - {item: Connectivity, v: "Wi-Fi and USB", src: "https://www.gilabs.xyz/products/ego1gs"}
             - {item: Power, v: "USB power bank; 12 to 16 hours on 10,000 mAh", src: "https://www.gilabs.xyz/blog/ego1gs-vs-project-aria-vs-ego-oscar"}
             - {item: Weight, v: "About 200 g, headset only", src: "https://www.gilabs.xyz/products/ego1gs"}
-        - title: Measured in this recording
+        - title: Measured in these recordings
           rows:
-            - {item: IMU rate, v: 470.9 Hz}
-        - title: Maker
-          rows:
-            - {item: Company, v: "General Intelligence Labs, San Francisco", url: "https://www.gilabs.xyz/"}
+            - {item: IMU rate, v: "470.9 Hz (recording 1), 476.8 Hz (recording 2)"}
         - title: Not published
           rows:
             - {item: Parts, v: "Sensor part numbers, lens model"}
@@ -637,8 +582,7 @@ sensors:
     title: XQ20 stereo headset
     description: Head-worn stereo camera with a 300 Hz IMU, calibrated with MVIS on two units.
     lead: Head-worn stereo fisheye camera with a 6-axis IMU, recording to a memory card. Borme, a brand of Shenzhen Feikasi Industrial Co., Ltd., sells it as the XQ20. Two units were calibrated.
-    chips: [Stereo, 300 Hz IMU, 2 units, CC BY-NC 4.0]
-    card: {tags: [Global shutter, 2 cameras, 300 Hz IMU], sensors: "Stereo fisheye + IMU @ 300 Hz", format: "MP4 + IMU CSV → EuRoC mav0", shows: "Two units of one headset, and why a Kalibr noise file needs care in MVIS"}
+    card: {tags: [Global shutter, 2 cameras, 300 Hz IMU]}
     hardware:
       - [Cameras, "2 × 1920×1200, H.265 MP4", Supplier]
       - [Frame rate, "30 or 60 fps on the sheet; about 30 Hz in these recordings", Supplier]
@@ -687,13 +631,8 @@ sensors:
     title: Valve Index
     description: VR headset with a global-shutter fisheye stereo pair and a 1 kHz IMU, calibrated with MVIS on the Monado dataset.
     lead: VR headset from Valve with a front global-shutter fisheye stereo pair and a 6-axis IMU at about 1 kHz, solved from the Monado SLAM calibration data.
-    chips: [Global shutter, Stereo fisheye, 1 kHz IMU, CC BY 4.0]
     example: {url: "/benchmark/examples/monado/", label: "Monado example, run on the HP Reverb G2"}
-    card: {name: "Index", tags: [Global shutter, 2 cameras, 1 kHz IMU], sensors: "Stereo global-shutter fisheye + IMU @ 1 kHz", format: "EuRoC mav0", shows: "A consumer headset, from public data"}
-    source: https://www.valvesoftware.com/en/index
-    source_label: Valve Index page
-    checked: 2026-11-03
-    company: {name: Valve, url: "https://www.valvesoftware.com/"}
+    card: {name: "Index", tags: [Global shutter, 2 cameras, 1 kHz IMU]}
     demo: {existing: "/media/hero/hero_mic_960", note: "Recovered by MVIS from the Monado calibration data."}
     hardware:
       - [Cameras, "2 × 960×960 at 54 Hz, grayscale", Dataset]
@@ -731,10 +670,8 @@ sensors:
     title: HP Reverb G2
     description: VR headset with 640×480 tracking cameras and a 1 kHz IMU, calibrated with MVIS on the Monado dataset.
     lead: VR headset from HP with four 640×480 grayscale tracking cameras and an IMU at about 1 kHz. All four are solved from the Monado SLAM calibration data, in three pair recordings stitched together.
-    chips: [4 cameras, Stitched from pairs, 1 kHz IMU, CC BY 4.0]
     example: {url: "/benchmark/examples/monado/", label: "Monado: HP Reverb G2"}
-    card: {name: "Reverb G2", tags: [4 cameras, 1 kHz IMU], sensors: "4 tracking cameras + IMU @ 1 kHz", format: "EuRoC mav0", shows: "Four cameras stitched from three pair recordings"}
-    company: {name: HP, url: "https://www.hp.com/"}
+    card: {name: "Reverb G2", tags: [4 cameras, 1 kHz IMU]}
     demo: {existing: "/media/hero/hero_mgc_960", note: "Recovered by MVIS from the Monado calibration data."}
     hardware:
       - [Cameras, "4 × 640×480 grayscale at 30 Hz", Dataset]
@@ -750,7 +687,7 @@ sensors:
     data_link: {url: "https://huggingface.co/datasets/collabora/monado-slam-datasets", label: "Monado SLAM Datasets"}
     method: "Each recording shows the board to one camera pair, so three pairs are solved: cam0 + cam1, cam0 + cam2, cam1 + cam3. Each is camera + IMU with camera intrinsics free and t_ga estimated, on current MVIS, 2026-11-03. cam0, cam1 and all IMU values come from the first pair. cam2 is attached through cam0 and cam3 through cam1."
     limits:
-      - One recording shown, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
+      - Three pair recordings, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
       - This rig is stitched from three solves, not one joint solve. Cameras seen in two pairs agree to 0.89 mm and 0.34° (cam0) and 0.54 mm and 0.15° (cam1). cam2 and cam3 move 0.79 and 0.52 mm depending on how they are attached.
       - The process figure and values for the IMU show the cam0 + cam1 recording only.
     header:
@@ -758,7 +695,7 @@ sensors:
       maker: {name: HP, url: "https://www.hp.com/"}
       links: {product: "https://www.hp.com/us-en/newsroom/press-releases/2020/hp-valve-microsoft-next-gen-virtual-reality-headset.html", product_label: "HP announcement"}
       image: {kind: photo, file: hp-reverb-g2.jpg, alt: "HP Reverb G2 headset, front view", credit: "Photo: HP, Reverb G2 press release", url: "https://www.hp.com/us-en/newsroom/press-releases/2020/hp-valve-microsoft-next-gen-virtual-reality-headset.html"}
-      foot: "Values from the Monado SLAM Datasets · 1 recording shown · CC BY 4.0 data"
+      foot: "Values from the Monado SLAM Datasets · 3 pair recordings, stitched into one rig · CC BY 4.0 data"
       key_specs:
         cameras: {v: "4 × 640×480, 30 Hz, grayscale", tag: dataset}
         shutter: {v: Not stated, tag: not_published}
@@ -772,9 +709,7 @@ sensors:
     title: Samsung Odyssey+
     description: VR headset with two 640×480 tracking cameras and a 1 kHz IMU, calibrated with MVIS on the Monado dataset.
     lead: VR headset from Samsung with two 640×480 grayscale tracking cameras and an IMU at about 1 kHz, solved from the Monado SLAM calibration data.
-    chips: [Stereo, 1 kHz IMU, CC BY 4.0]
-    card: {name: "Odyssey+", tags: [2 cameras, 1 kHz IMU], sensors: "2 tracking cameras + IMU @ 1 kHz", format: "EuRoC mav0", shows: "A consumer headset, and a recording set that's hard to solve"}
-    company: {name: Samsung, url: "https://www.samsung.com/"}
+    card: {name: "Odyssey+", tags: [2 cameras, 1 kHz IMU]}
     demo: {existing: "/media/hero/hero_moc_960", note: "Recovered by MVIS from the Monado calibration data."}
     hardware:
       - [Cameras, "2 × 640×480 grayscale at 30 Hz", Dataset]
@@ -811,17 +746,12 @@ sensors:
     title: Insta360 ONE RS 1-Inch 360 Edition
     description: Consumer 360° camera with two back-to-back rolling-shutter fisheye lenses and a 1 kHz IMU, calibrated with MVIS on the Hilti-Trimble SLAM Challenge 2026 calibration recordings.
     lead: Consumer 360° camera from Insta360 with two 1-inch sensors behind back-to-back fisheye lenses of about 200° each and a built-in IMU at 1 kHz. It is the camera of the Hilti-Trimble SLAM Challenge 2026 dataset. Each lens is solved with the IMU from the organisers' own calibration recording, using only the part where the camera turns about all three axes, with the rolling-shutter readout and the shape of the calibration board estimated. The first tab puts the two solves together as one rig.
-    chips: [360° camera, Rolling shutter, 2 × 200° fisheye, 1 kHz IMU, CC BY-NC-SA data]
-    card: {name: "ONE RS 1-Inch 360", maker: Insta360, tags: [Rolling shutter, 2 cameras, 1 kHz IMU], sensors: "2 back-to-back rolling-shutter fisheye + IMU @ 1 kHz", format: "ROS 2 bag", shows: "A 360° camera: two 200° lenses and the IMU, readout estimated"}
+    card: {name: "ONE RS 1-Inch 360", maker: Insta360, tags: [Rolling shutter, 2 cameras, 1 kHz IMU]}
     demo:
       by_variant:
         - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
         - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
         - {from: "insta360-back_small", note: "The 3D scene MVIS recovered from the back-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
-    source: https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md
-    source_label: Hilti-Trimble SLAM Challenge 2026, sensors and calibration
-    checked: 2026-11-12
-    company: {name: Insta360, url: "https://www.insta360.com/"}
     hardware:
       - [Maker, "Insta360 (Arashi Vision), lenses co-engineered with Leica", Maker]
       - [Image sensors, "2 × 1-inch CMOS", Maker]
