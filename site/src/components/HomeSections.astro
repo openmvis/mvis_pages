@@ -18,15 +18,19 @@ import HomeDevices from './HomeDevices.astro';
         </div>
       </div>
       <div>
-        <pre class="mhs-term" aria-label="Command-line usage"><span class="c"># cameras only</span>
+        <pre class="mhs-term" aria-label="Command-line usage"><span class="c"># install (Python 3.11 or 3.12)</span>
+<span class="p">$ </span>pip install "pymvis[apriltag,ros1]"
+
+<span class="c"># cameras only</span>
 <span class="p">$ </span>mvis cam -c camera.yaml
 
 <span class="c"># cameras + IMUs, jointly</span>
 <span class="p">$ </span>mvis cam-imu -c cam_imu.yaml
 
-<span class="c"># apply the result and recalibrate; PASS / FAIL</span>
+<span class="c"># check the result: PASS / FAIL</span>
 <span class="p">$ </span>mvis roundtrip -c cam_imu.yaml</pre>
         <p class="mhs-cap">One self-contained HTML report per run.</p>
+        <p class="mhs-cap">Package <code>pymvis</code> 0.1.0 on <a href="https://pypi.org/p/pymvis/">PyPI</a> · command <code>mvis</code> · <a href="/about/license/">GPL-3.0-only or commercial</a> · DOI <a href="https://doi.org/10.5281/zenodo.24239182">10.5281/zenodo.24239182</a></p>
       </div>
     </div>
   </section>
@@ -100,7 +104,7 @@ import HomeDevices from './HomeDevices.astro';
         <h2>Eight projection models.</h2>
         <ul class="mhs-models">
           <li><code>radtan</code><span>Pinhole, radial–tangential</span></li>
-          <li><code>kb4</code><span>Kannala–Brandt fisheye, the default; <a href="/why/kb4/">why</a></span></li>
+          <li><code>kb4</code><span>Kannala–Brandt, the fisheye default (<code>fisheye</code> means kb4); <a href="/why/kb4/">why</a></span></li>
           <li><code>equidistant</code><span>KB polynomial, under 90°</span></li>
           <li><code>fov</code><span>Field-of-view model</span></li>
           <li><code>double_sphere</code><span>Wide-angle fisheye</span></li>

@@ -1,8 +1,17 @@
 # OpenMVIS
 
-> OpenMVIS is open-source multi-visual-inertial sensor calibration. MVIS (Python package `pymvis`, command `mvis`, GPL-3.0) calibrates cameras and IMUs, from one camera to multi-camera, multi-IMU rigs: camera intrinsics and distortion, camera–camera and camera–IMU extrinsics, camera–IMU time offset, rolling-shutter readout, IMU intrinsics, the gyro–accel time offset t_ga, and the calibration board's shape. Calibench-VI is its public benchmark of calibration recordings on Hugging Face.
+> OpenMVIS is open-source multi-visual-inertial sensor calibration. MVIS (Python package `pymvis`, command `mvis`, GPL-3.0-only or a commercial licence) calibrates cameras and IMUs, from one camera to multi-camera, multi-IMU rigs: camera intrinsics and distortion, camera–camera and camera–IMU extrinsics, camera–IMU time offset, rolling-shutter readout, IMU intrinsics, the gyro–accel time offset t_ga, and the calibration board's shape. Calibench-VI is its public benchmark of calibration recordings on Hugging Face.
 
-Open-source camera–IMU calibration tools include Kalibr, Basalt and OpenMVIS. OpenMVIS differs in that it installs with pip and needs no ROS, solves rolling-shutter readout inside the camera–IMU solve, puts several IMUs in one graph (each extra IMU can be gyro-only), estimates the gyro–accel offset t_ga and the board shape, and validates a result with a round-trip PASS/FAIL check. It reads ROS1 and ROS2 bags, EuRoC folders and image folders, and reads and writes Kalibr camchain files.
+Open-source camera–IMU calibration tools include Kalibr, Basalt and OpenMVIS. OpenMVIS differs in that it installs with pip and needs no ROS, solves rolling-shutter readout inside the camera–IMU solve, lets each auxiliary IMU run gyro-only, estimates the gyro–accel offset t_ga and the board shape, and validates a result with a round-trip PASS/FAIL check. Kalibr also solves several IMUs in one run; Basalt takes one IMU per run. MVIS reads ROS1 and ROS2 bags, EuRoC folders and image folders, and reads and writes Kalibr camchain files.
+
+## Key facts
+
+- Install: `pip install "pymvis[apriltag,ros1]"` in a Python 3.11 or 3.12 environment on Linux or macOS (Windows tentative), then `mvis check --env --smoke`
+- Version: MVIS 0.1.0 on [PyPI](https://pypi.org/p/pymvis/); project DOI [10.5281/zenodo.24239182](https://doi.org/10.5281/zenodo.24239182)
+- Code licence: GPL-3.0-only, or a commercial licence ([License](https://openmvis.com/about/license/))
+- Data licence: VI-Rig datasets (ours) CC BY-NC 4.0, gated, commercial licence on request; converted third-party datasets CC BY 4.0
+- Results licence: results computed on our datasets are CC BY 4.0, commercial use included; results you compute on your own recordings are yours
+- Cite: the project DOI above, and the method paper: Yang, Geneva and Huang, "Multi-visual-inertial system: Analysis, calibration, and estimation", The International Journal of Robotics Research 43(13), 2024, [doi:10.1177/02783649241245726](https://doi.org/10.1177/02783649241245726) ([Contributors & citation](https://openmvis.com/about/contributors/))
 
 ## Getting started
 
@@ -14,48 +23,84 @@ Open-source camera–IMU calibration tools include Kalibr, Basalt and OpenMVIS. 
 
 ## Guides
 
-- [Set up the calibration board](https://openmvis.com/guides/board-setup/): pick and measure an AprilGrid, chessboard or ArUco board
-- [Record the dataset](https://openmvis.com/guides/calibration-motion/): how to move the rig so every parameter is observable
-- [Camera-only calibration](https://openmvis.com/guides/camera-calibration/): lens models and camera-to-camera extrinsics, and choosing a fisheye model
-- [Camera–IMU calibration](https://openmvis.com/guides/camera-imu-calibration/): cameras and IMUs in one graph, with IMU intrinsics and t_ga
-- [Multi-IMU spatial-temporal calibration](https://openmvis.com/guides/multi-sensor-rigs/): lever arm, rotation, time offset td and t_ga for each extra IMU
-- [Rolling-shutter calibration](https://openmvis.com/guides/rolling-shutter/): solve a camera's readout time, camera-only and in the camera–IMU solve
-- [Round-trip validation](https://openmvis.com/guides/roundtrip/): check a calibration without ground truth and export a corrected dataset
-- [Digital-twin check](https://openmvis.com/guides/simulation/): re-solve a simulated copy of your rig where the truth is known
+- [1. Set up the calibration board](https://openmvis.com/guides/board-setup/): pick and measure an AprilGrid, chessboard or ArUco board
+- [2. Record the dataset](https://openmvis.com/guides/calibration-motion/): how to move the rig so every parameter is observable
+- [3. Camera-only calibration](https://openmvis.com/guides/camera-calibration/): lens models and camera-to-camera extrinsics, and choosing a fisheye model
+- [4. Camera–IMU calibration](https://openmvis.com/guides/camera-imu-calibration/): cameras and IMUs in one graph, with IMU intrinsics and t_ga
+- [5. Rolling-shutter calibration](https://openmvis.com/guides/rolling-shutter/): solve a camera's readout time, camera-only and in the camera–IMU solve
+- [6. Multi-IMU spatial-temporal calibration](https://openmvis.com/guides/multi-sensor-rigs/): lever arm, rotation, time offset td and t_ga for each extra IMU
+- [7. Digital-twin check](https://openmvis.com/guides/simulation/): re-solve a simulated copy of your rig where the truth is known
+- [8. Round-trip validation](https://openmvis.com/guides/roundtrip/): check a calibration without ground truth and export a corrected dataset
 
-## Why calibrate it
+## Why calibrate
 
-- [Why calibrate rolling shutter](https://openmvis.com/why/rolling-shutter/): treating a rolling-shutter camera as global shutter biases the camera time offset
-- [Why calibrate t_ga](https://openmvis.com/why/tga/): the gyro–accel offset inside one IMU and how it shifts the camera–IMU time offset
 - [Why calibrate the IMU](https://openmvis.com/why/imu/): IMU and timing correction cut OpenVINS position error on Monado headset recordings
-- [Why calibrate cameras together](https://openmvis.com/why/multi-camera/): one joint solve for camera-to-camera extrinsics and per-camera time offsets
-- [Why calibrate IMUs together](https://openmvis.com/why/multi-imu/): IMUs on one rig share neither a clock nor an origin
+- [Why calibrate t_ga](https://openmvis.com/why/tga/): the gyro–accel offset inside one IMU and how it shifts the camera–IMU time offset
 - [Why calibrate the board shape](https://openmvis.com/why/board-shape/): a non-flat board biases focal length, gyro scale and lever arm
 - [Why kb4 for fisheye](https://openmvis.com/why/kb4/): only kb4 projects rays past 90°
+- [Why calibrate rolling shutter](https://openmvis.com/why/rolling-shutter/): treating a rolling-shutter camera as global shutter biases the camera time offset
+- [Why calibrate cameras together](https://openmvis.com/why/multi-camera/): one joint solve for camera-to-camera extrinsics and per-camera time offsets
+- [Why calibrate IMUs together](https://openmvis.com/why/multi-imu/): IMUs on one rig share neither a clock nor an origin
+
+## Benchmark
+
+- [Leaderboard](https://openmvis.com/benchmark/results/): MVIS, Kalibr and Basalt results per dataset, with their spread across recordings
+- [Methodology](https://openmvis.com/benchmark/methodology/): what the leaderboard tables show and how to read them
+
+### Results per dataset
+
+{{results}}
+
+### Examples
+
+- [Examples overview](https://openmvis.com/benchmark/examples/): complete MVIS calibration runs on released datasets
+{{examples}}
+
+## Device wiki
+
+- [Device wiki overview](https://openmvis.com/devices/): one page per device, in the same format, with the calibration process, a map of the solved rig and full results
+{{devices}}
+
+## Datasets
+
+- [Datasets overview](https://openmvis.com/datasets/): the Calibench-VI calibration datasets on Hugging Face, with licences
+{{datasets}}
 
 ## Concepts
 
-- [Calibration graph](https://openmvis.com/concepts/calibration-graph/): variables, factors, priors and solve stages
-- [Camera–IMU calibration math](https://openmvis.com/concepts/camera-imu-math/): the cost, the reprojection factor with time offset and rolling-shutter row time
+- [Notation & glossary](https://openmvis.com/concepts/notation/): symbol table and frame conventions used across every theory page
 - [Camera model](https://openmvis.com/concepts/camera-model/): the projection and distortion models MVIS supports
 - [IMU model](https://openmvis.com/concepts/imu-model/): measurement model, intrinsics conventions (kalibr, rpng, calyx) and t_ga
+- [Camera–IMU calibration math](https://openmvis.com/concepts/camera-imu-math/): the cost, the reprojection factor with time offset and rolling-shutter row time
+- [Calibration graph](https://openmvis.com/concepts/calibration-graph/): variables, factors, priors and solve stages
 - [Observability](https://openmvis.com/concepts/observability/) and [Degeneracy](https://openmvis.com/concepts/degeneracy/): which motions make which values measurable
-
-## Benchmark and data
-
-- [Leaderboard](https://openmvis.com/benchmark/results/): MVIS, Kalibr and Basalt results per dataset, with their spread across recordings
-- [Examples](https://openmvis.com/benchmark/examples/): complete MVIS runs on TUM-VI, UZH-FPV, Monado, Looper and VI-Rig
-- [Datasets](https://openmvis.com/datasets/): the Calibench-VI calibration datasets on Hugging Face, with licences
-- [Device wiki](https://openmvis.com/devices/): one page per camera or headset (RealSense, T265, ZED 2, Insta360, VR headsets and more) with full results
 
 ## Reference
 
-- [CLI](https://openmvis.com/reference/cli/), [Configuration](https://openmvis.com/reference/configuration/), [Result formats](https://openmvis.com/reference/result-formats/), [Python API](https://openmvis.com/reference/python-api/)
+- [Configuration](https://openmvis.com/reference/configuration/), [CLI](https://openmvis.com/reference/cli/), [Result formats](https://openmvis.com/reference/result-formats/), [Python API](https://openmvis.com/reference/python-api/)
+- [Capture database](https://openmvis.com/reference/database/): the .mvisdb file behind every run, what it holds and its tables
+- [Evaluation & metrics](https://openmvis.com/reference/evaluation/): how to tell whether a calibration is good, the verdict thresholds and the benchmark metrics
+
+## Contribute
+
+- [Submit results](https://openmvis.com/contribute/submit-results/): how the leaderboard is built, where its records live, and how to send results from your own tool
+- [Regression testing](https://openmvis.com/contribute/regression-testing/): the MVIS test tiers to run before a pull request
+- [Submit a dataset](https://openmvis.com/contribute/submit-dataset/): what a calibration recording must contain, the formats, the dataset card and the licence
+- [Governance](https://openmvis.com/contribute/governance/): who maintains MVIS and this site, and how contributions are reviewed
+
+## About
+
+- [Contributors & citation](https://openmvis.com/about/contributors/), [Acknowledgements](https://openmvis.com/about/acknowledgements/), [License](https://openmvis.com/about/license/)
+- [Changelog](https://openmvis.com/about/changelog/) and [Roadmap](https://openmvis.com/about/roadmap/)
 - [FAQ & troubleshooting](https://openmvis.com/about/faq/)
+
+### FAQ
+
+{{faq}}
 
 ## Optional
 
 - [Source code](https://github.com/openmvis/openmvis) and [PyPI package](https://pypi.org/p/pymvis/)
 - [Calibench-VI on Hugging Face](https://huggingface.co/calibench-vi)
-- [Contributors & citation](https://openmvis.com/about/contributors/), [License](https://openmvis.com/about/license/)
+- [Every page as text (llms-full.txt)](https://openmvis.com/llms-full.txt)
 - [Every page (sitemap)](https://openmvis.com/sitemap-index.xml)

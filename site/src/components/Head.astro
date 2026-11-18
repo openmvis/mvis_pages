@@ -5,14 +5,101 @@
 // read at a comfortable line length (COLMAP's narrow measure, uv's calm body).
 // Pages that carry wide tables, gallery grids, or the leaderboard embed set
 // `wide: true` in frontmatter and get the original 72rem column back.
+//
+// Also: the share image (og:image, a crop of our own VI-Rig photo, public/og/) on every page, and JSON-LD
+// for search engines and LLMs on the homepage and the VI-Rig dataset pages. Every JSON-LD value is a fact
+// the site already states (homepage, License, Contributors & citation, the dataset page itself).
+// The FAQPage JSON-LD is written by scripts/post-build.mjs from the built FAQ page, so it follows that page.
 import Default from '@astrojs/starlight/components/Head.astro';
 
-const wide = Astro.locals.starlightRoute.entry.data.wide === true;
-const data = Astro.locals.starlightRoute.entry.data as any;
+const route = Astro.locals.starlightRoute;
+const data = route.entry.data as any;
+const wide = data.wide === true;
 const sensor = Boolean(data.sensor || data.example);
+
+const SITE = 'https://openmvis.com';
+const ogImage = `${SITE}/og/openmvis.jpg`;
+const pageUrl = new URL(Astro.url.pathname, SITE).href;
+
+const DOI = 'https://doi.org/10.5281/zenodo.24239182';
+const LICENSE = 'https://github.com/openmvis/openmvis/blob/main/LICENSE';
+const contributors = { '@type': 'Organization', name: 'OpenMVIS Contributors', url: `${SITE}/about/contributors/` };
+const paper = {
+  '@type': 'ScholarlyArticle',
+  '@id': 'https://doi.org/10.1177/02783649241245726',
+  headline: 'Multi-visual-inertial system: Analysis, calibration, and estimation',
+  name: 'Multi-visual-inertial system: Analysis, calibration, and estimation',
+  author: ['Yulin Yang', 'Patrick Geneva', 'Guoquan Huang'].map((name) => ({ '@type': 'Person', name })),
+  datePublished: '2024',
+  isPartOf: { '@type': 'PublicationVolume', volumeNumber: '43',
+              isPartOf: { '@type': 'Periodical', name: 'The International Journal of Robotics Research' } },
+  pageStart: '1995',
+  pageEnd: '2026',
+  sameAs: 'https://doi.org/10.1177/02783649241245726',
+};
+
+let jsonLd: object | null = null;
+if (route.id === '' || route.id === 'index') {
+  jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareSourceCode',
+        '@id': `${SITE}/#code`,
+        name: 'MVIS',
+        alternateName: ['OpenMVIS', 'pymvis'],
+        description: 'Open-source multi-visual-inertial sensor calibration.',
+        url: `${SITE}/`,
+        codeRepository: 'https://github.com/openmvis/openmvis',
+        programmingLanguage: 'Python',
+        version: '0.1.0',
+        license: LICENSE,
+        identifier: DOI,
+        author: contributors,
+        citation: { '@id': paper['@id'] },
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': `${SITE}/#app`,
+        name: 'MVIS',
+        alternateName: 'pymvis',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Linux, macOS',
+        softwareVersion: '0.1.0',
+        downloadUrl: 'https://pypi.org/p/pymvis/',
+        installUrl: `${SITE}/getting-started/installation/`,
+        license: LICENSE,
+        url: `${SITE}/`,
+        author: contributors,
+      },
+      paper,
+    ],
+  };
+} else if (/^datasets\/virig-[a-z0-9-]+$/.test(route.id)) {
+  const slug = route.id.split('/')[1];
+  jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: data.title,
+    description: data.description,
+    url: pageUrl,
+    sameAs: `https://huggingface.co/datasets/calibench-vi/datasets/tree/main/${slug}`,
+    license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+    creator: contributors,
+    includedInDataCatalog: { '@type': 'DataCatalog', name: 'Calibench-VI', url: 'https://huggingface.co/calibench-vi' },
+  };
+}
+// `<` escaped so no value can close the script element.
+const ld = jsonLd && JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 ---
 
 <Default><slot /></Default>
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="The VI-Rig frame with its IMUs and cameras" />
+<meta name="twitter:image" content={ogImage} />
+{ld && <script type="application/ld+json" set:html={ld} />}
 <script is:inline data-goatcounter="https://openmvis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 {wide && <style is:inline>{':root{--sl-content-width:72rem}'}</style>}
 {sensor && <style is:inline>{'@media (max-width:44rem){.sl-markdown-content h2{font-size:1.5rem}}'}</style>}

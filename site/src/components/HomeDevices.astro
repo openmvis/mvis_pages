@@ -21,7 +21,8 @@ const devices = Object.entries(all).map(([path, m]) => ({ slug: path.split('/').
 devices.sort((a, b) => Number(fromPartner.has(b.href)) - Number(fromPartner.has(a.href)) || a.maker.localeCompare(b.maker));
 const company = (maker: string) => (maker === 'RealSense' ? 'Intel RealSense' : maker);   // one brand; the D4xx pages say RealSense (spun out of Intel in 2025)
 const makers = [...new Set(devices.map((d) => company(d.maker)))];
-// Makers of the devices from public datasets: named, linked to their first device page, no logos (no agreement with them).
+// Makers of the devices from public datasets: named and linked to their first device page; the makers in makerLogos
+// show their public one-colour logo (kept by the maintainer's choice, 2026-11-18). No agreement with these makers.
 const publicMakers = [...new Map(devices.filter((d) => !fromPartner.has(d.href)).map((d) => [company(d.maker), d.href])).entries()]
   .sort(([a], [b]) => a.localeCompare(b));
 const shown = [{ slug: 'virig', href: '/datasets/virig-4imus-4cams/', maker: 'OpenMVIS', title: 'VI-Rig',

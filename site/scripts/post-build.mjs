@@ -18,6 +18,7 @@
 import { readFile } from 'node:fs/promises';
 import { writeMovedPages } from './moved-pages.mjs';
 import { postBuild } from './rename-assets.mjs';
+import { writeLlmsFiles } from './llms.mjs';
 
 const out = new URL('../../docs/', import.meta.url).pathname;
 const { lines, code } = await postBuild(out);
@@ -25,3 +26,6 @@ for (const l of lines) (l.err ? console.error : console.log)(l.text);
 if (code) process.exit(code);
 const moved = JSON.parse(await readFile(new URL('../src/data/moved.json', import.meta.url), 'utf8'));
 console.log(`post-build: ${await writeMovedPages(out, moved)} moved-page redirects (keep #fragment)`);
+const llms = await writeLlmsFiles(out, new URL('../src/', import.meta.url).pathname);
+console.log(`post-build: llms.txt filled, llms-full.txt ${(llms.fullBytes / 1024).toFixed(0)} kB (${llms.skipped} pages over the limit), `
+  + `sitemap lastmod on ${llms.dated} of ${llms.urls} pages, FAQPage JSON-LD with ${llms.faqQuestions} questions`);
