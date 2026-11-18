@@ -1,7 +1,7 @@
 {
  "version": 1,
  "batch": "2026-11-10a",
- "results_commit": "abfab3641ea05a19bbcd30136676dc305d567d3a",
+ "results_commit": "ac779876bfe5a15fd8fd337846ec01bd06f10b2d",
  "method": {
   "spread": "sample_sd_ddof1",
   "pair": "median_log_sd_ratio",

@@ -22,7 +22,7 @@
  },
  "study": false,
  "batch": "2026-11-10a",
- "results_commit": "abfab3641ea05a19bbcd30136676dc305d567d3a",
+ "results_commit": "ac779876bfe5a15fd8fd337846ec01bd06f10b2d",
  "link": "/benchmark/results/tum-vi/",
  "has_repeatability": true,
  "legacy": [
@@ -97,9 +97,9 @@
     ]
    ],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T3.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T3.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T3.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/MVIS/2026-11-10a/T3.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Kalibr/2026-11-10a/T3.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Basalt/2026-11-10a/T3.json"
    },
    "fit": [],
    "diffs": [
@@ -1641,9 +1641,9 @@
    "read_first": "Kalibr's intrinsics and baselines are inputs from an MVIS export; its td and lever are solved given them.",
    "notes": [],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T9.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T9.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T9.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/MVIS/2026-11-10a/T9.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Kalibr/2026-11-10a/T9.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Basalt/2026-11-10a/T9.json"
    },
    "fit": [
     {
@@ -4383,9 +4383,9 @@
    "read_first": "Kalibr's intrinsics and baselines are inputs from an MVIS export; its td and lever are solved given them.",
    "notes": [],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T10.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T10.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T10.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/MVIS/2026-11-10a/T10.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Kalibr/2026-11-10a/T10.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Basalt/2026-11-10a/T10.json"
    },
    "fit": [
     {

@@ -1760,16 +1760,21 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -0.51435,
-        "h": 0.303435
+        "c": -0.499925,
+        "h": 0.295873
        },
        "lanes": [
         {
          "col": "calyx",
          "tool": "MVIS",
          "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
+         "state": "ok",
+         "med": -0.4855,
+         "sd": 0.172374,
+         "n": 4,
+         "text": "−0.485",
+         "min": -0.6589,
+         "max": -0.3037
         },
         {
          "col": "mvis",
@@ -4498,16 +4503,21 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -0.8321,
-        "h": 0.2266
+        "c": -0.8255,
+        "h": 0.23386
        },
        "lanes": [
         {
          "col": "calyx",
          "tool": "MVIS",
          "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
+         "state": "ok",
+         "med": -0.8189,
+         "sd": 0.0969025,
+         "n": 4,
+         "text": "−0.819",
+         "min": -0.9755,
+         "max": -0.7459
         },
         {
          "col": "mvis",

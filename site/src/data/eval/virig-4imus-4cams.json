@@ -21,7 +21,7 @@
  },
  "study": false,
  "batch": "2026-11-10a",
- "results_commit": "abfab3641ea05a19bbcd30136676dc305d567d3a",
+ "results_commit": "ac779876bfe5a15fd8fd337846ec01bd06f10b2d",
  "link": "/benchmark/results/virig-4imus-4cams/",
  "has_repeatability": true,
  "legacy": [
@@ -111,9 +111,9 @@
     ]
    ],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T1.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T1.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T1.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/MVIS/2026-11-10a/T1.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Kalibr/2026-11-10a/T1.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Basalt/2026-11-10a/T1.json"
    },
    "fit": [],
    "diffs": [
@@ -1663,9 +1663,9 @@
     ]
    ],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T2.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T2.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T2.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/MVIS/2026-11-10a/T2.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Kalibr/2026-11-10a/T2.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Basalt/2026-11-10a/T2.json"
    },
    "fit": [],
    "diffs": [
@@ -2606,9 +2606,9 @@
     ]
    ],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T7.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T7.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T7.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/MVIS/2026-11-10a/T7.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Kalibr/2026-11-10a/T7.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Basalt/2026-11-10a/T7.json"
    },
    "fit": [
     {
@@ -5241,9 +5241,9 @@
     ]
    ],
    "records": {
-    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/MVIS/2026-11-10a/T8.json",
-    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Kalibr/2026-11-10a/T8.json",
-    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/abfab3641ea05a19bbcd30136676dc305d567d3a/Basalt/2026-11-10a/T8.json"
+    "MVIS": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/MVIS/2026-11-10a/T8.json",
+    "Kalibr": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Kalibr/2026-11-10a/T8.json",
+    "Basalt": "https://huggingface.co/datasets/calibench-vi/results/blob/ac779876bfe5a15fd8fd337846ec01bd06f10b2d/Basalt/2026-11-10a/T8.json"
    },
    "fit": [
     {

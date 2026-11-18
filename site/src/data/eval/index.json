@@ -1,6 +1,6 @@
 {
  "batch": "2026-11-10a",
- "results_commit": "abfab3641ea05a19bbcd30136676dc305d567d3a",
+ "results_commit": "ac779876bfe5a15fd8fd337846ec01bd06f10b2d",
  "honest": [
   "<b>Repeatability, not accuracy.</b> These datasets have no ground truth, so no tool is the reference. A cell shows whose estimates scatter least over the recordings every compared tool ran, not who is right.",
   "<b>Who ran it:</b> we ran every tool ourselves, including Kalibr and Basalt, with its documented defaults unless a family's notes say otherwise.",
