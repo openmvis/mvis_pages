@@ -220,20 +220,7 @@ counts any corners past the model's valid domain.
 - **Very wide field of view, a different shape:** `eucm`, `ucm` or `double_sphere`.
 - **Catadioptric** (lens plus mirror): `omni_radtan`. It is experimental.
 
-### Kalibr export
-
-The camchain written for Kalibr uses these names:
-
-| MVIS | Kalibr `camera_model` / `distortion_model` |
-|---|---|
-| `radtan` | `pinhole` / `radtan` |
-| `equidistant` | `pinhole` / `equidistant` |
-| `kb4` | `pinhole` / `equidistant`: exact for $Z > 0$; MVIS warns when the fit used corners at or past 90°, which Kalibr cannot project |
-| `fov` | `pinhole` / `fov` |
-| `double_sphere` | `ds` / `none` |
-| `eucm` | `eucm` / `none` |
-| `ucm` | `omni` / `none`, converted to $\xi$ form |
-| `omni_radtan` | `omni` / `radtan` |
+### When a fit diverges
 
 :::caution[Wide-FoV models can diverge on stereo]
 In our TUM-VI runs, stereo `double_sphere` and `eucm` fits can diverge into a
@@ -264,6 +251,21 @@ second pass lands on any of these
 
 It is a backstop, not a substitute for picking the right model.
 
+## Kalibr export
+
+The camchain written for Kalibr uses these names:
+
+| MVIS | Kalibr `camera_model` / `distortion_model` |
+|---|---|
+| `radtan` | `pinhole` / `radtan` |
+| `equidistant` | `pinhole` / `equidistant` |
+| `kb4` | `pinhole` / `equidistant`: exact for $Z > 0$; MVIS warns when the fit used corners at or past 90°, which Kalibr cannot project |
+| `fov` | `pinhole` / `fov` |
+| `double_sphere` | `ds` / `none` |
+| `eucm` | `eucm` / `none` |
+| `ucm` | `omni` / `none`, converted to $\xi$ form |
+| `omni_radtan` | `omni` / `radtan` |
+
 ## Rolling shutter
 
 A rolling-shutter camera exposes its rows one after another, so one image
@@ -293,10 +295,10 @@ pose of $\{I\}$ at $t_I$ from the base IMU, composes the extrinsics, and then
 projects:
 
 $$
-\mathbf{z}_{i,k} = \Pi\big({}^{C_i}\mathbf{p}_{k}(t_I)\big) + \mathbf{n}
+\mathbf{z}_{i,m} = \Pi\big({}^{C_i}\mathbf{p}_{m}(t_I)\big) + \mathbf{n}
 $$
 
-where ${}^{C_i}\mathbf{p}_k(t_I)$ is board corner $k$ in the camera frame at
+where ${}^{C_i}\mathbf{p}_m(t_I)$ is board corner $m$ in the camera frame at
 the corner's capture time. Projection, time offset, readout and extrinsics sit
 in one factor, so $t_d$ and $t_r$ get Jacobians and are solved with everything
 else, not corrected afterwards. The HTML report uses the same projection code,

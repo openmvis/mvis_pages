@@ -17,10 +17,11 @@ in the datasets. Notable changes come newest first.
 ## MVIS 0.1.0
 
 The first public release. There is no earlier public version, so the list
-describes the toolbox as it ships. On 2026-11-12 the release was not yet tagged.
+describes the toolbox as it ships. Released on 2026-11-15, on
+[PyPI](https://pypi.org/p/pymvis) and [Zenodo](https://doi.org/10.5281/zenodo.24239182).
 
-- **Package:** `pymvis` (import and command `mvis`), Linux and macOS, Python
-  3.11 and 3.12.
+- **Package:** `pymvis` (import and command `mvis`), Linux and macOS (Windows
+  tentative), Python 3.11 and 3.12.
 
 ### Calibration
 
@@ -28,8 +29,9 @@ describes the toolbox as it ships. On 2026-11-12 the release was not yet tagged.
   extrinsics, camera–camera time offset and rolling-shutter readout (the time
   the sensor takes to read the image row by row).
 - **Camera–IMU** (`mvis cam-imu`): camera–IMU extrinsics, time offset `td`,
-  readout, camera intrinsics, IMU intrinsics, biases, the base IMU's
-  gyro–accel offset `t_ga`, and the extrinsics and time offsets of further IMUs.
+  readout, camera intrinsics, IMU intrinsics, biases, the gyro–accel offset
+  `t_ga` (for the base IMU and every auxiliary IMU that is not `gyro_only`),
+  and the extrinsics and time offsets of further IMUs.
 - **Camera models:** eight, usable in both modes and mixed within one rig:
   `radtan`, `equidistant`, `kb4`, `fov`, `double_sphere`, `eucm`, `ucm` and
   `omni_radtan` (experimental). `fisheye` means `kb4`.
@@ -51,7 +53,7 @@ describes the toolbox as it ships. On 2026-11-12 the release was not yet tagged.
 - **Kalibr interop:** read and write Kalibr camchains.
 - **Output:** YAML calibration files, JSON results and self-contained HTML
   reports for both modes.
-- **Datasets:** `mvis datasets` lists, downloads and verifies the Calibench
+- **Datasets:** `mvis datasets` lists, downloads and verifies the Calibench-VI
   datasets on Hugging Face.
 
 ### Tools
@@ -119,5 +121,5 @@ See the [roadmap](/about/roadmap/).
 
 :::note[Dates]
 Site entries before 2026-11 are ordered but not dated. Toolbox entries carry
-their release version; the release date is added when the tag is cut.
+their release version and release date.
 :::

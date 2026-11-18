@@ -78,13 +78,18 @@ The **Per** column says whether a quantity exists once per camera, per rolling-s
 | ${}^{I}_{I_{s_j}}\mathbf{T}$ | auxiliary IMU extrinsics | 6 | aux IMU |
 | $t_{d,j}$ | IMU–IMU time offset | 1 | aux IMU |
 | $\mathbf{b}_g,\ \mathbf{b}_a$ | gyro / accel biases | 3 each | IMU |
-| $h_k$ | height of board corner $k$ along the board normal | 1 | board corner, with `board_points` on |
+| ${}^{G}\mathbf{v}_{I_k}$ | velocity of $\{I\}$ in $\{G\}$ at state $k$ (part of the trajectory, not a calibration value) | 3 | IMU state |
+| $\mathbf{x}_{in}$ | one IMU's intrinsics stacked into one solver variable ($\mathbf{D}_w$, $\mathbf{D}_a$, $\mathbf{T}_g$, triad rotation) | 24 | IMU |
+| $h_m$ | height of board corner $m$ along the board normal | 1 | board corner, with `board_points` on |
 
 $\mathbf{D}_w$, $\mathbf{D}_a$ and $\mathbf{T}_g$ are *correction* matrices: they map a raw reading to the true value.
 [IMU model](/concepts/imu-model/) gives the equations.
 
 The full state $\mathbf{x}$ stacks the trajectory with all of the above.
-The cost that acts on it is in [Calibration graph](/concepts/calibration-graph/).
+The cost that acts on it is in [Camera–IMU calibration math](/concepts/camera-imu-math/#the-cost).
+
+**Indices:** $i$ camera, $j$ auxiliary IMU, $k$ IMU state (or the interval from
+state $k$ to $k+1$), $f$ frame, $m$ board corner.
 
 ## Measurements
 
@@ -99,7 +104,7 @@ What the sensors report, and the terms we build from those readings:
 | ${}^{G}\mathbf{g}$ | gravity in $\{G\}$, $[0\ 0\ {-9.81}]^\top$ m/s² |
 | $\mathbf{n}_g,\ \mathbf{n}_a$ | gyro / accel white noise (densities `sigma_g`, `sigma_a`) |
 | $\mathbf{n}_{bg},\ \mathbf{n}_{ba}$ | bias random-walk noise (densities `sigma_bg`, `sigma_ba`) |
-| $\mathbf{z}_{i,k}$ | pixel observation of board corner $k$ in camera $i$ |
+| $\mathbf{z}_{i,m}$ | pixel observation of board corner $m$ in camera $i$ |
 | $\Pi(\cdot)$ | camera projection: point in $\{C_i\}$ to pixel ([Camera model](/concepts/camera-model/)) |
 | $\mathbf{r}$ | residual (subscripted by factor type) |
 | $\boldsymbol{\Sigma}$ | measurement covariance |
@@ -145,7 +150,7 @@ A positive `td` means the camera stamps run early: the image was captured later 
   Board errors then go into the calibration: a wrong `tag_size` gives a scale bias
   on translations, and a bent board biases the focal length, gyro scale and lever
   ([Why calibrate the board shape](/why/board-shape/)). With
-  `estimate.board_points: true`, MVIS solves one height $h_k$ per corner.
+  `estimate.board_points: true`, MVIS solves one height $h_m$ per corner.
 
 ## Glossary
 

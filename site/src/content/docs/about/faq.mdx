@@ -1,11 +1,108 @@
 ---
 title: FAQ & troubleshooting
-description: Common questions about installing MVIS 0.1.0, choosing models, reading the time offsets, and fixing runs that fail or look wrong.
+description: What OpenMVIS is, how it compares with Kalibr and Basalt, and common questions about installing MVIS 0.1.0, choosing settings and fixing runs.
 pageType: reference
 ---
 
-Use this page when MVIS does not install, a run fails, or a result looks wrong.
-Each entry gives the short answer first, then the reason.
+Use this page to learn what OpenMVIS is, or when MVIS does not install, a run
+fails, or a result looks wrong. Each entry gives the short answer first, then
+the reason.
+
+## About OpenMVIS
+
+### What is OpenMVIS?
+
+**Answer:** open-source multi-visual-inertial sensor calibration.
+
+- **OpenMVIS:** the project.
+- **MVIS:** the calibration toolbox, installed as the Python package `pymvis`;
+  the import and the command are `mvis`. It calibrates cameras (intrinsics,
+  distortion, extrinsics, time offsets, rolling-shutter readout) and cameras
+  with one or more IMUs (extrinsics, time offsets, IMU intrinsics, biases and
+  `t_ga`).
+- **Calibench-VI:** our datasets and results on
+  [Hugging Face](https://huggingface.co/calibench-vi).
+
+More: [Overview](/getting-started/overview/) and
+[Contributors & citation](/about/contributors/).
+
+### Is MVIS a Kalibr alternative that runs without ROS?
+
+**Answer:** yes. MVIS is pure Python: it installs with `pip` and reads ROS1 and
+ROS2 bags itself, with no ROS install and no C++ build.
+
+- **Kalibr:** needs a ROS workspace (ROS 1, or Docker).
+- **Basalt:** runs without ROS, but needs a C++ build.
+- **Kalibr files:** MVIS reads and writes Kalibr camchains and reads Kalibr
+  AprilGrid target files, so a Kalibr calibration can be its start.
+
+Kalibr is mature and widely validated, and MVIS does not aim to replace it
+where it works well. The full feature matrix:
+[Comparison vs Kalibr / Basalt](/getting-started/comparison/).
+
+### Can MVIS calibrate rolling-shutter cameras with an IMU?
+
+**Answer:** yes. MVIS solves the rolling-shutter readout in camera-only and in
+camera–IMU solves, one readout per camera.
+
+- **Mixed rigs:** global-shutter and rolling-shutter cameras and IMUs go into
+  one solve.
+- **Kalibr:** its rolling-shutter tool is camera-only, a separate tool.
+- **Basalt:** solves no readout.
+
+How to run it: [Rolling-shutter calibration](/guides/rolling-shutter/). Why it matters:
+[Why calibrate rolling shutter](/why/rolling-shutter/).
+
+### Can MVIS calibrate several IMUs at once?
+
+**Answer:** yes. MVIS puts every IMU in one graph. The first IMU is the base
+IMU; each auxiliary IMU gets its extrinsics, time offset and intrinsics.
+
+- **Gyro-only mode:** an auxiliary IMU whose accelerometer is unreliable can be
+  calibrated from its gyroscope alone (`gyro_only: true`).
+- **Kalibr:** also solves several IMUs in one run, without a gyro-only mode.
+- **Basalt:** takes one IMU per run, so a four-IMU rig is calibrated IMU by IMU
+  and composed.
+
+How to run it: [Multi-IMU calibration](/guides/multi-sensor-rigs/). Why it pays
+off: [Why calibrate IMUs together](/why/multi-imu/).
+
+### Should I use MVIS, Kalibr or Basalt?
+
+**Answer:** pick by what your rig and your workflow need.
+
+- **Kalibr:** mature and widely used. If it already works on your rig, there is
+  no need to switch.
+- **MVIS:** adds what Kalibr and Basalt do not cover: the gyro–accel offset
+  `t_ga`, the board shape, rolling-shutter readout in the camera–IMU solve, a
+  gyro-only mode per auxiliary IMU, corrected-bag export (`mvis apply-calib`)
+  and a PASS/FAIL round-trip check (`mvis roundtrip`). It needs no ROS.
+- **Basalt:** a C++ build with no ROS, for one IMU per run.
+
+We ran all three on public data; the per-dataset results are side by side on
+the [Leaderboard](/benchmark/results/), with no scores or ranks. Details:
+[Comparison vs Kalibr / Basalt](/getting-started/comparison/).
+
+### What is the licence, and how do I cite it?
+
+**Answer:** MVIS is GPL-3.0-only, or a commercial licence.
+
+- **GPL-3.0-only:** free for everyone, companies included, for research,
+  teaching and internal use. Software you distribute that includes or is
+  derived from MVIS must be released under GPL-3.0.
+- **Commercial licence:** for closed-source products. Write to
+  licensing@openmvis.com.
+- **Your results:** results you compute on your own recordings are yours.
+  Results on our datasets are CC BY 4.0.
+- **Datasets:** VI-Rig recordings are CC BY-NC 4.0 and gated (commercial
+  licence on request); converted third-party sets are CC BY 4.0.
+- **Citing:** cite the MVIS paper; cite the OpenMVIS project
+  ([Zenodo DOI](https://doi.org/10.5281/zenodo.24239182)) for the toolbox, the
+  site and the benchmark results; cite Calibench-VI when your results depend
+  on our datasets.
+
+Full terms: [License](/about/license/). BibTeX entries:
+[Contributors & citation](/about/contributors/).
 
 ## Install
 
@@ -13,26 +110,26 @@ Each entry gives the short answer first, then the reason.
 
 **Answer:** Linux or macOS (x86-64 or arm64), Python 3.11 or 3.12.
 
-- **No Windows:** GTSAM, the optimisation library MVIS builds on, publishes no
-  Windows wheels.
+- **Windows:** tentative. MVIS has run there, but GTSAM, the optimisation
+  library MVIS builds on, publishes no Windows wheels, so the install steps
+  are not written up yet.
 - **No Python 3.13:** MVIS needs NumPy 1.x (see below), and NumPy 1.x has no
   3.13 wheel.
 - **No Python 3.10 or older:** GTSAM publishes wheels for 3.11 and newer only.
 
 ### How do I install it?
 
-**Answer:** from source, until `pymvis` is on PyPI.
+**Answer:** from PyPI, into a Python 3.11 or 3.12 virtual environment.
 
 ```bash
-git clone https://github.com/openmvis/openmvis && cd openmvis
-python -m venv .venv && source .venv/bin/activate
-pip install -e ".[apriltag,aruco,ros1]"
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install "pymvis[apriltag,ros1]"
 mvis check --env --smoke        # checks the environment and runs a small solve
 ```
 
-With the v0.1.0 release on PyPI, `pip install "pymvis[apriltag,aruco,ros1]"`
-will install the same. The package is `pymvis`; the import and the command are `mvis`. Full
-steps: [Installation](/getting-started/installation/).
+Add the `aruco` extra for ArUco boards. The package is `pymvis`; the import
+and the command are `mvis`. Full steps, including an install from source:
+[Installation](/getting-started/installation/).
 
 ### Which extras do I need?
 
