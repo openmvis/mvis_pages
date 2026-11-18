@@ -48,12 +48,12 @@ mvis cam -c elp_cam.yaml
 Result over the 15 recordings ([results page](/benchmark/results/virig-4imus-4cams/), "ELP RS stereo +
 readout", camera only), median and standard deviation (sd):
 
-| Readout (ms) | ELP-L | ELP-R |
+| Readout (ms) | ELP left | ELP right |
 |---|---|---|
 | MVIS | 14.604 (sd 0.404) | 14.601 (sd 0.404) |
 | Kalibr, rolling-shutter model | 16.354 (sd 2.00) | 17.369 (sd 1.42, n = 13) |
 
-- **Kalibr:** its rolling-shutter model calibrates one camera per run. Two ELP-R recordings failed, so it has
+- **Kalibr:** its rolling-shutter model calibrates one camera per run. Two ELP right recordings failed, so it has
   13 of 15.
 - **Lens models differ:** MVIS uses equidistant, Kalibr radtan. So only the readout is compared.
 - **Kalibr inputs:** Kalibr was not re-run after the ELP stamp correction, so its rows come from the bags as
@@ -98,17 +98,18 @@ The full config is on the [example page](/benchmark/examples/virig-4imus-4cams/)
 
 Recording 01 ([example run](/benchmark/examples/virig-4imus-4cams/)):
 
-| | ELP-L (cam2) | ELP-R (cam3) |
+| | ELP left (cam2) | ELP right (cam3) |
 |---|---|---|
 | Readout (ms) | 16.684 | 16.732 |
-| td (ms) | −123.25 | −123.30 |
+| `td` (ms) | −123.25 | −123.30 |
 
-- **td:** the camera's time offset to the base IMU. The ELP td is large; the T265 cameras sit at −5.41 and
+- **`td`:** the camera's time offset to the base IMU. The ELP `td` is large; the T265 cameras sit at −5.41 and
   −7.47 ms.
 
-All 15 recordings ([results page](/benchmark/results/virig-4imus-4cams/), MVIS, median and sd):
+All 15 recordings ([results page](/benchmark/results/virig-4imus-4cams/), the "MVIS" column, not "MVIS (K-IMU)", median
+and sd):
 
-| Run on the results page | ELP-L readout (ms) | ELP-R readout (ms) |
+| Run on the results page | ELP left readout (ms) | ELP right readout (ms) |
 |---|---|---|
 | ELP RS stereo + two IMUs | 16.618 (sd 0.122) | 16.594 (sd 0.111) |
 | Mixed t265-f1 + ELP-L, aux Xsens | 16.680 (sd 0.089, n = 14) | — |
@@ -130,7 +131,7 @@ All 15 recordings ([results page](/benchmark/results/virig-4imus-4cams/), MVIS, 
 The readout is fitted by the same residuals as everything else, not applied as a fix afterwards.
 
 - **Per-row time:** each corner is projected with the rig pose at the time of *its row*, not of the frame.
-- **One error term:** projection, td, readout and pose interpolation sit in one factor.
+- **One error term:** projection, `td`, readout and pose interpolation sit in one factor.
 
 The math: [Camera model](/concepts/camera-model/#rolling-shutter).
 
@@ -144,8 +145,8 @@ The readout is one of the weakest parameters in the solve.
 :::caution[Readout and td trade against each other]
 Both shift *when* a corner is taken to have been seen. With too little motion the solver cannot separate
 them: the pair can slide along a ridge of equally good solutions while the residual stays flat. If a
-rolling-shutter camera's td is off from its global-shutter neighbours by about one readout, suspect this
-before the hardware. On recording 01 the ELP td differs from the T265 td by about 118 ms, far more than one
+rolling-shutter camera's `td` is off from its global-shutter neighbours by about one readout, suspect this
+before the hardware. On recording 01 the ELP `td` differs from the T265 `td` by about 118 ms, far more than one
 readout (about 17 ms), so this is not the cause there.
 :::
 
