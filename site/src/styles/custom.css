@@ -14,15 +14,22 @@
 :root {
   --sl-content-width: 60rem;        /* default 45rem; `wide: true` → 72rem */
   --sl-sidebar-width: 19.5rem;      /* default 18.75rem */
-  --sl-color-accent: #0284c7;
+  --sl-color-accent: #0369a1;
   --sl-color-accent-low: #bae6fd;
   --sl-color-accent-high: #0c4a6e;
+  --mvis-display: "Archivo", var(--sl-font);  /* headings; Archivo is loaded by the font <link> */
+}
+
+/* 72-100rem on pages with a TOC: the TOC column would shrink to ~150 px beside a 60rem column, so the column
+ * narrows. Pages without a TOC (Leaderboard, homepage) keep their width. */
+@media (min-width: 72rem) and (max-width: 100rem) {
+  :root[data-has-toc] { --sl-content-width: 48rem; }
 }
 
 /* Light theme: keep Starlight's clean defaults, just tweak accent */
 :root[data-theme='light'] {
   --sl-color-accent-low: #e0f2fe;
-  --sl-color-accent: #0284c7;
+  --sl-color-accent: #0369a1;
   --sl-color-accent-high: #075985;
 }
 
@@ -72,10 +79,37 @@
   line-height: 1.5;
 }
 
-/* "Research" micro-accent: heading underline in primary accent */
-.sl-markdown-content h2 {
+/* "Research" micro-accent: a rule under each h2. On the wrapper, not the inline h2, so it spans the column
+ * and sits under the anchor link too. */
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
   border-bottom: 1px solid var(--sl-color-gray-5);
   padding-bottom: 0.3rem;
+}
+
+/* Display font for the page title and h2 (falls back to the body font where Archivo is not loaded). */
+.content-panel h1#_top,
+.sl-markdown-content .sl-heading-wrapper.level-h2 > h2 {
+  font-family: var(--mvis-display);
+}
+.content-panel h1#_top { text-wrap: balance; }
+
+/* Phones: one heading scale for every page (Starlight's phone sizes are 35/29/24 px). */
+@media (max-width: 44rem) {
+  :root {
+    --sl-text-h1: 1.75rem;
+    --sl-text-h2: 1.5rem;
+    --sl-text-h3: 1.25rem;
+    --sl-text-h4: 1.125rem;
+  }
+}
+
+/* One caption style: figure captions and the note lines under figures and tables. Type only; each component
+ * keeps its own spacing. Component rules are more specific, so dense plots can still go smaller. */
+figcaption,
+.fig-note {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--sl-color-gray-2);
 }
 
 /* Examples gallery grid (src/components/ExampleGrid.astro) */
@@ -240,7 +274,7 @@ a.rp-chip:hover, a.rp-chip:focus-visible { outline: 2px solid var(--sl-color-acc
 .rp-cavs { list-style: none; padding: 0; margin: 0.4rem 0; }
 .rp-cavs li { margin: 0.15rem 0; }
 .rp-sep { font-style: italic; }
-.rp-notpart summary, .rp-tables > summary, .rp-fold > summary, .rp-detail > summary, .rp-card > summary { cursor: pointer; min-height: 44px; display: flex; flex-direction: column; justify-content: center; }
+.rp-notpart summary, .rp-tables > summary, .rp-detail > summary, .rp-card > summary { cursor: pointer; min-height: 44px; display: flex; flex-direction: column; justify-content: center; }
 .rp-notpart ul { margin: 0.3rem 0 0 1rem; }
 
 .rp-details { margin-block: 0.5rem 0.75rem; }
@@ -276,7 +310,7 @@ a.rp-chip:hover, a.rp-chip:focus-visible { outline: 2px solid var(--sl-color-acc
 .rp-tables { margin-block: 0.5rem 1.5rem; border-top: 1px solid var(--rp-line); padding-top: 0.2rem; }
 .rp-tables > summary { font-weight: 600; }
 .rp-fold { margin-block: 0.4rem; max-width: 60rem; }
-.rp-fold > summary { font-weight: 600; }
+.rp-fold > summary { font-weight: 600; cursor: pointer; padding-block: 0.6rem; }
 
 .rp-phone { display: none; }
 .rp-card { border: 1px solid var(--rp-line); border-radius: 0.5rem; padding: 0 0.75rem; margin-block: 0.4rem; }
@@ -311,7 +345,6 @@ section[data-rp-section] .sl-heading-wrapper + p { margin-top: 0.3rem; font-size
 }
 @container (max-width: 999px) { .rp-matrix { font-size: 13px; } .rp-matrix th.rp-fam { min-width: 0; } .rp-chip { padding: 0.25rem 0.35rem; } }
 @media (max-width: 640px) {
-  :root:has(.rp-honest) .content-panel h1#_top { font-size: 1.75rem; }
   .rp-prov, .rp-dates { font-size: 0.8rem; line-height: 1.4; }
   .rp-honest { font-size: 0.82rem; line-height: 1.4; padding: 0.5rem 0.7rem; }
   .rp-bar a { min-height: 44px; }
@@ -324,11 +357,15 @@ section[data-rp-section] .sl-heading-wrapper + p { margin-top: 0.3rem; font-size
 /* Review fixes: keep a tool's shape with its name and k with its sign; open/close cues on the folds; larger caveat links. */
 .rp-t, .rp-k, .rp-kimu { white-space: nowrap; }
 .rp-v { column-gap: 0.3rem; row-gap: 0.1rem; }
-.rp-notpart > summary, .rp-detail > summary, .rp-card > summary { position: relative; padding-left: 1.1rem; list-style: none; }
-.rp-notpart > summary::-webkit-details-marker, .rp-detail > summary::-webkit-details-marker, .rp-card > summary::-webkit-details-marker { display: none; }
-.rp-notpart > summary::before, .rp-detail > summary::before, .rp-card > summary::before {
+.rp-notpart > summary, .rp-detail > summary, .rp-card > summary, .rp-fold > summary { position: relative; padding-left: 1.1rem; list-style: none; }
+.rp-notpart > summary::-webkit-details-marker, .rp-detail > summary::-webkit-details-marker, .rp-card > summary::-webkit-details-marker,
+.rp-fold > summary::-webkit-details-marker { display: none; }
+.rp-notpart > summary::before, .rp-detail > summary::before, .rp-card > summary::before, .rp-fold > summary::before {
   content: '▸'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: var(--sl-color-gray-3); transition: transform 0.15s; }
-.rp-notpart[open] > summary::before, .rp-detail[open] > summary::before, .rp-card[open] > summary::before { transform: translateY(-50%) rotate(90deg); }
+.rp-notpart[open] > summary::before, .rp-detail[open] > summary::before, .rp-card[open] > summary::before,
+.rp-fold[open] > summary::before { transform: translateY(-50%) rotate(90deg); }
+/* .rp-fold sits in markdown; until it carries not-content, Starlight's own chevron rules also reach it. */
+.rp-fold > summary::before { width: auto; height: auto; margin: 0; background: none; -webkit-mask-image: none; mask-image: none; }
 .rp-tables > summary { display: list-item; }
 .rp-sup a { display: inline-block; padding: 2px 3px; margin-left: 0; }
 .rp-sup a:focus-visible { outline: 2px solid var(--sl-color-accent); }

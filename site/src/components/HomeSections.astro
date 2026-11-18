@@ -290,9 +290,14 @@ import HomeDevices from './HomeDevices.astro';
   @media (max-width: 640px) {
     .mhs-band { padding-block: 40px; }
     .mhs-term { font-size: 13px; }
-    .mhs-state { position: relative; }
-    .mhs-state::after { content: "scroll →"; position: sticky; left: 100%; display: block; width: max-content; margin-top: 6px;
-                        font: 500 11px/1 var(--mhs-mono); color: var(--sl-color-gray-3); }
+    /* State table: one stacked block per row (quantity / symbol · per · unit / notes), no sideways scroll. */
+    .mhs-state table { min-width: 0; }
+    .mhs-state thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .mhs-state tr { display: grid; grid-template-columns: auto auto minmax(0, 1fr); column-gap: 12px; row-gap: 4px;
+                    padding: 12px 0; border-bottom: 1px solid var(--sl-color-hairline); }
+    .mhs-state td { display: block; padding: 0; border: 0; }
+    .mhs-state td.q, .mhs-state td:last-child { grid-column: 1 / -1; }
+    .mhs-state td.per::before { content: "per "; }
   }
   @media (max-width: 520px) {
     .mhs-models, .mhs-gaps { grid-template-columns: minmax(0, 1fr); }
