@@ -87,7 +87,7 @@ observes them. The aux IMUs' `td` is not checked.
 
 ## 4. Results on the running example
 
-The full rig: VI-Rig bag 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-10 with MVIS just before the 0.1.0 release.
+The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-10 with MVIS main `bcd584f`, just before the 0.1.0 release.
 **Result: PASS.** All 16 IMU checks (4 per IMU) and all 5 geometry checks (4 levers, 1 baseline) pass.
 
 **IMUs: what calibration A measured collapses.** A ran on the raw bag, B on the corrected bag. A right
@@ -125,7 +125,7 @@ gone in B. The base Xsens keeps +0.30 ms of `t_ga`, well under 2 ms.
 found, so B should find them again. Only the lever rows and the T265 baseline are graded; the other rows are
 shown for reference.
 
-| Check | Calibration | T265 left | T265 right | ELP-L | ELP-R | Pass if |
+| Check | Calibration | T265 left | T265 right | ELP left | ELP right | Pass if |
 |---|---|--:|--:|--:|--:|---|
 | Lever arm to base (mm) | A | 130.82 | 112.24 | 145.12 | 185.95 | |
 | | B | 130.90 | 112.33 | 145.16 | 185.98 | |
@@ -152,7 +152,7 @@ shown for reference.
 The check list as `mvis roundtrip` prints it: [`report.txt`](/media/guides/virig-4imus-4cams/roundtrip_report.txt).
 The report of calibration B, as MVIS wrote it except for local folder names:
 
-<iframe src="/media/guides/virig-4imus-4cams/roundtrip_recal_report.html" title="MVIS cam-IMU report of the round-trip recalibration, VI-Rig bag 01" loading="lazy" style="width:100%;height:80vh;border:1px solid var(--sl-color-gray-5);border-radius:0.4rem"></iframe>
+<iframe src="/media/guides/virig-4imus-4cams/roundtrip_recal_report.html" title="MVIS cam-IMU report of the round-trip recalibration, VI-Rig recording 01" loading="lazy" style="width:100%;height:80vh;border:1px solid var(--sl-color-gray-5);border-radius:0.4rem"></iframe>
 
 [Open full screen](/media/guides/virig-4imus-4cams/roundtrip_recal_report.html) (HTML, 11.6 MB). The report
 of calibration A is the one in [step 4](/guides/camera-imu-calibration/#5-read-the-result).
@@ -235,11 +235,14 @@ A FAIL is a real finding. The usual causes:
   another [camera model](/concepts/camera-model/).
 - **Wrong IMU convention.** See [IMU model](/concepts/imu-model/).
 - **An interpolated accelerometer** that corrupts `td`, as on the T265. The fix is `gyro_only` on that IMU,
-  or estimating `t_ga`. A round trip alone does not catch this case: a tool with no `t_ga` also returns to
-  about zero on its own corrected bag. Turn `t_ga` on and read it. See [Why calibrate t_ga](/why/tga/).
+  or estimating `t_ga`. With `t_ga` off the round trip still passes, but `td` does not return to 0: in our
+  T265 test (older MVIS code) the second calibration finds `td` = −1.47 ms on both T265 cameras. That is the
+  unmodelled gyro–accel offset, showing up as a camera time error. Turn `t_ga` on and read it. See
+  [Why calibrate t_ga, section 5](/why/tga/#5-without-t_ga-a-round-trip-leaves-a-td-error).
 - **Not enough motion.** The parameter was never observed, so correcting by it does nothing consistent.
 
 ## Next
 
-You have finished the walkthrough. The corrected bag from `apply-calib` is also what the
-[Why calibrate](/why/imu/) pages test: start with [Why calibrate the IMU](/why/imu/).
+- **Done:** you have finished the walkthrough.
+- **Why it matters:** the corrected bag from `apply-calib` is also what the Why calibrate pages test. Start with
+  [Why calibrate the IMU](/why/imu/).

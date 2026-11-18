@@ -24,7 +24,7 @@ A **digital twin** is a simulated copy of your recording:
 - **The timing** is real: MVIS keeps the real frame times, the corner ids seen in each frame and the IMU
   stamps.
 - **The data** is new: MVIS regenerates the corners and the IMU readings from the truth, with rolling shutter
-  and t_ga (the time offset between the gyroscope and the accelerometer).
+  and `t_ga` (the time offset between the gyroscope and the accelerometer).
 - **The solve** is the real pipeline, run again on the new data.
 
 So any gap between the result and the truth comes from the solver, not from the recording.
@@ -65,10 +65,10 @@ estimator, not the recording.
 
 Each solve returns, per sensor:
 
-- **Cameras:** lever arm (mm), rotation as a log(R) vector (mrad), td (the camera–IMU time offset, ms),
+- **Cameras:** lever arm (mm), rotation as a log(R) vector (mrad), `td` (the camera–IMU time offset, ms),
   readout (ms), focal length (px).
-- **Base IMU:** t_ga (ms), gyroscope and accelerometer scale (%).
-- **Each aux IMU:** lever, rotation, td, t_ga and scales.
+- **Base IMU:** `t_ga` (ms), gyroscope and accelerometer scale (%).
+- **Each aux IMU:** lever, rotation, `td`, `t_ga` and scales.
 - **Board:** rms height error (mm), when the board shape is estimated.
 
 Read the two kinds of run side by side:
@@ -80,7 +80,7 @@ Read the two kinds of run side by side:
 
 ## 3. Watch the twin of the full rig
 
-We ran the step-4 config (all 4 cameras, all 4 IMUs, bag 01) and simulated the same 80 s from its result.
+We ran the step-4 config (all 4 cameras, all 4 IMUs, recording 01) and simulated the same 80 s from its result.
 Each video shows:
 
 - **Left:** the IMU trajectory and the board, with each camera's pose.
@@ -121,8 +121,8 @@ blurred or far away.
 |---|---|---|---|
 | T265 left | 0.13 mm | 0.17 mrad | — |
 | T265 right | 0.14 mm | 0.14 mrad | — |
-| ELP-L | 0.16 mm | 0.12 mrad | 0.05 ms |
-| ELP-R | 0.14 mm | 0.16 mrad | 0.04 ms |
+| ELP left | 0.16 mm | 0.12 mrad | 0.05 ms |
+| ELP right | 0.14 mm | 0.16 mrad | 0.04 ms |
 | GX3-25 (to the base IMU) | 0.18 mm | 0.54 mrad | — |
 | GX3-35 (to the base IMU) | 0.24 mm | 0.23 mrad | — |
 | T265 IMU (to the base IMU) | 0.18 mm | 0.45 mrad | — |
@@ -133,12 +133,12 @@ full rig.
 ## 4. Twin of the ELP pair
 
 We built a `twin` module twin of the ELP-pair camera–IMU run on
-[virig-4imus-4cams](/datasets/virig-4imus-4cams/) bag 01:
+[virig-4imus-4cams](/datasets/virig-4imus-4cams/) recording 01:
 
 - **Cameras:** ELP left and right, rolling shutter.
 - **IMUs:** the T265 IMU as base, the Xsens as aux IMU.
 - **Settings:** as in the "ELP RS stereo + two IMUs" run on the
-  [results page](/benchmark/results/virig-4imus-4cams/): camera intrinsics free, t_ga on, board shape on.
+  [results page](/benchmark/results/virig-4imus-4cams/): camera intrinsics free, `t_ga` on, board shape on.
 
 Errors against the truth (estimate minus truth). For lever and rotation the table gives the length of the 3D
 error; for a scale, the largest of its three axis errors.
@@ -147,24 +147,24 @@ error; for a scale, the largest of its three axis errors.
 |---|---|---|
 | Camera lever | 0.094 mm | 0.44 mm |
 | Camera rotation | 0.177 mrad | 0.32 mrad |
-| Camera td | 0.007 ms | 0.024 ms |
+| Camera `td` | 0.007 ms | 0.024 ms |
 | Camera readout | 0.003 ms | 0.017 ms |
 | Camera focal length | 0.009 px | 0.096 px |
-| Base t_ga | 0.015 ms | 0.053 ms |
+| Base `t_ga` | 0.015 ms | 0.053 ms |
 | Base gyroscope scale | 0.011 % | 0.108 % |
 | Base accelerometer scale | 0.013 % | 0.033 % |
 | Board height rms | 0.23 mm | 0.23 mm |
 | Aux lever | 0.164 mm | 0.20 mm |
 | Aux rotation | 0.245 mrad | 0.58 mrad |
-| Aux td | 0.007 ms | 0.036 ms |
+| Aux `td` | 0.007 ms | 0.036 ms |
 
 The camera rows are ELP left; ELP right is close. What it shows:
 
 - **The solver converges to the truth.** Without noise every error is a fraction of a mm, mrad or ms, and the
   scales land within 0.02 %. This is the check that matters.
 - **Noise sets the limit, and it matches real data.** With noise, the gyroscope scale lands within 0.11 %,
-  t_ga within 0.05 ms and the ELP readout within 0.02 ms. That is no larger than the real spread over the 15
-  recordings, which also vary the motion: T265 gyroscope scale sd 0.03–0.13 % per axis, t_ga sd 0.13 ms, ELP
+  `t_ga` within 0.05 ms and the ELP readout within 0.02 ms. That is no larger than the real spread over the 15
+  recordings, which also vary the motion: T265 gyroscope scale sd 0.03–0.13 % per axis, `t_ga` sd 0.13 ms, ELP
   readout sd 0.12 ms ([results page](/benchmark/results/virig-4imus-4cams/), "ELP RS stereo + two IMUs").
 - **The board height** keeps about 0.2 mm of error even without noise.
 
@@ -175,8 +175,8 @@ versions. A version fails if a solve fails, takes no step, or an error grows pas
 |---|---|
 | Lever | 0.2 mm |
 | Rotation | 0.2 mrad |
-| td, readout | 0.05 ms |
-| t_ga | 0.1 ms |
+| `td`, readout | 0.05 ms |
+| `t_ga` | 0.1 ms |
 | Gyroscope scale | 0.01 % |
 | Accelerometer scale | 0.02 % |
 | Focal length | 0.2 px |
@@ -230,4 +230,6 @@ For the theory of weak motions, see [Degeneracy](/concepts/degeneracy/).
 
 ## Next
 
-[Step 8: round-trip validation](/guides/roundtrip/) checks the calibration on real data.
+- **Step 8:** [Round-trip validation](/guides/roundtrip/) checks the calibration on real data.
+- **Why it matters:** a twin showed that slow IMUs bias the lever on short windows:
+  [Why calibrate IMUs together](/why/multi-imu/#5-slow-imus-bias-levers-on-short-windows).

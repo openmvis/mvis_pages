@@ -6,9 +6,15 @@ pageType: guide
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Use this page to solve each camera's lens and the camera-to-camera extrinsics.
-You need a recording from [step 2](/guides/calibration-motion/). You get a camera
-YAML that [step 4](/guides/camera-imu-calibration/) reads as its starting point.
+Step 3 of the walkthrough. Here you solve each camera's lens and the camera-to-camera extrinsics.
+
+- **You need:** a recording from [step 2](/guides/calibration-motion/) and the `board:` block from
+  [step 1](/guides/board-setup/).
+- **You get:** a camera YAML that [step 4](/guides/camera-imu-calibration/) reads as its starting point.
+- **Check:** the reprojection error and the motion-excitation grades in the report
+  ([section 7](#7-read-the-report)).
+
+The solve estimates:
 
 - **Intrinsics:** focal length and image centre of each camera.
 - **Distortion:** how the lens bends straight lines.
@@ -81,7 +87,7 @@ corner_subsample: two_anti
   a height off the flat board. See
   [A board is never flat](/guides/board-setup/#4-a-board-is-never-flat) · [why](/why/board-shape/).
 - **`corner_subsample: two_anti`:** two corners per tag, the default. See [Speed](#6-speed).
-- **`reference_camera: 2`:** the other camera's pose is given relative to T265-1.
+- **`reference_camera: 2`:** the other camera's pose is given relative to the T265 left camera (`T265-1`).
 - **`shutter_type: global`:** no readout time to solve.
 
 Run it:
@@ -155,8 +161,8 @@ Set `distortion_model` per camera. MVIS has eight models:
 - **So:** the benchmark rows that use `equidistant` stand for `kb4` too.
 - **Past 90°:** `equidistant` cannot project those rays; `kb4` can. See
   [Why kb4](/why/kb4/).
-- **Fold warning in the T265 report:** the kb4 model folds back at 93° (T265-1)
-  and 96° (T265-2) off axis. That angle lies inside the image corners, so the
+- **Fold warning in the T265 report:** the kb4 model folds back at 93° (T265 left)
+  and 96° (T265 right) off axis. That angle lies inside the image corners, so the
   report says "NO (fold inside image)" and the fold level "warn". No board corner
   gets near it (at most 74°, 0 corners past the fold), so the result is not
   affected.
@@ -208,7 +214,7 @@ The models in equations are on [Camera model](/concepts/camera-model/).
 **Recording 01, the two configs on this page** (`mvis cam`, MVIS 0.1.0, run
 2026-11-12):
 
-| | T265-1 | T265-2 | ELP-L | ELP-R |
+| | T265 left | T265 right | ELP left | ELP right |
 |---|---|---|---|---|
 | Model | `kb4` | `kb4` | `equidistant` | `equidistant` |
 | fx / fy (px) | 284.72 / 284.28 | 284.74 / 284.10 | 427.59 / 426.68 | 424.43 / 423.48 |
@@ -218,8 +224,8 @@ The models in equations are on [Camera model](/concepts/camera-model/).
 
 | Pair | Baseline | Translation (mm) | Rotation, log(R) (rad) |
 |---|---|---|---|
-| T265-2 in T265-1 | 63.71 mm | 63.71, −0.59, −0.51 | 0.0024, 0.0063, 0.0010 |
-| ELP-R in ELP-L | 59.44 mm | 59.43, 0.68, −0.09 | −0.0216, −0.0135, −0.0027 |
+| T265 right in T265 left | 63.71 mm | 63.71, −0.59, −0.51 | 0.0024, 0.0063, 0.0010 |
+| ELP right in ELP left | 59.44 mm | 59.43, 0.68, −0.09 | −0.0216, −0.0135, −0.0027 |
 
 - **Reprojection error:** the pixel gap between the detected corners and where
   the solved model puts them.
@@ -238,12 +244,15 @@ use `equidistant`, which gives the same numbers as `kb4` here:
 | | MVIS | Kalibr | Basalt |
 |---|---|---|---|
 | Stereo baseline (mm) | 63.667 (sd 0.036) | 63.468 (sd 0.099) | 63.555 (sd 0.135) |
-| Fisheye 1 fx (px) | 286.53 (sd 0.65) | 285.09 (sd 2.40) | 284.14 (sd 0.65) |
+| T265 left fx (px) | 286.53 (sd 0.65) | 285.09 (sd 2.40) | 284.14 (sd 0.65) |
 
 - **Baseline:** the distance between the two T265 cameras.
 - **Board shape:** MVIS estimates it. Kalibr assumes a flat board. On this
   board the flat assumption shifts the focal length ([why](/why/board-shape/)).
 - **Repeatable:** the MVIS baseline moves by about 0.04 mm between recordings.
+- **Recording 01 is low:** its fisheye 1 fx (284.72 px) is the lowest of the 15 MVIS runs, about 1.8 px below
+  the median. Basalt also gives its lowest fx on recording 01 (282.85 px), and Kalibr its second lowest. The low
+  value comes from the recording, not the settings.
 
 ## 5. Write the ELP config
 
@@ -293,10 +302,12 @@ camera-only default is `two_anti`.
 corner_subsample: two_anti     # two_anti | two_diag | all | top_left
 ```
 
-- **`two_anti` (default):** 2 corners per tag, top-left and bottom-right. About
-  20 % faster than `all`; cx and cy stay within about 0.1 px. In the final joint
-  solve (stage 4) MVIS adds the other corners back on the best frames, so every
-  corner still gets a board height ("144 of 144" in the report).
+- **`two_anti` (default):** 2 corners per tag, top-left and bottom-right. About half the solve
+  time of `all` (`all` takes about 1.8×: 12 against 22 min on an ELP stereo recording with `board_points` on); cx and cy stay within about 0.1 px. With two or more
+  cameras, the joint solve (stage 4) adds the other diagonal on frames that see at
+  least 35 of the 36 tags, so every corner gets a board height ("144 of 144" in the
+  report), but those corners have few views (22 frames on the ELP pair here). A
+  one-camera solve sees 72 of 144; use `corner_subsample: all` for the full shape.
 - **`two_diag`:** 2 corners per tag, the other diagonal.
 - **`all`:** 4 corners per tag. Most data, no speed-up.
 - **`top_left`:** 1 corner per tag, fastest. The fit is unchanged, but cx and
@@ -375,7 +386,7 @@ Error messages name these stages:
 | Quality gating | Corner subsampling; a frame's pose is kept when it sees at least 20 % of the tags (at least 4), counted over all cameras at that time; each corner needs at least 5 views, and at least 3 in each camera; each frame needs at least 6 tags |
 | 1 | Per-camera start: focal length from vanishing points, board poses by RANSAC PnP, then a sanity check |
 | 2 | Per-camera refinement, with the rolling-shutter readout if the camera has one |
-| 3 | Camera-to-camera extrinsics from the board poses by RANSAC; time offsets too when `optimize_time_offset: true` |
+| 3 | Camera-to-camera extrinsics from the board poses by RANSAC; time offsets too when `estimate.camera.td: true` (older configs: `optimize_time_offset`) |
 | 4 | One joint optimisation of all cameras and all parameters |
 | 5 | Drop outliers and run stage 4 again, with a guard against a run that gets worse |
 
@@ -398,3 +409,5 @@ Error messages name these stages:
   the same result as `kb4` ([section 3](#3-choose-a-fisheye-model-for-the-t265)).
   The file is [camera_prior.yaml](/media/guides/virig-4imus-4cams/camera_prior.yaml).
 - **Step 5:** [Rolling-shutter calibration](/guides/rolling-shutter/) for the ELP.
+- **Why it matters:** [Why calibrate cameras together](/why/multi-camera/) and
+  [Why kb4 for fisheye](/why/kb4/).
