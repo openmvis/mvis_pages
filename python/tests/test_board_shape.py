@@ -47,3 +47,22 @@ def test_section_only_when_a_run_estimated_the_shape():
     html = board_shape_section([shaped, flat], BOARD)
     assert "<svg" in html and "assumed a flat board" in html
 
+
+
+def test_svg_labels_tags_and_ticks_the_scale():
+    h, obs = _shape()
+    svg = board_shape_svg(BOARD, {"heights_m": h.tolist(), "n_obs": obs, "p2p_mm": 8.0, "rms_mm": 2.0})
+    assert 'class="board bshape"' in svg
+    labels = [s.split(">")[-1] for s in svg.split("</text>")[:-1]]
+    assert labels[:5] == ["0", "1", "2", "0", "1"]                          # 3 tag columns, then 2 tag rows
+    assert labels[5:] == ["-5.0 mm", "-2.5 mm", "flat", "+2.5 mm", "+5.0 mm"]
+    assert svg.count("<line ") == 5
+
+
+def test_corner_dots_never_touch_the_next_tag():
+    import re
+    for spacing in (0.1, 0.25, 0.3):
+        b = dict(BOARD, spacing=spacing)
+        h, obs = _shape()
+        r = float(re.search(r' r="([\d.]+)"', board_shape_svg(b, {"heights_m": h.tolist(), "n_obs": obs, "p2p_mm": 8.0, "rms_mm": 2.0})).group(1))
+        assert 2 * r < b["tag_mm"] * spacing

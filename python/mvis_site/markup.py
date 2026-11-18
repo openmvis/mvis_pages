@@ -171,7 +171,7 @@ def board_shape_svg(b: dict, shape: dict) -> str:
     seen = [x for x, k in zip(h, n) if k > 0] or h
     lim = max(max(abs(x) for x in seen), 1e-3)
     w, d = (cols - 1) * step + tag, (rows - 1) * step + tag
-    rad = tag * 0.11
+    rad = min(tag * 0.15, tag * b["spacing"] * 0.45)          # big dots, but never touching the next tag's corner
     dots = []
     for r in range(rows):
         for c in range(cols):
@@ -183,21 +183,30 @@ def board_shape_svg(b: dict, shape: dict) -> str:
                     dots.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.1f}" fill="{_shape_colour(h[i] / lim)}"><title>{h[i]:+.2f} mm</title></circle>')
                 else:
                     dots.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.1f}" fill="none" stroke="#999" stroke-width="{rad / 4:.1f}"><title>not seen</title></circle>')
-    m = step
-    bar_w = w * 0.6
-    fs = w * 0.03                                   # legend text scales with the board, not the tag pitch
+    fs = max(w, d) * 0.03                            # text scales with the board, not the tag pitch
+    pad = tag * 0.3                                  # frame around the corners
+    t = lambda x, y, s, a="middle", k=1.0: (f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{a}" font-size="{fs * k:.1f}" '
+                                            f'fill="currentColor">{s}</text>')
+    axes = ([t(c * step + half, d + pad + fs * 1.2, c, k=0.8) for c in range(cols)]          # tag column, left to right
+            + [t(-pad - fs * 0.4, (rows - 1 - r) * step + half + fs * 0.28, r, "end", 0.8) for r in range(rows)])  # row 0 at the bottom
+    bar_w, bar_h, bar_y = w * 0.7, fs * 0.8, d + pad + fs * 2.4
+    x0 = (w - bar_w) / 2
     stops = "".join(f'<stop offset="{k / 10:.1f}" stop-color="{_shape_colour(k / 5 - 1)}"/>' for k in range(11))
+    ticks = "".join(f'<line x1="{x0 + f * bar_w:.1f}" x2="{x0 + f * bar_w:.1f}" y1="{bar_y + bar_h:.1f}" y2="{bar_y + bar_h + fs * 0.35:.1f}" '
+                    f'stroke="currentColor" stroke-width="{fs * 0.06:.2f}"/>'
+                    + t(x0 + f * bar_w, bar_y + bar_h + fs * 1.4, "flat" if f == 0.5 else f"{(2 * f - 1) * lim:+.1f} mm")
+                    for f in (0, 0.25, 0.5, 0.75, 1))
     bar = (f'<defs><linearGradient id="bsg">{stops}</linearGradient></defs>'
-           f'<rect x="{(w - bar_w) / 2:.1f}" y="{d + m * 0.55:.1f}" width="{bar_w:.1f}" height="{fs * 0.8:.1f}" fill="url(#bsg)"/>'
-           f'<text x="{(w - bar_w) / 2:.1f}" y="{d + m * 0.55 + fs * 2.0:.1f}" text-anchor="middle" font-size="{fs:.1f}" fill="currentColor">{-lim:+.1f} mm</text>'
-           f'<text x="{w / 2:.1f}" y="{d + m * 0.55 + fs * 2.0:.1f}" text-anchor="middle" font-size="{fs:.1f}" fill="currentColor">flat</text>'
-           f'<text x="{(w + bar_w) / 2:.1f}" y="{d + m * 0.55 + fs * 2.0:.1f}" text-anchor="middle" font-size="{fs:.1f}" fill="currentColor">{lim:+.1f} mm</text>')
-    return (f'<figure class=board><svg viewBox="{-m * 0.6:.1f} {-m * 0.6:.1f} {w + m * 1.2:.1f} {d + m * 2.1:.1f}" role="img" '
+           f'<rect x="{x0:.1f}" y="{bar_y:.1f}" width="{bar_w:.1f}" height="{bar_h:.1f}" fill="url(#bsg)"/>' + ticks)
+    left, top = pad + fs * 2.0, pad + fs * 0.5
+    bottom = bar_y + bar_h + fs * 2.0
+    return (f'<figure class="board bshape"><svg viewBox="{-left:.1f} {-top:.1f} {w + left + pad + fs * 0.5:.1f} {bottom + top:.1f}" role="img" '
             f'aria-label="Board shape, AprilGrid {rows} by {cols}: heights off the flat board">'
-            f'<rect x="{-m * 0.3:.1f}" y="{-m * 0.3:.1f}" width="{w + m * 0.6:.1f}" height="{d + m * 0.6:.1f}" fill="none" stroke="currentColor" stroke-opacity="0.35"/>'
-            + "".join(dots) + bar + '</svg>'
+            f'<rect x="{-pad:.1f}" y="{-pad:.1f}" width="{w + 2 * pad:.1f}" height="{d + 2 * pad:.1f}" fill="none" stroke="currentColor" stroke-opacity="0.35"/>'
+            + "".join(dots) + "".join(axes) + bar + '</svg>'
             f'<figcaption>Height of each corner off the flat board: peak to peak {shape["p2p_mm"]:.1f} mm, rms '
-            f'{shape["rms_mm"]:.1f} mm. Hover a corner for its value.</figcaption></figure>')
+            f'{shape["rms_mm"]:.1f} mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner '
+            f'for its value.</figcaption></figure>')
 
 
 def imu_bars(r) -> str:
