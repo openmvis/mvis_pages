@@ -8,18 +8,35 @@ wide: true
 import rep from '../../../data/leaderboard/repeatability.json';
 import { tested } from '../../../components/rp';
 
-Use this page to read the [Leaderboard](/benchmark/results/): what its numbers mean and how we make them.
+Use this page to read the [Leaderboard](/benchmark/results/) and the results pages: what their numbers mean and how we make them.
 The metric definitions are shared with [Evaluation & metrics](/reference/evaluation/).
 So a local run and a published entry measure the same thing.
 
-## What the board shows
+## What the pages show
 
-- **The [Leaderboard](/benchmark/results/)** shows every dataset and family on one screen; each **results page**
-  (for example [VI-Rig 4 IMUs + 3 cams](/benchmark/results/virig-4imus-3cams/)) charts every parameter and holds the
-  full tables: one table per regression family (one test in the MVIS regression suite), then per sensor.
 - **Three tools:** MVIS, Kalibr and Basalt each calibrate the recordings of a rig.
-- **Each cell:** a parameter as median ± sd (n), across the recordings that tool solved.
+- **The [Leaderboard](/benchmark/results/)** puts every dataset and family on one screen, one row per family
+  (one test in the MVIS regression suite). Filters pick the mode (camera only, camera + IMU) and the shutter.
+  Each row shows:
+  - **Solved:** how many of the family's recordings each tool solved.
+  - **Repeatability cells:** one per group of parameters (f + pp, Dist, Base, Readout, td, Lever, Gyro, Accel).
+    See [Repeatability verdicts](#repeatability-verdicts).
+  - **◆ columns:** per tool pair, how many parameter rows differ by more than the spread. See [Differences](#differences).
+- **Each results page** (for example [VI-Rig 4 IMUs + 3 cams](/benchmark/results/virig-4imus-3cams/)) holds one dataset:
+  - **Header:** chips for the data and its cameras, the batch and results commit, and links to the dataset page,
+    the Device wiki and Hugging Face.
+  - **Notes:** a study's reading notes, on the pages that have them.
+  - **Per family:** its title, the number of recordings and a "Read first" line.
+  - **Coverage:** each tool's solved n of N, the reason where a tool did not run, and the record files behind the numbers.
+    A closed **Fit** fold gives the reprojection median per camera and tool: fit of each tool's own model, not accuracy.
+  - **Parameters by sensor:** one tab per sensor, one chart per parameter, one lane per tool.
+- **Each lane:** a parameter as median ± sd (n), across the recordings that tool solved.
   sd is the standard deviation; n is the number of recordings.
+  The whisker runs from the lowest to the highest value, the box is median ± sd and the tick is the median.
+  A hollow box is an input, a hatched one another model (printed, not drawn), a dashed one no value.
+- **Two MVIS lanes** on camera + IMU families: MVIS ran twice per recording, with its default IMU model ("MVIS")
+  and with Kalibr's IMU model ("MVIS (K-IMU)"), so the IMU terms of the second mean the same thing as Kalibr's.
+- **Not on the pages:** rotations (the records do not hold them yet), per-row difference tables and run configs.
 - **No totals:** nothing is added up across cells, families or datasets, so there is no score or rank.
   A single number would encode a judgement about which parameters matter.
 
@@ -33,10 +50,11 @@ MVIS checks accuracy separately, against known truth, in its digital-twin regres
 
 ## Differences
 
-Each difference column subtracts the medians of two tools.
-A ◆ marks a difference larger than the larger of the two spreads.
+The ◆ columns are on the Leaderboard only. Per tool pair, they count the parameter rows where the two medians differ
+by more than the larger of the two spreads, out of the rows compared.
+On camera + IMU families the MVIS of each pair is its run with Kalibr's IMU model (marked K).
 
-We show no difference where it would mislead:
+A row is not compared where a difference would mislead:
 
 - values a tool takes as input
 - values shown only
@@ -52,14 +70,14 @@ These are the words a results page prints beside a value, or in place of one.
 | Label | Meaning |
 |---|---|
 | `input` | The tool takes this value as input, for example the intrinsics in Kalibr's camera + IMU runs. It is printed, not compared. |
-| `different model, not compared` | The tool estimated it with a different model, so it is printed, not drawn, and has no difference against it. |
+| `different model, not compared` | The tool estimated it with a different model, so it is printed, not drawn, and not counted in the ◆ columns. |
 | `different model, no value` | The tool uses a different model here and has no value for this row. |
 | `not in this tool's model` | The tool's model has no such parameter. |
 | `not reported` | The tool does not write this value out. |
 | `not in one run` | The tool ran with each sensor, but no single run holds both ends of the baseline. |
 | `not run` | The tool never ran with this sensor. Where a whole family was not run, its coverage line gives the reason. |
 | `no value` | The tool has no value for this row. |
-| `3 of 15` | In the coverage line: the tool solved only 3 of the family's 15 recordings. |
+| `3 of 15` | In Coverage: the tool solved only 3 of the family's 15 recordings. |
 
 ## Repeatability verdicts
 
@@ -85,13 +103,16 @@ Notes on the test:
 - **Dates:** MVIS rows and the Kalibr and Basalt runs were not all made on the same date.
   Data settings differ on T6, T7 and T8.
 - **Recording counts:** these differ per tool on some families, so a difference can mix recording sets.
-  These cells are marked.
-- **IMU model:** the MVIS column uses Kalibr's IMU model on camera + IMU families, so the IMU rows share one model.
-  The MVIS default fills fewer rows and is in a closed fold under each family.
+  Each lane prints its n, and Coverage gives n of N per tool.
+- **IMU model:** the MVIS default fills fewer rows: its gyro and accel scale and cross-axis lanes say "no value".
+  The MVIS (K-IMU) lane fills them, and the Leaderboard uses it on camera + IMU families.
 
 ## Configs
 
-Each family on the leaderboard has a closed **Run config** section per tool. It holds:
+The pages do not show run configs now.
+The config files are kept with the records in
+[`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results/tree/main/configs) (CC BY 4.0).
+For each family and tool they hold:
 
 - the command for one recording
 - the settings
@@ -99,8 +120,6 @@ Each family on the leaderboard has a closed **Run config** section per tool. It 
 
 Kalibr logs no command line. So we rebuild its camera-only commands from the settings the run passed.
 The Basalt runs use our own headless build.
-The files are kept with the records in
-[`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results/tree/main/configs) (CC BY 4.0).
 
 ## Versioning
 
