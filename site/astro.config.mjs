@@ -85,7 +85,7 @@ export default defineConfig({
     starlight({
       title: 'OpenMVIS',
       description:
-        'The benchmark for multi-visual-inertial sensor calibration — multi-IMU, multi-camera, with leaderboard.',
+        'Open-source multi-visual-inertial sensor calibration: the MVIS toolbox and the Calibench-VI benchmark.',
       logo: { src: './src/assets/logo.svg', alt: '' },  // a mark beside the visible title, so no alt text (it would be read twice)
       // Header link: the toolbox repo. Edit links: this site's repo.
       social: [

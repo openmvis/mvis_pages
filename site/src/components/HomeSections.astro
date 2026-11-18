@@ -13,20 +13,24 @@ import HomeDevices from './HomeDevices.astro';
         <p class="mhs-kicker">Calibrate a whole rig at once</p>
         <h2>From one recording to a full sensor model.</h2>
         <div class="mhs-prose">
-          <p>MVIS is the calibration library behind the OpenMVIS benchmark. It solves camera intrinsics and distortion, extrinsics, time offsets, rolling-shutter readout, board poses and (optionally) the board shape, camera–IMU transforms, IMU intrinsics and biases in a single GTSAM factor graph.</p>
+          <p>MVIS is the calibration toolbox behind the OpenMVIS benchmark. It solves camera intrinsics and distortion, extrinsics, time offsets, rolling-shutter readout, board poses and (optionally) the board shape, camera–IMU transforms, IMU intrinsics and biases in a single GTSAM factor graph.</p>
           <p>It reads ROS1 and ROS2 bags through <code>rosbags</code>, so ROS does not need to be installed. It also reads EuRoC/ASL folders, image folders and timestamped images.</p>
         </div>
       </div>
       <div>
-        <pre class="mhs-term" aria-label="Command-line usage"><span class="c"># cameras only</span>
+        <pre class="mhs-term" aria-label="Command-line usage"><span class="c"># install (Python 3.11 or 3.12)</span>
+<span class="p">$ </span>pip install "pymvis[apriltag,ros1]"
+
+<span class="c"># cameras only</span>
 <span class="p">$ </span>mvis cam -c camera.yaml
 
 <span class="c"># cameras + IMUs, jointly</span>
 <span class="p">$ </span>mvis cam-imu -c cam_imu.yaml
 
-<span class="c"># apply the result and recalibrate; PASS / FAIL</span>
+<span class="c"># check the result: PASS / FAIL</span>
 <span class="p">$ </span>mvis roundtrip -c cam_imu.yaml</pre>
         <p class="mhs-cap">One self-contained HTML report per run.</p>
+        <p class="mhs-cap">Package <code>pymvis</code> 0.1.0 on <a href="https://pypi.org/p/pymvis/">PyPI</a> · command <code>mvis</code> · <a href="/about/license/">GPL-3.0-only or commercial</a> · DOI <a href="https://doi.org/10.5281/zenodo.24239182">10.5281/zenodo.24239182</a></p>
       </div>
     </div>
   </section>
@@ -80,11 +84,11 @@ import HomeDevices from './HomeDevices.astro';
         <tbody>
           <tr><td class="q">Intrinsics + distortion</td><td class="sym">f, c, k</td><td class="per">camera</td><td class="unit">px</td><td>Eight models, mixable within one rig</td></tr>
           <tr><td class="q">Camera–IMU extrinsics</td><td class="sym">T_CtoI</td><td class="per">camera</td><td class="unit">m · log(R) rad</td><td>Every camera to the base IMU, the reference IMU of the rig</td></tr>
-          <tr><td class="q">Camera time offset</td><td class="sym">t_d</td><td class="per">camera</td><td class="unit">ms</td><td>About −123 ms of USB lag on the VI-Rig ELP stereo</td></tr>
+          <tr><td class="q">Camera time offset</td><td class="sym">t_d</td><td class="per">camera</td><td class="unit">ms</td><td>About −123 ms of USB lag on the VI-Rig ELP stereo, against the Xsens IMU</td></tr>
           <tr><td class="q">Rolling-shutter readout</td><td class="sym">t_r</td><td class="per">camera</td><td class="unit">ms</td><td>Each corner projected at its own row time</td></tr>
           <tr><td class="q">IMU–IMU extrinsics</td><td class="sym">T_IstoI</td><td class="per">aux IMU</td><td class="unit">m · log(R) rad</td><td>Plus a per-IMU time offset</td></tr>
           <tr><td class="q">IMU intrinsics</td><td class="sym">D_w, D_a</td><td class="per">IMU</td><td class="unit">—</td><td><code>kalibr</code>, <code>rpng</code> or <code>calyx</code> convention</td></tr>
-          <tr><td class="q">Gyro–accel offset</td><td class="sym">t_ga</td><td class="per">IMU</td><td class="unit">ms</td><td>About −5.7 ms on the T265 IMU; <a href="/why/tga/">why it matters</a></td></tr>
+          <tr><td class="q">Gyro–accel offset</td><td class="sym">t_ga</td><td class="per">IMU</td><td class="unit">ms</td><td>About −6.7 ms on the T265 IMU over 15 recordings; <a href="/why/tga/">why it matters</a></td></tr>
           <tr><td class="q">Biases</td><td class="sym">b_g, b_a</td><td class="per">IMU</td><td class="unit">rad/s · m/s²</td><td>Along the whole trajectory</td></tr>
           <tr><td class="q">Board pose + trajectory</td><td class="sym">T_BinW, T_ItoW(t)</td><td class="per">recording</td><td class="unit">m · log(R) rad</td><td>Chessboard, AprilGrid or ArUco targets</td></tr>
           <tr><td class="q">Board shape</td><td class="sym">z_k</td><td class="per">corner</td><td class="unit">mm</td><td>Optional, off by default; on for our VI-Rig runs; <a href="/why/board-shape/">why it matters</a></td></tr>
@@ -100,7 +104,7 @@ import HomeDevices from './HomeDevices.astro';
         <h2>Eight projection models.</h2>
         <ul class="mhs-models">
           <li><code>radtan</code><span>Pinhole, radial–tangential</span></li>
-          <li><code>kb4</code><span>Kannala–Brandt fisheye, the default; <a href="/why/kb4/">why</a></span></li>
+          <li><code>kb4</code><span>Kannala–Brandt, the fisheye default (<code>fisheye</code> means kb4); <a href="/why/kb4/">why</a></span></li>
           <li><code>equidistant</code><span>KB polynomial, under 90°</span></li>
           <li><code>fov</code><span>Field-of-view model</span></li>
           <li><code>double_sphere</code><span>Wide-angle fisheye</span></li>
