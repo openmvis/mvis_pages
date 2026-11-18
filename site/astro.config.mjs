@@ -86,7 +86,7 @@ export default defineConfig({
       title: 'OpenMVIS',
       description:
         'The benchmark for multi-visual-inertial sensor calibration — multi-IMU, multi-camera, with leaderboard.',
-      logo: { src: './src/assets/logo-placeholder.svg' },
+      logo: { src: './src/assets/logo.svg', alt: '' },  // a mark beside the visible title, so no alt text (it would be read twice)
       // Header link: the toolbox repo. Edit links: this site's repo.
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/openmvis/openmvis' },

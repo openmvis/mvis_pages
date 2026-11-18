@@ -35,7 +35,7 @@ const scaleErr = (d: any, k: string) => Math.max(...d.scale_pct[k][i0(d)].map(Ma
         ))}
       </tbody>
     </table>
-    <p class="tga-foot">Corrected bag, no injected delay. Scale error is the largest |scale − 1| over the six IMU axes.</p>
+    <p class="fig-note">Corrected bag, no injected delay. Scale error is the largest |scale − 1| over the six IMU axes.</p>
   </>
 )}
 {which === 'shift' && (
@@ -55,11 +55,7 @@ const scaleErr = (d: any, k: string) => Math.max(...d.scale_pct[k][i0(d)].map(Ma
         ))}
       </tbody>
     </table>
-    <p class="tga-foot">On the raw bags, Kalibr's td really differs from MVIS's by about this much
+    <p class="fig-note">On the raw bags, Kalibr's td really differs from MVIS's by about this much
       ({f(D.looper.gap.kalibr[0])} ms on Looper, {f(D.t265.gap.kalibr[0])} ms on the T265).</p>
   </>
 )}
-
-<style>
-  .tga-foot { font-size: 0.8rem; color: var(--rp-mut); }
-</style>
