@@ -260,14 +260,14 @@ examples:
     clip: looper
     card:
       rig: 2 mono + 1 rolling-shutter colour camera + IMU @ 400 Hz
-      format: ROS bag → EuRoC mav0
+      format: ROS1 bag (run on EuRoC mav0)
       shows: The rolling-shutter readout solved alongside the global-shutter cameras
       tags: [Global + rolling shutter, 3 cameras, 400 Hz IMU, CC BY-NC 4.0]
     facts:
       - [Cameras, "2 × 544×640 mono global shutter + 1920×1088 colour rolling shutter"]
       - [IMU, "400 Hz"]
       - [Board, "AprilGrid 6×6, tag 55 mm"]
-      - [Format, "EuRoC mav0"]
+      - [Format, "ROS1 bag (this run reads the same recording as EuRoC mav0)"]
       - [Licence, "CC BY-NC 4.0"]
     lead: "One MVIS camera + IMU run on hand-held recording 1: the two mono cameras, the rolling-shutter colour camera and its readout time, solved together."
     dataset: {url: "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/looper-insight9", label: "Calibench-VI, looper-insight9/"}
