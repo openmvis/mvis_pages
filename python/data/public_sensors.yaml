@@ -523,7 +523,7 @@ sensors:
   gi-ego1gs:
     group: head-worn
     title: GI EGO1GS
-    description: Head-worn global-shutter fisheye stereo with an IMU at about 470 Hz, calibrated with MVIS on one recording.
+    description: Head-worn global-shutter fisheye stereo with an IMU published at 400 Hz (471 and 477 Hz in these recordings), calibrated with MVIS on two recordings.
     lead: "Head-worn stereo headset from General Intelligence Labs with two colour global-shutter cameras 63 mm apart, a 9-DoF IMU and stereo microphones. Two 30-second recordings of an AprilGrid, solved with MVIS for camera, IMU and time offsets."
     card: {tags: [Global shutter, 2 cameras, 400 Hz IMU]}
     demo: {from: "gi-ego1gs-rec2_small", note: "The 3D scene MVIS recovered from recording 2. Everything except the board is blurred."}
@@ -533,7 +533,7 @@ sensors:
       - [Cameras, "2 × 1080p at 30 fps", Maker]
       - [Field of view, "157° × 84°", Maker]
       - [Baseline, 63 mm, Maker]
-      - [IMU rate, "400 Hz published, 470.9 Hz in this recording", Measured]
+      - [IMU rate, "400 Hz published; 470.9 Hz in recording 1, 476.8 Hz in recording 2", Measured]
       - [Audio, Stereo microphones, Maker]
       - [Sensor part numbers, Not published, Unknown]
     dataset:
@@ -573,7 +573,7 @@ sensors:
             - {item: Weight, v: "About 200 g, headset only", src: "https://www.gilabs.xyz/products/ego1gs"}
         - title: Measured in these recordings
           rows:
-            - {item: IMU rate, v: 470.9 Hz}
+            - {item: IMU rate, v: "470.9 Hz (recording 1), 476.8 Hz (recording 2)"}
         - title: Not published
           rows:
             - {item: Parts, v: "Sensor part numbers, lens model"}
@@ -687,7 +687,7 @@ sensors:
     data_link: {url: "https://huggingface.co/datasets/collabora/monado-slam-datasets", label: "Monado SLAM Datasets"}
     method: "Each recording shows the board to one camera pair, so three pairs are solved: cam0 + cam1, cam0 + cam2, cam1 + cam3. Each is camera + IMU with camera intrinsics free and t_ga estimated, on current MVIS, 2026-11-03. cam0, cam1 and all IMU values come from the first pair. cam2 is attached through cam0 and cam3 through cam1."
     limits:
-      - One recording shown, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
+      - Three pair recordings, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
       - This rig is stitched from three solves, not one joint solve. Cameras seen in two pairs agree to 0.89 mm and 0.34° (cam0) and 0.54 mm and 0.15° (cam1). cam2 and cam3 move 0.79 and 0.52 mm depending on how they are attached.
       - The process figure and values for the IMU show the cam0 + cam1 recording only.
     header:
@@ -695,7 +695,7 @@ sensors:
       maker: {name: HP, url: "https://www.hp.com/"}
       links: {product: "https://www.hp.com/us-en/newsroom/press-releases/2020/hp-valve-microsoft-next-gen-virtual-reality-headset.html", product_label: "HP announcement"}
       image: {kind: photo, file: hp-reverb-g2.jpg, alt: "HP Reverb G2 headset, front view", credit: "Photo: HP, Reverb G2 press release", url: "https://www.hp.com/us-en/newsroom/press-releases/2020/hp-valve-microsoft-next-gen-virtual-reality-headset.html"}
-      foot: "Values from the Monado SLAM Datasets · 1 recording shown · CC BY 4.0 data"
+      foot: "Values from the Monado SLAM Datasets · 3 pair recordings, stitched into one rig · CC BY 4.0 data"
       key_specs:
         cameras: {v: "4 × 640×480, 30 Hz, grayscale", tag: dataset}
         shutter: {v: Not stated, tag: not_published}
