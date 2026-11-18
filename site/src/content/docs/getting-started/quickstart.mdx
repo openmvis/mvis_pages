@@ -174,9 +174,9 @@ compares it with Kalibr and Basalt.
   [Set up the board](/guides/board-setup/) to
   [Round-trip validation](/guides/roundtrip/).
 - **With an agent:** the MVIS repository ships a Claude Code skill,
-  `mvis-calibrate`, that walks a recording through seven gated stages
-  (installation check, data qualification, sensor suite, parameters, configs,
-  solve, verification, release) on top of `mvis inspect`, `mvis check`,
+  `mvis-calibrate`, that checks the installation (Stage 0) and then walks a
+  recording through seven gated stages (data qualification, sensor suite,
+  parameters, configs, solve, verification, release) on top of `mvis inspect`, `mvis check`,
   `mvis run`, `mvis verdict` and `mvis roundtrip`. Start Claude Code in a
   checkout, or copy its `.claude/` folder next to your data, and run
   `/mvis-calibrate`. See

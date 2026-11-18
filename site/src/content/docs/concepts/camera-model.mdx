@@ -278,8 +278,9 @@ $$
 t_I = t_C + t_d + \eta(v)\, t_r
 $$
 
-The row factor $\eta(v)$ depends on which row the driver stamps
-(`rolling_mode`, default 0):
+The row factor $\eta(v)$ depends on which row the driver stamps.
+In a camera–IMU config, set it with `camera_input.rolling_mode` (default 0), or per camera with `camera_input.cameras[i].rolling_mode`.
+A camera-only run has no such key and always uses the top row, $\eta(v) = v/H$.
 
 | `rolling_mode` | Frame stamp at | $\eta(v)$ |
 |---|---|---|
@@ -307,10 +308,11 @@ so the residuals it shows are the ones the optimiser minimised.
 Turn it on per camera:
 
 ```yaml title="config.yaml"
-cameras:
-  - camera_id: 0
-    shutter_type: rolling
+input:
+  cameras:
+    - camera_id: 0
+      shutter_type: rolling
 ```
 
-Or through the `estimate:` block, with `estimate.camera.tr: true`.
+In a camera–IMU config, use `camera_input.estimate_readout: true` (or per camera in `camera_input.cameras[i]`), or `estimate.camera.tr: true`.
 Practical guidance: [Rolling shutter](/guides/rolling-shutter/).

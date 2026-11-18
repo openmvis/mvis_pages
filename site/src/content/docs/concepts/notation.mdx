@@ -37,11 +37,13 @@ $$
 $$
 
 :::note[Result files and code use a different spelling]
-Result files write `T_C0toI` for the transform taking points from $\{C_0\}$ into $\{I\}$.
-It is the same object as ${}^{I}_{C_0}\mathbf{T}$.
-The `XtoY` names read left to right, in the direction of the mapping:
-`R_wtoI` is ${}^{I}_{w}\mathbf{R}$, `R_atoI` is ${}^{I}_{a}\mathbf{R}$,
-`T_IstoI` is ${}^{I}_{I_{s}}\mathbf{T}$.
+Code and result files name a transform `T_XtoY`: it takes points from $\{X\}$ into $\{Y\}$.
+So `T_CtoI` is ${}^{I}_{C}\mathbf{T}$, `R_wtoI` is ${}^{I}_{w}\mathbf{R}$, `R_atoI` is ${}^{I}_{a}\mathbf{R}$
+and `T_IstoI` is ${}^{I}_{I_{s}}\mathbf{T}$.
+A position is `p_XinY`, the origin of $\{X\}$ in $\{Y\}$: `p_CinI_mm` is ${}^{I}\mathbf{p}_{C}$ and `p_IsinI_m` is ${}^{I}\mathbf{p}_{I_{s}}$.
+`W` in a name is the global frame $\{G\}$ (gravity-aligned, $z$ up), as in `T_BinW`.
+One exception: `T_cam_imu` in the camera–IMU YAML and the Kalibr export keeps Kalibr's direction.
+It maps base-IMU points into the camera, ${}^{C}_{I}\mathbf{T}$, the inverse of `T_CtoI`.
 See [Result formats](/reference/result-formats/).
 :::
 
