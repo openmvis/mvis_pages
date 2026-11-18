@@ -84,11 +84,11 @@ import HomeDevices from './HomeDevices.astro';
         <tbody>
           <tr><td class="q">Intrinsics + distortion</td><td class="sym">f, c, k</td><td class="per">camera</td><td class="unit">px</td><td>Eight models, mixable within one rig</td></tr>
           <tr><td class="q">Camera–IMU extrinsics</td><td class="sym">T_CtoI</td><td class="per">camera</td><td class="unit">m · log(R) rad</td><td>Every camera to the base IMU, the reference IMU of the rig</td></tr>
-          <tr><td class="q">Camera time offset</td><td class="sym">t_d</td><td class="per">camera</td><td class="unit">ms</td><td>About −123 ms of USB lag on the VI-Rig ELP stereo</td></tr>
+          <tr><td class="q">Camera time offset</td><td class="sym">t_d</td><td class="per">camera</td><td class="unit">ms</td><td>About −123 ms of USB lag on the VI-Rig ELP stereo, against the Xsens IMU</td></tr>
           <tr><td class="q">Rolling-shutter readout</td><td class="sym">t_r</td><td class="per">camera</td><td class="unit">ms</td><td>Each corner projected at its own row time</td></tr>
           <tr><td class="q">IMU–IMU extrinsics</td><td class="sym">T_IstoI</td><td class="per">aux IMU</td><td class="unit">m · log(R) rad</td><td>Plus a per-IMU time offset</td></tr>
           <tr><td class="q">IMU intrinsics</td><td class="sym">D_w, D_a</td><td class="per">IMU</td><td class="unit">—</td><td><code>kalibr</code>, <code>rpng</code> or <code>calyx</code> convention</td></tr>
-          <tr><td class="q">Gyro–accel offset</td><td class="sym">t_ga</td><td class="per">IMU</td><td class="unit">ms</td><td>About −5.7 ms on the T265 IMU; <a href="/why/tga/">why it matters</a></td></tr>
+          <tr><td class="q">Gyro–accel offset</td><td class="sym">t_ga</td><td class="per">IMU</td><td class="unit">ms</td><td>About −6.7 ms on the T265 IMU over 15 recordings; <a href="/why/tga/">why it matters</a></td></tr>
           <tr><td class="q">Biases</td><td class="sym">b_g, b_a</td><td class="per">IMU</td><td class="unit">rad/s · m/s²</td><td>Along the whole trajectory</td></tr>
           <tr><td class="q">Board pose + trajectory</td><td class="sym">T_BinW, T_ItoW(t)</td><td class="per">recording</td><td class="unit">m · log(R) rad</td><td>Chessboard, AprilGrid or ArUco targets</td></tr>
           <tr><td class="q">Board shape</td><td class="sym">z_k</td><td class="per">corner</td><td class="unit">mm</td><td>Optional, off by default; on for our VI-Rig runs; <a href="/why/board-shape/">why it matters</a></td></tr>
