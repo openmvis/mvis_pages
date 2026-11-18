@@ -250,6 +250,9 @@ use `equidistant`, which gives the same numbers as `kb4` here:
 - **Board shape:** MVIS estimates it. Kalibr assumes a flat board. On this
   board the flat assumption shifts the focal length ([why](/why/board-shape/)).
 - **Repeatable:** the MVIS baseline moves by about 0.04 mm between recordings.
+- **Recording 01 is low:** its fisheye 1 fx (284.72 px) is the lowest of the 15 MVIS runs, about 1.8 px below
+  the median. Basalt also gives its lowest fx on recording 01 (282.85 px), and Kalibr its second lowest. The low
+  value comes from the recording, not the settings.
 
 ## 5. Write the ELP config
 
@@ -299,10 +302,12 @@ camera-only default is `two_anti`.
 corner_subsample: two_anti     # two_anti | two_diag | all | top_left
 ```
 
-- **`two_anti` (default):** 2 corners per tag, top-left and bottom-right. About
-  20 % faster than `all`; cx and cy stay within about 0.1 px. In the final joint
-  solve (stage 4) MVIS adds the other corners back on the best frames, so every
-  corner still gets a board height ("144 of 144" in the report).
+- **`two_anti` (default):** 2 corners per tag, top-left and bottom-right. About half the solve
+  time of `all` (`all` takes about 1.8×: 12 against 22 min on an ELP stereo recording with `board_points` on); cx and cy stay within about 0.1 px. With two or more
+  cameras, the joint solve (stage 4) adds the other diagonal on frames that see at
+  least 35 of the 36 tags, so every corner gets a board height ("144 of 144" in the
+  report), but those corners have few views (22 frames on the ELP pair here). A
+  one-camera solve sees 72 of 144; use `corner_subsample: all` for the full shape.
 - **`two_diag`:** 2 corners per tag, the other diagonal.
 - **`all`:** 4 corners per tag. Most data, no speed-up.
 - **`top_left`:** 1 corner per tag, fastest. The fit is unchanged, but cx and

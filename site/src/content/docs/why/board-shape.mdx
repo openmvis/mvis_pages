@@ -33,11 +33,11 @@ How to turn it on: [A board is never flat](/guides/board-setup/#4-a-board-is-nev
 
 ## 1. The board is a saddle
 
-We estimated the height of every corner four ways, all on recordings 3–5 with all corners:
+We estimated the height of every corner four ways, all on recordings 3–5:
 
 - **ELP left camera**, rolling shutter, camera-only.
 - **T265 left**, global shutter, camera-only.
-- **ELP stereo pair**, camera-only.
+- **ELP stereo pair**, camera-only, two corners per tag (10.4–10.8 mm, 2.1–2.3 mm rms).
 - **Camera–IMU:** the ELP stereo pair with the T265 and Xsens IMUs. This one also ran on recordings 1–15 with
   two corners per tag, for the recording-to-recording row.
 
@@ -51,8 +51,9 @@ We estimated the height of every corner four ways, all on recordings 3–5 with 
 
 <BoardShapeFigure caption="VI-Rig 4 IMUs + 4 cameras, recording 3: camera–IMU solve with all 144 corners (ELP stereo pair, T265 and Xsens IMUs), MVIS main f902d39. Red corners stand out of the best-fit plane, blue ones sink below it." />
 
-- **Two corners per tag:** on this code these solves report 1.6–2.7 mm rms and 9.1–11.7 mm peak to peak over
-  all 144 heights. Half of those heights have no data (section 4), so the first two rows leave them out. Since
+- **Two corners per tag:** over the 72 corners they observe, these solves read 2.2–2.7 mm rms and 9.1–11.7 mm
+  peak to peak (camera–IMU, recordings 1–15; recording 1 is the 9.1 mm low end). The other 72 heights have no
+  data (section 4), so the first two rows leave them out. Since
   2026-11-12 MVIS main writes the rms and peak to peak over the observed corners only, with a per-corner count
   `n_obs`, in the camera-only board shape output.
 - **Agreement:** the three estimates that use the ELP left camera agree within 0.04–0.13 mm. The T265 estimate,
@@ -139,8 +140,10 @@ Mean ± std over the 15 recordings, range in brackets:
   to rank. Camera–IMU over 15 recordings: 0.62 against 0.91 px.
 - **Earlier study:** a study on development code found `fx` repeating 2–4× worse with the shape. Its flat runs
   let each corner move under a 1 mm prior. These runs do not show that.
-- **Two corners per tag see half the heights:** with `corner_subsample: two_anti` a solve observes 72 of the 144
-  corners. The other 72 heights have no data and stay near their start values.
+- **Two corners per tag see half the heights:** with `corner_subsample: two_anti` a camera–IMU solve or a one-camera solve
+  observes 72 of the 144 corners. The other 72 heights have no data and stay near their start values. A
+  camera-only solve with two or more cameras adds the other diagonal on frames that see at least 35 of the 36
+  tags, so it sees all 144, but half of them only from a few frames.
 - **Where two corners per tag is set:** it is the camera-only default, and our camera–IMU configs set it too. The
   camera–IMU default is `all`.
 - **Default:** MVIS keeps `estimate.board_points` off. We turn it on for every VI-Rig solve, camera-only and

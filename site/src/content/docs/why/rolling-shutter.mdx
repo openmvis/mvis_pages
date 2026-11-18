@@ -11,7 +11,7 @@ Data: our runs on the VI-Rig dataset [virig-4imus-4cams](/datasets/virig-4imus-4
 **The answer first:**
 
 - **The ELP is rolling shutter:** it reads its rows one after another, over about 16.6 ms.
-- **Calling it global costs fit:** the median reprojection error grows by about 20–25 %.
+- **Calling it global costs fit:** on recording 01 the median reprojection error grew by 25 % (1.04 → 1.30 px).
 - **`td` hides the error:** the camera–IMU time offset `td` moves by about half the readout to absorb it.
 - **No warning:** the solve still converges, and the shifted `td` looks like a normal time offset.
 
