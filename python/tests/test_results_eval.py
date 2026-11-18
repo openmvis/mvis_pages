@@ -438,3 +438,23 @@ def test_study_rows_write_the_study_board_with_its_own_texts(tmp_path):
 
 def test_read_first_drops_the_notes_reference():
     assert R._no_notes_ref("Kalibr is GS. Data settings differ: see Notes.") == "Kalibr is GS. Data settings differ between the tools."
+
+
+def test_methodology_explains_every_label_a_results_page_prints():
+    text = (REPO / "site/src/content/docs/benchmark/methodology.mdx").read_text(encoding="utf-8")
+    for word in {*R.STATE_WORD.values(), *R.MISSING_WORD.values()}:
+        assert f"| `{word}` |" in text, word
+
+
+def test_the_mdx_title_says_results_and_names_only_the_tools_that_ran():
+    p = _page()
+    text = R.mdx(p)
+    assert 'title: "X: a rig results"' in text and "content: \"X: a rig results: MVIS and Kalibr | OpenMVIS\"" in text
+    only = dict(p, families=[dict(f, columns=[c for c in f["columns"] if c["tool"] == "MVIS"]) for f in p["families"]])
+    text = R.mdx(only)
+    assert "description: \"MVIS over every recording of X rig: what it solved," in text and "MVIS only | OpenMVIS" in text
+
+
+def test_reading_notes_reach_the_page_only_when_there_are_some():
+    assert "<E.Reading" not in R.mdx(_page())
+    assert "## Notes\n" in R.mdx(dict(_page(), reading=["<b>x</b>"])) and "<E.Reading page={page} />" in R.mdx(dict(_page(), reading=["x"]))

@@ -6,20 +6,22 @@ wide: true
 ---
 
 import rep from '../../../data/leaderboard/repeatability.json';
+import { tested } from '../../../components/rp';
 
-Use this page to read the [leaderboard](/benchmark/results/): what its numbers mean and how we make them.
+Use this page to read the [Leaderboard](/benchmark/results/): what its numbers mean and how we make them.
 The metric definitions are shared with [Evaluation & metrics](/reference/evaluation/).
 So a local run and a published entry measure the same thing.
 
 ## What the board shows
 
-- **The [Leaderboard](/benchmark/results/)** shows every dataset and family on one screen; each **dataset eval page**
+- **The [Leaderboard](/benchmark/results/)** shows every dataset and family on one screen; each **results page**
   (for example [VI-Rig 4 IMUs + 3 cams](/benchmark/results/virig-4imus-3cams/)) charts every parameter and holds the
   full tables: one table per regression family (one test in the MVIS regression suite), then per sensor.
 - **Three tools:** MVIS, Kalibr and Basalt each calibrate the recordings of a rig.
 - **Each cell:** a parameter as median ± sd (n), across the recordings that tool solved.
   sd is the standard deviation; n is the number of recordings.
-- **No scores or ranks:** a single number would encode a judgement about which parameters matter.
+- **No totals:** nothing is added up across cells, families or datasets, so there is no score or rank.
+  A single number would encode a judgement about which parameters matter.
 
 :::caution[Differences are not errors]
 These datasets have no metrological ground truth.
@@ -45,12 +47,38 @@ Reprojection error isn't compared, because it measures fit.
 
 ## Values that aren't estimates
 
+These are the words a results page prints beside a value, or in place of one.
+
 | Label | Meaning |
 |---|---|
-| `fixed` | Kalibr's camera + IMU runs take this value as input, for example intrinsics |
-| `shown` | The tool estimated it with a different model, so there's no difference against it |
-| `no run` or `not run` | The tool has no result here, and the family's notes give the reason |
-| `(3/15)` | The tool solved only 3 of the family's 15 recordings |
+| `input` | The tool takes this value as input, for example the intrinsics in Kalibr's camera + IMU runs. It is printed, not compared. |
+| `different model, not compared` | The tool estimated it with a different model, so it is printed, not drawn, and has no difference against it. |
+| `different model, no value` | The tool uses a different model here and has no value for this row. |
+| `not in this tool's model` | The tool's model has no such parameter. |
+| `not reported` | The tool does not write this value out. |
+| `not in one run` | The tool ran with each sensor, but no single run holds both ends of the baseline. |
+| `not run` | The tool never ran with this sensor. Where a whole family was not run, its coverage line gives the reason. |
+| `no value` | The tool has no value for this row. |
+| `3 of 15` | In the coverage line: the tool solved only 3 of the family's 15 recordings. |
+
+## Repeatability verdicts
+
+For each family and group of parameters, we decide a verdict in five steps:
+
+1. We take only the recordings every compared tool ran.
+2. For each tool, we measure the scatter (standard deviation) of each parameter across those recordings.
+3. We compare two tools by the median ratio of their scatters.
+4. A tool is marked **more repeatable** only if both of these hold:
+   - its scatter is at least 20 % smaller, and
+   - a gap that large would rarely appear (under 5 %, Holm-adjusted within the cell) if we swapped the two tools' results recording by recording.
+5. Otherwise it is a **tie**: either the gap is within chance, or it is under 20 %.
+
+Notes on the test:
+
+- **Too few recordings:** with fewer than 6 shared recordings, no gap can pass this test (the smallest possible p is 2/2ⁿ). Those cells say "too few recordings".
+- **Not compared:** values a tool received as input, and rows where the tools' models differ.
+- **Distortion coefficients** trade off against each other, so their scatter can overstate differences in the lens mapping.
+- **Many tests:** each cell is a separate 5 % test. Across the {tested.cells} tested cells of this batch, of which {tested.naming} name a tool, one or two calls may be chance. The intervals are not adjusted for multiple tests.
 
 ## Known limits
 
@@ -72,7 +100,7 @@ Each family on the leaderboard has a closed **Run config** section per tool. It 
 Kalibr logs no command line. So we rebuild its camera-only commands from the settings the run passed.
 The Basalt runs use our own headless build.
 The files are kept with the records in
-[`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results/tree/main/configs).
+[`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results/tree/main/configs) (CC BY 4.0).
 
 ## Versioning
 

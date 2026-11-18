@@ -1,8 +1,8 @@
 ---
 sidebar:
   order: 4
-  label: VI-Rig — 5 IMUs + 4 cams
-title: VI-Rig — 5 IMUs + 4 cameras
+  label: VI-Rig 5 IMUs + 4 cams
+title: "VI-Rig: 5 IMUs + 4 cameras"
 description: Our VI-Rig with two RealSense T265 units (two global-shutter fisheye pairs) and five IMUs; 7 AprilGrid recordings and MVIS results on Hugging Face.
 pageType: reference
 wide: true
@@ -86,7 +86,7 @@ were not run on it, so nothing is compared.
   [`calibench-vi/results` → `runs/virig-5imus-4cams/2026-11-02/`](https://huggingface.co/datasets/calibench-vi/results/tree/main/runs/virig-5imus-4cams/2026-11-02)
   holds the run configs, the camera-only calibrations, the camera intrinsics prior and, per recording, the camera +
   IMU result (`cam_imu.json`, the calibration YAML, a Kalibr-style camchain and the estimated board shape). It has
-  numbers only, no images.
+  numbers only, no images, under CC BY 4.0.
 
 A few MVIS values from the camera + IMU runs. Each is the median over the 7 recordings, ± the standard deviation
 between recordings. This shows how well MVIS repeats, not that it is right.
@@ -105,4 +105,4 @@ between recordings. This shows how well MVIS repeats, not that it is right.
 
 ## Cite
 
-This set has no paper yet. Please cite Calibench; the BibTeX is on the [overview page](/datasets/#citation).
+This set has no paper yet. Please cite Calibench-VI; the BibTeX is on the [overview page](/datasets/#citation).
