@@ -206,10 +206,13 @@ import HomeDevices from './HomeDevices.astro';
 </div>
 
 <style is:global>
+  /* Homepage body: wider than the 72rem `wide` pages, close to the full-bleed hero above it. */
+  :root:has(.mhs) { --sl-content-width: 88rem; }
   .mhs {
     --mhs-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
     --mhs-mono: "JetBrains Mono", var(--sl-font-mono, ui-monospace), monospace;
     color: var(--sl-color-gray-2);
+    padding-inline: clamp(0px, 3.5vw - 24px, 24px);   /* with Starlight's 24px, lines up with the hero's gutter */
   }
   .mhs code { font-family: var(--mhs-mono); font-size: 0.88em; }
   .mhs-band { padding-block: clamp(48px, 7vw, 88px); border-top: 1px solid var(--sl-color-hairline); }
