@@ -113,7 +113,7 @@ Joint camera–IMU calibration. It estimates:
 - **Camera intrinsics:** when `estimate.camera.intrinsics` is on.
 - **IMU intrinsics:** gyro and accelerometer scale and misalignment (`Dw`, `Da`), optional `Tg`.
 - **Biases:** gyro and accelerometer.
-- **`t_ga`:** the base IMU's gyro-to-accelerometer time offset ([why](/why/tga/)).
+- **`t_ga`:** the gyro-to-accelerometer time offset, for the base IMU and every auxiliary IMU that is not `gyro_only` ([why](/why/tga/)).
 - **Auxiliary IMUs:** extrinsics, time offset and intrinsics of every further IMU.
 
 ```bash
@@ -150,11 +150,12 @@ mvis calibrate -c config.yaml
 Apply a saved camera–IMU calibration to a raw ROS1 bag.
 It writes a corrected bag and a provenance file, `<output bag>.recalib.yaml`, that
 records the calibration, the topic mapping and which corrections ran.
-By default it applies every correction:
+By default it applies every correction, in this order
+([details](/concepts/imu-model/#what-mvis-apply-calib-does)):
 
-1. **IMU intrinsics:** applies the inverse IMU model (`Dw`, `Da`, `Tg`) to every IMU.
-2. **Bias:** subtracts the calibrated static gyro and accelerometer bias.
-3. **`t_ga`:** re-samples the accelerometer at `t + t_ga`, when `t_ga` was calibrated.
+1. **`t_ga`:** re-samples the accelerometer at `t + t_ga`, when `t_ga` was calibrated.
+2. **IMU intrinsics:** applies the inverse IMU model (`Dw`, `Da`, `Tg`) to every IMU.
+3. **Bias:** subtracts the calibrated static gyro and accelerometer bias, inside the same inverse model.
 4. **`td`:** re-stamps every camera and auxiliary IMU message onto the base IMU clock, using the header stamp.
 
 ```bash
@@ -248,6 +249,7 @@ It reports:
 - camera streams: rate, resolution, encoding
 - IMU streams: rate, unit sanity, stamp order
 - the time overlap of cameras and IMUs
+- a warning when a recording with IMUs is shorter than 30 s, because a camera–IMU run needs at least 30 s of motion
 
 ```bash
 mvis inspect recording.bag

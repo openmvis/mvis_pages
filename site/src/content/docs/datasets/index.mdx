@@ -3,7 +3,7 @@ sidebar:
   order: 0
   label: Overview
 title: Datasets
-description: Every calibration dataset on the Calibench Hugging Face hub, our own VI-Rig recordings first, with licences, sources and links to their benchmark results.
+description: Every calibration dataset on the Calibench-VI Hugging Face hub, our own VI-Rig recordings first, with licences, sources and links to their benchmark results.
 pageType: reference
 wide: true
 ---
@@ -15,12 +15,12 @@ This page lists every dataset we use to test and benchmark MVIS, where to get it
 
 - **Where the data lives:** the [`calibench-vi/datasets`](https://huggingface.co/datasets/calibench-vi/datasets)
   repository on Hugging Face. Calibench-VI is our visual-inertial calibration benchmark.
-- **What it hosts:** our own VI-Rig recordings, two partner recordings, third-party sets whose licence allows
-  us to share them again (CC BY 4.0). Our calibration results are in a separate repository,
-  [`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results).
+- **What it hosts:** our own VI-Rig recordings, recordings from two partners, and third-party sets whose licence
+  allows us to share them again (CC BY 4.0). Our calibration results are in a separate repository,
+  [`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results), under CC BY 4.0.
 - **What it does not host:** all other third-party sets. For those, a download recipe fetches the files from the
   original site.
-- **Results:** the reference results for each set are on the [leaderboard](/benchmark/results/) and in
+- **Results:** the reference results for each set are on the [Leaderboard](/benchmark/results/) and in
   [`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results).
 
 ## VI-Rig: our own recordings
@@ -52,7 +52,7 @@ Terms used in the table:
 - **Gated:** log in to Hugging Face and accept the terms on the
   [dataset page](https://huggingface.co/datasets/calibench-vi/datasets). Access is granted at once.
 - **Benchmark exception:** anyone, a company included, may run a calibration tool on these recordings to produce
-  Calibench results and publish them with attribution.
+  Calibench-VI results and publish them with attribution.
 - **Other commercial use:** needs a separate licence. Ask in the Community tab of the Hub repository or at
   licensing@openmvis.com.
 
@@ -118,11 +118,11 @@ These sets come from other groups. Each keeps its own licence and citation; plea
 
 ## Citation
 
-If you use the Calibench data, please cite:
+If you use the Calibench-VI data, please cite:
 
-- **Calibench**, for any of the data.
+- **Calibench-VI**, for any of the data.
 - **The MVIS paper**, for the VI-Rig sets with 4 IMUs (3 cameras, 3 cameras ArUco, 4 cameras). The 5-IMU set has no
-  paper yet; cite Calibench for it.
+  paper yet; cite Calibench-VI for it.
 - **The original paper** of every third-party set you use. The
   [dataset card](https://huggingface.co/datasets/calibench-vi/datasets) lists them.
 

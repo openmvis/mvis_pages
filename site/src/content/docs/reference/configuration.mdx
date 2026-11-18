@@ -291,7 +291,7 @@ Three terms first:
 | `vision_pose` | `imu` | How a frame's pose is found between two states: `imu` propagates the IMU samples to the capture time; `interp` interpolates between the two states |
 | `imu_intrinsics` | `dw_da` | Older form of `estimate.imu.intrinsics` |
 | `imu_intrinsics_model` | `calyx` | Older form of `estimate.imu.model` |
-| `estimate_t_ga` | `true` | Solve the base IMU's `t_ga` |
+| `estimate_t_ga` | `true` | Solve `t_ga` for the base IMU and every auxiliary IMU that is not `gyro_only` |
 | `sigma_t_ga` | `0.010` | Prior on `t_ga` (s) |
 | `estimate_readout` | `false` | Solve the rolling-shutter readout for every camera |
 | `board_height_sigma` | `0.003` | Prior on each board-corner height (m), with `estimate.board_points: true` |
@@ -323,6 +323,8 @@ Multi-IMU and expert keys:
 | `sigma_dw_da`, `sigma_tg`, `sigma_imu_R` | `0.1`, `0.05`, `0.1` | Weak priors on the free IMU intrinsics |
 | `sigma_v0`, `sigma_bg0`, `sigma_ba0` | `0.5`, `0.01`, `0.1` | Priors on the first state's velocity and biases |
 | `bound_intrinsics` | `false` | Keep free camera intrinsics in their valid range (for example `double_sphere` ξ in [−1, 1]) |
+| `vision_imu_linearized` | `true` | With `vision_pose: imu`, the reprojection factor integrates the IMU once and corrects linearly, like the IMU factor; it integrates again only when `t_ga` or `td` moves far. `false` integrates at every evaluation |
+| `tga_relin_threshold_s` | `0.003` | Integrate an IMU's factors again when its `t_ga` has moved more than this (s) from where they were integrated; `0` = never |
 | `max_interp_dt` | `0.3` | Frames between states further apart than this (s) are dropped |
 | `lm_lambda_lower`, `lm_lambda_upper` | `0`, `100` | LM damping bounds |
 

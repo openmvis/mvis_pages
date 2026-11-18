@@ -138,11 +138,11 @@ examples:
     reproduce:
       batch: "MVIS main, 2026-11-10"
   tum-vi:
-    title: TUM VI
-    nav: TUM VI
-    description: One MVIS camera + IMU run on the TUM VI calibration data, compared with TUM's published Kalibr calibration.
+    title: TUM-VI
+    nav: TUM-VI
+    description: One MVIS camera + IMU run on the TUM-VI calibration data, compared with TUM's published Kalibr calibration.
     maker: TUM Computer Vision Group
-    image: {file: tum-vi-rig.jpg, alt: "TUM VI sensor rig: two fisheye cameras, IMU board and a small PC, with motion-capture markers", credit: "Photo: TUM Computer Vision Group, TUM VI dataset page, CC BY 4.0", url: "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset"}
+    image: {file: tum-vi-rig.jpg, alt: "TUM-VI sensor rig: two fisheye cameras, IMU board and a small PC, with motion-capture markers", credit: "Photo: TUM Computer Vision Group, TUM-VI dataset page, CC BY 4.0", url: "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset"}
     clip: tumvi
     card:
       rig: Stereo 1024² fisheye + BMI160 @ 200 Hz
@@ -156,7 +156,7 @@ examples:
       - [Format, "ROS1 bag"]
       - [Licence, "CC BY 4.0"]
     lead: "One MVIS camera + IMU run on dataset-calib-imu1, and how close it lands to TUM's published Kalibr calibration."
-    dataset: {url: "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset", label: TUM VI dataset page}
+    dataset: {url: "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset", label: TUM-VI dataset page}
     eval: {slug: tum-vi, label: All recordings and tools}
     data:
       - "Recording dataset-calib-imu1, the first of TUM's four camera + IMU calibration recordings, at 1024 × 1024."
@@ -165,7 +165,7 @@ examples:
     config:
       name: tum_vi_imu1_cam_imu.yaml
       why:
-        input.window_mode: MVIS picks the 80 s window with the most motion.
+        input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
         camera_input.path: "Seed intrinsics: kb4 values from MVIS camera-only solves of TUM's eight camera recordings."
         camera_input.cameras: cam1 is added to the graph at 8 Hz, which keeps the solve small.
         solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
@@ -173,7 +173,7 @@ examples:
         estimate.imu: The gyro and accelerometer scale and misalignment (dw_da) are estimated too. IMU noise is left at the MVIS defaults.
     reference:
       label: TUM (Kalibr)
-      source: "TUM's published camera + IMU calibration for the 1024 × 1024 data, Kalibr pinhole-equidistant (the kb4 model), from the TUM VI dataset page"
+      source: "TUM's published camera + IMU calibration for the 1024 × 1024 data, Kalibr pinhole-equidistant (the kb4 model), from the TUM-VI dataset page"
       url: "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset"
       cams:
         - {name: cam0, p_mm: [45.38, -72.68, -45.07], rotvec: [-0.04129, -2.17242, 2.24813], fx: 380.81}
@@ -221,7 +221,7 @@ examples:
       name: monado_mgc_imucalib01_cam_imu.yaml
       why:
         board.tag_size: "The 30 mm tag. A wrong tag size gives a calibration that converges cleanly and is uniformly wrong in scale."
-        input.window_mode: MVIS picks the 80 s window with the most motion.
+        input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
         camera_input.cameras: cam1 is added to the graph at 8 Hz, which keeps the solve small.
         solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
         estimate.camera.intrinsics: Camera intrinsics stay free in the camera + IMU solve.
@@ -260,17 +260,17 @@ examples:
     clip: looper
     card:
       rig: 2 mono + 1 rolling-shutter colour camera + IMU @ 400 Hz
-      format: ROS bag → EuRoC mav0
+      format: ROS1 bag (run on EuRoC mav0)
       shows: The rolling-shutter readout solved alongside the global-shutter cameras
       tags: [Global + rolling shutter, 3 cameras, 400 Hz IMU, CC BY-NC 4.0]
     facts:
       - [Cameras, "2 × 544×640 mono global shutter + 1920×1088 colour rolling shutter"]
       - [IMU, "400 Hz"]
       - [Board, "AprilGrid 6×6, tag 55 mm"]
-      - [Format, "EuRoC mav0"]
+      - [Format, "ROS1 bag (this run reads the same recording as EuRoC mav0)"]
       - [Licence, "CC BY-NC 4.0"]
     lead: "One MVIS camera + IMU run on hand-held recording 1: the two mono cameras, the rolling-shutter colour camera and its readout time, solved together."
-    dataset: {url: "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/looper-insight9", label: "Calibench, looper-insight9/"}
+    dataset: {url: "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/looper-insight9", label: "Calibench-VI, looper-insight9/"}
     sensor: {url: /devices/looper-insight9/, label: Looper Insight 9 in the Device wiki}
     eval: {slug: looper-insight9, label: All 10 recordings and tools}
     data:

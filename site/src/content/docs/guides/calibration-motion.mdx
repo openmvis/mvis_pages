@@ -64,19 +64,8 @@ Do the moves in order and blend each into the next. Keep a comfortable hand pace
 
 ## 4. The running example's recordings
 
-The VI-Rig 4 IMUs + 4 cameras set has 15 takes, `4imus_4cams_01.bag` to `4imus_4cams_15.bag`. Each bag holds
-these topics:
-
-| Sensor | Topic | Rate | Notes |
-|---|---|---|---|
-| RealSense T265 left | `/t265/fisheye1/image_raw` | 30 Hz | 848 × 800, global shutter |
-| RealSense T265 right | `/t265/fisheye2/image_raw` | 30 Hz | 848 × 800, global shutter |
-| ELP left | `/elp/split_sync_image_node/left/image_raw` | about 20–22 Hz | 640 × 480, rolling shutter; 25 Hz as captured |
-| ELP right | `/elp/split_sync_image_node/right/image_raw` | about 20–22 Hz | 640 × 480, rolling shutter; 25 Hz as captured |
-| Xsens MTi-100 | `/imu/data` | 400 Hz | IMU |
-| MicroStrain GX3-25 | `/gx3_25/data` | 500 Hz | IMU |
-| MicroStrain GX3-35 | `/gx3_35/imu/data` | 100 Hz | IMU |
-| RealSense T265 IMU | `/t265/imu` | 200 Hz | IMU |
+The VI-Rig 4 IMUs + 4 cameras set has 15 takes, `4imus_4cams_01.bag` to `4imus_4cams_15.bag`. The
+[dataset page](/datasets/virig-4imus-4cams/#the-rig) lists every sensor with its topic, rate and shutter.
 
 - **Download:** [`calibench-vi/datasets` → `virig-4imus-4cams`](https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams)
   on the Hub. Access is gated.
@@ -85,9 +74,8 @@ these topics:
   the stamps drops the ELP frames that cannot be matched to the camera clock, so the ELP rate in
   `4imus_4cams_NN.bag` is about 20–22 Hz.
 - **Board config:** the AprilGrid target file `april.yaml` sits next to the bags.
-- **More:** the [dataset page](/datasets/virig-4imus-4cams/).
 
-:::caution[Bag 09 starts one frame early]
+:::caution[Recording 09 starts one frame early]
 In `4imus_4cams_09.bag` the right T265 fisheye starts one frame before the left one. MVIS and Basalt pair
 frames by the nearest stamp, so they handle it. Kalibr reads each camera on its own, so its pairs come out
 one frame off. Give Kalibr a trimmed copy of the bag.
@@ -126,7 +114,7 @@ Each of these leaves some parameters loose: the solve cannot pin them down.
 The twin is a simulated Looper Insight 9 in front of the board, with realistic corner and IMU noise, motion
 blur and dropped detections.
 
-We solved each motion on 3 noise draws and once without noise. Each solve estimated t_ga (the time offset
+We solved each motion on 3 noise draws and once without noise. Each solve estimated `t_ga` (the time offset
 between the gyroscope and the accelerometer) and left the camera intrinsics (focal length, image centre and
 lens distortion) free.
 
@@ -136,7 +124,7 @@ A motion is **good** if, on all 22 parameters:
 - every error stays within its uncertainty;
 - every uncertainty is at most 3 × that of a well-excited 80 s reference motion.
 
-The 22 parameters are the camera–IMU rotation and lever arm, td (the camera–IMU time offset), t_ga, the
+The 22 parameters are the camera–IMU rotation and lever arm, `td` (the camera–IMU time offset), `t_ga`, the
 gyroscope and accelerometer scales, and the camera intrinsics.
 
 To run the same kind of check on your own calibration, see [step 7: digital-twin check](/guides/simulation/).
@@ -157,4 +145,5 @@ need MVIS to use them. We ran the twin with the MVIS simulator (`mvis.simulation
 
 ## Next
 
-Calibrate the cameras from your bags: [step 3: camera-only calibration](/guides/camera-calibration/).
+- **Step 3:** calibrate the cameras from your bags: [Camera-only calibration](/guides/camera-calibration/).
+- **Why it matters:** a weak motion leaves parameters loose. See [Degeneracy](/concepts/degeneracy/).

@@ -8,13 +8,13 @@ const { caption } = Astro.props;
 
 <div class="not-content bsf">
   <Fragment set:html={fig} />
-  <p class="bsf-note">{caption}</p>
+  <p class="fig-note bsf-note">{caption}</p>
 </div>
 
 <style>
   .bsf { margin: 1.5rem 0; max-width: 38rem; }
   .bsf :global(figure) { margin: 0; }
   .bsf :global(svg) { display: block; width: 100%; height: auto; border: 1px solid var(--sl-color-hairline); border-radius: 0.5rem; color: var(--sl-color-text); background: var(--sl-color-bg); }
-  .bsf :global(figcaption) { font-size: 0.85rem; color: var(--sl-color-gray-3); margin-top: 0.5rem; }
-  .bsf-note { font-size: 0.85rem; color: var(--sl-color-gray-3); margin: 0.25rem 0 0; }
+  .bsf :global(figcaption) { margin-top: 0.5rem; }
+  .bsf-note { margin: 0.25rem 0 0; }
 </style>

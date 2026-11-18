@@ -1,6 +1,6 @@
 ---
 title: Why calibrate the board shape
-description: On this VI-Rig mount our AprilGrid is a 10–11 mm saddle, and a flat solve puts camera-only fx 0.4–1.0 % low on average, the camera–IMU gyro scale about 1.1 % high and a lever about 9 mm off. Estimating the shape removes that, and on these runs fx repeated no worse.
+description: On this VI-Rig mount our AprilGrid is a 10–11 mm saddle. A flat solve puts camera-only fx 0.4–1.0 % low on average and the gyro scale about 1.1 % high.
 pageType: example
 wide: true
 ---
@@ -13,12 +13,12 @@ Data: our VI-Rig recordings on the Hub, [`calibench-vi/datasets`](https://huggin
 **The answer first:**
 
 - **Our board is not flat:** our AprilGrid on a panel is a saddle 10–11 mm peak to peak on this VI-Rig mount.
-- **A flat solve hides it:** camera-only $f_x$ comes out 0.4–1.0 % low on average. Camera–IMU puts the gyro
-  scale $\mathbf{D}_w$ about 1.1 % high and a lever about 9 mm off. No check fails; only the camera-only
+- **A flat solve hides it:** camera-only `fx` comes out 0.4–1.0 % low on average. Camera–IMU puts the gyro
+  scale `Dw` about 1.1 % high and a lever about 9 mm off. No check fails; only the camera-only
   `board_point_bias` diagnostic hints at it.
 - **What MVIS solves:** `estimate.board_points: true` adds one height per corner, in camera-only and camera–IMU
   runs. Kalibr and Basalt treat the board as flat.
-- **The cost:** 144 more unknowns. On these runs the solve took no longer, and $f_x$ repeated no worse.
+- **The cost:** 144 more unknowns. On these runs the solve took no longer, and `fx` repeated no worse.
 - **Off by default:** we turn it on for VI-Rig.
 
 How to turn it on: [A board is never flat](/guides/board-setup/#4-a-board-is-never-flat).
@@ -33,11 +33,11 @@ How to turn it on: [A board is never flat](/guides/board-setup/#4-a-board-is-nev
 
 ## 1. The board is a saddle
 
-We estimated the height of every corner four ways, all on recordings 3–5 with all corners:
+We estimated the height of every corner four ways, all on recordings 3–5:
 
 - **ELP left camera**, rolling shutter, camera-only.
-- **T265 fisheye 1**, global shutter, camera-only.
-- **ELP stereo pair**, camera-only.
+- **T265 left**, global shutter, camera-only.
+- **ELP stereo pair**, camera-only, two corners per tag (10.4–10.8 mm, 2.1–2.3 mm rms).
 - **Camera–IMU:** the ELP stereo pair with the T265 and Xsens IMUs. This one also ran on recordings 1–15 with
   two corners per tag, for the recording-to-recording row.
 
@@ -51,8 +51,9 @@ We estimated the height of every corner four ways, all on recordings 3–5 with 
 
 <BoardShapeFigure caption="VI-Rig 4 IMUs + 4 cameras, recording 3: camera–IMU solve with all 144 corners (ELP stereo pair, T265 and Xsens IMUs), MVIS main f902d39. Red corners stand out of the best-fit plane, blue ones sink below it." />
 
-- **Two corners per tag:** on this code these solves report 1.6–2.7 mm rms and 9.1–11.7 mm peak to peak over
-  all 144 heights. Half of those heights have no data (section 4), so the first two rows leave them out. Since
+- **Two corners per tag:** over the 72 corners they observe, these solves read 2.2–2.7 mm rms and 9.1–11.7 mm
+  peak to peak (camera–IMU, recordings 1–15; recording 1 is the 9.1 mm low end). The other 72 heights have no
+  data (section 4), so the first two rows leave them out. Since
   2026-11-12 MVIS main writes the rms and peak to peak over the observed corners only, with a per-corner count
   `n_obs`, in the camera-only board shape output.
 - **Agreement:** the three estimates that use the ELP left camera agree within 0.04–0.13 mm. The T265 estimate,
@@ -68,33 +69,33 @@ We estimated the height of every corner four ways, all on recordings 3–5 with 
 Recordings 3–5, equidistant model, all 144 corners. We solved each once with the shape and once with a rigid flat
 board:
 
-| Camera | Board | Reprojection rms (px) | $f_x$ (px), mean ± std over 3 recordings | $c_y$ (px) |
+| Camera | Board | Reprojection rms (px) | `fx` (px), mean ± std over 3 recordings | `cy` (px) |
 |---|---|---|---|---|
 | ELP left (rolling shutter) | shape | **0.445** | 428.12 ± 0.88 | 267.32 ± 0.28 |
 | | flat | 0.614 | 426.58 ± 1.17 | 270.57 ± 0.75 |
-| T265 fisheye 1 (global shutter) | shape | **0.427** | 286.72 ± 0.44 | 404.63 ± 0.47 |
+| T265 left (global shutter) | shape | **0.427** | 286.72 ± 0.44 | 404.63 ± 0.47 |
 | | flat | 0.573 | 284.29 ± 0.63 | 406.63 ± 0.90 |
 
 - **Residual:** the shape cuts it by 27.5 % on the ELP and 25.5 % on the T265. Across all camera-only arms,
   including two corners per tag and stereo, the cut is 25–29 %.
-- **Focal length:** flat reads $f_x$ 0.36 % low on the ELP and 0.85 % low on the T265. It is low on every
+- **Focal length:** flat reads `fx` 0.36 % low on the ELP and 0.85 % low on the T265. It is low on every
   recording, by 0.25–0.48 % and 0.77–0.93 %.
-- **Two corners per tag:** the $f_x$ gaps are 0.42 % and 0.99 %, up to 1.09 % on one recording.
-- **Principal point:** flat also moves $c_y$, by +3.3 px on the ELP and +2.0 px on the T265.
-- **Stereo:** with two corners per tag, the ELP stereo pair reads $f_x$ 0.48 % low flat. Flat also moves its
+- **Two corners per tag:** the `fx` gaps are 0.42 % and 0.99 %, up to 1.09 % on one recording.
+- **Principal point:** flat also moves `cy`, by +3.3 px on the ELP and +2.0 px on the T265.
+- **Stereo:** with two corners per tag, the ELP stereo pair reads `fx` 0.48 % low flat. Flat also moves its
   baseline by 0.3 %, from 59.23 to 59.04 mm, the stereo rotation by 1.2–1.8 mrad as log(R), mostly about y, and
   the rolling-shutter readout by 0.16 ms.
-- **With the IMU:** in the camera–IMU solves of section 3, on recordings 3–5, ELP left $f_x$ with the shape is
+- **With the IMU:** in the camera–IMU solves of section 3, on recordings 3–5, ELP left `fx` with the shape is
   427.9 px with two corners per tag and 428.2 px with all corners. Camera-only gives 428.1 px, so all are within
   0.2 px.
-- **Smaller flat bias with the IMU:** there the flat-board $f_x$ bias is 0.1–0.2 %: +0.4 ± 0.6 px over 15
+- **Smaller flat bias with the IMU:** there the flat-board `fx` bias is 0.1–0.2 %: +0.4 ± 0.6 px over 15
   recordings, with the opposite sign on 3 of them, and +0.8 px with all corners on recordings 3–5.
 
 ## 3. Camera–IMU: a flat board shows up as gyro scale and lever
 
 15 recordings of the ELP stereo pair with the T265 and Xsens IMUs, two corners per tag. We solved each once with
 the shape, starting from an earlier 7.7 mm estimate of the same board, and once with a rigid flat board. A good
-gyroscope reads a scale $\mathbf{D}_w$ close to 1.
+gyroscope reads a scale `Dw` close to 1.
 
 Mean ± std over the 15 recordings, range in brackets:
 
@@ -112,10 +113,10 @@ Mean ± std over the 15 recordings, range in brackets:
 - **Per recording:** the shape lowers T265 x and y by 1.17 ± 0.28 % and 1.13 ± 0.23 %, and Xsens x by
   1.07 ± 0.30 %, with the same sign on all 15.
 - **T265 z:** about 0.4 % high either way.
-- **Accelerometer:** the T265 accel scale $\mathbf{D}_a$ moves by −0.31 ± 0.20 % in z; x and y barely move.
+- **Accelerometer:** the T265 accel scale `Da` moves by −0.31 ± 0.20 % in z; x and y barely move.
 - **Lever:** the shape moves ELP left lever z by +9.3 ± 2.7 mm per recording. The lever also repeats better,
   std 1.3 mm against 3.3 mm flat.
-- **Time offsets:** $t_{ga}$ moves by −0.18 ms and $t_d$ by under 0.1 ms.
+- **Time offsets:** `t_ga` moves by −0.18 ms and `td` by under 0.1 ms.
 - **Start value and corner set:** on recordings 3–5 we also solved all 144 corners from a flat start, instead of
   two per tag from the 7.7 mm estimate. The answer is nearly the same: gyro scale within about 0.1 % and lever z
   within 1 mm (on average 0.08 % and 0.9 mm), at about 1.5× the solve time. Both changed at once, so this run
@@ -125,8 +126,8 @@ Mean ± std over the 15 recordings, range in brackets:
   with the shape. Camera–IMU output has no such diagnostic.
 - **Other mount:** an older run used 7 recordings of the 5 IMUs + 4 cameras rig, 4 cameras each, with the EUCM
   and kb4 lens models. Turning the shape off rotated the camera extrinsics by a median 6.8 mrad (log(R), after
-  aligning the two solutions as a whole; 7.4–8.0 mrad as solved). It moved the lever by 1.3–2.2 mm and $c_y$ by
-  1.8 px. That run compared extrinsics only, not gyro scale or $f_x$.
+  aligning the two solutions as a whole; 7.4–8.0 mrad as solved). It moved the lever by 1.3–2.2 mm and `cy` by
+  1.8 px. That run compared extrinsics only, not gyro scale or `fx`.
 
 ## 4. The cost, and when to turn it on
 
@@ -134,13 +135,15 @@ Mean ± std over the 15 recordings, range in brackets:
 - **Solve time:** not longer on these runs. Camera-only with all corners, means of 3 on 2 threads, shape against
   flat: ELP 21.7 against 22.7 min, T265 12.1 against 13.9 min, ELP stereo 34.0 against 33.9 min. Camera–IMU:
   +3 ± 35 s on 10–14 min solves.
-- **$f_x$ repeatability:** no worse with the shape. Camera-only with all corners, the scatter with the shape is
+- **`fx` repeatability:** no worse with the shape. Camera-only with all corners, the scatter with the shape is
   0.55–0.93× the flat scatter: ELP 0.88 against 1.17 px, T265 0.44 against 0.63 px. Three recordings are too few
   to rank. Camera–IMU over 15 recordings: 0.62 against 0.91 px.
-- **Earlier study:** a study on development code found $f_x$ repeating 2–4× worse with the shape. Its flat runs
+- **Earlier study:** a study on development code found `fx` repeating 2–4× worse with the shape. Its flat runs
   let each corner move under a 1 mm prior. These runs do not show that.
-- **Two corners per tag see half the heights:** with `corner_subsample: two_anti` a solve observes 72 of the 144
-  corners. The other 72 heights have no data and stay near their start values.
+- **Two corners per tag see half the heights:** with `corner_subsample: two_anti` a camera–IMU solve or a one-camera solve
+  observes 72 of the 144 corners. The other 72 heights have no data and stay near their start values. A
+  camera-only solve with two or more cameras adds the other diagonal on frames that see at least 35 of the 36
+  tags, so it sees all 144, but half of them only from a few frames.
 - **Where two corners per tag is set:** it is the camera-only default, and our camera–IMU configs set it too. The
   camera–IMU default is `all`.
 - **Default:** MVIS keeps `estimate.board_points` off. We turn it on for every VI-Rig solve, camera-only and
@@ -153,7 +156,7 @@ Mean ± std over the 15 recordings, range in brackets:
 
 **Conclusion:**
 
-- **A flat solve is biased and silent:** on this mount it is off by 0.4–1.0 % in camera-only $f_x$, about 1.1 %
+- **A flat solve is biased and silent:** on this mount it is off by 0.4–1.0 % in camera-only `fx`, about 1.1 %
   in gyro scale and about 9 mm in lever, and no check fails.
 - **The shape fits better:** the residual drops by about a quarter and the gyro scales sit within 0.6 % of 1, so
   we read the flat numbers as biased.
@@ -165,7 +168,7 @@ Mean ± std over the 15 recordings, range in brackets:
   <ul>
     <li><b>No measured reference shape:</b> the four estimates agree with each other, but none was checked
       against a metrology scan of the board.</li>
-    <li><b>Our own runs:</b> the MVIS authors ran every solve.</li>
+    <li><b>Who ran it:</b> we ran every solve.</li>
     <li><b>Gyro near 1 is a prior, not a measurement:</b> the same T265 reads its accel scale about 2 % high
       with or without the shape.</li>
     <li><b>One board, one mount:</b> sections 1–4 use one mount on one rig. The other mount appears only in the

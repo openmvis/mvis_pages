@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install MVIS from source with pip or the conda setup script, pick the extras, and verify the install with mvis check.
+description: Install MVIS from PyPI (pymvis) or from source, pick the extras, and verify the install with mvis check.
 pageType: guide
 ---
 
@@ -8,19 +8,34 @@ Use this page to install MVIS and check that it works. Check
 [Requirements](/getting-started/requirements/) first: Linux or macOS (Windows
 tentative), Python 3.11 or 3.12.
 
-## 1. Install from source
+## 1. Install from PyPI
 
-MVIS 0.1.0 is not on PyPI yet. Install it from the code repository into a
-fresh virtual environment:
+MVIS 0.1.0 is on PyPI as [`pymvis`](https://pypi.org/p/pymvis). Install it into
+a fresh Python 3.11 or 3.12 virtual environment, then check the install:
+
+```bash
+python3.12 -m venv .venv && source .venv/bin/activate   # or python3.11
+pip install "pymvis[apriltag,ros1]"      # AprilGrid boards + ROS1/ROS2 bags
+mvis check --env --smoke
+```
+
+- **Package name:** the package is `pymvis`; the import and the command are
+  `mvis`.
+- **Python 3.11 or 3.12:** with Python 3.13 the install stops, because MVIS
+  requires a version below 3.13.
+- **ArUco boards:** add the optional `aruco` extra:
+  `pip install "pymvis[apriltag,aruco,ros1]"`.
+- **Core only:** `pip install pymvis` installs no board detector or bag reader.
+
+### From source (to edit MVIS or run the Quickstart configs)
+
+Clone the code repository and install it in editable mode:
 
 ```bash
 git clone https://github.com/openmvis/openmvis && cd openmvis
 python3.12 -m venv .venv && source .venv/bin/activate   # or python3.11
-pip install -e ".[apriltag,aruco,ros1,dev]"
+pip install -e ".[apriltag,ros1,dev]"
 ```
-
-- **Python 3.11 or 3.12:** with Python 3.13 the install stops, because MVIS
-  requires a version below 3.13.
 
 - **`-e`:** an editable install. Edits to the checkout take effect without a
   reinstall.
@@ -38,19 +53,6 @@ named `mvis` with Python 3.11, installs MVIS with the `apriltag`, `aruco`,
 bash scripts/setup_env.sh
 conda activate mvis
 ```
-
-### From PyPI, after the release
-
-With the v0.1.0 release on PyPI, the package installs without a clone:
-
-Into any Python 3.11 or 3.12 environment:
-
-```bash
-pip install pymvis                       # core only
-pip install "pymvis[apriltag,ros1]"      # AprilGrid boards + ROS1/ROS2 bags
-```
-
-The package is `pymvis`; the import and the command are `mvis`.
 
 ## 2. Pick the extras
 

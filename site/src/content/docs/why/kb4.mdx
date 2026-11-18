@@ -1,6 +1,6 @@
 ---
 title: Why kb4 for fisheye
-description: kb4 and equidistant share one polynomial and agree below 90°, but only kb4 can project a ray past 90°. On the one lens we tested that sees the board past 90°, the equidistant solve stalled at its starting values, 15–24 px off TUM in fx, while kb4 came within 0.4 px.
+description: kb4 and equidistant agree below 90°; only kb4 projects past it. On our one past-90° lens, equidistant stalled 15–24 px off TUM in fx, kb4 within 0.4 px.
 pageType: example
 wide: true
 ---
@@ -15,8 +15,8 @@ numbers come from our runs on the Intel T265 ([VI-Rig 5 IMUs + 4 cams](/datasets
   to about $2\times10^{-6}$ px.
 - **Past 90°, only kb4 projects:** `equidistant` has no projection for rays at or past 90°; `kb4` has one.
 - **Equidistant stalled on the one past-90° lens we tested:** on BF2M, up to 97° off axis, it stayed at its
-  starting values, 15–24 px off TUM in $f_x$, even on a recording where it dropped no corner.
-- **kb4 converged there:** from the same start, `kb4` came within 0.4 px of TUM in $f_x$. We have not found why
+  starting values, 15–24 px off TUM in `fx`, even on a recording where it dropped no corner.
+- **kb4 converged there:** from the same start, `kb4` came within 0.4 px of TUM in `fx`. We have not found why
   equidistant stalls.
 - **No cost below 90°:** `fisheye` and `kannala_brandt` mean `kb4`.
 - **Kalibr export:** a camera–IMU result with `kb4` exports to Kalibr as `pinhole-equi`, exact for rays in front
@@ -26,7 +26,7 @@ numbers come from our runs on the Intel T265 ([VI-Rig 5 IMUs + 4 cams](/datasets
 
 How to choose it: [Choose a fisheye model (T265 example)](/guides/camera-calibration/#3-choose-a-fisheye-model-for-the-t265).
 
-## The two models
+## The setup: two models
 
 Both models map the angle $\theta$ of a ray off the optical axis to a distance $r$ from the principal point, with
 the same four coefficients:
@@ -49,9 +49,9 @@ Where few or no corners pass 90°, the two models give the same calibration:
 | Data | Solves | kb4 − equidistant |
 |---|---|---|
 | Intel T265, VI-Rig, 7 recordings, camera-only | 28 pairs | mapping gap p95 ≤ $1.9\times10^{-6}$ px, intrinsics ≤ $7.8\times10^{-7}$ px |
-| Intel T265, VI-Rig, 7 recordings, camera–IMU | 28 pairs | rotation ≤ $1.0\times10^{-11}$ rad, lever ≤ $1.9\times10^{-9}$ mm, $t_d$ ≤ $1.5\times10^{-10}$ ms |
+| Intel T265, VI-Rig, 7 recordings, camera–IMU | 28 pairs | rotation ≤ $1.0\times10^{-11}$ rad, lever ≤ $1.9\times10^{-9}$ mm, `td` ≤ $1.5\times10^{-10}$ ms |
 | TUM-VI, imu1–4, camera–IMU | 8 pairs | rotation ≤ $2.2\times10^{-13}$ rad |
-| TUM-Fisheye, 4 lenses, 12 recordings; largest corner 58–89° by TUM's calibration | 24 pairs, one and all corners | same $f_x$ to 0.01 px |
+| TUM-Fisheye, 4 lenses, 12 recordings; largest corner 58–89° by TUM's calibration | 24 pairs, one and all corners | same `fx` to 0.01 px |
 
 - **Older results:** published T265 results solved with `equidistant` hold for `kb4` too.
 - **Code:** MVIS main `644f7a2` and `197549a`, not re-run on newer code.
@@ -62,7 +62,7 @@ Where few or no corners pass 90°, the two models give the same calibration:
 - **Corners:** each recording has 13–19 thousand detected corners, 11.8–18.3 thousand of them in the kb4 solve.
 - **Reference:** TUM's own calibrations of the same images. They are another tool's results, not ground truth.
 
-| Recording | Largest angle (kb4) | equidistant $f_x$ − TUM | kb4 $f_x$ − TUM | Mean error, equidistant / kb4 |
+| Recording | Largest angle (kb4) | equidistant `fx` − TUM | kb4 `fx` − TUM | Mean error, equidistant / kb4 |
 |---|---|---|---|---|
 | 1 | 94.0° | **+23.88 px** | +0.06 px | 1.35 / 0.16 px |
 | 2 | 97.0° | **+15.51 px** | +0.31 px | 0.95 / 0.20 px |
@@ -71,16 +71,16 @@ Where few or no corners pass 90°, the two models give the same calibration:
 All corners, camera-only, MVIS main `f902d39`, 2026-11-11.
 
 - **Two corners per tag:** with the MVIS default, the equidistant intrinsics are the same, mean error within
-  0.01 px. kb4 is +0.12 to +0.39 px off TUM in $f_x$.
-- **Same start:** both models start from $f_x = f_y$ = 404.98 / 396.51 / 402.95 px, the principal point at the
+  0.01 px. kb4 is +0.12 to +0.39 px off TUM in `fx`.
+- **Same start:** both models start from `fx` = `fy` = 404.98 / 396.51 / 402.95 px, the principal point at the
   image centre (639.5, 511.5) and zero distortion.
 - **What happens:** kb4 moves from there. Equidistant does not: the solver gives up at the first step with the
-  error unchanged, so every intrinsic ends at its starting value. The 15–24 px $f_x$ offsets are that start.
+  error unchanged, so every intrinsic ends at its starting value. The 15–24 px `fx` offsets are that start.
 - **Where it gives up:** every trial step raises the cost. On recording 1 the cost is 15,541 at the start, and
   85,047 down to 42,972 for the trial steps as the damping $\lambda$ rises from $10^{-5}$ to $10^{1}$.
 - **The damping cap:** the solver stops at MVIS's cap, $\lambda = 10^{2}$; GTSAM's default is $10^{5}$. We have
   not tested whether a higher cap lets equidistant converge.
-- **kb4's other intrinsics:** $c_x$ is 0.30–0.48 px low, $c_y$ within 0.1 px and $f_y$ within 0.37 px of TUM.
+- **kb4's other intrinsics:** `cx` is 0.30–0.48 px low, `cy` within 0.1 px and `fy` within 0.37 px of TUM.
 - **Corners past 90° are not the whole story:** equidistant's stalled fit drops only 0, 3 and 1 corners as past
   90°. On recording 1, at its starting values, it puts no corner past 90°, where kb4's fit puts its largest at
   94°. It still stalls the same way.
@@ -99,11 +99,11 @@ MVIS `197549a`, 2026-11-04, not repeated on the section 2 code.
   of the kb4 all-corner run, which has the same corner totals as the kb4 solve in section 2.
 - **Same stall then:** the three all-corner equidistant solves gave the same values to 4 decimals.
 - **One corner per tag converged:** with one corner per tag, equidistant converged on the same recordings:
-  $f_x$ −0.00 / +0.91 / +2.72 px from TUM, kb4 −0.00 / +0.14 / +0.15.
+  `fx` −0.00 / +0.91 / +2.72 px from TUM, kb4 −0.00 / +0.14 / +0.15.
 - **The stall depends on the corner set:** on the other four TUM-Fisheye lenses equidistant converged with one
   and with all corners (section 1).
 - **Kalibr did not do better:** its `pinhole-equi` failed to converge on all 3 BF2M recordings, even seeded with
-  TUM's $f_x$, and on 1 of the 12 other recordings.
+  TUM's `fx`, and on 1 of the 12 other recordings.
 - **Kalibr DS and EUCM converged:** on all 3, after a patched initial guess on a second attempt.
 
 ## 4. Choosing kb4 costs nothing below 90°
@@ -146,7 +146,7 @@ MVIS `197549a`, 2026-11-04, not repeated on the section 2 code.
       not re-run on the section 2 code.</li>
     <li><b>The fold downstream:</b> how much the kb4 fold near the image corners matters downstream is not
       tested.</li>
-    <li><b>Who ran it:</b> the MVIS authors ran every solve.</li>
+    <li><b>Who ran it:</b> we ran every solve.</li>
   </ul>
 </div>
 

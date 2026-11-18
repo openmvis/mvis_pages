@@ -16,7 +16,8 @@
   "credit": "MVIS solve view, from the homepage"
  },
  "links": {
-  "example": "/benchmark/examples/uzh-fpv/"
+  "example": "/benchmark/examples/uzh-fpv/",
+  "dataset": "/datasets/#third-party-datasets"
  },
  "reading": [
   "<b>IMU weights.</b> All three tools use IMU sigmas taken from the residuals in UZH's own Kalibr results, not the MVIS defaults. The example page explains how they are derived.",

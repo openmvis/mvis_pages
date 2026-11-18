@@ -32,8 +32,8 @@ const others = page.families.some((f: any) => f.columns.some((c: any) => c.tool 
 <div class="not-content rp-honest ev-honest">
   <p><b>Repeatability, not accuracy.</b> There is no ground truth: a small spread shows that a tool repeats, not that
     it is right, and a difference shows that two tools disagree, not which one is wrong. {others
-      ? 'The MVIS authors made every run, including Kalibr and Basalt.'
-      : 'The MVIS authors made every run; only MVIS was run on this set.'}</p>
+      ? 'We ran every tool ourselves, including Kalibr and Basalt.'
+      : 'We made every run ourselves; only MVIS was run on this set.'}</p>
 </div>
 <nav class="not-content ev-fams" aria-label="Families">
   {page.families.map((f: any) => <a href={`#${f.id}`}><b>{f.id}</b>&nbsp;· {MODE[f.mode]}</a>)}

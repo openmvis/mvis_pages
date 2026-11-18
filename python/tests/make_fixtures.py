@@ -259,7 +259,7 @@ def write_uzh(root: Path) -> Path:
 
 # --- public page text, synthetic: one datasheet page with a photo, one with hand-written spec groups, one in the older layout ----
 def key_specs(**over):
-    ks = {"cameras": {"v": "2 × 640×480"}, "shutter": {"v": "Global", "tag": "maker", "src": "https://example.com/spec"},
+    ks = {"cameras": {"v": "2 × 640×480", "tag": "measured"}, "shutter": {"v": "Global", "tag": "maker", "src": "https://example.com/spec"},
           "fov": {"auto": "fov", "also": {"v": "120° × 90°", "tag": "listing", "src": "https://example.com/listing"}},
           "baseline": {"auto": "baseline"}, "imu": {"v": "400 Hz", "tag": "not_published"}, "output": {"v": "USB", "tag": "supplier"}}
     ks.update(over)
@@ -268,7 +268,7 @@ def key_specs(**over):
 
 def pub_entry(kind="photo"):
     p = {"group": "g1", "title": f"Rig {kind}", "description": "A test rig.", "lead": "Two cameras & an IMU.", "chips": ["2 cameras"],
-         "hardware": [["Shutter", "Global", "Maker"], ["Weight", "Not published", "Unknown"], ["Mount", "Clip", "Unknown"], ["Lens", "M12", "Custom"]],
+         "hardware": [["Shutter", "Global", "Maker"], ["Weight", "Not published", "Unknown"], ["Mount", "Clip", "Unknown"], ["Lens", "M12", "Catalog"]],
          "dataset": [["Board", "AprilGrid 6×6"]], "folder": "rig/", "method": "Camera + IMU, intrinsics free.",
          "limits": ["One recording.", "No second unit."], "card": {"tags": ["Global shutter", "2 cameras", "400 Hz IMU"]}}
     if kind == "photo":

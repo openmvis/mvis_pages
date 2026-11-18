@@ -1,8 +1,8 @@
 ---
 sidebar:
   order: 3
-  label: VI-Rig — 4 IMUs + 4 cams
-title: VI-Rig — 4 IMUs + 4 cameras
+  label: VI-Rig 4 IMUs + 4 cams
+title: "VI-Rig: 4 IMUs + 4 cameras"
 description: Our VI-Rig with a RealSense T265 fisheye pair (global shutter), an ELP stereo pair (rolling shutter) and four IMUs; 15 AprilGrid recordings on Hugging Face.
 pageType: reference
 wide: true
@@ -15,7 +15,7 @@ rolling shutter, several cameras and several IMUs.
 - **Hub folder:** [`calibench-vi/datasets` → `virig-4imus-4cams`](https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams)
 - **Licence:** CC BY-NC 4.0, gated; commercial use on request. See
   [Licence and access](/datasets/#licence-and-access).
-- **Results:** [benchmark results](/benchmark/results/virig-4imus-4cams/) ·
+- **Results:** [results page](/benchmark/results/virig-4imus-4cams/) ·
   [worked example](/benchmark/examples/virig-4imus-4cams/)
 
 ![MVIS solving a VI-Rig 4-camera recording: the board corners, the camera path and the camera frames](/media/hero/hero_virig4_960.jpg)
@@ -119,7 +119,7 @@ See [Methodology](/benchmark/methodology/) for how the tools are compared.
 
 ### Sensor order in the results files
 
-The reference results in [`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results) hold one
+The reference results in [`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results) (CC BY 4.0) hold one
 file per tool, batch and run (for example `MVIS/2026-11-10a/T8.json`) and the configs behind them in
 `configs/<run>/`. Each run names its own sensors; Kalibr and MVIS use the same order. The base IMU is the one the
 other sensors are referred to. The GX3-25 and GX3-35 are in the bags but in none of these runs.
@@ -142,4 +142,4 @@ other sensors are referred to. The GX3-25 and GX3-35 are in the bags but in none
 
 ## Cite
 
-Please cite Calibench and the MVIS paper. The BibTeX is on the [overview page](/datasets/#citation).
+Please cite Calibench-VI and the MVIS paper. The BibTeX is on the [overview page](/datasets/#citation).

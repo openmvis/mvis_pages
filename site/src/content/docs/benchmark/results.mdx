@@ -8,12 +8,11 @@ tableOfContents: false
 
 import Leaderboard from '../../../components/Leaderboard.astro';
 import LegacyHashJump from '../../../components/LegacyHashJump.astro';
-import { tested } from '../../../components/rp';
 import lb from '../../../data/eval/index.json';
 
 <LegacyHashJump />
 
-<p class="rp-prov">Batch <b>{lb.batch}</b> · results commit <a href={`https://huggingface.co/datasets/calibench-vi/results/tree/${lb.results_commit}`}><code>{lb.results_commit.slice(0, 7)}</code></a> · records in <a href="https://huggingface.co/datasets/calibench-vi/results">calibench-vi/results</a> · <a href="/benchmark/methodology/">Methodology</a></p>
+<p class="rp-prov">Batch <b>{lb.batch}</b> · results commit <a href={`https://huggingface.co/datasets/calibench-vi/results/tree/${lb.results_commit}`}><code>{lb.results_commit.slice(0, 7)}</code></a> · records in <a href="https://huggingface.co/datasets/calibench-vi/results">calibench-vi/results</a> (CC BY 4.0) · <a href="/benchmark/methodology/">Methodology</a></p>
 
 <div class="not-content rp-honest">
   {lb.honest.map((h) => <p set:html={h} />)}
@@ -26,7 +25,7 @@ import lb from '../../../data/eval/index.json';
   <ul>
     <li>Each repeatability cell is one family and one group of parameters, compared on the recordings every compared tool ran. Its shape names the tool whose estimates scatter least; two shapes are a tie between them, both ahead of the third.</li>
     <li>≈ is a tie: the gap is within chance or under 20 %. The hatched box means too few shared recordings to decide (fewer than 6). ○ means a tool received the values as input, so there is nothing to compare; – means the tools' models differ there.</li>
-    <li>Point at a cell for its sentence; click it for its numbers on the dataset eval page. Nothing is counted per tool across cells.</li>
+    <li>Point at a cell for its sentence; click it for its numbers on the results page. Nothing is counted per tool across cells.</li>
   </ul>
 </details>
 
@@ -47,32 +46,12 @@ import lb from '../../../data/eval/index.json';
 
 ## About these results
 
-<details class="rp-fold">
-<summary>How a cell is decided</summary>
+How each cell is decided: see [Repeatability verdicts](/benchmark/methodology/#repeatability-verdicts) on Methodology.
 
-For each family and group of parameters, we decide a verdict in five steps:
-
-1. We take only the recordings every compared tool ran.
-2. For each tool, we measure the scatter (standard deviation) of each parameter across those recordings.
-3. We compare two tools by the median ratio of their scatters.
-4. A tool is marked **more repeatable** only if both of these hold:
-   - its scatter is at least 20 % smaller, and
-   - a gap that large would rarely appear (under 5 %, Holm-adjusted within the cell) if we swapped the two tools' results recording by recording.
-5. Otherwise it is a **tie**: either the gap is within chance, or it is under 20 %.
-
-Notes on the test:
-
-- **Too few recordings:** with fewer than 6 shared recordings, no gap can pass this test (the smallest possible p is 2/2ⁿ). Those cells say "too few recordings".
-- **Not compared:** values a tool received as input, and rows where the tools' models differ.
-- **Distortion coefficients** trade off against each other, so their scatter can overstate differences in the lens mapping.
-- **Many tests:** each cell is a separate 5 % test. Across the {tested.cells} tested cells of this batch, of which {tested.naming} name a tool, one or two calls may be chance. The intervals are not adjusted for multiple tests.
-
-</details>
-
-<details class="rp-fold">
+<details class="not-content rp-fold">
 <summary>◆ differences between tools</summary>
 
-The ◆ columns count, per tool pair, the parameter rows where the tools' medians differ. No tool is the reference. Each dataset eval page lists every row.
+The ◆ columns count, per tool pair, the parameter rows where the tools' medians differ. No tool is the reference. The results pages chart each tool's values per parameter; they do not list the ◆ rows.
 
 - **Disagreement:** two tools disagree where their medians differ by more than either tool's scatter.
 - **◆** marks disagreement, not an error in either tool.
@@ -80,7 +59,7 @@ The ◆ columns count, per tool pair, the parameter rows where the tools' median
 
 </details>
 
-<details class="rp-fold">
+<details class="not-content rp-fold">
 <summary>Family numbers</summary>
 
 Each family is one test in the MVIS regression suite. On 2026-11-02 the numbers changed so the VI-Rig datasets come first. Older material uses the old numbers.

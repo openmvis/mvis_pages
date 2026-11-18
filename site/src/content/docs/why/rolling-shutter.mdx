@@ -1,6 +1,6 @@
 ---
 title: Why calibrate rolling shutter
-description: The ELP cameras on VI-Rig read their rows over about 16.6 ms. Treat them as global shutter and the fit gets worse, and the camera time offset td swallows about half the readout.
+description: The VI-Rig ELP cameras read their rows over about 16.6 ms. Called global shutter, the fit gets worse and the camera time offset td takes about half the readout.
 pageType: example
 wide: true
 ---
@@ -11,26 +11,26 @@ Data: our runs on the VI-Rig dataset [virig-4imus-4cams](/datasets/virig-4imus-4
 **The answer first:**
 
 - **The ELP is rolling shutter:** it reads its rows one after another, over about 16.6 ms.
-- **Calling it global costs fit:** the median reprojection error grows by about 20–25 %.
-- **$t_d$ hides the error:** the camera–IMU time offset $t_d$ moves by about half the readout to absorb it.
-- **No warning:** the solve still converges, and the shifted $t_d$ looks like a normal time offset.
+- **Calling it global costs fit:** on recording 01 the median reprojection error grew by 25 % (1.04 → 1.30 px).
+- **`td` hides the error:** the camera–IMU time offset `td` moves by about half the readout to absorb it.
+- **No warning:** the solve still converges, and the shifted `td` looks like a normal time offset.
 
 How to turn it on: [Rolling-shutter calibration](/guides/rolling-shutter/).
 
 ## The setup
 
-- **Readout:** the time $t_r$ a camera takes to read all its rows.
+- **Readout `tr`:** the time a camera takes to read all its rows.
 - **Reprojection error:** the distance in pixels between a detected board corner and where the calibration
   predicts it.
-- **Cameras:** two ELP cameras, ELP-L and ELP-R, 640×480 at 25 Hz as recorded (about 20–22 Hz after restamping), rolling shutter.
+- **Cameras:** two ELP cameras, ELP left and ELP right, 640×480 at 25 Hz as recorded (about 20–22 Hz after restamping), rolling shutter.
 - **Solve:** MVIS solves the readout with the other camera terms, in the camera-only step and again in the
   camera–IMU step.
 
 ## 1. The ELP reads its rows over about 16.6 ms
 
-- **Example run, recording 01:** readout 16.68 ms for ELP-L and 16.73 ms for ELP-R. See the
+- **Example run, recording 01:** readout 16.68 ms for ELP left and 16.73 ms for ELP right. See the
   [worked example](/benchmark/examples/virig-4imus-4cams/).
-- **All 15 recordings, median:** with ELP stereo and two IMUs ([T8](/benchmark/results/virig-4imus-4cams/#T8)), ELP-L reads 16.618 ms (sd 0.122) and ELP-R
+- **All 15 recordings, median:** with ELP stereo and two IMUs ([T8](/benchmark/results/virig-4imus-4cams/#T8)), ELP left reads 16.618 ms (sd 0.122) and ELP right
   16.594 ms (sd 0.111).
 - **Left and right agree:** within 0.05 ms.
 - **What it means:** the top and bottom rows of one image are taken about 16.6 ms apart. If the rig moves, they
@@ -49,16 +49,16 @@ worse than the 0.16–0.18 px median on the ELP in the results (batch 2026-11-10
 columns, not the values.
 :::
 
-| Recording | Median reprojection, RS (px) | Median reprojection, called global (px) | ELP-L $t_d$ shift (ms) | Readout in the RS run (ms) |
+| Recording | Median reprojection, RS (px) | Median reprojection, called global (px) | ELP left `td` shift (ms) | Readout in the RS run (ms) |
 |---|---|---|---|---|
 | 01 | 1.043 | 1.303 | +9.5 | 16.2 |
 
 - **Fit:** the median error grows by 0.26 px.
-- **$t_d$ moves by about half the readout:** a global-shutter model stamps the whole image at one time, so the
-  solver moves $t_d$ until that time sits near the middle row.
+- **`td` moves by about half the readout:** a global-shutter model stamps the whole image at one time, so the
+  solver moves `td` until that time sits near the middle row.
 - **The IMU barely notices:** the base gyro scale moved by 0.5 % or less. A wrong shutter model mainly corrupts
   the camera timing.
-- **The real risk:** the shifted $t_d$ is right only for the middle row. The top and bottom rows are off by up to
+- **The real risk:** the shifted `td` is right only for the middle row. The top and bottom rows are off by up to
   half the readout, about 8 ms.
 
 ## 3. MVIS repeats the readout tighter than Kalibr
@@ -70,8 +70,8 @@ The results compare MVIS and Kalibr on all 15 recordings; see
 
 | Camera | MVIS readout (ms) | Kalibr readout (ms) |
 |---|---|---|
-| ELP-L | 14.604 (sd 0.404, n = 15) | 16.354 (sd 2.00, n = 15) |
-| ELP-R | 14.601 (sd 0.404, n = 15) | 17.369 (sd 1.42, n = 13) |
+| ELP left | 14.604 (sd 0.404, n = 15) | 16.354 (sd 2.00, n = 15) |
+| ELP right | 14.601 (sd 0.404, n = 15) | 17.369 (sd 1.42, n = 13) |
 
 - **MVIS repeats 3–5× tighter** across recordings than Kalibr's rolling-shutter model.
 - **One camera at a time:** Kalibr's rolling-shutter model has no ELP stereo baseline.
@@ -80,14 +80,14 @@ The results compare MVIS and Kalibr on all 15 recordings; see
 - **Kalibr was not re-run** after the ELP stamp correction.
 - **With the IMU:** the MVIS readout spread drops to about 0.1 ms (section 1).
 
-**Camera–IMU, mixed rig (T265 fisheye 1 + ELP-L + two IMUs, [T7](/benchmark/results/virig-4imus-4cams/#T7)):**
+**Camera–IMU, mixed rig (T265 left + ELP left + two IMUs, [T7](/benchmark/results/virig-4imus-4cams/#T7)):**
 
 | Camera | MVIS median reprojection (px) | Kalibr median reprojection (px) |
 |---|---|---|
-| ELP-L | 0.181 (rolling shutter) | 0.795 (taken as global shutter) |
-| T265 fisheye 1 | 0.200 | 0.367 |
+| ELP left | 0.181 (rolling shutter) | 0.795 (taken as global shutter) |
+| T265 left | 0.200 | 0.367 |
 
-- **Kalibr's camera–IMU solver is global shutter only:** it takes ELP-L as global, with readout fixed at 0.
+- **Kalibr's camera–IMU solver is global shutter only:** it takes ELP left as global, with readout fixed at 0.
 - **Not a clean on/off test:** MVIS uses two corners per tag, non-base cameras at 4 Hz or lower and an
   [estimated board shape](/why/board-shape/). Kalibr uses none of these.
 - **Part of the gap is settings:** the gap on the global-shutter T265 suggests so.
@@ -95,7 +95,7 @@ The results compare MVIS and Kalibr on all 15 recordings; see
 **Conclusion:**
 
 - **Model the shutter:** the ELP is rolling shutter, and calling it global makes the fit worse.
-- **The error goes into $t_d$:** it moves by about half the readout, with no warning.
+- **The error goes into `td`:** it moves by about half the readout, with no warning.
 - **MVIS repeats the readout:** tighter than Kalibr across recordings, and tighter still with the IMU.
 
 ## Limits
@@ -112,23 +112,25 @@ The results compare MVIS and Kalibr on all 15 recordings; see
       not unwarp image rows, so a <a href="/guides/roundtrip/">round-trip validation</a> says nothing about the
       readout.</li>
     <li><b>Older on/off code:</b> section 2 is one recording on October 2026 code.</li>
+    <li><b>Who ran it:</b> we ran every solve, Kalibr included.</li>
   </ul>
 </div>
 
 ## Data
 
-- **Recordings:** [virig-4imus-4cams](/datasets/virig-4imus-4cams/), all 15 recordings. Please cite the VI-Rig dataset and MVIS.
+- **Recordings:** [virig-4imus-4cams](/datasets/virig-4imus-4cams/), all 15 recordings.
 - **Section 1:** the [worked example](/benchmark/examples/virig-4imus-4cams/) and the
   [results page](/benchmark/results/virig-4imus-4cams/), batch 2026-11-10a.
 - **Section 2:** a diagnostic on/off run on October 2026 code, before the ELP stamp correction, board-shape
   estimation and `vision_pose: imu`.
 - **Section 3:** the [results page](/benchmark/results/virig-4imus-4cams/), batch 2026-11-10a. Kalibr was not
   re-run after the ELP stamp correction.
+- **Citation:** please cite the VI-Rig dataset and MVIS.
 
 ## Related
 
 - [Rolling-shutter calibration](/guides/rolling-shutter/)
 - [Camera model](/concepts/camera-model/#rolling-shutter): how readout sits in the one camera factor.
 - [Notation](/concepts/notation/)
-- [Why calibrate t_ga](/why/tga/): another timing error that a tool without the parameter pushes into $t_d$.
+- [Why calibrate t_ga](/why/tga/): another timing error that a tool without the parameter pushes into `td`.
 - [Why calibrate the board shape](/why/board-shape/)

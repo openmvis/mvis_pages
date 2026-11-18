@@ -32,9 +32,7 @@ $$
 
 - **$\mathbf{x}$:** everything solved: the IMU states, the board pose, and every
   calibration value. The full list is on [Calibration graph](/concepts/calibration-graph/).
-- **$i, f$:** camera, frame. **$m$:** a board corner. [Notation](/concepts/notation/)
-  writes the corner index as $k$; here $k$ is taken by the IMU states, so corners
-  use $m$ ($h_m$ and $\mathbf{z}_{i,m}$ are Notation's $h_k$ and $\mathbf{z}_{i,k}$).
+- **$i, f$:** camera, frame. **$m$:** a board corner.
 - **$\mathbf{r}_{\text{cam}}^{i,f}$:** the residuals of all corners $m$ of frame $f$
   in camera $i$, stacked into one vector (2 rows per corner).
 - **$k$:** an interval between two IMU states. **$j$:** an auxiliary IMU.
@@ -72,9 +70,10 @@ t_m = t_C + t_{d,i} + \eta(v_m)\, t_{r,i},
 $$
 
 $\eta(v)$ is the row factor of [Notation](/concepts/notation/). $\eta(v_m) = v_m/H$
-is for a stamp at the top row, the default. With `solve.rolling_mode: 1` (stamp at
-the middle row) $\eta(v_m) = v_m/H - 0.5$; with `solve.rolling_mode: 2` (stamp at
-the bottom row) $\eta(v_m) = v_m/H - 1$. The readout $t_{r,i}$ is solved only for a
+is for a stamp at the top row, the default. With `camera_input.rolling_mode: 1`
+(stamp at the middle row) $\eta(v_m) = v_m/H - 0.5$; with
+`camera_input.rolling_mode: 2` (stamp at the bottom row) $\eta(v_m) = v_m/H - 1$.
+The table is in [Camera model](/concepts/camera-model/#rolling-shutter). The readout $t_{r,i}$ is solved only for a
 rolling-shutter camera with `estimate.camera.tr: true` (off by default). Otherwise
 the camera is treated as global shutter and $t_{r,i}$ is held at 0.
 

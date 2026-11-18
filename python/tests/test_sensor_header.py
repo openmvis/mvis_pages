@@ -25,11 +25,11 @@ def test_spec_row_names_the_cameras_when_they_differ():
 
 
 def test_auto_baseline_and_plain_rows(variant):
-    assert H._auto({"auto": "baseline"}, variant) == {"v": "62.0 mm"}
+    assert H._auto({"auto": "baseline"}, variant) == {"v": "62.0 mm", "tag": "measured"}
     one = dict(variant, run=dict(variant["run"], cams=variant["run"]["cams"][:1]))
-    assert H._auto({"auto": "baseline"}, one) == {"v": "One camera in this run"}
+    assert H._auto({"auto": "baseline"}, one) == {"v": "One camera in this run", "tag": "measured"}
     assert H._auto({"v": "x"}, variant) == {"v": "x"}
-    assert H._fov_row("imu", {"v": "y", "also": {"v": "z"}}) == "y<span class=sd-tag>Measured</span>"
+    assert H._fov_row("imu", {"v": "y", "tag": "measured", "also": {"v": "z"}}) == "y<span class=sd-tag>Measured</span>"
 
 
 def test_tags():
@@ -44,11 +44,27 @@ def test_listing_values_group_apart_from_the_sheet():
     assert {g["title"]: [r["item"] for r in g["rows"]] for g in H.spec_groups(p)} == {"From the seller's listing": ["Shutter"], "From the supplier's sheet": ["Weight"]}
 
 
-def test_every_source_tag_has_its_group_title():
-    tags = ["Maker", "Supplier", "Listing", "Dataset", "Catalog", "Measured", "Owner"]
+def test_every_source_tag_has_its_group_title_in_one_order():
+    tags = ["Measured", "Catalog", "Dataset", "Listing", "Supplier", "Maker"]
     p = {"header": {}, "hardware": [[t.lower(), "1", t] for t in tags]}
     assert [g["title"] for g in H.spec_groups(p)] == ["Published by the maker", "From the supplier's sheet", "From the seller's listing",
-                                                      "From the dataset", "From our catalog", "Measured in these recordings", "Maker"]
+                                                      "From the dataset", "From our catalog", "Measured in these recordings"]
+
+
+def test_spec_groups_refuse_an_unknown_tag_or_title():
+    with pytest.raises(ValueError, match="unknown tag 'Owner'"):
+        H.spec_groups({"header": {}, "hardware": [["Maker", "Co", "Owner"]]})
+    with pytest.raises(ValueError, match="unknown spec group 'Maker'"):
+        H.spec_groups({"header": {"groups": [{"title": "Maker", "rows": []}]}})
+
+
+def test_hand_written_groups_follow_the_order_and_share_one_measured_group():
+    rate, fov = {"item": "IMU rate", "v": "470 Hz"}, {"item": "FoV", "v": "x"}
+    p = {"header": {"groups": [{"title": "Not published", "rows": [{"item": "Parts", "v": "y"}]},
+                               {"title": "Measured in these recordings", "rows": [rate]}, {"title": "Published by the maker", "rows": []}]},
+         "_fov_spec": fov}
+    assert H.spec_groups(p) == [{"title": "Published by the maker", "rows": []}, {"title": "Measured in these recordings", "rows": [rate, fov]},
+                                {"title": "Not published", "rows": [{"item": "Parts", "v": "y"}]}]
 
 
 def test_unknown_rows_gather_under_not_published():
@@ -58,14 +74,14 @@ def test_unknown_rows_gather_under_not_published():
 
 
 def test_hand_written_groups_get_the_measured_fov():
-    p = {"header": {"groups": [{"title": "A", "rows": []}]}, "_fov_spec": {"item": "FoV", "v": "x"}}
-    assert [g["title"] for g in H.spec_groups(p)] == ["A", "Measured in these recordings"]
-    assert H.spec_groups({"header": {"groups": [{"title": "A", "rows": []}]}}) == [{"title": "A", "rows": []}]
+    p = {"header": {"groups": [{"title": "From the dataset", "rows": []}]}, "_fov_spec": {"item": "FoV", "v": "x"}}
+    assert [g["title"] for g in H.spec_groups(p)] == ["From the dataset", "Measured in these recordings"]
+    assert H.spec_groups({"header": {"groups": [{"title": "From the dataset", "rows": []}]}}) == [{"title": "From the dataset", "rows": []}]
 
 
 def test_specs_html_links_sources_and_folds_the_contact(variant):
     p = F.pub_entry("photo")
-    p["header"]["groups"] = [{"title": "G", "rows": [{"item": "a", "v": "1", "url": "https://x/a"}, {"item": "b", "v": "2", "src": "https://x/b"}, {"item": "c", "v": "3"}]}]
+    p["header"]["groups"] = [{"title": "From our catalog", "rows": [{"item": "a", "v": "1", "url": "https://x/a"}, {"item": "b", "v": "2", "src": "https://x/b"}, {"item": "c", "v": "3"}]}]
     html = H.specs_html(p, variant)
     assert '<a href="https://x/a">1</a>' in html and 'aria-label="Source">↗' in html and 'id="sales-contact"' in html and "Checked once." in html
     del p["header"]["contact"], p["header"]["spec_note"]
@@ -87,7 +103,7 @@ def _header(variant, p):
 
 def test_header_with_photo_buttons_and_thanks(variant):
     html = _header(variant, F.pub_entry("photo"))
-    assert '<img src="/media/sensors/rig/rig.jpg"' in html and "sd-maker" in html and "Product page ↗" in html and "Docs ↗" in html
+    assert '<img src="/media/sensors/rig/rig.jpg"' in html and "sd-maker" in html and "Maker Co product page ↗" in html and "Docs ↗" in html
     assert html.endswith("</aside></div>") and "All specs (" in html
 
 
@@ -114,6 +130,10 @@ def test_header_refuses_missing_rows_unsourced_tags_and_a_long_type(variant):
     p = F.pub_entry("photo")
     p["header"]["key_specs"]["fov"]["also"]["src"] = "http://insecure"
     with pytest.raises(SystemExit, match="fov has no listing source"):
+        _header(variant, p)
+    p = F.pub_entry("photo")
+    del p["header"]["key_specs"]["cameras"]["tag"]
+    with pytest.raises(SystemExit, match="cameras needs a tag"):
         _header(variant, p)
     p = F.pub_entry("photo")
     p["header"]["type"] = "x" * 91

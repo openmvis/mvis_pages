@@ -14,8 +14,10 @@ install it. The install itself is on [Installation](/getting-started/installatio
 - **Windows:** tentative. MVIS has run there, but GTSAM publishes no Windows
   wheels on PyPI, so the install steps aren't written up yet.
 - **Python:** 3.11 or 3.12.
-- **Not supported:** Python 3.13. GTSAM publishes no wheels below Python 3.11,
-  and NumPy 1.x, which GTSAM needs, has no Python 3.13 wheel.
+- **Not supported, Python 3.13:** NumPy 1.x, which GTSAM needs, has no Python
+  3.13 wheel.
+- **Not supported, Python 3.10 or older:** GTSAM publishes no wheels below
+  Python 3.11.
 - **Nothing to compile:** every dependency installs from a pip wheel.
 
 ## Python dependencies
@@ -86,3 +88,7 @@ copy its values into `board:`.
 [Record the dataset](/guides/calibration-motion/) gives the motion pattern step
 by step. The `mvis inspect` command reports what a recording holds before you
 solve.
+
+## Next
+
+Install MVIS: [Installation](/getting-started/installation/).

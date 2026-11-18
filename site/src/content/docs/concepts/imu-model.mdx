@@ -40,8 +40,8 @@ $$
 $$
 
 - ${}^{I}_{w}\mathbf{R}$ and ${}^{I}_{a}\mathbf{R}$ rotate the gyro triad
-  $\{w\}$ and the accel triad $\{a\}$ into $\{I\}$. Each convention fixes one of
-  them to the identity.
+  $\{w\}$ and the accel triad $\{a\}$ into $\{I\}$. `kalibr` and `rpng` each
+  fix one of them to the identity; `calyx` fixes both.
 - $t_{ga}$ is the [gyro–accel offset](#t_ga-the-gyroaccel-offset) of the
   accel against the gyro clock.
 - $\mathbf{n}_g$, $\mathbf{n}_a$ are white noise. The biases follow a random
@@ -81,11 +81,10 @@ The two triads and $\{I\}$ have 3 + 3 + 3 rotational degrees of freedom, but
 the data only sees the rotation between the triads. So one rotation must be
 pinned. *What* is pinned, and the shape of each matrix, is the convention:
 
-| Convention | $\mathbf{D}_w$ | $\mathbf{D}_a$ | Free rotation | $\{I\}$ is | Parameters |
-|---|---|---|---|---|---|
-| `kalibr` | lower-triangular (6) | lower-triangular (6) | ${}^{I}_{w}\mathbf{R}$ (3) | the accel triad | 6 + 6 + 3 + 9 ($\mathbf{T}_g$) = 24 |
-| `rpng` | upper-triangular (6) | upper-triangular (6) | ${}^{I}_{a}\mathbf{R}$ (3) | the gyro triad | 6 + 6 + 3 + 9 = 24 |
-| `calyx` (default) | full $3\times3$ (9) | upper-triangular (6) | none: the rotation is inside $\mathbf{D}_w$ | the accel triad | 9 + 6 + 9 = 24 |
+The matrix shapes, the free rotation, the frame $\{I\}$ and the parameter count
+of each convention are in one table on
+[Base IMU factor](/concepts/camera-imu-math/base-imu/#corrected-readings). Each
+has 24 intrinsic parameters.
 
 On top of those 24, every convention has the two biases (3 + 3) and $t_{ga}$ (1).
 
@@ -176,16 +175,8 @@ $\mathbf{D}_w$ mixes scale with rotation.
   includes the triad rotation (it lives in $\mathbf{D}_w$). In `kalibr` and
   `rpng` the rotation stays at the identity until you choose `dw_da_r`.
 
-| `estimate.imu.intrinsics` | Frees |
-|---|---|
-| `pinned` (or `false`) | nothing |
-| `dw_da` (default) | $\mathbf{D}_w$, $\mathbf{D}_a$ |
-| `dw_da_r` | $\mathbf{D}_w$, $\mathbf{D}_a$, the triad rotation (`kalibr`, `rpng`; same as `dw_da` in `calyx`) |
-| `full` (or `true`) | the above plus $\mathbf{T}_g$ |
-
-Freed blocks carry weak priors around their start values: the identity for
-$\mathbf{D}_w$, $\mathbf{D}_a$ and the rotation, zero for $\mathbf{T}_g$
-(`sigma_dw_da` 0.1, `sigma_imu_R` 0.1 rad, `sigma_tg` 0.05).
+Which blocks each `estimate.imu.intrinsics` setting frees, and their priors:
+[Which intrinsics are solved](/concepts/camera-imu-math/base-imu/#which-intrinsics-are-solved).
 
 ## Correct readings with a result
 
@@ -324,12 +315,9 @@ solve:
   sigma_t_ga: 0.010      # weak prior, s
 ```
 
-- **In the solve:** the IMU factor corrects to first order,
-  $\mathbf{a}_m(t + t_{ga}) \approx \mathbf{a}_m(t) + t_{ga}\,\dot{\mathbf{a}}_m(t)$,
-  with $\dot{\mathbf{a}}_m$ from finite differences of the raw accel. That adds
-  one Jacobian column; through $\mathbf{T}_g$ it also reaches the gyro row. When
-  $t_{ga}$ moves more than 3 ms from where the factors were integrated, they are
-  integrated again (`tga_relin_threshold_s`).
+- **In the solve:** a first-order correction inside the IMU factor, with
+  re-integration when $t_{ga}$ moves far
+  ([details](/concepts/camera-imu-math/base-imu/#the-gyro-to-accel-offset-t_ga)).
 - **Reported** in the calibration YAML, the `cam_imu.json` summary
   (`t_ga_ms`) and the report.
 - **Corrected** by `mvis apply-calib`, as above.
@@ -351,15 +339,10 @@ input:
     - {gyro_only: true}     # auxiliary IMU
 ```
 
-What a gyro-only IMU solves and pins:
-
-- **Solved:** extrinsic rotation, `td` (here the IMU-to-IMU time offset),
-  $\mathbf{D}_w$ and the gyro bias.
-- **Pinned:** the lever arm (the translation between the two IMUs),
-  $\mathbf{D}_a$ and $\mathbf{T}_g$.
-
-It is **not allowed on the base IMU**: the base IMU needs its accelerometer for
-gravity and metric scale. The result marks each such IMU with `gyro_only: true`.
+What a gyro-only IMU solves and holds, and its factor:
+[Gyro-only mode](/concepts/camera-imu-math/aux-imu/#gyro-only-mode). It is
+**not allowed on the base IMU**, which needs its accelerometer for gravity and
+metric scale. The result marks each such IMU with `gyro_only: true`.
 
 We built it for the Intel T265 (Bosch BMI055), whose 62.5 Hz accel the driver
 interpolates to 200 Hz. We calibrated, corrected the bag and calibrated again.
