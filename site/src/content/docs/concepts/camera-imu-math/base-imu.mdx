@@ -40,11 +40,11 @@ $$
 - **${}^{I}_{w}\mathbf{R}$, ${}^{I}_{a}\mathbf{R}$:** the gyro and accelerometer
   triad rotations into the IMU frame. Each convention frees at most one of them:
 
-| Convention | $\mathbf{D}_w$ | $\mathbf{D}_a$ | Free rotation | Intrinsic parameters |
-|---|---|---|---|---|
-| `calyx` (default) | full 3×3 (9) | upper-triangular (6) | none; folded into $\mathbf{D}_w$ | 9 + 6 + 9 ($\mathbf{T}_g$) = 24 |
-| `kalibr` | lower-triangular (6) | lower-triangular (6) | ${}^{I}_{w}\mathbf{R}$ (3) | 6 + 6 + 9 + 3 = 24 |
-| `rpng` | upper-triangular (6) | upper-triangular (6) | ${}^{I}_{a}\mathbf{R}$ (3) | 6 + 6 + 9 + 3 = 24 |
+| Convention | $\mathbf{D}_w$ | $\mathbf{D}_a$ | Free rotation | $\{I\}$ is | Intrinsic parameters |
+|---|---|---|---|---|---|
+| `calyx` (default) | full 3×3 (9) | upper-triangular (6) | none; folded into $\mathbf{D}_w$ | the accel triad | 9 + 6 + 9 ($\mathbf{T}_g$) = 24 |
+| `kalibr` | lower-triangular (6) | lower-triangular (6) | ${}^{I}_{w}\mathbf{R}$ (3) | the accel triad | 6 + 6 + 9 + 3 = 24 |
+| `rpng` | upper-triangular (6) | upper-triangular (6) | ${}^{I}_{a}\mathbf{R}$ (3) | the gyro triad | 6 + 6 + 9 + 3 = 24 |
 
 All three give the solver one 24-value intrinsics variable $\mathbf{x}_{in}$.
 It starts at identity (no correction).
@@ -112,16 +112,16 @@ The factor links state $k$ (pose ${}^{G}_{I_k}\mathbf{T}$, velocity
 ${}^{G}\mathbf{v}_{I_k}$, biases) to state $k+1$. It predicts the measured
 preintegration from the two states and compares.
 
-Write $\delta\boldsymbol{\eta}$ for the change since integration:
+Write $\delta\boldsymbol{\beta}$ for the change since integration:
 $\delta\mathbf{b}_g$, $\delta\mathbf{b}_a$, $\delta\mathbf{x}_{in}$ and
 $\delta t_{ga}$. First-order corrections, built from the Jacobians above:
 
 $$
-\delta\boldsymbol\theta = \mathbf{J}_{R}\,\delta\boldsymbol\eta,
+\delta\boldsymbol\theta = \mathbf{J}_{R}\,\delta\boldsymbol\beta,
 \qquad
-\delta\mathbf{v} = \mathbf{J}_{v}\,\delta\boldsymbol\eta,
+\delta\mathbf{v} = \mathbf{J}_{v}\,\delta\boldsymbol\beta,
 \qquad
-\delta\mathbf{p} = \mathbf{J}_{p}\,\delta\boldsymbol\eta
+\delta\mathbf{p} = \mathbf{J}_{p}\,\delta\boldsymbol\beta
 $$
 
 The 15 residual rows are:
@@ -176,10 +176,10 @@ the motion does not excite stays near its start instead of drifting.
 
 | Setting | Free | Weak prior on the free terms |
 |---|---|---|
-| `pinned` | nothing | — |
+| `pinned` (or `false`) | nothing | — |
 | `dw_da` (default) | $\mathbf{D}_w$, $\mathbf{D}_a$ | 0.1 (`solve.sigma_dw_da`) |
 | `dw_da_r` | as `dw_da`, plus the free rotation (`kalibr`, `rpng`; same as `dw_da` under `calyx`, which has no separate rotation) | 0.1 (`solve.sigma_imu_R`) |
-| `full` | as `dw_da_r`, plus $\mathbf{T}_g$ | 0.05 (`solve.sigma_tg`) |
+| `full` (or `true`) | as `dw_da_r`, plus $\mathbf{T}_g$ | 0.05 (`solve.sigma_tg`) |
 
 ## The same model inside the reprojection factor
 

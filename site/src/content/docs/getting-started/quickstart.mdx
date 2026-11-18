@@ -46,8 +46,9 @@ AprilGrid.
   `${MVIS_DATASETS}`.
 - **Checked:** the download is verified against the checksum in the catalog.
 - **Licence:** CC BY-NC 4.0, non-commercial; commercial licences on request.
-  If you publish with it, cite the MVIS paper; see
-  [Contributors & citation](/about/contributors/#citing-the-paper-mvis).
+  If you publish with it, cite Calibench-VI and the MVIS paper; see
+  [Citing the datasets](/about/contributors/#citing-the-datasets-calibench-vi)
+  and [Citing the paper](/about/contributors/#citing-the-paper-mvis).
 
 `mvis inspect <bag>` prints the topics, rates and duration of a recording.
 
@@ -173,9 +174,9 @@ compares it with Kalibr and Basalt.
   [Set up the board](/guides/board-setup/) to
   [Round-trip validation](/guides/roundtrip/).
 - **With an agent:** the MVIS repository ships a Claude Code skill,
-  `mvis-calibrate`, that walks a recording through seven gated stages
-  (installation check, data qualification, sensor suite, parameters, configs,
-  solve, verification, release) on top of `mvis inspect`, `mvis check`,
+  `mvis-calibrate`, that checks the installation (Stage 0) and then walks a
+  recording through seven gated stages (data qualification, sensor suite,
+  parameters, configs, solve, verification, release) on top of `mvis inspect`, `mvis check`,
   `mvis run`, `mvis verdict` and `mvis roundtrip`. Start Claude Code in a
   checkout, or copy its `.claude/` folder next to your data, and run
   `/mvis-calibrate`. See

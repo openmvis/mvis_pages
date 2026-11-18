@@ -76,7 +76,7 @@ Notes:
 
 ## 3. Check it independently
 
-`mvis verdict --independent-check <kind>` records which of these you ran.
+`mvis verdict --independent-check <kind>` records which check you ran: `roundtrip`, `holdout`, `repeatability` or `cross-tool` (another tool). A digital twin has no kind of its own.
 
 ### Round trip
 
@@ -103,6 +103,11 @@ See [Round-trip validation](/guides/roundtrip/).
 Calibrate several recordings of one rig with `input.bags` and compare the results.
 A parameter that moves between recordings was not pinned down by the motion in them.
 See [Camera–IMU calibration](/guides/camera-imu-calibration/).
+
+### Hold-out recording
+
+Check the calibration on a recording that was not used for the solve.
+MVIS has no command for this check. `--independent-check holdout` only records in the verdict that you ran one.
 
 ### Another tool
 

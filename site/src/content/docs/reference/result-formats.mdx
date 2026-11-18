@@ -34,7 +34,7 @@ With `rerun_outliers: true`, the first pass is kept as `<name>_pass1_calib.yaml`
 `<name>_pass1_full.yaml` and `<name>_pass1.html` when it differs from the final result.
 The config's `output_file` gets a copy of the result, in YAML or JSON (`output_format`).
 
-### Fields of `_calib.yaml`
+### Fields of the camera-only `_calib.yaml`
 
 | Field | Meaning |
 |---|---|
@@ -81,7 +81,7 @@ With `output.path: results/run/cam_imu.json`:
 
 `td` convention: an image stamped `t` matches the IMU at `t + td`.
 
-### Fields of `_calib.yaml`
+### Fields of the camera–IMU `_calib.yaml`
 
 | Field | Meaning |
 |---|---|
@@ -180,16 +180,9 @@ Next to it, `<bag>.recalib.yaml` records:
 
 ## Kalibr files
 
-`mvis.io.kalibr` reads and writes Kalibr files:
-
-| Function | Direction | Does |
-|---|---|---|
-| `read_camchain` | in | A Kalibr camchain → per-camera intrinsics, distortion, resolution |
-| `read_camchain_imucam` | in | Also each camera's `T_cam_imu` and the stereo `T_cn_cnm1` |
-| `write_camchain_imucam` | out | A camera–IMU result → a camchain-imucam dict |
-| `AprilTagBoard.from_kalibr_yaml` | in | A Kalibr AprilGrid target file (in `mvis.detection.apriltag_board`) |
-
-So a Kalibr calibration can be an MVIS start (`camera_input.path` takes a camchain),
+`mvis.io.kalibr` reads and writes Kalibr files; its functions are listed in
+[Python API](/reference/python-api/#kalibr-files).
+A Kalibr calibration can be an MVIS start (`camera_input.path` takes a camchain),
 and an MVIS result can go to tools that expect Kalibr.
 Notes on the exported camchain-imucam:
 

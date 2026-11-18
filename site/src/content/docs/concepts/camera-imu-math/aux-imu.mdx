@@ -88,11 +88,11 @@ plus two rotation terms:
 
 $$
 {}^{I_s}\mathbf{a} = {}^{I}_{I_s}\mathbf{R}^\top\Big({}^{I}\mathbf{a}
-+ \big[{}^{I}\dot{\boldsymbol\omega}\big]_\times{}^{I}\mathbf{p}_{I_s}
-+ \big[{}^{I}\boldsymbol\omega\big]_\times^2\,{}^{I}\mathbf{p}_{I_s}\Big)
++ \big({}^{I}\dot{\boldsymbol\omega}\big)^\wedge{}^{I}\mathbf{p}_{I_s}
++ \big(({}^{I}\boldsymbol\omega)^\wedge\big)^2\,{}^{I}\mathbf{p}_{I_s}\Big)
 $$
 
-$[\cdot]_\times$ is the cross-product matrix. With no rotation both terms vanish
+$(\cdot)^\wedge$ is the cross-product (skew-symmetric) matrix of [Notation](/concepts/notation/). With no rotation both terms vanish
 and the lever arm leaves no trace. The rotation of the extrinsic and $t_{d,j}$
 come from the gyro alone: two gyros on one body read the same angular velocity,
 rotated and shifted in time.
@@ -147,9 +147,9 @@ $$
 
 | | Gyro-only IMU |
 |---|---|
-| **Solved** | extrinsic rotation, $t_{d,j}$, gyro bias, and $\mathbf{D}_w$ unless `estimate.imu.intrinsics: pinned` |
-| **Held** | lever arm, $\mathbf{D}_a$, $\mathbf{T}_g$, `t_ga` (none of them reach the gyro) |
-| **States** | the gyro bias at each knot, no velocity |
+| **Solved** | extrinsic rotation (unless `estimate.imu.extrinsics: false`), $t_{d,j}$ (unless `estimate.imu.td: false`), gyro bias, and $\mathbf{D}_w$ unless `estimate.imu.intrinsics: pinned` |
+| **Held** | lever arm, $\mathbf{D}_a$, $\mathbf{T}_g$ and the triad rotation (`kalibr`, `rpng`), at their start values; no `t_ga` is solved |
+| **States** | the gyro bias at each knot; no velocity or accel bias |
 
 The base IMU cannot be gyro-only: it needs its accelerometer for gravity and
 metric scale.

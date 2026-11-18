@@ -88,7 +88,7 @@ Differentiate twice and compare with what the accelerometer measures:
 
 $$
 {}^{G}\ddot{\mathbf{p}}_{C} = {}^{G}\ddot{\mathbf{p}}_{I} +
-{}^{G}_{I}\mathbf{R}\Big(\big[{}^{I}\dot{\boldsymbol\omega}\big]_\times + \big[{}^{I}\boldsymbol\omega\big]_\times^2\Big)\,{}^{I}\mathbf{p}_{C}
+{}^{G}_{I}\mathbf{R}\Big(\big({}^{I}\dot{\boldsymbol\omega}\big)^\wedge + \big(({}^{I}\boldsymbol\omega)^\wedge\big)^2\Big)\,{}^{I}\mathbf{p}_{C}
 $$
 
 - **No rotation:** both terms vanish and ${}^{I}\mathbf{p}_{C}$ is a constant
@@ -118,7 +118,7 @@ $$
 ### Readout: a shift per row
 
 On a rolling-shutter camera, a corner on row $v_m$ is captured at
-$t_C + t_{d,i} + (v_m/H)\,t_{r,i}$. The readout is a time offset that grows from
+$t_C + t_{d,i} + \eta(v_m)\,t_{r,i}$. The readout is a time offset that grows from
 the top row to the bottom row. It needs motion that moves the rows differently:
 rotation about the camera's x or y axis, which sweeps the image vertically or
 horizontally. Rotation about the optical axis gives little signal, and so does a
