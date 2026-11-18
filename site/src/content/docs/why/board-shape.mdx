@@ -5,6 +5,8 @@ pageType: example
 wide: true
 ---
 
+import BoardShapeFigure from '../../../components/BoardShapeFigure.astro';
+
 This page shows why MVIS can solve the shape of the calibration board, and what a flat solve does on our board.
 Data: our VI-Rig recordings on the Hub, [`calibench-vi/datasets`](https://huggingface.co/datasets/calibench-vi/datasets).
 
@@ -46,6 +48,8 @@ We estimated the height of every corner four ways, all on recordings 3–5 with 
 | Shape | A ridge across the middle (+3 to +4.5 mm); two opposite corners sag to −5 to −6 mm |
 | Agreement between the four estimates | 0.04–0.32 mm rms, correlation 0.991–0.9999 |
 | Recording to recording | 0.05–0.16 mm rms; recordings 1–2 sit about 0.4 mm from the 15-recording mean |
+
+<BoardShapeFigure caption="VI-Rig 4 IMUs + 4 cameras, recording 3: camera–IMU solve with all 144 corners (ELP stereo pair, T265 and Xsens IMUs), MVIS main f902d39. Red corners stand out of the best-fit plane, blue ones sink below it." />
 
 - **Two corners per tag:** on this code these solves report 1.6–2.7 mm rms and 9.1–11.7 mm peak to peak over
   all 144 heights. Half of those heights have no data (section 4), so the first two rows leave them out. Since

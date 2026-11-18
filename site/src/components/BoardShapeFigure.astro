@@ -1,0 +1,20 @@
+---
+// The board-shape corner map on /why/board-shape/, drawn by the site lib (mvis_site.markup.board_shape_svg) like the
+// device pages; site/scripts/export_why_board_shape.py writes the fragment.
+import fig from '../data/why/board-shape.html?raw';
+interface Props { caption: string }
+const { caption } = Astro.props;
+---
+
+<div class="not-content bsf">
+  <Fragment set:html={fig} />
+  <p class="bsf-note">{caption}</p>
+</div>
+
+<style>
+  .bsf { margin: 1.5rem 0; max-width: 38rem; }
+  .bsf :global(figure) { margin: 0; }
+  .bsf :global(svg) { display: block; width: 100%; height: auto; border: 1px solid var(--sl-color-hairline); border-radius: 0.5rem; color: var(--sl-color-text); background: var(--sl-color-bg); }
+  .bsf :global(figcaption) { font-size: 0.85rem; color: var(--sl-color-gray-3); margin-top: 0.5rem; }
+  .bsf-note { font-size: 0.85rem; color: var(--sl-color-gray-3); margin: 0.25rem 0 0; }
+</style>
