@@ -198,7 +198,7 @@ sensors:
     title: Stereolabs ZED 2
     description: Rolling-shutter stereo camera with a 120 mm baseline and a 400 Hz IMU, calibrated with MVIS on the public WHUVID calibration recording.
     lead: Stereo depth camera from Stereolabs with two rolling-shutter cameras 120 mm apart, wide 2.1 mm lenses and a built-in IMU at 400 Hz. This is the camera of the WHUVID driving dataset from Wuhan University; both cameras and the IMU are solved together from the authors' own calibration recording, with the rolling-shutter readout estimated.
-    chips: [Rolling shutter, Stereo, 400 Hz IMU, No data licence stated]
+    chips: [Rolling shutter, Stereo, 400 Hz IMU, CC BY 4.0]
     card: {name: "ZED 2", maker: Stereolabs, tags: [Rolling shutter, 2 cameras, 400 Hz IMU], sensors: "Stereo rolling-shutter 720p + IMU @ 400 Hz", format: "ROS bag", shows: "A wide stereo camera with its rolling-shutter readout solved"}
     source: https://www.stereolabs.com/en-us/products/zed-2
     source_label: Stereolabs ZED 2 product page
@@ -219,7 +219,8 @@ sensors:
       - [Source, "WHUVID dataset (Wuhan University), calibration recording published by the authors"]
       - [Format, "ROS 1 bag. Two IMU samples repeat the one before (same time and values) and are dropped"]
       - [Board, "AprilGrid 6×6, tag 20.8 mm, spacing 0.3"]
-      - [Data, "__HUB:community/zed2/data/__. The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors; the dataset states no licence, so ask them before reuse"]
+      - [Licence, "CC BY 4.0, as stated in the WHUVID paper (Chen et al., Remote Sensing 14(9) 2033, 2022); cite it when you use the recording"]
+      - [Data, "__HUB:community/zed2/data/__. The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors"]
       - [Configs and results, "__HUB:community/zed2/__"]
     method: "Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Solved 2026-11-16."
     limits:
