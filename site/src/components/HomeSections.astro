@@ -8,12 +8,6 @@ import HomeDevices from './HomeDevices.astro';
 
 <div class="not-content mhs">
   <section class="mhs-band">
-    <p class="mhs-kicker">Device wiki</p>
-    <h2>Calibrated on real hardware, from many makers.</h2>
-    <HomeDevices />
-  </section>
-
-  <section class="mhs-band">
     <div class="mhs-split">
       <div>
         <p class="mhs-kicker">Calibrate a whole rig at once</p>
@@ -152,6 +146,12 @@ import HomeDevices from './HomeDevices.astro';
   </section>
 
   <section class="mhs-band">
+    <p class="mhs-kicker">Device wiki</p>
+    <h2>Calibrated on real hardware, from many makers.</h2>
+    <HomeDevices />
+  </section>
+
+  <section class="mhs-band">
     <p class="mhs-kicker">Cite</p>
     <h2>If you use the toolbox, this site or the benchmark results.</h2>
     <div class="mhs-cites">
@@ -206,10 +206,13 @@ import HomeDevices from './HomeDevices.astro';
 </div>
 
 <style is:global>
+  /* Homepage body: wider than the 72rem `wide` pages, close to the full-bleed hero above it. */
+  :root:has(.mhs) { --sl-content-width: 88rem; }
   .mhs {
     --mhs-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
     --mhs-mono: "JetBrains Mono", var(--sl-font-mono, ui-monospace), monospace;
     color: var(--sl-color-gray-2);
+    padding-inline: clamp(0px, 3.5vw - 24px, 24px);   /* with Starlight's 24px, lines up with the hero's gutter */
   }
   .mhs code { font-family: var(--mhs-mono); font-size: 0.88em; }
   .mhs-band { padding-block: clamp(48px, 7vw, 88px); border-top: 1px solid var(--sl-color-hairline); }
