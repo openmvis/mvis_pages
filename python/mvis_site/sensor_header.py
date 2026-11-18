@@ -18,7 +18,7 @@ _TAG_LABELS = {"measured": "Measured", "not_published": "Not published", "suppli
 
 
 def _tag(row: dict) -> str:
-    tag = row.get("tag", "measured")
+    tag = row["tag"]
     if tag in ("maker", "listing"):
         return f'<a class=sd-tag href="{e(row["src"])}">{tag.capitalize()} ↗</a>'
     label = _TAG_LABELS.get(tag, tag)
@@ -29,14 +29,14 @@ def _auto(row: dict, v: dict) -> dict:
     """Baseline and field of view read from the solve, labelled Measured."""
     if row.get("auto") == "baseline":
         b = baseline_mm(v["run"]["cams"])
-        return {"v": f"{num(b, 1)} mm" if b else "One camera in this run"}
+        return {"v": f"{num(b, 1)} mm" if b else "One camera in this run", "tag": "measured"}
     if row.get("auto") == "fov":
         fov = v["fov"]
         if row.get("cams"):  # cameras that differ, labelled in the order given
             text = ", ".join(f"{lab} {fov_pair(fov[i])}" for lab, i in row["cams"].items())
         else:
             text = fov_pair(fov[0])
-        out = {"v": f"Calibrated {text}"}
+        out = {"v": f"Calibrated {text}", "tag": "measured"}
         if row.get("also"):
             out["also"] = row["also"]
         return out
@@ -74,7 +74,10 @@ def header_html(slug: str, p: dict, h: dict, v: dict) -> str:
     missing = [k for k, _ in KEY_ROWS if k not in h["key_specs"]]
     if missing:
         raise SystemExit(f"{p['title']}: header needs {missing}")
-    for k, row in [*h["key_specs"].items(), ("fov", h["key_specs"]["fov"].get("also") or {})]:
+    also = h["key_specs"]["fov"].get("also")
+    for k, row in [*h["key_specs"].items(), *([("fov", also)] if also else [])]:
+        if "tag" not in row:   # no silent default: every value says where it came from
+            raise SystemExit(f"{p['title']}: {k} needs a tag (maker, listing or one of {', '.join(_TAG_LABELS)})")
         if row.get("tag") in ("maker", "listing") and not str(row.get("src", "")).startswith("https://"):
             raise SystemExit(f"{p['title']}: {k} has no {row['tag']} source")
     if len(h["type"]) > 90:
@@ -86,7 +89,8 @@ def header_html(slug: str, p: dict, h: dict, v: dict) -> str:
     rows = "".join(f'<div class=sd-row><dt>{lab}</dt><dd>{_fov_row(k, h["key_specs"][k])}</dd></div>' for k, lab in KEY_ROWS)
     n = sum(len(g["rows"]) for g in spec_groups(p))
     links = h.get("links", {})
-    btn = (f'<a class="sd-btn primary" href="{e(links["product"])}">{e(links.get("product_label", "Product page"))} ↗</a>' if links.get("product") else "") + f'<a class=sd-btn href="#specifications">All specs ({n}) ↓</a>'
+    label = links.get("product_label", f"{m['name']} product page" if m else "Product page")
+    btn = (f'<a class="sd-btn primary" href="{e(links["product"])}">{e(label)} ↗</a>' if links.get("product") else "") + f'<a class=sd-btn href="#specifications">All specs ({n}) ↓</a>'
     more = "".join(f'<a href="{e(x["url"])}">{e(x["label"])} ↗</a> · ' for x in links.get("more", [])).rstrip(" · ")
     more = f'<p class=sd-more>{more}</p>' if more else ""
     img = h["image"]
@@ -164,24 +168,39 @@ def _plotly_play(v: dict, i: int) -> str:
 PCHIPS = ('<div class=pchips><span><i style="background:#9333ea"></i>Board corners</span><span><i class=ln style="background:#2563eb"></i>Rig path, darker is later</span>'
           '<span><i style="background:#16a34a"></i>Start</span><span><i style="background:#f59e0b"></i>Current position</span></div>')
 
+# Hardware tag -> group title, in the order the groups appear. The maker's name is in the header, so no Maker group.
+SPEC_GROUPS = {"Maker": "Published by the maker", "Supplier": "From the supplier's sheet", "Listing": "From the seller's listing",
+               "Dataset": "From the dataset", "Catalog": "From our catalog", "Measured": "Measured in these recordings",
+               "Unknown": "Not published"}
+NOT_GIVEN = ("Not published", "Not given", "Not recorded", "Not stated", "Not confirmed")
+
+
 def spec_groups(p: dict) -> list:
-    """Hand-written groups, or the page's hardware rows grouped by where they came from."""
+    """The specifications in SPEC_GROUPS order: hand-written groups, or the page's hardware rows grouped by their tag.
+    The calibrated field of view joins the Measured group. A title or tag outside SPEC_GROUPS is an error."""
     h = p["header"]
+    order = list(SPEC_GROUPS.values())
+    measured = SPEC_GROUPS["Measured"]
+    groups: dict[str, list] = {}
     if h.get("groups"):
-        return [*h["groups"], *([{"title": "Measured in these recordings", "rows": [p["_fov_spec"]]}] if p.get("_fov_spec") else [])]
-    titles = {"Maker": "Published by the maker", "Supplier": "From the supplier's sheet", "Listing": "From the seller's listing", "Dataset": "From the dataset", "Catalog": "From our catalog", "Measured": "Measured in these recordings", "Owner": "Maker"}
-    groups, unknown = {}, []
-    for item, val, tag in p["hardware"]:
-        if tag == "Unknown":
-            unknown.append(item if val in ("Not published", "Not given", "Not recorded", "Not stated", "Not confirmed") else f"{item}: {val}")
-        else:
-            groups.setdefault(titles.get(tag, tag), []).append({"item": item, "v": val})
+        for g in h["groups"]:
+            if g["title"] not in order:
+                raise ValueError(f"{p.get('title')}: unknown spec group {g['title']!r}")
+            groups.setdefault(g["title"], []).extend(g["rows"])
+    else:
+        unknown = []
+        for item, val, tag in p["hardware"]:
+            if tag not in SPEC_GROUPS:
+                raise ValueError(f"{p.get('title')}: {item} has unknown tag {tag!r}")
+            if tag == "Unknown":
+                unknown.append(item if val in NOT_GIVEN else f"{item}: {val}")
+            else:
+                groups.setdefault(SPEC_GROUPS[tag], []).append({"item": item, "v": val})
+        if unknown:
+            groups[SPEC_GROUPS["Unknown"]] = [{"item": "Open", "v": ", ".join(unknown)}]
     if p.get("_fov_spec"):
-        groups.setdefault(titles["Measured"], []).append(p["_fov_spec"])
-    out = [{"title": t, "rows": r} for t, r in groups.items()]
-    if unknown:
-        out.append({"title": "Not published", "rows": [{"item": "Open", "v": ", ".join(unknown)}]})
-    return out
+        groups.setdefault(measured, []).append(p["_fov_spec"])
+    return [{"title": t, "rows": groups[t]} for t in order if t in groups]
 
 
 def specs_html(p: dict, v: dict) -> str:

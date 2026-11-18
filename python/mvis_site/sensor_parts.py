@@ -167,7 +167,7 @@ def hub_links(html: str) -> str:
     """__HUB:community/xq20/__ or __HUB:datasets/converted/x/__ becomes a link to that folder on the Hub."""
     def link(m: re.Match) -> str:
         repo, path = m.group(1), m.group(2)
-        name = "Calibench community" if repo == "community" else "Calibench"
+        name = "Calibench-VI community" if repo == "community" else "Calibench-VI"
         return f'<a href="https://huggingface.co/datasets/calibench-vi/{repo}/tree/main/{e(path)}">{name}, {e(path)}</a> (access by automatic approval)'
     return re.sub(r"__HUB:(community|datasets)/(.+?)__", link, html)
 
@@ -183,7 +183,7 @@ def _dataset_rows(p: dict, data_url: str) -> str:
         link = f"{data_url}/{p['folder']}"
         if not any("__LINK__" in b for _, b in rows):
             rows += [["Licence", "CC BY-NC 4.0, for the data and for this page's clip and figures; commercial use by request"], ["Hosted", "__LINK__"]]
-        return "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td></tr>" for a, b in rows).replace("__LINK__", f'<a href="{e(link)}">Calibench, {e(p["folder"])}</a> (access by automatic approval)')
+        return "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td></tr>" for a, b in rows).replace("__LINK__", f'<a href="{e(link)}">Calibench-VI, {e(p["folder"])}</a> (access by automatic approval)')
     if p.get("data_link"):
         rows.append(["Data", "__LINK__"])
     ds = "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td></tr>" for a, b in rows)
@@ -236,7 +236,7 @@ def parts_for(key: str, p: dict, s: dict, vs: list, series, data_url: str, media
         run.append(f'sha256 of the recording: <code>{p["sha"]}</code>')
     shape = board_shape_section(vs, s["board"])   # only pages whose runs estimated the board shape get the key
     return ({"board_shape": shape} if shape else {}) | {
-        "lead": (f'<figure class=sensorimg><img src="{media_url}/{e(p["image"]["file"])}" alt="{e(p["image"]["alt"])}" loading=lazy><figcaption>{e(p["image"]["caption"])}</figcaption></figure>' if p.get("image") else "") + f'<p class=lead>{e(p["lead"])}</p><div class=chips>' + "".join(f"<span class=chip>{e(c)}</span>" for c in p["chips"]) + "</div>" + run_tabs(vs),
+        "lead": (f'<figure class=sensorimg><img src="{media_url}/{e(p["image"]["file"])}" alt="{e(p["image"]["alt"])}" loading=lazy><figcaption>{e(p["image"]["caption"])}</figcaption></figure>' if p.get("image") else "") + f'<p class=lead>{e(p["lead"])}</p><div class=chips>' + "".join(f"<span class=chip>{e(c)}</span>" for c in p.get("chips", [])) + "</div>" + run_tabs(vs),
         "glance": glance(demo, vs),
         "process": process_section("Camera images are left out to keep the page small.", vs),
         "map": f'<p>{MAP_LEAD}</p>{MAP_STAGE}{map_panel()}',

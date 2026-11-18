@@ -133,7 +133,6 @@ def test_only_looper_thanks_anyone_and_it_passes_the_lint(pub):
 
 def test_looper_licence_is_scoped_to_hand_held(pub):
     p = pub["sensors"]["looper-insight9"]
-    assert "CC BY-NC 4.0" not in p["chips"] and "Hand-held data CC BY-NC 4.0" in p["chips"]
     assert "not hosted" not in p["header"]["foot"] and "blurred except the board" in p["header"]["foot"]
     rows = dict(p["dataset"])
     assert rows["Robot-arm data"].startswith("__HUB:community/looper-insight9/data/__")
