@@ -36,17 +36,17 @@ sensors:
     demo: {from: "intel-t265-plain_small", note: "The 3D scene MVIS recovered from recording 1."}
     header:
       type: "Tracking camera: global-shutter fisheye stereo with a Bosch BMI055 IMU"
-      maker: {name: Intel RealSense, url: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
-      links: {product: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html", product_label: "Intel specifications"}
+      maker: {name: Intel RealSense, url: "https://dev.realsenseai.com/docs/tracking-camera-t265/"}
+      links: {product: "https://dev.realsenseai.com/docs/tracking-camera-t265/", product_label: "RealSense T265 page"}
       image: {kind: photo, file: intel-t265.jpg, alt: "Intel RealSense T265, front view", credit: "Photo: Intel, T265 launch press release", url: "https://www.intc.com/news-events/press-releases/detail/97/intel-announces-new-class-of-realsense-stand-alone"}
-      foot: "Maker values checked 2026-11-03; Intel lists it as discontinued · 1 recording · CC BY-NC 4.0"
+      foot: "Maker values from Intel's specification page, archived copy of 2026-10-30 (Intel has since removed the page); discontinued · 1 recording · CC BY-NC 4.0"
       key_specs:
-        cameras: {v: "848 × 800 fisheye stereo", tag: maker, src: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
+        cameras: {v: "848 × 800 fisheye stereo", tag: maker, src: "https://web.archive.org/web/20261030190401/https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
         shutter: {v: Global, tag: catalog}
-        fov: {auto: fov, also: {v: "163° diagonal", tag: maker, src: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}}
+        fov: {auto: fov, also: {v: "163° diagonal", tag: maker, src: "https://web.archive.org/web/20261030190401/https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}}
         baseline: {auto: baseline}
         imu: {v: "gyro 200 Hz, accel 62.5 Hz", tag: measured, also: {v: "Bosch BMI055", tag: maker, src: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}}
-        output: {v: USB 3, tag: maker, src: "https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
+        output: {v: USB 3, tag: maker, src: "https://web.archive.org/web/20261030190401/https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
   realsense-d455:
     group: cameras
     key: realsense-d455
