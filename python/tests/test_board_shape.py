@@ -66,3 +66,24 @@ def test_corner_dots_never_touch_the_next_tag():
         h, obs = _shape()
         r = float(re.search(r' r="([\d.]+)"', board_shape_svg(b, {"heights_m": h.tolist(), "n_obs": obs, "p2p_mm": 8.0, "rms_mm": 2.0})).group(1))
         assert 2 * r < b["tag_mm"] * spacing
+
+
+def test_chessboard_run_carries_its_board_and_draws_row_major(tmp_path):
+    h, obs = _shape(n=6, unseen=(5,))
+    (tmp_path / "cam_imu_board_shape.yaml").write_text(yaml.safe_dump({"board_shape": {"heights_m": h.tolist(), "n_obs": obs}}))
+    (tmp_path / "cam_imu.yaml").write_text(yaml.safe_dump({"board": {"board_type": "chessboard", "rows": 2, "cols": 3, "square_size": 0.04}}))
+    s = read_board_shape(tmp_path)
+    assert s["board"] == {"type": "chessboard", "rows": 2, "cols": 3, "square_mm": 40.0}
+    svg = board_shape_svg(BOARD, s)                                     # the sensor's AprilGrid is not used
+    assert svg.count("<circle") == 6 and svg.count("not seen") == 1 and "chessboard 2 by 3" in svg
+    assert svg.index('<circle cx="0.0" cy="40.0"') < svg.index('<circle cx="80.0" cy="40.0"') < svg.index('<circle cx="0.0" cy="0.0"')
+    assert "corner column and row" in svg
+    with pytest.raises(ValueError, match="chessboard"):
+        board_shape_svg(BOARD, {**s, "heights_m": [0.0] * 5, "n_obs": [1] * 5})
+
+
+def test_aprilgrid_run_keeps_the_sensor_board(tmp_path):
+    h, obs = _shape()
+    (tmp_path / "cam_imu_board_shape.yaml").write_text(yaml.safe_dump({"board_shape": {"heights_m": h.tolist(), "n_obs": obs}}))
+    (tmp_path / "cam_imu.yaml").write_text(yaml.safe_dump({"board": {"board_type": "aprilgrid", "rows": 2, "cols": 3}}))
+    assert "board" not in read_board_shape(tmp_path)
