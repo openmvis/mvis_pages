@@ -154,7 +154,8 @@ def refuse_frames(key: str, variants: list, require_process: bool = True) -> Non
 def read_board_shape(run_dir: Path) -> dict | None:
     """The board shape a cam-IMU run estimated (`estimate.board_points`): MVIS writes it beside the result as
     `cam_imu_board_shape.yaml` (per-corner heights in m, in the board's point order, and per-corner observation
-    counts). None when the run assumed a flat board."""
+    counts). None when the run assumed a flat board. A run on a chessboard carries its board, from its cam_imu.yaml,
+    since the sensor's board is the AprilGrid most of its runs used."""
     f = Path(run_dir) / "cam_imu_board_shape.yaml"
     if not f.exists():
         return None
@@ -162,8 +163,13 @@ def read_board_shape(run_dir: Path) -> dict | None:
     h = np.asarray(bs["heights_m"], float)
     n = np.asarray(bs.get("n_obs") or [1] * len(h), int)
     seen = n > 0 if (n > 0).any() else np.ones(len(h), bool)
-    return {"heights_m": h.tolist(), "n_obs": n.tolist(), "p2p_mm": float(np.ptp(h[seen]) * 1e3),
-            "rms_mm": float(np.std(h[seen]) * 1e3)}
+    out = {"heights_m": h.tolist(), "n_obs": n.tolist(), "p2p_mm": float(np.ptp(h[seen]) * 1e3),
+           "rms_mm": float(np.std(h[seen]) * 1e3)}
+    cfg = Path(run_dir) / "cam_imu.yaml"
+    board = (yaml.safe_load(cfg.read_text()) or {}).get("board", {}) if cfg.exists() else {}
+    if board.get("board_type") == "chessboard":
+        out["board"] = {"type": "chessboard", "rows": board["rows"], "cols": board["cols"], "square_mm": board["square_size"] * 1e3}
+    return out
 
 
 def load_variant(v: dict, roots: dict) -> dict:

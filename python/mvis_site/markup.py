@@ -156,39 +156,47 @@ def _shape_colour(t: float) -> str:
 
 
 def board_shape_svg(b: dict, shape: dict) -> str:
-    """Estimated height of every AprilGrid corner off the flat board, at its place on the board, to scale.
+    """Estimated height of every board corner off the flat board, at its place on the board, to scale.
 
-    b: the board (rows, cols, tag_mm, spacing). shape: read_board_shape() of a run. Corners follow MVIS's order: tag
-    r * cols + c centred at (c, r) * (tag + gap) with r up, corners bottom-left, bottom-right, top-right, top-left.
-    Colour is symmetric about the flat plane; corners no frame saw are hollow and left out of the scale."""
-    rows, cols, tag = b["rows"], b["cols"], b["tag_mm"]
-    step = tag * (1 + b["spacing"])
-    half = tag / 2
+    b: the sensor's board (rows, cols, tag_mm, spacing), used unless the run says its own board (shape["board"]).
+    shape: read_board_shape() of a run. AprilGrid corners follow MVIS's order: tag r * cols + c centred at
+    (c, r) * (tag + gap) with r up, corners bottom-left, bottom-right, top-right, top-left. Chessboard inner corners
+    are row-major: corner r * cols + c at (c, r) * square, r up. Colour is symmetric about the flat plane; corners
+    no frame saw are hollow and left out of the scale."""
+    b = shape.get("board") or b
     h = [x * 1e3 for x in shape["heights_m"]]
     n = shape["n_obs"]
-    if len(h) != 4 * rows * cols:
-        raise ValueError(f"{len(h)} board heights for a {rows}x{cols} AprilGrid")
+    rows, cols = b["rows"], b["cols"]
+    if b.get("type") == "chessboard":
+        name, unit = "chessboard", b["square_mm"]
+        if len(h) != rows * cols:
+            raise ValueError(f"{len(h)} board heights for a {rows}x{cols} chessboard")
+        w, d = (cols - 1) * unit, (rows - 1) * unit
+        pts = [(c * unit, (rows - 1 - r) * unit) for r in range(rows) for c in range(cols)]
+        col_x, row_y = [c * unit for c in range(cols)], [(rows - 1 - r) * unit for r in range(rows)]
+        rad, pad, what = unit * 0.18, unit * 0.5, "corner"
+    else:
+        name, unit = "AprilGrid", b["tag_mm"]
+        if len(h) != 4 * rows * cols:
+            raise ValueError(f"{len(h)} board heights for a {rows}x{cols} AprilGrid")
+        step, half = unit * (1 + b["spacing"]), unit / 2
+        w, d = (cols - 1) * step + unit, (rows - 1) * step + unit
+        pts = [(c * step + half + ox * half, (rows - 1 - r) * step + half + oy * half)   # SVG y down: row 0 at the bottom
+               for r in range(rows) for c in range(cols) for ox, oy in ((-1, 1), (1, 1), (1, -1), (-1, -1))]
+        col_x, row_y = [c * step + half for c in range(cols)], [(rows - 1 - r) * step + half for r in range(rows)]
+        rad = min(unit * 0.15, unit * b["spacing"] * 0.45)       # big dots, but never touching the next tag's corner
+        pad, what = unit * 0.3, "tag"
     seen = [x for x, k in zip(h, n) if k > 0] or h
     lim = max(max(abs(x) for x in seen), 1e-3)
-    w, d = (cols - 1) * step + tag, (rows - 1) * step + tag
-    rad = min(tag * 0.15, tag * b["spacing"] * 0.45)          # big dots, but never touching the next tag's corner
-    dots = []
-    for r in range(rows):
-        for c in range(cols):
-            cx, cy = c * step + half, (rows - 1 - r) * step + half              # SVG y down: row 0 at the bottom
-            for k, (ox, oy) in enumerate(((-1, 1), (1, 1), (1, -1), (-1, -1))):
-                i = (r * cols + c) * 4 + k
-                x, y = cx + ox * half, cy + oy * half
-                if n[i] > 0:
-                    dots.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.1f}" fill="{_shape_colour(h[i] / lim)}"><title>{h[i]:+.2f} mm</title></circle>')
-                else:
-                    dots.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.1f}" fill="none" stroke="#999" stroke-width="{rad / 4:.1f}"><title>not seen</title></circle>')
+    dots = [f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.1f}" fill="{_shape_colour(hi / lim)}"><title>{hi:+.2f} mm</title></circle>'
+            if k > 0 else
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.1f}" fill="none" stroke="#999" stroke-width="{rad / 4:.1f}"><title>not seen</title></circle>'
+            for (x, y), hi, k in zip(pts, h, n)]
     fs = max(w, d) * 0.03                            # text scales with the board, not the tag pitch
-    pad = tag * 0.3                                  # frame around the corners
     t = lambda x, y, s, a="middle", k=1.0: (f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{a}" font-size="{fs * k:.1f}" '
                                             f'fill="currentColor">{s}</text>')
-    axes = ([t(c * step + half, d + pad + fs * 1.2, c, k=0.8) for c in range(cols)]          # tag column, left to right
-            + [t(-pad - fs * 0.4, (rows - 1 - r) * step + half + fs * 0.28, r, "end", 0.8) for r in range(rows)])  # row 0 at the bottom
+    axes = ([t(x, d + pad + fs * 1.2, c, k=0.8) for c, x in enumerate(col_x)]          # column, left to right
+            + [t(-pad - fs * 0.4, y + fs * 0.28, r, "end", 0.8) for r, y in enumerate(row_y)])  # row 0 at the bottom
     bar_w, bar_h, bar_y = w * 0.7, fs * 0.8, d + pad + fs * 2.4
     x0 = (w - bar_w) / 2
     stops = "".join(f'<stop offset="{k / 10:.1f}" stop-color="{_shape_colour(k / 5 - 1)}"/>' for k in range(11))
@@ -201,11 +209,11 @@ def board_shape_svg(b: dict, shape: dict) -> str:
     left, top = pad + fs * 2.0, pad + fs * 0.5
     bottom = bar_y + bar_h + fs * 2.0
     return (f'<figure class="board bshape"><svg viewBox="{-left:.1f} {-top:.1f} {w + left + pad + fs * 0.5:.1f} {bottom + top:.1f}" role="img" '
-            f'aria-label="Board shape, AprilGrid {rows} by {cols}: heights off the flat board">'
+            f'aria-label="Board shape, {name} {rows} by {cols}: heights off the flat board">'
             f'<rect x="{-pad:.1f}" y="{-pad:.1f}" width="{w + 2 * pad:.1f}" height="{d + 2 * pad:.1f}" fill="none" stroke="currentColor" stroke-opacity="0.35"/>'
             + "".join(dots) + "".join(axes) + bar + '</svg>'
             f'<figcaption>Height of each corner off the flat board: peak to peak {shape["p2p_mm"]:.1f} mm, rms '
-            f'{shape["rms_mm"]:.1f} mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner '
+            f'{shape["rms_mm"]:.1f} mm. Numbers are the {what} column and row (row 0 at the bottom). Hover or tap a corner '
             f'for its value.</figcaption></figure>')
 
 
