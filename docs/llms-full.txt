@@ -4847,7 +4847,7 @@ calibench-vi/datasets.
 
 URL: https://openmvis.com/benchmark/results/
 
-Batch 2026-11-10a · results commit fe8ee9f · records in calibench-vi/results (CC BY 4.0) · Methodology
+Batch 2026-11-10a · results commit ac77987 · records in calibench-vi/results (CC BY 4.0) · Methodology
 
 Repeatability, not accuracy. These datasets have no ground truth, so no tool is the reference. A cell shows whose estimates scatter least over the recordings every compared tool ran, not who is right.
 Who ran it: we ran every tool ourselves, including Kalibr and Basalt, with its documented defaults unless a family's notes say otherwise.
@@ -5102,7 +5102,7 @@ Photo: OpenMVIS
 
 Our rig: a FLIR Blackfly and a RealSense T265 fisheye pair, all global shutter, with four IMUs from 100 to 500 Hz.
 our data 3 global-shutter cameras 4 IMUs, 100–500 Hz
-Batch 2026-11-10a · results commit fe8ee9f · Leaderboard · Methodology
+Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
 Downloads → Dataset page The data → Hugging Face
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
@@ -5336,8 +5336,8 @@ MVIS no value
 MVIS (K-IMU) 1.00043 ± 0.0013 (10)
 Kalibr 1.00476 ± 0.0029 (10)
 
-t_ga gyro−accel ms axis −0.308 ± 0.226
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −0.312 ± 0.238
+MVIS −0.316 ± 0.11 (10)
 MVIS (K-IMU) −0.308 ± 0.11 (10)
 Kalibr not in this tool's model
 
@@ -5396,8 +5396,8 @@ MVIS 131.31 ± 0.2 (10)
 MVIS (K-IMU) 131.31 ± 0.2 (10)
 Kalibr 129.26 ± 0.88 (10)
 
-t_ga gyro−accel ms axis 0.147 ± 0.194 · line at 0
-MVIS not in this tool's model
+t_ga gyro−accel ms axis 0.15 ± 0.191 · line at 0
+MVIS 0.153 ± 0.061 (10)
 MVIS (K-IMU) 0.147 ± 0.068 (10)
 Kalibr not in this tool's model
 
@@ -5456,8 +5456,8 @@ MVIS 94.70 ± 0.19 (10)
 MVIS (K-IMU) 94.70 ± 0.19 (10)
 Kalibr 93.58 ± 0.86 (10)
 
-t_ga gyro−accel ms axis 0.0811 ± 0.196 · line at 0
-MVIS not in this tool's model
+t_ga gyro−accel ms axis 0.085 ± 0.191 · line at 0
+MVIS 0.089 ± 0.059 (10)
 MVIS (K-IMU) 0.081 ± 0.067 (10)
 Kalibr not in this tool's model
 
@@ -5516,8 +5516,8 @@ MVIS 125.16 ± 0.19 (10)
 MVIS (K-IMU) 125.15 ± 0.19 (10)
 Kalibr 124.41 ± 1.4 (10)
 
-t_ga gyro−accel ms axis −6.56 ± 0.121
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −6.56 ± 0.135
+MVIS −6.558 ± 0.057 (10)
 MVIS (K-IMU) −6.564 ± 0.054 (10)
 Kalibr not in this tool's model
 
@@ -5685,7 +5685,7 @@ MVIS solve view, from the homepage
 
 Our rig with a RealSense T265 fisheye pair (global shutter) and an ELP stereo pair (rolling shutter).
 our data 2 global-shutter + 2 rolling-shutter cameras
-Batch 2026-11-10a · results commit fe8ee9f · Leaderboard · Methodology
+Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
 Downloads → Dataset page The device → Device wiki The data → Hugging Face
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
@@ -5927,112 +5927,112 @@ ELP-L | 0.182 | 0.181 | 0.795 |
 
 4 sensors, 44 parameter charts (each tool's spread; click to fold)
 t265 fisheye 1ELP-Lt265 IMUXsens MTi fx px axis 287 ± 1.22
-MVIS 287.20 ± 0.45 (14)
+MVIS 287.20 ± 0.44 (15)
 MVIS (K-IMU) 287.20 ± 0.44 (15)
 Kalibr 287.20 ± 0.44 (14) input
 
-fy px axis 287 ± 1.44
-MVIS 287.09 ± 0.55 (14)
+fy px axis 287 ± 1.35
+MVIS 287.00 ± 0.53 (15)
 MVIS (K-IMU) 287.00 ± 0.53 (15)
 Kalibr 287.09 ± 0.54 (14) input
 
-cx px axis 416 ± 0.843
-MVIS 415.78 ± 0.36 (14)
+cx px axis 416 ± 0.869
+MVIS 415.80 ± 0.35 (15)
 MVIS (K-IMU) 415.80 ± 0.35 (15)
 Kalibr 415.78 ± 0.36 (14) input
 
 cy px axis 404 ± 0.789
-MVIS 403.62 ± 0.29 (14)
+MVIS 403.62 ± 0.28 (15)
 MVIS (K-IMU) 403.62 ± 0.28 (15)
 Kalibr 403.62 ± 0.28 (14) input
 
 dist k1 axis −0.00587 ± 0.00349
-MVIS −0.00574 ± 0.0013 (14)
+MVIS −0.00585 ± 0.0013 (15)
 MVIS (K-IMU) −0.00587 ± 0.0013 (15)
 Kalibr −0.00587 ± 0.0013 (14) input
 
-dist k2 axis 0.0341 ± 0.00703
-MVIS 0.03274 ± 0.004 (14)
+dist k2 axis 0.0341 ± 0.007
+MVIS 0.03408 ± 0.0039 (15)
 MVIS (K-IMU) 0.03406 ± 0.0039 (15)
 Kalibr 0.03411 ± 0.0039 (14) input
 
 dist k3 axis −0.0313 ± 0.0114
-MVIS −0.03094 ± 0.005 (14)
+MVIS −0.03125 ± 0.0049 (15)
 MVIS (K-IMU) −0.03129 ± 0.0049 (15)
 Kalibr −0.03143 ± 0.005 (14) input
 
 dist k4 axis 0.00449 ± 0.00502
-MVIS 0.00447 ± 0.002 (14)
+MVIS 0.00449 ± 0.002 (15)
 MVIS (K-IMU) 0.00449 ± 0.002 (15)
 Kalibr 0.00453 ± 0.002 (14) input
 
-time offset td to base IMU ms axis 2.04 ± 3.49 · line at 0
-MVIS 2.036 ± 0.19 (14)
+time offset td to base IMU ms axis 2.03 ± 3.48 · line at 0
+MVIS 2.031 ± 0.18 (15)
 MVIS (K-IMU) 2.045 ± 0.18 (15)
 Kalibr −0.684 ± 0.3 (14)
 
 distance to base IMU ‖p‖ mm axis 11.9 ± 7.19
-MVIS 11.94 ± 0.44 (14)
+MVIS 11.93 ± 0.43 (15)
 MVIS (K-IMU) 11.93 ± 0.43 (15)
 Kalibr 8.22 ± 2.8 (14)
 
-fx px axis 428 ± 2.18
-MVIS 428.22 ± 0.75 (14)
+fx px axis 428 ± 2.29
+MVIS 428.32 ± 0.72 (15)
 MVIS (K-IMU) 428.33 ± 0.72 (15)
 Kalibr 428.22 ± 0.73 (14) input
 
 fy px axis 428 ± 2.36
-MVIS 427.89 ± 0.9 (14)
+MVIS 427.89 ± 0.87 (15)
 MVIS (K-IMU) 427.90 ± 0.87 (15)
 Kalibr 427.89 ± 0.89 (14) input
 
-cx px axis 351 ± 0.691
-MVIS 351.00 ± 0.37 (14)
+cx px axis 351 ± 0.71
+MVIS 351.02 ± 0.35 (15)
 MVIS (K-IMU) 351.02 ± 0.35 (15)
 Kalibr 351.01 ± 0.36 (14) input
 
-cy px axis 266 ± 0.571
-MVIS 266.48 ± 0.23 (14)
+cy px axis 266 ± 0.56
+MVIS 266.49 ± 0.25 (15)
 MVIS (K-IMU) 266.49 ± 0.25 (15)
 Kalibr 266.47 ± 0.23 (14) input
 
-dist k1 axis −0.0943 ± 0.0049
-MVIS −0.09437 ± 0.002 (14)
+dist k1 axis −0.0942 ± 0.005
+MVIS −0.09422 ± 0.002 (15)
 MVIS (K-IMU) −0.09421 ± 0.002 (15)
 Kalibr −0.09431 ± 0.002 (14) input
 
-dist k2 axis −0.0243 ± 0.0167
-MVIS −0.02434 ± 0.0072 (14)
+dist k2 axis −0.0249 ± 0.0173
+MVIS −0.02501 ± 0.0071 (15)
 MVIS (K-IMU) −0.02491 ± 0.0071 (15)
 Kalibr −0.02428 ± 0.0072 (14) input
 
-dist k3 axis 0.0202 ± 0.0427
-MVIS 0.02018 ± 0.016 (14)
+dist k3 axis 0.0215 ± 0.0442
+MVIS 0.02153 ± 0.016 (15)
 MVIS (K-IMU) 0.02150 ± 0.016 (15)
 Kalibr 0.02013 ± 0.016 (14) input
 
-dist k4 axis −0.0101 ± 0.0278
-MVIS −0.00982 ± 0.012 (14)
+dist k4 axis −0.0104 ± 0.0282
+MVIS −0.01041 ± 0.011 (15)
 MVIS (K-IMU) −0.01058 ± 0.011 (15)
 Kalibr −0.01005 ± 0.012 (14) input
 
 readout tr ms axis 16.7 ± 18.3 · line at 0
-MVIS 16.680 ± 0.089 (14)
+MVIS 16.672 ± 0.086 (15)
 MVIS (K-IMU) 16.670 ± 0.085 (15)
 Kalibr 0.000 ± 0 (14) input
 
-baseline to t265 fisheye 1 mm axis 154 ± 0.332
-MVIS 153.510 ± 0.17 (14)
+baseline to t265 fisheye 1 mm axis 154 ± 0.336
+MVIS 153.513 ± 0.16 (15)
 MVIS (K-IMU) 153.517 ± 0.16 (15)
 Kalibr 153.504 ± 0.17 (14) input
 
-time offset td to base IMU ms axis −116 ± 1.67
-MVIS −115.893 ± 0.63 (14)
+time offset td to base IMU ms axis −116 ± 1.7
+MVIS −115.932 ± 0.62 (15)
 MVIS (K-IMU) −115.919 ± 0.62 (15)
 Kalibr −107.879 different model, not compared
 
-distance to base IMU ‖p‖ mm axis 142 ± 0.831
-MVIS 142.05 ± 0.44 (14)
+distance to base IMU ‖p‖ mm axis 142 ± 0.853
+MVIS 142.09 ± 0.42 (15)
 MVIS (K-IMU) 142.09 ± 0.42 (15)
 Kalibr 146.46 different model, not compared
 
@@ -6081,8 +6081,8 @@ MVIS no value
 MVIS (K-IMU) 1.01699 ± 0.00095 (15)
 Kalibr 1.01709 ± 0.0022 (14)
 
-t_ga gyro−accel ms axis −6.69 ± 0.244
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −6.7 ± 0.234
+MVIS −6.714 ± 0.11 (15)
 MVIS (K-IMU) −6.693 ± 0.11 (15)
 Kalibr not in this tool's model
 
@@ -6132,17 +6132,17 @@ MVIS (K-IMU) 1.00067 ± 0.00066 (15)
 Kalibr 1.00287 ± 0.0032 (14)
 
 time delay td to base IMU ms axis 7.24 ± 0.311
-MVIS 7.228 ± 0.15 (14)
+MVIS 7.234 ± 0.15 (15)
 MVIS (K-IMU) 7.240 ± 0.15 (15)
 Kalibr 7.260 ± 0.12 (14)
 
 distance to base IMU ‖p‖ mm axis 124 ± 18.9
-MVIS 124.09 ± 0.33 (14)
+MVIS 124.08 ± 0.32 (15)
 MVIS (K-IMU) 124.09 ± 0.32 (15)
 Kalibr 114.10 ± 3 (14)
 
-t_ga gyro−accel ms axis −0.483 ± 0.709 · line at 0
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −0.497 ± 0.712 · line at 0
+MVIS −0.511 ± 0.22 (15)
 MVIS (K-IMU) −0.483 ± 0.22 (15)
 Kalibr not in this tool's model
 
@@ -6330,8 +6330,8 @@ MVIS no value
 MVIS (K-IMU) 1.01668 ± 0.0011 (15)
 Kalibr 1.02013 ± 0.0014 (3)
 
-t_ga gyro−accel ms axis −6.7 ± 0.358
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −6.69 ± 0.362
+MVIS −6.691 ± 0.13 (15)
 MVIS (K-IMU) −6.697 ± 0.13 (15)
 Kalibr not in this tool's model
 
@@ -6380,18 +6380,18 @@ MVIS no value
 MVIS (K-IMU) 1.00093 ± 0.00049 (15)
 Kalibr 1.00373 ± 0.0038 (3)
 
-time delay td to base IMU ms axis 7.25 ± 0.247
-MVIS 7.176 ± 0.038 (3)
+time delay td to base IMU ms axis 7.25 ± 0.249
+MVIS 7.230 ± 0.12 (15)
 MVIS (K-IMU) 7.248 ± 0.11 (15)
 Kalibr 7.254 ± 0.027 (3)
 
 distance to base IMU ‖p‖ mm axis 124 ± 10.7
-MVIS 124.19 ± 0.18 (3)
+MVIS 123.92 ± 0.3 (15)
 MVIS (K-IMU) 123.94 ± 0.3 (15)
 Kalibr 115.85 ± 1.2 (3)
 
-t_ga gyro−accel ms axis −0.466 ± 0.789 · line at 0
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −0.474 ± 0.787 · line at 0
+MVIS −0.483 ± 0.24 (15)
 MVIS (K-IMU) −0.466 ± 0.24 (15)
 Kalibr not in this tool's model
 
@@ -6886,7 +6886,7 @@ MVIS solve view, from the homepage
 
 The calibration bags of the TUM visual-inertial dataset: a global-shutter fisheye stereo pair and a BMI160 IMU.
 2 global-shutter fisheye cameras, 20 Hz BMI160 IMU, 200 Hz AprilGrid 6×6, 88 mm
-Batch 2026-11-10a · results commit fe8ee9f · Leaderboard · Methodology
+Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
 How MVIS calibrates it → Example Downloads → Dataset page
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
@@ -7198,8 +7198,8 @@ MVIS (K-IMU) 0.97126 ± 0.0009 (4)
 Kalibr 0.97202 ± 0.0003 (4)
 Basalt 0.97239 ± 0.00044 (4)
 
-t_ga gyro−accel ms axis −1.51 ± 0.106
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −1.52 ± 0.109
+MVIS −1.533 ± 0.062 (4)
 MVIS (K-IMU) −1.511 ± 0.066 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
@@ -7408,8 +7408,8 @@ MVIS (K-IMU) 1.00199 ± 0.00057 (4)
 Kalibr 1.00194 ± 0.00047 (4)
 Basalt 1.00148 ± 0.00099 (4)
 
-t_ga gyro−accel ms axis −1.64 ± 0.103
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −1.64 ± 0.1
+MVIS −1.634 ± 0.055 (4)
 MVIS (K-IMU) −1.640 ± 0.061 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
@@ -7429,7 +7429,7 @@ Photo: LooperRobotics, Insight 9 product page
 
 Two global-shutter cameras, one rolling-shutter camera and a MEMS IMU, from Looper Robotics.
 2 global-shutter + 1 rolling-shutter camera MEMS IMU, 400 Hz AprilGrid 6×6, 55 mm
-Batch 2026-11-10a · results commit fe8ee9f · Leaderboard · Methodology
+Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
 How MVIS calibrates it → Example Downloads → Dataset page The device → Device wiki
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
@@ -7813,8 +7813,8 @@ MVIS (K-IMU) 1.00457 ± 0.0016 (10)
 Kalibr 1.00541 ± 0.0019 (10)
 Basalt 1.00477 ± 0.0018 (10)
 
-t_ga gyro−accel ms axis −5.3 ± 0.202
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −5.27 ± 0.236
+MVIS −5.234 ± 0.09 (10)
 MVIS (K-IMU) −5.297 ± 0.11 (10)
 Kalibr not in this tool's model
 Basalt not in this tool's model
@@ -7834,7 +7834,7 @@ Photo: HP, Reverb G2 press release
 
 The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset.
 2 of the 4 headset cameras (front pair) headset IMU AprilGrid 6×6, 30 mm
-Batch 2026-11-10a · results commit fe8ee9f · Leaderboard · Methodology
+Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
 How MVIS calibrates it → Example Downloads → Dataset page The device → Device wiki The data → Hugging Face
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
@@ -8145,8 +8145,8 @@ MVIS (K-IMU) 1.00899 ± 0.00089 (4)
 Kalibr 1.00999 ± 0.04 (4)
 Basalt 1.00655 ± 0.0002 (4)
 
-t_ga gyro−accel ms axis 2.52 ± 0.0268
-MVIS not in this tool's model
+t_ga gyro−accel ms axis 2.52 ± 0.0265
+MVIS 2.518 ± 0.018 (4)
 MVIS (K-IMU) 2.518 ± 0.018 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
@@ -8314,8 +8314,8 @@ MVIS (K-IMU) 0.98507 ± 0.0032 (4)
 Kalibr 0.98025 ± 0.0011 (4)
 Basalt 0.96037 ± 0.0045 (3)
 
-t_ga gyro−accel ms axis −0.514 ± 0.303
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −0.5 ± 0.296
+MVIS −0.485 ± 0.17 (4)
 MVIS (K-IMU) −0.514 ± 0.22 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
@@ -8523,8 +8523,8 @@ MVIS (K-IMU) 0.98925 ± 0.0022 (4)
 Kalibr 0.99085 ± 0.0058 (4)
 Basalt 0.97820 ± 0.0036 (4)
 
-t_ga gyro−accel ms axis −0.832 ± 0.227
-MVIS not in this tool's model
+t_ga gyro−accel ms axis −0.826 ± 0.234
+MVIS −0.819 ± 0.097 (4)
 MVIS (K-IMU) −0.832 ± 0.12 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
@@ -10030,8 +10030,9 @@ Published by the maker |
 Cameras | 2 × OV9282, 848×800 at 30 Hz |
 Shutter | Global |
 Lens | Fisheye, about 163° |
+IMU chip | Bosch BMI055 |
 Measured in these recordings |
-IMU | Bosch BMI055, gyro at 200 Hz, accel at 62.5 Hz |
+IMU | gyro at 200 Hz, accel at 62.5 Hz |
 Calibrated field of view | cam0 past the fit · cam1 past the fit |
 
 ## Dataset
@@ -10169,9 +10170,10 @@ Camera module | RealSense Module D450 with the Vision Processor D4 |
 Shutter | Global, on the infrared pair and the RGB camera |
 Infrared pair | 87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp |
 RGB camera | 1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, about 33 Hz (30 requested) |
+IMU chip | Bosch BMI055 or BMI085, by production revision |
 Link | USB-C; 124 × 29 × 26 mm |
 Measured in these recordings |
-IMU | Bosch BMI055 (maker); gyro 400 Hz, accelerometer about 250 Hz in this recording |
+IMU | gyro 400 Hz, accelerometer about 250 Hz in this recording |
 Calibrated field of view | cam0 89° × 58° · cam1 89° × 58° · cam2 91° × 60° |
 
 ## Dataset
@@ -10497,9 +10499,10 @@ Maker | RealSense (formerly Intel RealSense) |
 Shutter | Global on the infrared pair, rolling on the RGB camera |
 Infrared pair | 87° × 58° depth field of view; not used here |
 RGB camera | 2 MP, 69° × 42°, up to 1920×1080 at 30 fps; recorded here at 640×480, 30 Hz, exposure fixed at 3 ms |
+IMU chip | Bosch BMI055 or BMI085, by production revision |
 Link | USB-C 3.1 Gen 1; 90 × 25 × 25 mm |
 Measured in these recordings |
-IMU | Bosch BMI055; gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps |
+IMU | gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps |
 Calibrated field of view | cam0 56° × 43° |
 
 ## Dataset
@@ -10557,11 +10560,11 @@ The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_c
 
 Board shape peak to peak 5.8 mm peak to peak 6.0 mm peak to peak 6.0 mm
 The calibration board isn't perfectly flat, so this solve estimated the height of every corner off the flat board along with the calibration. The board's mean plane and tilt belong to its pose, so a flat board shows only noise here.
-Height of each corner off the flat board: peak to peak 5.8 mm, rms 1.2 mm. Hover a corner for its value.
+Height of each corner off the flat board: peak to peak 5.8 mm, rms 1.2 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
 
-Height of each corner off the flat board: peak to peak 6.0 mm, rms 1.2 mm. Hover a corner for its value.
+Height of each corner off the flat board: peak to peak 6.0 mm, rms 1.2 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
 
-Height of each corner off the flat board: peak to peak 6.0 mm, rms 1.2 mm. Hover a corner for its value.
+Height of each corner off the flat board: peak to peak 6.0 mm, rms 1.2 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
 
 Full results Every solved parameter
 Rotation is log(R) in rad, camera in the IMU frame.
