@@ -1,7 +1,7 @@
 {
  "version": 1,
  "batch": "2026-11-10a",
- "results_commit": "fe8ee9fd41f168b467aa290a2e4078f443834092",
+ "results_commit": "ac779876bfe5a15fd8fd337846ec01bd06f10b2d",
  "method": {
   "spread": "sample_sd_ddof1",
   "pair": "median_log_sd_ratio",
@@ -3684,8 +3684,8 @@
        "n_all": {},
        "n_range": {
         "MVIS": [
-         14,
-         14
+         15,
+         15
         ]
        },
        "unmatched": {},
@@ -3721,7 +3721,7 @@
        "strip": null,
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": null,
-       "rec_line": "MVIS 14 of 15 · Kalibr input · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr input · Basalt not run"
       },
       "distortion": {
        "state": "input",
@@ -3732,8 +3732,8 @@
        "n_all": {},
        "n_range": {
         "MVIS": [
-         14,
-         14
+         15,
+         15
         ]
        },
        "unmatched": {},
@@ -3769,7 +3769,7 @@
        "strip": null,
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": null,
-       "rec_line": "MVIS 14 of 15 · Kalibr input · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr input · Basalt not run"
       },
       "baseline": {
        "state": "input",
@@ -3780,8 +3780,8 @@
        "n_all": {},
        "n_range": {
         "MVIS": [
-         14,
-         14
+         15,
+         15
         ]
        },
        "unmatched": {},
@@ -3817,7 +3817,7 @@
        "strip": null,
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": null,
-       "rec_line": "MVIS 14 of 15 · Kalibr input · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr input · Basalt not run"
       },
       "readout": {
        "state": "input",
@@ -3828,8 +3828,8 @@
        "n_all": {},
        "n_range": {
         "MVIS": [
-         14,
-         14
+         15,
+         15
         ]
        },
        "unmatched": {},
@@ -3865,7 +3865,7 @@
        "strip": null,
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": null,
-       "rec_line": "MVIS 14 of 15 · Kalibr input · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr input · Basalt not run"
       },
       "time_offset": {
        "state": "tie",
@@ -3874,20 +3874,22 @@
        "k": null,
        "n": 14,
        "n_all": {
-        "MVIS": 14,
+        "MVIS": 15,
         "Kalibr": 14
        },
        "n_range": {
         "MVIS": [
-         14,
-         14
+         15,
+         15
         ],
         "Kalibr": [
          14,
          14
         ]
        },
-       "unmatched": {},
+       "unmatched": {
+        "MVIS": 1
+       },
        "calyx_limited": false,
        "compared": [
         "MVIS",
@@ -3934,8 +3936,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.189,
-           "n": 14
+           "sd": 0.185,
+           "n": 15
           },
           "Kalibr": {
            "sd": 0.301,
@@ -3954,8 +3956,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.631,
-           "n": 14
+           "sd": 0.623,
+           "n": 15
           }
          },
          "data_k": "c|cam1 – ELP-L|td_ms"
@@ -3971,8 +3973,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.152,
-           "n": 14
+           "sd": 0.148,
+           "n": 15
           },
           "Kalibr": {
            "sd": 0.122,
@@ -4006,7 +4008,7 @@
        "strip": "Time offset tie",
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": null,
-       "rec_line": "MVIS 14 of 15 · Kalibr 14 of 15 · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr 14 of 15 · Basalt not run"
       },
       "lever": {
        "state": "most",
@@ -4019,20 +4021,22 @@
        "k": 7.6,
        "n": 14,
        "n_all": {
-        "MVIS": 14,
+        "MVIS": 15,
         "Kalibr": 14
        },
        "n_range": {
         "MVIS": [
-         14,
-         14
+         15,
+         15
         ],
         "Kalibr": [
          14,
          14
         ]
        },
-       "unmatched": {},
+       "unmatched": {
+        "MVIS": 1
+       },
        "calyx_limited": false,
        "compared": [
         "MVIS",
@@ -4078,8 +4082,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.445,
-           "n": 14
+           "sd": 0.429,
+           "n": 15
           },
           "Kalibr": {
            "sd": 2.83,
@@ -4098,8 +4102,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.44,
-           "n": 14
+           "sd": 0.425,
+           "n": 15
           }
          },
          "data_k": "c|cam1 – ELP-L|lever_mm"
@@ -4115,8 +4119,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.326,
-           "n": 14
+           "sd": 0.317,
+           "n": 15
           },
           "Kalibr": {
            "sd": 2.96,
@@ -4150,7 +4154,7 @@
        "strip": "Cam–IMU distance MVIS",
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": "7.6",
-       "rec_line": "MVIS 14 of 15 · Kalibr 14 of 15 · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr 14 of 15 · Basalt not run"
       },
       "gyro": {
        "state": "most",
@@ -5001,20 +5005,22 @@
        "k": null,
        "n": 3,
        "n_all": {
-        "MVIS": 3,
+        "MVIS": 15,
         "Kalibr": 3
        },
        "n_range": {
         "MVIS": [
-         3,
-         3
+         15,
+         15
         ],
         "Kalibr": [
          3,
          3
         ]
        },
-       "unmatched": {},
+       "unmatched": {
+        "MVIS": 12
+       },
        "calyx_limited": false,
        "compared": [
         "MVIS",
@@ -5055,8 +5061,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.0378,
-           "n": 3
+           "sd": 0.119,
+           "n": 15
           },
           "Kalibr": {
            "sd": 0.0271,
@@ -5096,7 +5102,7 @@
        "strip": null,
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": null,
-       "rec_line": "MVIS 3 of 15 · Kalibr 3 of 15 · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr 3 of 15 · Basalt not run"
       },
       "lever": {
        "state": "too_few",
@@ -5105,20 +5111,22 @@
        "k": null,
        "n": 3,
        "n_all": {
-        "MVIS": 3,
+        "MVIS": 15,
         "Kalibr": 3
        },
        "n_range": {
         "MVIS": [
-         3,
-         3
+         15,
+         15
         ],
         "Kalibr": [
          3,
          3
         ]
        },
-       "unmatched": {},
+       "unmatched": {
+        "MVIS": 12
+       },
        "calyx_limited": false,
        "compared": [
         "MVIS",
@@ -5158,8 +5166,8 @@
          },
          "published": {
           "MVIS": {
-           "sd": 0.183,
-           "n": 3
+           "sd": 0.295,
+           "n": 15
           },
           "Kalibr": {
            "sd": 1.24,
@@ -5199,7 +5207,7 @@
        "strip": null,
        "variant_line": "MVIS here: its default IMU model.",
        "k_text": null,
-       "rec_line": "MVIS 3 of 15 · Kalibr 3 of 15 · Basalt not run"
+       "rec_line": "MVIS 15 of 15 · Kalibr 3 of 15 · Basalt not run"
       },
       "gyro": {
        "state": "too_few",

@@ -627,3 +627,13 @@ def test_the_space_model_differs_rows_match():
             assert ns["MODEL_DIFFERS"] == set(R.MODEL_DIFFERS)
             return
     raise AssertionError("app.py has no MODEL_DIFFERS")
+
+
+def test_mvis_camimu_lane_uses_calyx_all_and_gate_checks_it():
+    row = {"sensor": "s", "key": "td_ms", "calyx": {"r1": 1.0, "r2": 3.0, "r3": 5.0},
+           "stats": {"calyx": {"med": 2.0, "sd": 1.4142135623730951, "n": 2},
+                     "calyx_all": {"med": 3.0, "sd": 2.0, "n": 3}}}
+    assert R.block(row, "MVIS", True)["n"] == 3
+    stats = {"families": {"T7": {"rows": [row]}}}
+    records = {"families": {"batch": "b"}, "tools": {}}
+    assert R.gate(stats, records, "b") == []   # the matched block is a subset, so only calyx_all is checked
