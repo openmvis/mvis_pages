@@ -10899,7 +10899,7 @@ Calibrated field of view, horizontal × vertical. cam0: 94° × 112°, corners r
 cam0 cam1 cam2
 We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
 
-IMU Gyro–accel time offset t_ga −5.43 ms
+IMU Gyro–accel time offset t_ga −5.43 ms Gyro–accel time offset t_ga −5.54 ms Gyro–accel time offset t_ga −5.15 ms
 Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: −5.43 ± 0.03 ms.
 Gyro scale x−0.30 %
 Gyro scale y+0.37 %
@@ -10927,8 +10927,16 @@ Accel scale y−0.38 %
 Accel scale z+0.08 %
 −8 %0+8 %
 
-Timing cam0 td +1.81 ms
-The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td.
+Timing cam0 td +1.81 ms cam0 td +1.43 ms cam0 td +1.20 ms
+The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td. For a rolling-shutter camera td is the time of the first image row; the middle row is td + readout / 2, which is what a global-shutter calibration reports.
+
+Board shape peak to peak 0.6 mm
+The calibration board isn't perfectly flat, so this solve estimated the height of every corner off the flat board along with the calibration. The board's mean plane and tilt belong to its pose, so a flat board shows only noise here.
+Height of each corner off the flat board: peak to peak 0.6 mm, rms 0.1 mm. Numbers are the corner column and row (row 0 at the bottom). Hover or tap a corner for its value.
+
+This solve assumed a flat board.
+
+This solve assumed a flat board.
 
 Full results Every solved parameter
 Rotation is log(R) in rad, camera in the IMU frame.
@@ -11087,7 +11095,7 @@ t_ga ms | −5.15 ± 0.05 |
 - No reference exists for these recordings, so the values can't be checked for accuracy.
 - Hand-held and robot-arm recordings are kept apart, not pooled. They were solved in different batches and may not come from the same unit.
 - The arm program rotates mostly about one axis, which leaves lever arms less well determined, so treat the arm's values with more caution.
-- The chessboard recordings come from our own unit, not the maker's loan unit, and are shown on their own. The values shown come from take 04 alone, so they show no repeatability; all 4 takes are in the hosted data.
+- The chessboard recordings come from our own unit, not the partner's, and are shown on their own. The values shown come from take 04 alone, so they show no repeatability; all 4 takes are in the hosted data.
 
 ## How it was run
 
@@ -11730,10 +11738,11 @@ Image sensor | SmartSens SC136HGS, RGB, global shutter, back-illuminated, 4 × 4
 Wide lenses (cam2, cam3) | 1.67 mm, F2.0, M12; 200° diagonal, 174° × 139° |
 Narrow lenses (cam0, cam1) | 1.79 mm, F2.0, M12; 160° diagonal, 133° × 112° |
 Synchronization | Camera to camera 10 µs, camera to IMU 100 µs on the sheet; identical camera stamps in this recording |
+IMU chip | Bosch BMI088 |
 Link and power | USB 3.0, UVC; 1.5–2 W at 5 V |
 Measured in these recordings |
 Cameras | 4 × 1280×1024; 30 fps on the sheet, 15 Hz in this recording |
-IMU | Bosch BMI088, 200 Hz |
+IMU | 200 Hz |
 Calibrated field of view | cam0 131° × 110° · cam1 131° × 110° · cam2 170° × 137° · cam3 ~170° × 137° |
 
 Sales contact Provided by the maker
@@ -11745,7 +11754,7 @@ Recordings | 1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU sa
 Format | ROS1 bag |
 Board | AprilGrid 6×6, tag 55 mm, spacing 0.3 |
 Data | Recording not hosted: it belongs to Tujian, which hasn't granted a licence or permission to host it yet |
-Configs and results | Calibench community, cyperstereo/ (access by automatic approval). The configs, the starting calibration and this page's results; the configs read the recording, so they can't be replayed without it |
+Configs and results | Calibench-VI community, cyperstereo/ (access by automatic approval). The configs, the starting calibration and this page's results; the configs read the recording, so they can't be replayed without it |
 
 AprilGrid 6 × 6, 412 × 412 mm. Standard pattern, to scale
 
