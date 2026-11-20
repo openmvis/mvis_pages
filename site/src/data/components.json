@@ -530,8 +530,14 @@
    ],
    "imus": [
     {
+     "maker": "TDK InvenSense",
+     "part": "ICM-40609",
+     "note": "the camera writes its gyro type into every video; the ONE RS firmware supports ICM-20948 and ICM-40609",
+     "via": "gyro type in the metadata of Insta360's 1-Inch 360 sample video",
+     "url": "https://360rumors.com/download-1-inch-360/",
      "count": 1,
-     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"gyro type in the metadata of Insta360&#x27;s 1-Inch 360 sample video · the camera writes its gyro type into every video; the ONE RS firmware supports ICM-20948 and ICM-40609\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-40609</span></span></span>"
     }
    ]
   }
@@ -851,10 +857,10 @@
   },
   "imus": {
    "total": 19,
-   "not_known": 4,
+   "not_known": 3,
    "by_maker": {
     "Bosch": 8,
-    "TDK InvenSense": 7
+    "TDK InvenSense": 8
    }
   }
  },
@@ -1295,7 +1301,7 @@
    "kind": "imus",
    "maker": "TDK InvenSense",
    "key": "tdk-invensense",
-   "on_devices": 7,
+   "on_devices": 8,
    "in_datasets": 3,
    "parts": [
     {
@@ -1368,6 +1374,18 @@
      ]
     },
     {
+     "part": "ICM-40609",
+     "tags": [],
+     "uses": [
+      {
+       "name": "ONE RS 1-Inch 360",
+       "href": "/devices/insta360-one-rs-1inch-360/",
+       "count": 1,
+       "dataset": false
+      }
+     ]
+    },
+    {
      "part": "MPU-6500",
      "tags": [],
      "uses": [
@@ -1436,11 +1454,6 @@
    {
     "name": "XQ20 stereo headset",
     "href": "/devices/xq20/",
-    "count": 1
-   },
-   {
-    "name": "ONE RS 1-Inch 360",
-    "href": "/devices/insta360-one-rs-1inch-360/",
     "count": 1
    }
   ]
