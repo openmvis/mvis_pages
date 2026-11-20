@@ -17,6 +17,11 @@ sensors:
     description: Global-shutter fisheye stereo tracking camera with a BMI055 IMU, calibrated with MVIS on one recording of our rig.
     lead: Tracking camera from Intel with two global-shutter fisheye cameras and a Bosch BMI055 IMU, solved here on its own IMU from one recording of our VI-Rig.
     card: {name: "T265", tags: [Global shutter, 2 cameras, 200 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: OmniVision, part: OV9282, count: 2, src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
+      imus:
+        - {maker: Bosch, part: BMI055, src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
     hardware:
       - [Cameras, "2 × OV9282, 848×800 at 30 Hz", Maker]
       - [Shutter, Global, Maker]
@@ -55,6 +60,11 @@ sensors:
     lead: Depth camera from RealSense with a 95 mm global-shutter infrared stereo pair, a global-shutter RGB camera and a 6-axis IMU. One hand-held recording in front of a chessboard on a screen, solved as left infrared + right infrared + RGB + IMU.
     demo: {from: "realsense-d455_small", note: "The 3D scene MVIS recovered from this recording."}
     card: {name: "D455", maker: RealSense, tags: [Global shutter, 3 cameras, 400 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: OmniVision, part: OV9782, count: 3, src: maker, via: "D400 datasheet, Mar 2026", url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: IR pair + RGB}
+      imus:
+        - {maker: Bosch, part: BMI055 / BMI085, src: maker, via: D400 datasheet, url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: by production revision}
     hardware:
       - [Maker, "RealSense (formerly Intel RealSense)", Maker]
       - [Camera module, "RealSense Module D450 with the Vision Processor D4", Maker]
@@ -98,6 +108,11 @@ sensors:
     lead: Depth camera from RealSense with a 95 mm global-shutter infrared stereo pair, a global-shutter RGB camera and a 6-axis IMU in an IP65 enclosure, built on the same D450 camera module as the D455. One hand-held recording in front of a chessboard on a screen, solved as left infrared + right infrared + RGB + IMU.
     demo: {from: "realsense-d456_small", note: "The 3D scene MVIS recovered from this recording."}
     card: {name: "D456", maker: RealSense, tags: [Global shutter, 3 cameras, 400 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: OmniVision, part: OV9782, count: 3, src: maker, via: "D400 datasheet, Mar 2026", url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: IR pair + RGB}
+      imus:
+        - {maker: Bosch, part: BMI085, src: maker, via: D400 datasheet, url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}
     hardware:
       - [Maker, "RealSense (formerly Intel RealSense)", Maker]
       - [Camera module, "RealSense Module D450 with the Vision Processor D4", Maker]
@@ -105,6 +120,7 @@ sensors:
       - [Infrared pair, "87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp", Maker]
       - [RGB camera, "1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, 30 Hz", Maker]
       - [IMU, "6-axis; gyro 400 Hz, accelerometer about 200 Hz in this recording", Measured]
+      - [IMU chip, Bosch BMI085, Maker]
       - [Enclosure, "IP65: dust-tight and protected against water jets", Maker]
       - [Link, "USB-C; 124 × 29 × 26 mm", Maker]
     dataset:
@@ -142,6 +158,13 @@ sensors:
     demo: {from: "realsense-d435i_small", note: "The 3D scene MVIS recovered from the first recording."}
     run_labels: [Recording 1, Recording 2, Recording 3]
     card: {name: "D435i", maker: RealSense, tags: [Rolling shutter, 1 camera, 200 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: OmniVision, part: OV2740, src: maker, via: "D400 datasheet, Mar 2026", url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: "RGB, rolling shutter"}
+      imus:
+        - {maker: Bosch, part: BMI055 / BMI085, src: maker, via: D400 datasheet, url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: by production revision}
+      uncalibrated:
+        - {maker: OmniVision, part: OV9282, count: 2, src: maker, via: "D400 datasheet, Mar 2026", url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: "IR pair, not yet calibrated"}
     hardware:
       - [Maker, "RealSense (formerly Intel RealSense)", Maker]
       - [Shutter, "Global on the infrared pair, rolling on the RGB camera", Maker]
@@ -196,9 +219,15 @@ sensors:
         - Global shutter
         - 1 camera
         - 200 Hz IMU
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: SmartSens, part: SC132GS, src: maker, via: "maker's device-config file, no public link"}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-42670-P, src: maker, via: RoboBaton Neo docs, url: "https://hessian-matrix.github.io/RoboBaton_Neo_docs/"}
     hardware:
       - [Maker, "RoboBaton (documentation site; company name not given there)", Maker]
-      - [Camera, "SmartSens SC132GS, 1080 × 1280 native at 60 fps; the calibration stream is 544 × 640 at 5 Hz", Measured]
+      - [Camera, "SmartSens SC132GS, 1080 × 1280 native at 60 fps", Maker]
+      - [Calibration stream, "544 × 640 at 5 Hz", Measured]
       - [Shutter, "Global", Maker]
       - [Lens, "Fisheye, 193.8° diagonal", Maker]
       - [IMU, "TDK ICM-42670-P, gyro and accelerometer at 200 Hz with multi-sample averaging", Maker]
@@ -269,6 +298,11 @@ sensors:
     description: Rolling-shutter stereo camera with a 120 mm baseline and a 400 Hz IMU, calibrated with MVIS on the public WHUVID calibration recording.
     lead: Stereo depth camera from Stereolabs with two rolling-shutter cameras 120 mm apart, wide 2.1 mm lenses and a built-in IMU at 400 Hz. This is the camera of the WHUVID driving dataset from Wuhan University; both cameras and the IMU are solved together from the authors' own calibration recording, with the rolling-shutter readout estimated.
     card: {name: "ZED 2", maker: Stereolabs, tags: [Rolling shutter, 2 cameras, 400 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {}
     hardware:
       - [Maker, Stereolabs, Maker]
       - [Image sensors, "2 × 4 MP 1/3-inch back-illuminated CMOS, 2 µm pixels", Maker]
@@ -323,13 +357,20 @@ sensors:
         - {from: "looper-insight9-chessboard_small", note: "The 3D scene MVIS recovered from chessboard take 04 of our own unit. Everything except the board is blurred."}
         - {from: "looper-insight9-arm_small", note: "The 3D scene MVIS recovered from robot-arm recording 1."}
         - {from: "looper-insight9-arm_small", note: "The 3D scene MVIS recovered from robot-arm recording 1."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: SmartSens, part: SC132GS, count: 2, src: maker, via: Insight 9 product page, url: "https://looper-robotics.com/home/product/insight-9/", note: "mono, global shutter"}
+        - {maker: Sony, part: IMX415, src: maker, via: Insight 9 product page, url: "https://looper-robotics.com/home/product/insight-9/", note: "colour, rolling shutter"}
+      imus:
+        - {maker: Bosch, part: BMI088, src: maker, via: Insight 9 product page, url: "https://looper-robotics.com/home/product/insight-9/"}
     hardware:
       - [Type, "Spatial AI camera", Maker]
       - [Global-shutter cameras, "2 × 544×640 mono at 20 Hz, hardware-synced stereo", Catalog]
       - [Rolling-shutter camera, "1 × 1088×1920 colour at about 4.3 Hz", Catalog]
       - [Lens, "Wide field of view; pinhole-equidistant fit", Catalog]
       - [IMU, "1 × 400 Hz, with stamps quantized to 2.5 ms", Catalog]
-      - [Sensor part numbers, Not recorded, Unknown]
+      - [Image sensors, "2 × SmartSens SC132GS (global shutter), 1 × Sony IMX415 (rolling shutter)", Maker]
+      - [IMU chip, Bosch BMI088, Maker]
     dataset:
       - [Chessboard, "4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04"]
       - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
@@ -366,6 +407,11 @@ sensors:
     lead: Multi-sensor capture box from Dibuli with four global-shutter fisheye cameras and a 6-axis IMU, solved from the maker's public example data at two exposures.
     card: {name: "Prism-A4L", maker: Dibuli, tags: [Global shutter, 4 cameras, 798 Hz IMU]}
     demo: {from: "dibuli-prism-a4l-new_small", note: "The 3D scene MVIS recovered from the maker's example data, 1,000 µs exposure."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: SmartSens, part: SC130GS, count: 4, src: maker, via: Prism docs, url: "https://dibuli.com/content/docs/en/prism.md"}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-45686, src: maker, via: Prism docs, url: "https://dibuli.com/content/docs/en/prism.md", note: "maker default; ICM-42688 by configuration"}
     hardware:
       - [Cameras, "Up to 4 global-shutter, 1280×1024 MJPEG, 1 to 30 fps", Maker]
       - [IMU, "6-axis at 797.7 Hz in these recordings", Measured]
@@ -402,6 +448,11 @@ sensors:
     lead: GMSL2 stereo camera module from Shenzhen Aili-Light Technology (ALG Tech, 艾利光), with two global-shutter cameras 50 mm apart and a 6-axis IMU. Three recordings, each solved as stereo + IMU; this page shows the longest. The recordings match ALG's AVS111C-Y; the exact model isn't confirmed by the maker.
     card: {name: "AVS111C-Y stereo", maker: ALG Tech, tags: [Global shutter, 2 cameras, 200 Hz IMU]}
     demo: {from: "alg-avs111c_small", note: "The 3D scene MVIS recovered from the 08:41:48 recording, the one solved on this page."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-45686, src: maker, via: "ALG datasheet and message, no public link"}
     hardware:
       - [Maker, Shenzhen Aili-Light Technology (ALG Tech), Maker]
       - [Closest published model, "AVS111C-Y: 1280×800, 50 mm baseline, 120° × 76°, global shutter. Matched from this recording; the exact model isn't confirmed", Maker]
@@ -448,6 +499,11 @@ sensors:
     card: {name: "AVS115D-Y stereo", maker: ALG Tech, tags: [Rolling shutter, 2 cameras, 200 Hz IMU]}
     demo: {from: "alg-avs115d_small", note: "The 3D scene MVIS recovered from recording 1."}
     run_labels: [Recording 1, Recording 2]
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-45686, src: maker, via: "named by ALG, no public link"}
     hardware:
       - [Maker, Shenzhen Aili-Light Technology (ALG Tech), Maker]
       - [Model, "AVS115D-Y, 1920×1920 at 30 fps (AVS115D-B06-M95DFA1-RABI)", Maker]
@@ -494,6 +550,11 @@ sensors:
     lead: Four-camera inertial module from Shenzhen Tujian Intelligent Technology (图间智能). Four global-shutter RGB cameras sit on separate 25 × 25 mm boards, cabled to one controller with a Bosch BMI088 IMU; two cameras have 160° lenses and two have 200° lenses, and the baseline is set by how the boards are mounted. One recording, solved as four cameras + IMU.
     demo: {from: "cyperstereo2_small", note: "The 3D scene MVIS recovered from this recording, first 20 s, each camera in turn."}
     card: {name: "CyperStereo", maker: Tujian, tags: [Global shutter, 4 cameras, 200 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: SmartSens, part: SC136HGS, count: 4, src: maker, via: "maker's product manual, no public link"}
+      imus:
+        - {maker: Bosch, part: BMI088, src: maker, via: "maker's product manual, no public link"}
     hardware:
       - [Maker, Shenzhen Tujian Intelligent Technology (深圳市图间智能科技有限公司), Maker]
       - [Image sensor, "SmartSens SC136HGS, RGB, global shutter, back-illuminated, 4 × 4 µm pixels", Maker]
@@ -538,6 +599,11 @@ sensors:
     description: Stereo fisheye colour module from Hampo with a 500 Hz IMU, calibrated with MVIS as stereo and as cam0 alone.
     lead: Stereo fisheye colour module from Dongguan Hampo Electronic Technology (翰普), with an IMU at about 500 Hz. One recording, solved as stereo and as cam0 alone.
     card: {name: "Stereo module", maker: Hampo, tags: [2 cameras, 505 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {}
     hardware:
       - [Closest published model, "USB-3372-V1.0: dual 2MP global shutter, M12 fixed focus, IMU at 100, 200 or 500 Hz, SD storage. The exact model isn't confirmed", Maker]
       - [Cameras, "2 × 1600×1200, H.264, 30 fps, colour", Measured]
@@ -580,6 +646,11 @@ sensors:
     lead: Head-worn stereo headset from General Intelligence Labs with two colour rolling-shutter fisheye cameras and a 9-DoF IMU. One 30-second recording of an AprilGrid, solved with MVIS for camera, IMU and time offsets, with the rolling-shutter readout estimated too.
     card: {tags: [Rolling shutter, 2 cameras, 200 Hz IMU]}
     demo: {from: "gi-ego1-blurred_small", note: "The 3D scene MVIS recovered from this recording. Everything except the board is blurred."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {}
     hardware:
       - [Shutter, "Rolling, readout about 26 ms (solved)", Measured]
       - [Cameras, "2 × 1920×1080 at about 30 fps", Measured]
@@ -619,6 +690,11 @@ sensors:
     card: {tags: [Global shutter, 2 cameras, 400 Hz IMU]}
     demo: {from: "gi-ego1gs-rec2_small", note: "The 3D scene MVIS recovered from recording 2. Everything except the board is blurred."}
     run_labels: [Recording 1, Recording 2]
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {}
     hardware:
       - [Shutter, Global, Maker]
       - [Cameras, "2 × 1080p at 30 fps", Maker]
@@ -674,6 +750,11 @@ sensors:
     description: Head-worn stereo camera with a 300 Hz IMU, calibrated with MVIS on two units.
     lead: Head-worn stereo fisheye camera with a 6-axis IMU, recording to a memory card. Borme, a brand of Shenzhen Feikasi Industrial Co., Ltd., sells it as the XQ20. Two units were calibrated.
     card: {tags: [Global shutter, 2 cameras, 300 Hz IMU]}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {}
     hardware:
       - [Cameras, "2 × 1920×1200, H.265 MP4", Supplier]
       - [Frame rate, "30 or 60 fps on the sheet; about 30 Hz in these recordings", Supplier]
@@ -725,12 +806,18 @@ sensors:
     example: {url: "/benchmark/examples/monado/", label: "Monado example, run on the HP Reverb G2"}
     card: {name: "Index", tags: [Global shutter, 2 cameras, 1 kHz IMU]}
     demo: {existing: "/media/hero/hero_mic_960", note: "Recovered by MVIS from the Monado calibration data."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-20602, src: report, via: iFixit chip ID, url: "https://www.ifixit.com/Guide/Valve+Index+Chip+ID/155948"}
     hardware:
       - [Cameras, "2 × 960×960 at 54 Hz, grayscale", Dataset]
       - [Shutter, Global, Dataset]
       - [Lens, "Fisheye, about 120° (unofficial)", Dataset]
       - [IMU, "6-axis, about 1 kHz", Dataset]
-      - [Sensor part numbers, Not published, Unknown]
+      - [Camera sensor, Not published, Unknown]
+      - [IMU chip, "TDK InvenSense ICM-20602, from the iFixit chip ID teardown", Listing]
     dataset:
       - [Recording, "Monado MIC, imucalib1"]
       - [Source, "Monado SLAM Datasets, Collabora"]
@@ -764,6 +851,11 @@ sensors:
     example: {url: "/benchmark/examples/monado/", label: "Monado: HP Reverb G2"}
     card: {name: "Reverb G2", tags: [4 cameras, 1 kHz IMU]}
     demo: {existing: "/media/hero/hero_mgc_960", note: "Recovered by MVIS from the Monado calibration data."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 4}
+      imus:
+        - {}
     hardware:
       - [Cameras, "4 × 640×480 grayscale at 30 Hz", Dataset]
       - [IMU, "About 1 kHz", Dataset]
@@ -802,10 +894,16 @@ sensors:
     lead: VR headset from Samsung with two 640×480 grayscale tracking cameras and an IMU at about 1 kHz, solved from the Monado SLAM calibration data.
     card: {name: "Odyssey+", tags: [2 cameras, 1 kHz IMU]}
     demo: {existing: "/media/hero/hero_moc_960", note: "Recovered by MVIS from the Monado calibration data."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {maker: OmniVision, part: OV7251, count: 2, src: dataset, via: Monado dataset authors, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-20602, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}
     hardware:
       - [Cameras, "2 × 640×480 grayscale at 30 Hz", Dataset]
       - [IMU, "About 1 kHz", Dataset]
-      - [Sensor part numbers, Not published, Unknown]
+      - [Camera sensor, "OmniVision OV7251, named by the dataset authors", Dataset]
+      - [IMU chip, "TDK InvenSense ICM-20602, from the headset calibration file in the dataset", Dataset]
     dataset:
       - [Recording, "Monado MOC, imucalib, round 4"]
       - [Source, "Monado SLAM Datasets, Collabora"]
@@ -843,6 +941,11 @@ sensors:
         - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
         - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
         - {from: "insta360-back_small", note: "The 3D scene MVIS recovered from the back-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
+    components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
+      cameras:
+        - {count: 2}
+      imus:
+        - {}
     hardware:
       - [Maker, "Insta360 (Arashi Vision), lenses co-engineered with Leica", Maker]
       - [Image sensors, "2 × 1-inch CMOS", Maker]

@@ -28,6 +28,15 @@ datasets:
     links:
       dataset: /datasets/virig-4imus-3cams/
       hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-3cams
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {maker: Sony, part: IMX273, device: FLIR Blackfly S BFS-U3-16S2M, src: maker, via: FLIR spec page, url: "https://softwareservices.flir.com/BFS-U3-16S2/latest/Model/spec.html"}
+        - {maker: OmniVision, part: OV9282, count: 2, device: "RealSense T265", src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
+      imus:
+        - {module: Xsens MTi-100, device: VI-Rig}
+        - {module: MicroStrain 3DM-GX3-25, device: VI-Rig}
+        - {module: MicroStrain 3DM-GX3-35, device: VI-Rig}
+        - {maker: Bosch, part: BMI055, count: 1, device: "RealSense T265", src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
     families:
       - {id: T6, shutter: global}
       - {id: T6c, shutter: global}
@@ -53,6 +62,13 @@ datasets:
       dataset: /datasets/virig-4imus-4cams/
       sensor: /devices/intel-t265/
       hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {maker: OmniVision, part: OV9282, count: 2, device: "RealSense T265", src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
+        - {module: ELP-960P2CAM-V90-VC, count: 2, device: "ELP stereo, rolling shutter", note: "model from the MVIS paper (Yang et al., IJRR 2023)"}
+      imus:
+        - {maker: Bosch, part: BMI055, count: 1, device: "RealSense T265", src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
+        - {module: Xsens MTi-100, device: VI-Rig}
     families:
       - {id: T1, shutter: global}
       - {id: T2, shutter: rolling}
@@ -93,6 +109,14 @@ datasets:
       - "<b>Two T265 units, one board.</b> Each pair is hardware-synced inside its unit, but the two units are not synced to each other, so each camera-only solve holds one pair (time offset off). The camera + IMU solves hold all four cameras and five IMUs, and their intrinsics start from the 7-recording median of the camera-only solves."
       - "<b>T265 IMU timing.</b> The T265 IMUs' gyro–accel delay t_ga is about −6.6 ms, far from the other IMUs. MVIS estimates it per IMU; it is not a pure time shift (it depends on the motion's frequency), so read it as a compromise value."
       - "<b>The results files</b> (calibration numbers and run configs, no images) are on Hugging Face in calibench-vi/results, under runs/virig-5imus-4cams/2026-11-02/."
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {maker: OmniVision, part: OV9282, count: 4, device: "RealSense T265 A and B", src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
+      imus:
+        - {module: Xsens MTi-100, device: VI-Rig}
+        - {module: MicroStrain 3DM-GX3-25, device: VI-Rig}
+        - {module: MicroStrain 3DM-GX3-35, device: VI-Rig}
+        - {maker: Bosch, part: BMI055, count: 2, device: "RealSense T265 A and B", src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
     families:
       - {id: V5, shutter: global}
       - {id: V5c, shutter: global}
@@ -119,6 +143,11 @@ datasets:
     links:
       example: /benchmark/examples/tum-vi/
       dataset: /datasets/#third-party-datasets
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {module: IDS uEye UI-3241LE-M-GL, count: 2, device: IDS uEye cameras}
+      imus:
+        - {maker: Bosch, part: BMI160, device: Genuino 101 board, src: dataset, via: "TUM-VI paper, Schubert et al. 2018", url: "https://arxiv.org/pdf/1804.06120"}
     families:
       - {id: T3, shutter: global}
       - {id: T9, shutter: global}
@@ -141,6 +170,12 @@ datasets:
       example: /benchmark/examples/looper-insight9/
       dataset: /datasets/#partner-recordings-on-the-hub
       sensor: /devices/looper-insight9/
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {maker: SmartSens, part: SC132GS, count: 2, device: Insight 9, src: maker, via: Insight 9 product page}
+        - {maker: Sony, part: IMX415, device: Insight 9, src: maker, via: Insight 9 product page}
+      imus:
+        - {maker: Bosch, part: BMI088, device: Insight 9, src: maker, via: Insight 9 product page}
     families:
       - {id: T4, shutter: global}
       - {id: T11, shutter: mixed}
@@ -164,6 +199,11 @@ datasets:
       dataset: /datasets/#third-party-datasets
       sensor: /devices/hp-reverb-g2/
       hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_mgc
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {count: 2, device: HP Reverb G2}
+      imus:
+        - {device: HP Reverb G2}
     families:
       - {id: T5, shutter: global}
       - {id: T12, shutter: global}
@@ -193,6 +233,13 @@ datasets:
       - "<b>Basalt's Davis distance stands out.</b> Its camera-to-IMU distance is 33.6 mm. Kalibr gives 23.2 mm and MVIS 22.8 mm on the same 3 bags. We haven't established why. At default noise Basalt's lever z is 14–25 mm."
       - "<b>Each device's 4 bags form one family</b>, because the camera and IMU are on the same device. That assumes the camera–IMU geometry stayed the same across recordings, which we can't confirm."
       - "<b>Snapdragon's time offset really does differ between bags</b>, with an sd (standard deviation) near 4.7 ms in every tool. So a small difference between tools on that row says little about each bag."
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {maker: iniVation, part: DAVIS346, device: iniVation mDAVIS346, src: dataset, via: "UZH-FPV paper, Delmerico et al. 2019", url: "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf"}
+        - {maker: OmniVision, part: OV7251, count: 2, device: Snapdragon Flight, src: dataset, via: "UZH-FPV paper, Delmerico et al. 2019", url: "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf"}
+      imus:
+        - {maker: TDK InvenSense, part: MPU-6500, device: iniVation mDAVIS346, src: maker, via: iniVation IMU docs, url: "https://docs.inivation.com/hardware/hardware-advanced-usage/imu.html"}
+        - {maker: TDK InvenSense, part: MPU-9250, device: Snapdragon Flight, src: report, via: ArduPilot docs, url: "https://ardupilot.org/plane/docs/common-qualcomm-snapdragon-flight-kit.html"}
     families:
       - {id: DAVIS, shutter: global}
       - {id: SNAP, shutter: global}
