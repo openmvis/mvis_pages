@@ -142,6 +142,19 @@ def test_status_and_closed_section_problems_keep_the_page_order():
     assert C.closed_problems({"/x/": True}) == []
 
 
+def test_served_build_must_be_this_checkouts_docs(tmp_path):
+    page = tmp_path / "getting-started/overview/index.html"
+    base = "http://127.0.0.1:4399"
+    assert C.served_build_problem(base, b"x", tmp_path) == [f"{page}: missing; run npm run build first"]
+    page.parent.mkdir(parents=True)
+    page.write_bytes(b"<nav>ZED 2</nav>")
+    assert C.served_build_problem(base, b"<nav>ZED 2</nav>", tmp_path) == []
+    # another worktree's older server on the port: the sidebar would look short by the newer devices
+    assert C.served_build_problem(base, b"<nav></nav>", tmp_path) == [
+        f"{base} serves another build than {tmp_path}; check which server holds the port"]
+    assert C.served_build_problem(base, None, tmp_path) == [f"{base}/getting-started/overview/: no page"]
+
+
 def test_maker_heights():
     assert C.maker_heights_problem([20, 20]) == []
     assert C.maker_heights_problem([20, 38, 20]) == ["maker lines differ in height at 320 px: [20, 38]"]
@@ -294,3 +307,14 @@ def test_device_wiki_moved_from_sensors_in_one_hop():
     assert not [t for t in moved.values() if t.startswith("/sensors/")]
     config = (REPO / "site/astro.config.mjs").read_text(encoding="utf-8")
     assert not re.findall(r":\s*'/sensors/", config), "astro.config redirects must go straight to /devices/"
+
+
+def test_every_device_page_has_one_sidebar_entry():
+    """The Device wiki sidebar comes from sensor-nav.json (astro.config.mjs). A page missing there builds but is
+    reachable only by URL; an entry without a page is a dead link."""
+    from mvis_site import SITE
+    pages = {f"/devices/{p.stem}/" for p in (SITE / "src/content/docs/devices").glob("*.md*") if p.stem != "index"}
+    links = [n["link"] for n in json.loads((SITE / "src/data/sensor-nav.json").read_text(encoding="utf-8"))]
+    assert sorted(pages - set(links)) == []
+    assert sorted(set(links) - pages) == []
+    assert len(links) == len(set(links))
