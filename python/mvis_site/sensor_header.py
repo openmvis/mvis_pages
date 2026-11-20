@@ -8,6 +8,7 @@ import re
 
 import numpy as np
 
+from .components import KINDS, label_html
 from .geometry import baseline_mm
 from .markup import MAP_STAGE, e, each, fov_pair, num, proc_html, td_label
 from .sensor_parts import map_panel
@@ -98,7 +99,9 @@ def header_html(slug: str, p: dict, h: dict, v: dict) -> str:
         raise SystemExit(f"{p['title']}: header image must be a photo")
     art = f'<img src="/media/sensors/{slug}/{e(img["file"])}" alt="{e(img["alt"])}" width="800" height="533">'
     cap = f'<a href="{e(img["url"])}">{e(img["credit"])} ↗</a>' if img.get("url") else e(img["credit"])
-    return (f'<div class=sd><div class=sd-grid><div class=sd-head>{maker}<h1 id="_top">{e(p["title"])}</h1><p class=sd-type>{e(h["type"])}</p></div>'
+    comps = p["components"]  # one label per part, each ending in its source; the Cameras and IMUs page lists them all
+    chips = '<p class=sd-chips>' + "".join(label_html(k, x, link=True) for k in KINDS for x in comps[k]) + '</p>'
+    return (f'<div class=sd><div class=sd-grid><div class=sd-head>{maker}<h1 id="_top">{e(p["title"])}</h1><p class=sd-type>{e(h["type"])}</p>{chips}</div>'
             f'<figure class=sd-plate><div class=sd-frame>{art}</div><figcaption>{cap}</figcaption></figure>'
             f'<div class=sd-cta><div class=sd-buttons>{btn}</div>{more}</div>'
             f'<div class=sd-specs><dl class=sd-rows>{rows}</dl><p class=sd-foot>{e(foot)}</p></div></div>{thanks_html(p.get("thanks"))}</div>')

@@ -1,0 +1,17 @@
+---
+title: Cameras and IMUs
+description: "Every camera and IMU we have calibrated with MVIS, by who made the chip: image sensors and IMU chips on each device and in each dataset evaluation, with the source that names each part."
+pageType: reference
+wide: true
+---
+
+import ComponentCatalog from '../../../components/ComponentCatalog.astro';
+
+Every camera and IMU we have calibrated, by who made the chip. A label names a part only when the device maker, the dataset authors or a published teardown names it. Otherwise it says "not known"; we don't guess. A measurement gives the frame rate, not the chip, so it never names a part.
+
+- **Maker:** the device maker's datasheet, product page, manual or written statement names the part. A private source has no link.
+- **Dataset:** the dataset authors, or the device's own calibration file in the dataset, name it.
+- **Teardown:** a published teardown or trade article names it; the maker has not.
+- **Module:** a packaged IMU or camera module (Xsens, MicroStrain, ELP, IDS). We name the module; no source names the chip inside.
+
+<ComponentCatalog />

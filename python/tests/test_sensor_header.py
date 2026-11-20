@@ -109,6 +109,14 @@ def test_header_with_photo_buttons_and_thanks(variant):
     assert html.endswith("</aside></div>") and "All specs (" in html
 
 
+def test_header_shows_one_chip_label_per_part_under_the_type_line(variant):
+    html = _header(variant, F.pub_entry("photo"))
+    chips = html[html.index("<p class=sd-chips>"):html.index("</p>", html.index("<p class=sd-chips>"))]
+    assert html.index("class=sd-type") < html.index("class=sd-chips") < html.index("<figure")
+    assert chips.count('<span class="cl ') == 2 and chips.index("OmniVision") < chips.index("Bosch")   # cameras, then the IMU
+    assert '<a class=cl-src href="https://example.com/d">Maker ↗</a>' in chips and "<span class=cl-src>Teardown</span>" in chips
+
+
 def test_header_refuses_an_image_that_is_not_a_photo(variant):
     p = F.pub_entry("photo")
     p["header"]["image"] = {"kind": "drawing", "file": "rig.jpg"}
