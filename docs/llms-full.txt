@@ -10714,7 +10714,8 @@ Calibrated field of view | cam0 126° × ~147° |
 Recording | 1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz |
 Format | EuRoC mav0: PNG and IMU CSV, written by the module's capture tool |
 Board | AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor |
-Data | Not hosted |
+Data | Calibench-VI community, robobaton-neo/data/ (access by automatic approval). The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Configs and results | Calibench-VI community, robobaton-neo/ (access by automatic approval) |
 
 AprilGrid 6 × 6, 188 × 188 mm. Standard pattern, to scale
 
