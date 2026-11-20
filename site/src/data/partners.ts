@@ -58,6 +58,12 @@ export const partners: Partner[] = [
     contact: [{ label: 'cannychow@dghpdz.cn', href: 'mailto:cannychow@dghpdz.cn' }],
   },
   {
+    name: 'RoboBaton', site: 'https://hessian-matrix.github.io/RoboBaton_Neo_docs/',
+    shared: 'Calibration recording of their VIO module',
+    devices: [{ label: 'Neo', href: '/devices/robobaton-neo/' }],
+    // people: pending the contact's OK to be named (2026-11-19)
+  },
+  {
     name: 'Borme', full: 'Shenzhen Feikasi Industrial',
     site: 'https://www.alibaba.com/product-detail/1080P-Global-Shutter-Binocular-IMU-Camera_1601882874490.html',
     shared: 'Recordings of two headset units',
