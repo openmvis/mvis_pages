@@ -79,14 +79,15 @@ output:
 reference_camera: 2
 estimate:
   board_points: true
-corner_subsample: two_anti
+corner_subsample: all
 ```
 
 - **`board:`:** the block from [step 1](/guides/board-setup/#2-the-board-in-the-running-example).
 - **`estimate.board_points: true`:** solve the board shape too. Each corner gets
   a height off the flat board. See
   [A board is never flat](/guides/board-setup/#4-a-board-is-never-flat) · [why](/why/board-shape/).
-- **`corner_subsample: two_anti`:** two corners per tag, the default. See [Speed](#6-speed).
+- **`corner_subsample: all`:** every corner of every tag, so the board shape gets all 144 corners. The
+  camera-only default is `two_anti`, about half the solve time. See [Speed](#6-speed).
 - **`reference_camera: 2`:** the other camera's pose is given relative to the T265 left camera (`T265-1`).
 - **`shutter_type: global`:** no readout time to solve.
 
@@ -154,18 +155,18 @@ Set `distortion_model` per camera. MVIS has eight models:
 
 - **Why:** they share one polynomial. They differ only for rays more than 90°
   off axis.
-- **T265 coverage:** on recording 01 the board corners stay under 74° off axis
+- **T265 coverage:** on recording 01 the board corners stay under 75° off axis
   (the report's Corner Accounting table).
 - **Checked:** in the model study below, every reprojection number of the two
   models agreed to about 2e-6 px.
 - **So:** the benchmark rows that use `equidistant` stand for `kb4` too.
 - **Past 90°:** `equidistant` cannot project those rays; `kb4` can. See
   [Why kb4](/why/kb4/).
-- **Fold warning in the T265 report:** the kb4 model folds back at 93° (T265 left)
-  and 96° (T265 right) off axis. That angle lies inside the image corners, so the
-  report says "NO (fold inside image)" and the fold level "warn". No board corner
-  gets near it (at most 74°, 0 corners past the fold), so the result is not
-  affected.
+- **Fold warning in the T265 report:** the kb4 model of the T265 left camera folds
+  back at 96.3° off axis. That angle lies inside the image corners, so the report
+  says "NO (fold inside image)" and the fold level "warn". The right camera's model
+  does not fold ("none (monotonic)"). No board corner gets near the fold (at most
+  74.8°, 0 corners past it), so the result is not affected.
 
 How the models compare on the T265. We ran this study on the 5-IMU rig
 ([virig-5imus-4cams](/benchmark/results/virig-5imus-4cams/), 7 recordings,
@@ -211,30 +212,31 @@ The models in equations are on [Camera model](/concepts/camera-model/).
 
 ## 4. Result on the running example
 
-**Recording 01, the two configs on this page** (`mvis cam`, MVIS 0.1.0, run
-2026-11-12):
+**Recording 01, the two configs on this page** (`mvis cam`, MVIS 0.2.0, run
+2026-11-19):
 
 | | T265 left | T265 right | ELP left | ELP right |
 |---|---|---|---|---|
 | Model | `kb4` | `kb4` | `equidistant` | `equidistant` |
-| fx / fy (px) | 284.72 / 284.28 | 284.74 / 284.10 | 427.59 / 426.68 | 424.43 / 423.48 |
-| cx / cy (px) | 415.10 / 403.51 | 414.73 / 397.89 | 350.05 / 267.38 | 336.26 / 258.51 |
-| Rolling-shutter readout | — | — | 14.61 ms | 14.59 ms |
-| Median / P95 reprojection (px) | 0.18 / 0.63 | 0.17 / 0.62 | 0.28 / 0.96 | 0.30 / 0.97 |
+| fx / fy (px) | 285.00 / 284.57 | 285.03 / 284.40 | 427.83 / 426.94 | 424.66 / 423.73 |
+| cx / cy (px) | 415.20 / 403.55 | 414.81 / 397.89 | 350.11 / 267.37 | 336.31 / 258.58 |
+| Rolling-shutter readout | — | — | 14.62 ms | 14.61 ms |
+| Median / P95 reprojection (px) | 0.18 / 0.65 | 0.17 / 0.64 | 0.28 / 0.95 | 0.30 / 0.97 |
 
 | Pair | Baseline | Translation (mm) | Rotation, log(R) (rad) |
 |---|---|---|---|
-| T265 right in T265 left | 63.71 mm | 63.71, −0.59, −0.51 | 0.0024, 0.0063, 0.0010 |
-| ELP right in ELP left | 59.44 mm | 59.43, 0.68, −0.09 | −0.0216, −0.0135, −0.0027 |
+| T265 right in T265 left | 63.71 mm | 63.70, −0.59, −0.52 | 0.0025, 0.0063, 0.0010 |
+| ELP right in ELP left | 59.44 mm | 59.44, 0.70, −0.09 | −0.0217, −0.0136, −0.0027 |
 
 - **Reprojection error:** the pixel gap between the detected corners and where
   the solved model puts them.
-- **Board shape:** both runs find a similar board: 8.8 mm (T265) and 9.0 mm
-  (ELP) peak to peak, 2.1 and 2.0 mm RMS.
-- **Run time:** 23 min (T265) and 18 min (ELP) in our run. Each run had 4 CPU
-  cores and one thread for the linear-algebra libraries, on a machine under
-  heavy load, so expect less on your machine. AprilTag detection took 14 min of
-  the T265 run; the solve took 8 min.
+- **Board shape:** both runs find a similar board, all 144 corners: 8.7 mm (T265)
+  and 9.5 mm (ELP) peak to peak, 2.1 mm RMS in both.
+- **Run time:** 29 min (T265) and 27 min (ELP) in our run. Each run had 4 CPU
+  cores and one thread for the linear-algebra libraries; four guide jobs ran side
+  by side on one machine. AprilTag detection took 12 min of the T265 run and the
+  solve 15 min; the ELP solve took 22 min. With the default `two_anti` the
+  solve takes about half as long ([Speed](#6-speed)).
 - **The reports** of both runs are in [Read the report](#7-read-the-report).
 
 **All 15 recordings** ([results page](/benchmark/results/virig-4imus-4cams/),
@@ -250,8 +252,8 @@ use `equidistant`, which gives the same numbers as `kb4` here:
 - **Board shape:** MVIS estimates it. Kalibr assumes a flat board. On this
   board the flat assumption shifts the focal length ([why](/why/board-shape/)).
 - **Repeatable:** the MVIS baseline moves by about 0.04 mm between recordings.
-- **Recording 01 is low:** its fisheye 1 fx (284.72 px) is the lowest of the 15 MVIS runs, about 1.8 px below
-  the median. Basalt also gives its lowest fx on recording 01 (282.85 px), and Kalibr its second lowest. The low
+- **Recording 01 is low:** in these benchmark runs its fisheye 1 fx (284.74 px) is the lowest of the 15 MVIS
+  runs, about 1.8 px below the median; the run on this page gives 285.00 px. Basalt also gives its lowest fx on recording 01 (282.85 px), and Kalibr its second lowest. The low
   value comes from the recording, not the settings.
 
 ## 5. Write the ELP config
@@ -303,7 +305,7 @@ corner_subsample: two_anti     # two_anti | two_diag | all | top_left
 ```
 
 - **`two_anti` (default):** 2 corners per tag, top-left and bottom-right. About half the solve
-  time of `all` (`all` takes about 1.8×: 12 against 22 min on an ELP stereo recording with `board_points` on); cx and cy stay within about 0.1 px. With two or more
+  time of `all` (`all` takes about 1.8×: 12 against 22 min on an ELP stereo recording with `board_points` on); cx and cy stay within about 0.1 px. This page uses `all` for the full board shape. With two or more
   cameras, the joint solve (stage 4) adds the other diagonal on frames that see at
   least 35 of the 36 tags, so every corner gets a board height ("144 of 144" in the
   report), but those corners have few views (22 frames on the ELP pair here). A
@@ -328,13 +330,17 @@ MVIS writes:
 
 The report has these sections:
 
-- **Summary:** cameras, frames, corner count, median and P95 reprojection error.
+- **Summary:** median and P95 reprojection error, cameras, frames and corner
+  count, a per-camera error table, and **Calibration parameters by sensor**: one
+  folded block per camera with its model, intrinsics, readout, pose in the
+  reference camera (log(R) in rad), error, and a YAML snippet to copy.
 - **Camera Intrinsics:** focal length, image centre and distortion per camera.
   For `kb4` it also shows the valid domain: the angle where the lens model
   folds back, and whether that fold lies inside the image. Its **Corner
   Accounting** table gives, per camera, how many corners were used, how many
   fell past the fold or out of the model's domain, and how many were dropped as
-  outliers. Only used corners count in the error figures.
+  outliers; the full table is folded below it. Only used corners count in the
+  error figures.
 - **Board Shape:** shown when `estimate.board_points` is on. Each corner's
   height off the flat board, as a table and a map. The tilt of the board
   belongs to its pose, so a truly flat board shows only noise here.
@@ -344,13 +350,13 @@ The report has these sections:
   (ELP report only).
 - **Calibration Process:** the solved camera path around the board, as a
   player.
-- **Reprojection Errors:** per camera, by frame, by tag and over the image.
-- **Data Quality** (folded): the motion-excitation table and grade, and the
-  feature coverage of each image.
+- **Reprojection Error Analysis:** per camera, by frame, by tag and over the image.
+- **Calibration Data Quality** (folded): the motion-excitation table and grade,
+  and the feature coverage of each image.
 - **Detection Statistics:** sample frames with the detected corners.
-- **Pipeline Timing, Result Files, Configuration:** where the time went, the
-  files the run wrote, and the config it read.
-- **Appendix B** (folded): per-frame, per-tag error heatmaps.
+- **Appendix A–C:** where the time went (stage timings folded), the files the
+  run wrote, and the config it read.
+- **Appendix D** (folded): per-frame, per-tag error heatmaps, one tab per camera.
 
 Check the **motion-excitation grade** before the reprojection error. It says
 how well your motion constrained each parameter: depth range for focal length,
@@ -372,7 +378,7 @@ them, except that local folder names are cut down to file names:
   <TabItem label="ELP pair">
 <iframe src="/media/guides/virig-4imus-4cams/cam_elp_report.html" title="MVIS camera-only report, ELP pair, VI-Rig recording 01" loading="lazy" style="width:100%;height:80vh;border:1px solid var(--sl-color-gray-5);border-radius:0.4rem"></iframe>
 
-[Open full screen](/media/guides/virig-4imus-4cams/cam_elp_report.html) (HTML, 12.1 MB)
+[Open full screen](/media/guides/virig-4imus-4cams/cam_elp_report.html) (HTML, 11.9 MB)
   </TabItem>
 </Tabs>
 

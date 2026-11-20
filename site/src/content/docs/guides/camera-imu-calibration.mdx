@@ -88,7 +88,6 @@ camera_input:
     factor_hz: 4.0
 solve:
   max_iterations: 40
-  corner_subsample: two_anti
   estimate_t_ga: true
   sigma_t_ga: 0.01
   vision_pose: imu
@@ -117,7 +116,7 @@ What the highlighted lines do:
 - **`input`:** a ROS1 bag. The first `imu_topics` entry (`/imu/data`, the Xsens) is the **base IMU**. Every other sensor is solved relative to it.
 - **`window_mode: motion`:** MVIS uses the `segment_length` seconds (here 80 s) with the most IMU motion.
 - **`board.heights_file` + `estimate.board_points: true`:** solve the board shape too, starting from a measured shape. [`board_shape_4imus_4cams.yaml`](https://github.com/openmvis/openmvis/blob/main/examples/regression/mvis_elp/board_shape_4imus_4cams.yaml) ships with MVIS in `examples/regression/mvis_elp/`. Our board is not flat; a flat solve shifts the gyro scale and the lever arm ([why](/why/board-shape/)).
-- **`solve.corner_subsample: two_anti`:** use two opposite corners of each tag (top-left and bottom-right). Our config sets it for speed. The cam-IMU default is `all` (every corner).
+- **`solve.corner_subsample`:** not set, so every corner of every tag enters the solve (the cam-IMU default, `all`). `two_anti` (two opposite corners per tag) is faster, but the board shape then gets only 72 of the 144 corners.
 - **`solve.estimate_t_ga: true`, `sigma_t_ga: 0.01`:** solve `t_ga` for each IMU. Keep this on ([why](#t_ga-gyroaccel-offset-on-by-default)).
 - **`solve.vision_pose: imu`:** moves the pose to each corner's capture time with the raw base-IMU samples. It is the default.
 - **`sigma_g`, `sigma_a`, `sigma_bg`, `sigma_ba`:** gyro and accel noise, and their bias random walk.
@@ -165,11 +164,11 @@ mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 ```
 
 - **Other bag:** `--bag <file>` replaces the config's source with that ROS1 bag.
-- **Time:** 22 min in our run (MVIS 0.1.0, 2026-11-12), on 16 CPU cores with
-  one thread for the linear-algebra libraries, on a machine under heavy load.
-  Expect less on your machine. About 12 min of that is AprilTag detection on
-  the four cameras; the solve stages take about 11 min, of which the 6
-  iterations take about 7 min (`solve_s` in the report's Timing section).
+- **Time:** 24 min in our run (MVIS 0.2.0, 2026-11-19), on 16 CPU cores with
+  one thread for the linear-algebra libraries, with other jobs on the machine.
+  About 11 min of that is AprilTag detection on the four cameras; the solve
+  stages take about 13 min, of which the 6 iterations take about 9 min
+  (`solve_s` in the report's Appendix, Timing).
 - **Output:** in the folder of `output.path`:
   - `cam_imu.json`: a summary of the solve.
   - `cam_imu_calib.yaml`: the full calibration, the file to deploy.
@@ -204,39 +203,43 @@ It has these sections:
 - **Base IMU, Aux IMUs, IMU Residuals:** biases and their drift, `Dw`, `Da`,
   `Tg` and `t_ga` of each IMU; each aux IMU's pose and `td` relative to the
   base IMU. The block is titled "IMU intrinsics (full)" whatever level you
-  solve; with `dw_da`, as here, `Tg` stays at zero.
-- **Timing, Result files, Configuration:** where the time went, the files the
-  run wrote, and the config it read.
+  solve; with `dw_da`, as here, `Tg` stays at zero. With the `calyx` model the
+  report also splits `Dw` as R · U: a misalignment rotation R (as log(R)) times
+  U, the per-axis scale and cross-coupling. IMU Residuals gives the residuals per
+  state block (rotation, position, velocity, bias steps).
+- **Appendix** (folded): Timing, the files the run wrote, and the config it read.
 
 This is the report of the recording 01 run, unchanged except that local folder
 names are cut down to file names:
 
 <iframe class="mvis-report" src="/media/guides/virig-4imus-4cams/cam_imu_report.html" title="MVIS cam-IMU report, VI-Rig 4 IMUs + 4 cams, recording 01" loading="lazy" style="width:100%;height:80vh;border:1px solid var(--sl-color-gray-5);border-radius:0.4rem"></iframe>
 
-[Open the report full screen](/media/guides/virig-4imus-4cams/cam_imu_report.html) (HTML, 12.8 MB).
+[Open the report full screen](/media/guides/virig-4imus-4cams/cam_imu_report.html) (HTML, 13.3 MB).
 
 **Fit and geometry:**
 
 | Value | Recording 01 |
 |---|---|
-| Reprojection median, all cameras | 0.25 px (rms 0.52, p95 0.68) |
+| Reprojection median, all cameras | 0.24 px (rms 0.51, p95 0.68) |
 | cam0–cam1 baseline (T265 pair) | 63.7 mm |
-| cam0 `td` | −5.41 ms |
-| cam0 lever arm | 130.8 mm |
-| Board shape | 9.0 mm peak to peak, 2.2 mm RMS (72 of 144 corners seen) |
+| cam0 `td` | −5.40 ms |
+| cam0 lever arm | 130.9 mm |
+| Board shape | 9.2 mm peak to peak, 2.2 mm RMS (144 of 144 corners seen) |
 
 - **cam0:** T265 left. cam1 is T265 right, cam2 and cam3 are ELP left and right.
-- **72 of 144 corners:** with `two_anti`, only two corners of each tag enter
-  the solve. The other heights stay at the measured shape from `heights_file`.
+- **144 of 144 corners:** every corner enters the solve, so every height is
+  solved. With `two_anti`, the other 72 would stay at the measured shape from
+  `heights_file`.
 - **Reprojection** shows how well the model fits the corners. It does not show
   how accurate the model is.
 
-**Base IMU (Xsens) intrinsics**, diagonal terms:
+**Base IMU (Xsens) intrinsics**, the diagonal of the full `Dw` and `Da` matrices
+(the report's "IMU intrinsics (full)"; `Dw_diag` and `Da_diag` in `cam_imu.json`):
 
 | | x | y | z |
 |---|---|---|---|
-| `Dw` (gyro) | 0.99813 | 0.99768 | 1.00090 |
-| `Da` (accel) | 0.99994 | 0.99642 | 1.00124 |
+| `Dw` (gyro) | 0.99825 | 0.99781 | 1.00051 |
+| `Da` (accel) | 1.00003 | 0.99665 | 1.00124 |
 
 **`t_ga` per IMU:**
 
