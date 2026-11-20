@@ -421,13 +421,15 @@ sensors:
       - [Recordings, "1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples"]
       - [Format, ROS1 bag]
       - [Board, "AprilGrid 6×6, tag 55 mm, spacing 0.3"]
-      - [Data, "Recording not hosted: it belongs to Tujian, which hasn't granted a licence or permission to host it yet"]
-      - [Configs and results, "__HUB:community/cyperstereo/__. The configs, the starting calibration and this page's results; the configs read the recording, so they can't be replayed without it"]
+      - [Licence, "CC BY-NC 4.0, for the recording, clip and figures"]
+      - [Data, "__HUB:community/cyperstereo/data/__. The maker's bag, unchanged (cyperstereo_imu_calibra2.bag, 9.3 GB), normal frames; hosted with Tujian's agreement. Recorded by Tujian"]
+      - [Configs and results, "__HUB:community/cyperstereo/__. The configs, the starting calibration and this page's results; the configs read the recording in data/"]
     method: "All four cameras and the IMU together. Camera intrinsics (Kannala–Brandt kb4) from four single-camera solves of the same recording, then held fixed; IMU scale and misalignment, gyro-to-accel offset t_ga and camera time offsets estimated. IMU noise from the BMI088 datasheet, about 2.5× wider. Solved 2026-11-15."
     limits:
       - No independent reference, so these values show what MVIS solved, not how close they are to the truth.
       - "The board never reached the outer side of the two 200° images (about half of each image is covered), so the lens model there is extrapolated."
-      - "IMU χ²/dof is 0.03 with the IMU noise set from the BMI088 datasheet, about 2.5× wider. No digital twin has been run for this recording, so how close that is to the real noise isn't checked."
+      - "IMU χ²/dof is 0.03 with the IMU noise set from the BMI088 datasheet, about 2.5× wider. A digital twin of this recording, with the noise exactly as set, gives about 0.06, so the setting is a little wider than the real noise, not far off."
+      - "In the digital twin (6 noisy seeds) every value is recovered within tolerance except the four camera-to-IMU rotations: worst 3.0 mrad against 2 mrad, within 1.8× MVIS's own σ (1.7 mrad). The 39.5 s recording constrains rotation less than a longer one would."
       - "The tag size is taken from the target file sent with the data and isn't confirmed on the printed board. It scales every baseline and lever arm."
     header:
       type: "Four-camera global-shutter RGB module with a 6-axis IMU"

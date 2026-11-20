@@ -69,8 +69,8 @@ NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360",)   # alg-avs111c hosted since
 NO_DEMO = NO_DEMO_NOT_HOSTED + ("zed2",)
 # realsense-d435i (2026-11-14): a collaborator's recordings, shared with us, no licence stated; not hosted.
 NOT_HOSTED = NO_DEMO_NOT_HOSTED + ("realsense-d435i",)
-# cyperstereo (2026-11-15): configs and results on calibench-vi/community, the recording not hosted.
-RESULTS_ONLY = ("cyperstereo",)
+# cyperstereo: results-only 2026-11-15; the maker's bag hosted unchanged since 2026-11-15 (CC BY-NC 4.0, 2026-11-17).
+RESULTS_ONLY = ()
 
 
 def test_every_page_has_a_cited_photo_a_short_type_and_a_demo(pub):
@@ -106,12 +106,12 @@ def test_every_sensor_page_links_to_its_hosted_data(pub):
         if slug in RESULTS_ONLY:
             assert "not hosted" in html.lower() and "calibench-vi/datasets" not in html, slug
             continue
-        if slug not in ("dibuli-prism-a4l", "hampo", "xq20", "realsense-d455", "realsense-d456", "alg-avs111c", "alg-avs115d", "zed2"):
+        if slug not in ("dibuli-prism-a4l", "hampo", "xq20", "realsense-d455", "realsense-d456", "alg-avs111c", "alg-avs115d", "zed2", "cyperstereo"):
             assert "calibench-vi/datasets/tree/main/" in html, slug
 
 
 def test_no_page_says_not_hosted_for_data_on_the_hub(pub):
-    for s in ("xq20", "hampo", "dibuli-prism-a4l"):
+    for s in ("xq20", "hampo", "dibuli-prism-a4l", "cyperstereo"):
         assert "not hosted" not in yaml.safe_dump(pub["sensors"][s]).lower(), s
 
 
