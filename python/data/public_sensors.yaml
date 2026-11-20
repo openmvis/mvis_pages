@@ -951,7 +951,7 @@ sensors:
       cameras:
         - {maker: Sony, part: IMX283, count: 2, src: maker, via: "ONE RS firmware (IMX283 dual sensor driver)", url: "https://file.insta360.com/static/671669adf53b801139f8e724bb58bdf2/Insta360OneRSFW.bin", note: "the firmware names the driver, not the lens; the 1-Inch 360 is the only ONE RS lens with two 1-inch sensors"}
       imus:
-        - {maker: TDK InvenSense, part: ICM-40609, src: maker, via: "gyro type in the metadata of Insta360's 1-Inch 360 sample video", url: "https://360rumors.com/download-1-inch-360/", note: "the camera writes its gyro type into every video; the ONE RS firmware supports ICM-20948 and ICM-40609"}
+        - {maker: TDK InvenSense, part: ICM-40609, src: maker, via: "gyro type in the metadata of a 1-Inch 360 sample video (360 Rumors)", url: "https://360rumors.com/download-1-inch-360/", note: "the camera writes its gyro type into every video; the ONE RS firmware supports ICM-20948 and ICM-40609"}
     hardware:
       - [Maker, "Insta360 (Arashi Vision), lenses co-engineered with Leica", Maker]
       - [Image sensors, "2 × 1-inch CMOS; Sony IMX283, from the IMX283 dual sensor driver in the ONE RS firmware v2.0.8", Maker]
@@ -960,7 +960,7 @@ sensors:
       - [Readout time, "31.05 ms, top to bottom, in the organisers' SLAM settings; 31.1 ms (front) and 31.4 ms (back) solved here", Dataset]
       - [Images in the recordings, "2 × 1472×1440 at 30 Hz, JPEG", Measured]
       - [IMU, "6-axis, 1 kHz, read from the video metadata", Measured]
-      - [IMU chip, "TDK InvenSense ICM-40609: the gyro type the camera writes into each video (INSDEV_IMU_TYPE_40609 in the 1-Inch 360 sample video)", Maker]
+      - [IMU chip, "TDK InvenSense ICM-40609: the gyro type the camera writes into each video (INSDEV_IMU_TYPE_40609 in a 1-Inch 360 sample video published by 360 Rumors)", Maker]
       - [Maker video modes, "Up to 6K 360° video (5888×2944 at 30 fps)", Maker]
     dataset:
       - [Recordings, "2 camera + IMU recordings, one per lens: 233 s and 208 s, hand-held in front of the board. 1 camera-pair recording, 205 s, camera still and board moved"]
