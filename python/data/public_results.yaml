@@ -31,12 +31,12 @@ datasets:
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:
         - {maker: Sony, part: IMX273, device: FLIR Blackfly S BFS-U3-16S2M, src: maker, via: FLIR spec page, url: "https://softwareservices.flir.com/BFS-U3-16S2/latest/Model/spec.html"}
-        - {maker: OmniVision, part: OV9282, count: 2, device: "RealSense T265", src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
+        - {maker: OmniVision, part: OV9282, count: 2, device: "RealSense T265", src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
       imus:
         - {module: Xsens MTi-100, device: VI-Rig}
         - {module: MicroStrain 3DM-GX3-25, device: VI-Rig}
         - {module: MicroStrain 3DM-GX3-35, device: VI-Rig}
-        - {maker: Bosch, part: BMI055, count: 1, device: "RealSense T265", src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
+        - {maker: Bosch, part: BMI055, count: 1, device: "RealSense T265", src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
     families:
       - {id: T6, shutter: global}
       - {id: T6c, shutter: global}
@@ -64,10 +64,10 @@ datasets:
       hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:
-        - {maker: OmniVision, part: OV9282, count: 2, device: "RealSense T265", src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
-        - {maker: OmniVision, part: OV9750, count: 2, device: "ELP stereo, rolling shutter", src: maker, via: "ELP page for the USB960P2CAM-V90", url: "https://www.elpcctv.com/13mp-960p-usb20-dual-lens-usb-camera-module-synchronization-camera-for-3d-depth-detection-p-126.html", note: "module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)"}
+        - {maker: OmniVision, part: OV9282, count: 2, device: "RealSense T265", src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
+        - {maker: OmniVision, part: OV9750, count: 2, device: "ELP stereo, rolling shutter", src: maker, via: "ELP page for the ELP-960P2CAM-V90", url: "https://www.hdusbcameras.com/elp-960p-synchronization-usb-stereo-camera-module-mini-80165mm-board-mjpeg-2560x960-dual-lens-ov9750-3d-vr-usb-webcam-for-windows-android-linux-raspberry-pi.html", note: "module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)"}
       imus:
-        - {maker: Bosch, part: BMI055, count: 1, device: "RealSense T265", src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
+        - {maker: Bosch, part: BMI055, count: 1, device: "RealSense T265", src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
         - {module: Xsens MTi-100, device: VI-Rig}
     families:
       - {id: T1, shutter: global}
@@ -111,12 +111,12 @@ datasets:
       - "<b>The results files</b> (calibration numbers and run configs, no images) are on Hugging Face in calibench-vi/results, under runs/virig-5imus-4cams/2026-11-02/."
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:
-        - {maker: OmniVision, part: OV9282, count: 4, device: "RealSense T265 A and B", src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
+        - {maker: OmniVision, part: OV9282, count: 4, device: "RealSense T265 A and B", src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
       imus:
         - {module: Xsens MTi-100, device: VI-Rig}
         - {module: MicroStrain 3DM-GX3-25, device: VI-Rig}
         - {module: MicroStrain 3DM-GX3-35, device: VI-Rig}
-        - {maker: Bosch, part: BMI055, count: 2, device: "RealSense T265 A and B", src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
+        - {maker: Bosch, part: BMI055, count: 2, device: "RealSense T265 A and B", src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
     families:
       - {id: V5, shutter: global}
       - {id: V5c, shutter: global}
@@ -201,7 +201,7 @@ datasets:
       hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_mgc
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:
-        - {count: 2, device: HP Reverb G2}
+        - {maker: OmniVision, part: OV7251, count: 2, device: HP Reverb G2, src: dataset, via: "Monado SLAM datasets paper, Table II", url: "https://arxiv.org/pdf/2508.00088"}
       imus:
         - {maker: TDK InvenSense, part: ICM-20602, device: HP Reverb G2, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras"}
     families:
@@ -238,8 +238,8 @@ datasets:
         - {maker: iniVation, part: DAVIS346, device: iniVation mDAVIS346, src: dataset, via: "UZH-FPV paper, Delmerico et al. 2019", url: "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf"}
         - {maker: OmniVision, part: OV7251, count: 2, device: Snapdragon Flight, src: dataset, via: "UZH-FPV paper, Delmerico et al. 2019", url: "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf"}
       imus:
-        - {maker: TDK InvenSense, part: MPU-6500, device: iniVation mDAVIS346, src: maker, via: iniVation IMU docs, url: "https://docs.inivation.com/hardware/hardware-advanced-usage/imu.html"}
-        - {maker: TDK InvenSense, part: MPU-9250, device: Snapdragon Flight, src: report, via: ArduPilot docs, url: "https://ardupilot.org/plane/docs/common-qualcomm-snapdragon-flight-kit.html"}
+        - {maker: TDK InvenSense, part: MPU-6500, device: iniVation mDAVIS346, src: maker, via: iniVation IMU docs, url: "https://docs.inivation.com/hardware/hardware-advanced-usage/imu.html", note: "named for the DAVIS346; the mini version is not stated"}
+        - {maker: TDK InvenSense, part: MPU-9250, device: Snapdragon Flight, src: maker, via: "Qualcomm ATLFlight firmware config (mpu9250 driver)", url: "https://github.com/ATLFlight/Firmware/blob/eagle_drone_1.2_cs_0/cmake/configs/qurt_sdflight_default.cmake"}
     families:
       - {id: DAVIS, shutter: global}
       - {id: SNAP, shutter: global}

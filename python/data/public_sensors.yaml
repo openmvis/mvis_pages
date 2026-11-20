@@ -19,9 +19,9 @@ sensors:
     card: {name: "T265", tags: [Global shutter, 2 cameras, 200 Hz IMU]}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
-        - {maker: OmniVision, part: OV9282, count: 2, src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
+        - {maker: OmniVision, part: OV9282, count: 2, src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
       imus:
-        - {maker: Bosch, part: BMI055, src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
+        - {maker: Bosch, part: BMI055, src: maker, via: "Intel T265 datasheet 572522-004", url: "https://dev.realsenseai.com/download/42170/"}
     hardware:
       - [Cameras, "2 × OV9282, 848×800 at 30 Hz", Maker]
       - [Shutter, Global, Maker]
@@ -50,7 +50,7 @@ sensors:
         shutter: {v: Global, tag: catalog}
         fov: {auto: fov, also: {v: "163° diagonal", tag: maker, src: "https://web.archive.org/web/20261030190401/https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}}
         baseline: {auto: baseline}
-        imu: {v: "gyro 200 Hz, accel 62.5 Hz", tag: measured, also: {v: "Bosch BMI055", tag: maker, src: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}}
+        imu: {v: "gyro 200 Hz, accel 62.5 Hz", tag: measured, also: {v: "Bosch BMI055", tag: maker, src: "https://dev.realsenseai.com/download/42170/"}}
         output: {v: USB 3, tag: maker, src: "https://web.archive.org/web/20261030190401/https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
   realsense-d455:
     group: cameras
@@ -303,7 +303,7 @@ sensors:
       cameras:
         - {maker: OmniVision, part: OV4689, count: 2, src: maker, via: "Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)", url: "https://github.com/stereolabs/zed-open-capture/blob/master/src/videocapture.cpp"}
       imus:
-        - {}
+        - {maker: Bosch, part: BMI270, src: maker, via: "ZED 2 sensor firmware in the ZED SDK", url: "https://www.stereolabs.com/developers/release", note: "Bosch's BMI270 start-up file is in every ZED 2 sensor firmware; Stereolabs does not publish the part"}
     hardware:
       - [Maker, Stereolabs, Maker]
       - [Image sensors, "2 × 4 MP 1/3-inch back-illuminated CMOS, 2 µm pixels", Maker]
@@ -314,6 +314,7 @@ sensors:
       - [Video modes, "Up to 2208×1242 at 15 fps; 1280×720 at 60, 30 or 15 fps", Maker]
       - [Images in the recording, "2 × 1280×720 grey at 19.7 Hz (the dataset states 30 fps)", Measured]
       - [IMU, "6-axis, 400 Hz on the sheet; 381 Hz in the recording", Measured]
+      - [IMU chip, "Bosch BMI270: Bosch's BMI270 start-up file is in every ZED 2 sensor firmware in the ZED SDK", Maker]
       - [Model, "The dataset names a ZED2. The original ZED 2 rather than the later ZED 2i is inferred from the recording date (December 2020) and the solved focal length", Dataset]
     dataset:
       - [Recordings, "1 camera + IMU recording, 74 s, hand-held in front of the board. 1,457 frames per camera, 29,410 IMU samples"]
@@ -653,14 +654,14 @@ sensors:
       cameras:
         - {maker: SmartSens, part: SC3336, count: 2, src: maker, via: "device tree in GI's public firmware ego-v0.1.2", url: "https://github.com/General-Intelligence-Labs/device-firmware/releases/tag/ego-v0.1.2-ef54e1f", note: "read from firmware 0.1.2; our recording ran firmware 1.0.x"}
       imus:
-        - {}
+        - {maker: Bosch, part: BNO055, src: maker, via: "setup file in GI's public firmware ego-v0.1.2", url: "https://github.com/General-Intelligence-Labs/device-firmware/releases/tag/ego-v0.1.2-ef54e1f", note: "outputs about 100 Hz; our recordings match"}
     hardware:
       - [Shutter, "Rolling, readout about 26 ms (solved)", Measured]
       - [Cameras, "2 × 1920×1080 at about 30 fps", Measured]
       - [Field of view, "120° × 72°", Maker]
       - [IMU, "200 Hz, 9-DoF", Maker]
       - [Image sensors, "2 × SmartSens SC3336, from the device tree in GI's public firmware 0.1.2 (this recording ran 1.0.x)", Maker]
-      - [IMU chip, Not published, Unknown]
+      - [IMU chip, "Bosch BNO055, from the setup file in GI's public firmware 0.1.2. It outputs about 100 Hz, and every other 200 Hz sample in our recording is filled in", Maker]
     dataset:
       - [Recording, "2026-07-17, 30.1 s"]
       - [Format, "MCAP, H.265"]
@@ -857,14 +858,14 @@ sensors:
     demo: {existing: "/media/hero/hero_mgc_960", note: "Recovered by MVIS from the Monado calibration data."}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
-        - {count: 4}
+        - {maker: OmniVision, part: OV7251, count: 4, src: dataset, via: "Monado SLAM datasets paper, Table II", url: "https://arxiv.org/pdf/2508.00088"}
       imus:
         - {maker: TDK InvenSense, part: ICM-20602, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras"}
     hardware:
       - [Cameras, "4 × 640×480 grayscale at 30 Hz", Dataset]
       - [IMU, "About 1 kHz", Dataset]
       - [IMU chip, "TDK InvenSense ICM-20602, from the headset calibration file in the dataset", Dataset]
-      - [Camera chips, Not published, Unknown]
+      - [Camera chips, "4 × OmniVision OV7251, from the dataset authors' sensor table (Table II of their paper)", Dataset]
     dataset:
       - [Recordings, "Monado MGC round 1: imucalib01, 02 and 13, one for each camera pair"]
       - [Source, "Monado SLAM Datasets, Collabora"]
@@ -948,17 +949,18 @@ sensors:
         - {from: "insta360-back_small", note: "The 3D scene MVIS recovered from the back-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
-        - {count: 2}
+        - {maker: Sony, part: IMX283, count: 2, src: maker, via: "ONE RS firmware (IMX283 dual sensor driver)", url: "https://file.insta360.com/static/671669adf53b801139f8e724bb58bdf2/Insta360OneRSFW.bin", note: "the firmware names the driver, not the lens; the 1-Inch 360 is the only ONE RS lens with two 1-inch sensors"}
       imus:
-        - {}
+        - {maker: TDK InvenSense, part: ICM-40609, src: maker, via: "gyro type in the metadata of a 1-Inch 360 sample video (360 Rumors)", url: "https://360rumors.com/download-1-inch-360/", note: "the camera writes its gyro type into every video; the ONE RS firmware supports ICM-20948 and ICM-40609"}
     hardware:
       - [Maker, "Insta360 (Arashi Vision), lenses co-engineered with Leica", Maker]
-      - [Image sensors, "2 × 1-inch CMOS", Maker]
+      - [Image sensors, "2 × 1-inch CMOS; Sony IMX283, from the IMX283 dual sensor driver in the ONE RS firmware v2.0.8", Maker]
       - [Lenses, "Leica Super-Summicron-A, f/2.2, 6.52 mm (35 mm equivalent); about 200° each, back to back", Dataset]
       - [Shutter, "Rolling; the two shutters are synchronised", Dataset]
       - [Readout time, "31.05 ms, top to bottom, in the organisers' SLAM settings; 31.1 ms (front) and 31.4 ms (back) solved here", Dataset]
       - [Images in the recordings, "2 × 1472×1440 at 30 Hz, JPEG", Measured]
       - [IMU, "6-axis, 1 kHz, read from the video metadata", Measured]
+      - [IMU chip, "TDK InvenSense ICM-40609: the gyro type the camera writes into each video (INSDEV_IMU_TYPE_40609 in a 1-Inch 360 sample video published by 360 Rumors)", Maker]
       - [Maker video modes, "Up to 6K 360° video (5888×2944 at 30 fps)", Maker]
     dataset:
       - [Recordings, "2 camera + IMU recordings, one per lens: 233 s and 208 s, hand-held in front of the board. 1 camera-pair recording, 205 s, camera still and board moved"]
