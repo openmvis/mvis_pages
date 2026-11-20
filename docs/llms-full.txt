@@ -10336,6 +10336,7 @@ Camera module | RealSense Module D450 with the Vision Processor D4 |
 Shutter | Global, on the infrared pair and the RGB camera |
 Infrared pair | 87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp |
 RGB camera | 1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, 30 Hz |
+IMU chip | Bosch BMI085 |
 Enclosure | IP65: dust-tight and protected against water jets |
 Link | USB-C; 124 × 29 × 26 mm |
 Measured in these recordings |
@@ -10698,13 +10699,14 @@ Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame.
 
 Published by the maker |
 Maker | RoboBaton (documentation site; company name not given there) |
+Camera | SmartSens SC132GS, 1080 × 1280 native at 60 fps |
 Shutter | Global |
 Lens | Fisheye, 193.8° diagonal |
 IMU | TDK ICM-42670-P, gyro and accelerometer at 200 Hz with multi-sample averaging |
 Sync | Hardware-triggered camera and IMU on one clock |
 Link | USB-C (network adapter with an HTTP stream), 6-pin UART with trigger in and exposure out, microSD; 8.69 g bare, 13.86 g cased |
 Measured in these recordings |
-Camera | SmartSens SC132GS, 1080 × 1280 native at 60 fps; the calibration stream is 544 × 640 at 5 Hz |
+Calibration stream | 544 × 640 at 5 Hz |
 Calibrated field of view | cam0 126° × ~147° |
 
 ## Dataset
@@ -10996,6 +10998,8 @@ Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame.
 
 Published by the maker |
 Type | Spatial AI camera |
+Image sensors | 2 × SmartSens SC132GS (global shutter), 1 × Sony IMX415 (rolling shutter) |
+IMU chip | Bosch BMI088 |
 From our catalog |
 Global-shutter cameras | 2 × 544×640 mono at 20 Hz, hardware-synced stereo |
 Rolling-shutter camera | 1 × 1088×1920 colour at about 4.3 Hz |
@@ -11003,8 +11007,6 @@ Lens | Wide field of view; pinhole-equidistant fit |
 IMU | 1 × 400 Hz, with stamps quantized to 2.5 ms |
 Measured in these recordings |
 Calibrated field of view | cam0 96° × 113° · cam1 96° × 113° · cam2 ~149° × 82° |
-Not published |
-Open | Sensor part numbers |
 
 ## Dataset
 
@@ -12749,6 +12751,8 @@ Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame.
 
 ## Specifications
 
+From the seller's listing |
+IMU chip | TDK InvenSense ICM-20602, from the iFixit chip ID teardown |
 From the dataset |
 Cameras | 2 × 960×960 at 54 Hz, grayscale |
 Shutter | Global |
@@ -12757,7 +12761,7 @@ IMU | 6-axis, about 1 kHz |
 Measured in these recordings |
 Calibrated field of view | cam0 120° × 120° · cam1 ~119° × 119° |
 Not published |
-Open | Sensor part numbers |
+Open | Camera sensor |
 
 ## Dataset
 
@@ -13054,10 +13058,10 @@ Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame.
 From the dataset |
 Cameras | 2 × 640×480 grayscale at 30 Hz |
 IMU | About 1 kHz |
+Camera sensor | OmniVision OV7251, named by the dataset authors |
+IMU chip | TDK InvenSense ICM-20602, from the headset calibration file in the dataset |
 Measured in these recordings |
 Calibrated field of view | cam0 119° × 95° · cam1 119° × 94° |
-Not published |
-Open | Sensor part numbers |
 
 ## Dataset
 
