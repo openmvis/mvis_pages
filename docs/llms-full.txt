@@ -1660,7 +1660,7 @@ estimate :
 
 board_points : true
 
-corner_subsample : two_anti
+corner_subsample : all
 
 - board:: the block from step 1.
 
@@ -1668,7 +1668,8 @@ corner_subsample : two_anti
 a height off the flat board. See
 A board is never flat · why.
 
-- corner_subsample: two_anti: two corners per tag, the default. See Speed.
+- corner_subsample: all: every corner of every tag, so the board shape gets all 144 corners. The
+camera-only default is two_anti, about half the solve time. See Speed.
 
 - reference_camera: 2: the other camera’s pose is given relative to the T265 left camera (T265-1).
 
@@ -1737,7 +1738,7 @@ kb4 and equidistant give the same result on the T265.
 - Why: they share one polynomial. They differ only for rays more than 90°
 off axis.
 
-- T265 coverage: on recording 01 the board corners stay under 74° off axis
+- T265 coverage: on recording 01 the board corners stay under 75° off axis
 (the report’s Corner Accounting table).
 
 - Checked: in the model study below, every reprojection number of the two
@@ -1748,11 +1749,11 @@ models agreed to about 2e-6 px.
 - Past 90°: equidistant cannot project those rays; kb4 can. See
 Why kb4.
 
-- Fold warning in the T265 report: the kb4 model folds back at 93° (T265 left)
-and 96° (T265 right) off axis. That angle lies inside the image corners, so the
-report says “NO (fold inside image)” and the fold level “warn”. No board corner
-gets near it (at most 74°, 0 corners past the fold), so the result is not
-affected.
+- Fold warning in the T265 report: the kb4 model of the T265 left camera folds
+back at 96.3° off axis. That angle lies inside the image corners, so the report
+says “NO (fold inside image)” and the fold level “warn”. The right camera’s model
+does not fold (“none (monotonic)”). No board corner gets near the fold (at most
+74.8°, 0 corners past it), so the result is not affected.
 
 How the models compare on the T265. We ran this study on the 5-IMU rig
 (virig-5imus-4cams, 7 recordings,
@@ -1793,30 +1794,31 @@ The models in equations are on Camera model.
 
 ## 4. Result on the running example
 
-Recording 01, the two configs on this page (mvis cam, MVIS 0.1.0, run
-2026-11-12):
+Recording 01, the two configs on this page (mvis cam, MVIS 0.2.0, run
+2026-11-19):
 
 | T265 left | T265 right | ELP left | ELP right |
 Model | kb4 | kb4 | equidistant | equidistant |
-fx / fy (px) | 284.72 / 284.28 | 284.74 / 284.10 | 427.59 / 426.68 | 424.43 / 423.48 |
-cx / cy (px) | 415.10 / 403.51 | 414.73 / 397.89 | 350.05 / 267.38 | 336.26 / 258.51 |
-Rolling-shutter readout | — | — | 14.61 ms | 14.59 ms |
-Median / P95 reprojection (px) | 0.18 / 0.63 | 0.17 / 0.62 | 0.28 / 0.96 | 0.30 / 0.97 |
+fx / fy (px) | 285.00 / 284.57 | 285.03 / 284.40 | 427.83 / 426.94 | 424.66 / 423.73 |
+cx / cy (px) | 415.20 / 403.55 | 414.81 / 397.89 | 350.11 / 267.37 | 336.31 / 258.58 |
+Rolling-shutter readout | — | — | 14.62 ms | 14.61 ms |
+Median / P95 reprojection (px) | 0.18 / 0.65 | 0.17 / 0.64 | 0.28 / 0.95 | 0.30 / 0.97 |
 
 Pair | Baseline | Translation (mm) | Rotation, log(R) (rad) |
-T265 right in T265 left | 63.71 mm | 63.71, −0.59, −0.51 | 0.0024, 0.0063, 0.0010 |
-ELP right in ELP left | 59.44 mm | 59.43, 0.68, −0.09 | −0.0216, −0.0135, −0.0027 |
+T265 right in T265 left | 63.71 mm | 63.70, −0.59, −0.52 | 0.0025, 0.0063, 0.0010 |
+ELP right in ELP left | 59.44 mm | 59.44, 0.70, −0.09 | −0.0217, −0.0136, −0.0027 |
 
 - Reprojection error: the pixel gap between the detected corners and where
 the solved model puts them.
 
-- Board shape: both runs find a similar board: 8.8 mm (T265) and 9.0 mm
-(ELP) peak to peak, 2.1 and 2.0 mm RMS.
+- Board shape: both runs find a similar board, all 144 corners: 8.7 mm (T265)
+and 9.5 mm (ELP) peak to peak, 2.1 mm RMS in both.
 
-- Run time: 23 min (T265) and 18 min (ELP) in our run. Each run had 4 CPU
-cores and one thread for the linear-algebra libraries, on a machine under
-heavy load, so expect less on your machine. AprilTag detection took 14 min of
-the T265 run; the solve took 8 min.
+- Run time: 29 min (T265) and 27 min (ELP) in our run. Each run had 4 CPU
+cores and one thread for the linear-algebra libraries; four guide jobs ran side
+by side on one machine. AprilTag detection took 12 min of the T265 run and the
+solve 15 min; the ELP solve took 22 min. With the default two_anti the
+solve takes about half as long (Speed).
 
 - The reports of both runs are in Read the report.
 
@@ -1835,8 +1837,8 @@ board the flat assumption shifts the focal length (why).
 
 - Repeatable: the MVIS baseline moves by about 0.04 mm between recordings.
 
-- Recording 01 is low: its fisheye 1 fx (284.72 px) is the lowest of the 15 MVIS runs, about 1.8 px below
-the median. Basalt also gives its lowest fx on recording 01 (282.85 px), and Kalibr its second lowest. The low
+- Recording 01 is low: in these benchmark runs its fisheye 1 fx (284.74 px) is the lowest of the 15 MVIS
+runs, about 1.8 px below the median; the run on this page gives 285.00 px. Basalt also gives its lowest fx on recording 01 (282.85 px), and Kalibr its second lowest. The low
 value comes from the recording, not the settings.
 
 ## 5. Write the ELP config
@@ -1906,7 +1908,7 @@ t265_cam.yaml
 corner_subsample : two_anti # two_anti | two_diag | all | top_left
 
 - two_anti (default): 2 corners per tag, top-left and bottom-right. About half the solve
-time of all (all takes about 1.8×: 12 against 22 min on an ELP stereo recording with board_points on); cx and cy stay within about 0.1 px. With two or more
+time of all (all takes about 1.8×: 12 against 22 min on an ELP stereo recording with board_points on); cx and cy stay within about 0.1 px. This page uses all for the full board shape. With two or more
 cameras, the joint solve (stage 4) adds the other diagonal on frames that see at
 least 35 of the 36 tags, so every corner gets a board height (“144 of 144” in the
 report), but those corners have few views (22 frames on the ELP pair here). A
@@ -1939,14 +1941,18 @@ MVIS writes:
 
 The report has these sections:
 
-- Summary: cameras, frames, corner count, median and P95 reprojection error.
+- Summary: median and P95 reprojection error, cameras, frames and corner
+count, a per-camera error table, and Calibration parameters by sensor: one
+folded block per camera with its model, intrinsics, readout, pose in the
+reference camera (log(R) in rad), error, and a YAML snippet to copy.
 
 - Camera Intrinsics: focal length, image centre and distortion per camera.
 For kb4 it also shows the valid domain: the angle where the lens model
 folds back, and whether that fold lies inside the image. Its Corner
 Accounting table gives, per camera, how many corners were used, how many
 fell past the fold or out of the model’s domain, and how many were dropped as
-outliers. Only used corners count in the error figures.
+outliers; the full table is folded below it. Only used corners count in the
+error figures.
 
 - Board Shape: shown when estimate.board_points is on. Each corner’s
 height off the flat board, as a table and a map. The tilt of the board
@@ -1961,17 +1967,17 @@ with the rotation as log(R) in rad, and a 3D view of the rig.
 - Calibration Process: the solved camera path around the board, as a
 player.
 
-- Reprojection Errors: per camera, by frame, by tag and over the image.
+- Reprojection Error Analysis: per camera, by frame, by tag and over the image.
 
-- Data Quality (folded): the motion-excitation table and grade, and the
-feature coverage of each image.
+- Calibration Data Quality (folded): the motion-excitation table and grade,
+and the feature coverage of each image.
 
 - Detection Statistics: sample frames with the detected corners.
 
-- Pipeline Timing, Result Files, Configuration: where the time went, the
-files the run wrote, and the config it read.
+- Appendix A–C: where the time went (stage timings folded), the files the
+run wrote, and the config it read.
 
-- Appendix B (folded): per-frame, per-tag error heatmaps.
+- Appendix D (folded): per-frame, per-tag error heatmaps, one tab per camera.
 
 Check the motion-excitation grade before the reprojection error. It says
 how well your motion constrained each parameter: depth range for focal length,
@@ -1989,7 +1995,7 @@ them, except that local folder names are cut down to file names:
 
 Open full screen (HTML, 10.5 MB)
 
-Open full screen (HTML, 12.1 MB)
+Open full screen (HTML, 11.9 MB)
 
 ## What the pipeline does
 
@@ -2166,8 +2172,6 @@ solve :
 
 max_iterations : 40
 
-corner_subsample : two_anti
-
 estimate_t_ga : true
 
 sigma_t_ga : 0.01
@@ -2218,7 +2222,7 @@ What the highlighted lines do:
 
 - board.heights_file + estimate.board_points: true: solve the board shape too, starting from a measured shape. board_shape_4imus_4cams.yaml ships with MVIS in examples/regression/mvis_elp/. Our board is not flat; a flat solve shifts the gyro scale and the lever arm (why).
 
-- solve.corner_subsample: two_anti: use two opposite corners of each tag (top-left and bottom-right). Our config sets it for speed. The cam-IMU default is all (every corner).
+- solve.corner_subsample: not set, so every corner of every tag enters the solve (the cam-IMU default, all). two_anti (two opposite corners per tag) is faster, but the board shape then gets only 72 of the 144 corners.
 
 - solve.estimate_t_ga: true, sigma_t_ga: 0.01: solve t_ga for each IMU. Keep this on (why).
 
@@ -2276,11 +2280,11 @@ mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 
 - Other bag: --bag <file> replaces the config’s source with that ROS1 bag.
 
-- Time: 22 min in our run (MVIS 0.1.0, 2026-11-12), on 16 CPU cores with
-one thread for the linear-algebra libraries, on a machine under heavy load.
-Expect less on your machine. About 12 min of that is AprilTag detection on
-the four cameras; the solve stages take about 11 min, of which the 6
-iterations take about 7 min (solve_s in the report’s Timing section).
+- Time: 24 min in our run (MVIS 0.2.0, 2026-11-19), on 16 CPU cores with
+one thread for the linear-algebra libraries, with other jobs on the machine.
+About 11 min of that is AprilTag detection on the four cameras; the solve
+stages take about 13 min, of which the 6 iterations take about 9 min
+(solve_s in the report’s Appendix, Timing).
 
 - Output: in the folder of output.path:
 
@@ -2328,38 +2332,42 @@ how well the motion constrains the lever arms and td.
 - Base IMU, Aux IMUs, IMU Residuals: biases and their drift, Dw, Da,
 Tg and t_ga of each IMU; each aux IMU’s pose and td relative to the
 base IMU. The block is titled “IMU intrinsics (full)” whatever level you
-solve; with dw_da, as here, Tg stays at zero.
+solve; with dw_da, as here, Tg stays at zero. With the calyx model the
+report also splits Dw as R · U: a misalignment rotation R (as log(R)) times
+U, the per-axis scale and cross-coupling. IMU Residuals gives the residuals per
+state block (rotation, position, velocity, bias steps).
 
-- Timing, Result files, Configuration: where the time went, the files the
-run wrote, and the config it read.
+- Appendix (folded): Timing, the files the run wrote, and the config it read.
 
 This is the report of the recording 01 run, unchanged except that local folder
 names are cut down to file names:
 
-Open the report full screen (HTML, 12.8 MB).
+Open the report full screen (HTML, 13.3 MB).
 
 Fit and geometry:
 
 Value | Recording 01 |
-Reprojection median, all cameras | 0.25 px (rms 0.52, p95 0.68) |
+Reprojection median, all cameras | 0.24 px (rms 0.51, p95 0.68) |
 cam0–cam1 baseline (T265 pair) | 63.7 mm |
-cam0 td | −5.41 ms |
-cam0 lever arm | 130.8 mm |
-Board shape | 9.0 mm peak to peak, 2.2 mm RMS (72 of 144 corners seen) |
+cam0 td | −5.40 ms |
+cam0 lever arm | 130.9 mm |
+Board shape | 9.2 mm peak to peak, 2.2 mm RMS (144 of 144 corners seen) |
 
 - cam0: T265 left. cam1 is T265 right, cam2 and cam3 are ELP left and right.
 
-- 72 of 144 corners: with two_anti, only two corners of each tag enter
-the solve. The other heights stay at the measured shape from heights_file.
+- 144 of 144 corners: every corner enters the solve, so every height is
+solved. With two_anti, the other 72 would stay at the measured shape from
+heights_file.
 
 - Reprojection shows how well the model fits the corners. It does not show
 how accurate the model is.
 
-Base IMU (Xsens) intrinsics, diagonal terms:
+Base IMU (Xsens) intrinsics, the diagonal of the full Dw and Da matrices
+(the report’s “IMU intrinsics (full)”; Dw_diag and Da_diag in cam_imu.json):
 
 | x | y | z |
-Dw (gyro) | 0.99813 | 0.99768 | 1.00090 |
-Da (accel) | 0.99994 | 0.99642 | 1.00124 |
+Dw (gyro) | 0.99825 | 0.99781 | 1.00051 |
+Da (accel) | 1.00003 | 0.99665 | 1.00124 |
 
 t_ga per IMU:
 
@@ -3299,19 +3307,19 @@ digital-twin check.
 
 ## 4. Results on the running example
 
-The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-10 with MVIS main bcd584f, just before the 0.1.0 release.
+The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-19 with MVIS 0.2.0.
 Result: PASS. All 16 IMU checks (4 per IMU) and all 5 geometry checks (4 levers, 1 baseline) pass.
 
 IMUs: what calibration A measured collapses. A ran on the raw bag, B on the corrected bag. A right
 calibration leaves nothing for B to find.
 
 Check | Calibration | Xsens (base) | GX3-25 | GX3-35 | T265 IMU | Pass if |
-Gyroscope scale Dw: worst axis off 1 | A | 0.23 % | 0.27 % | 0.14 % | 0.37 % | |
+Gyroscope scale Dw: worst axis off 1 | A | 0.22 % | 0.23 % | 0.13 % | 0.33 % | |
 | B | 0.00 % | 0.00 % | 0.00 % | 0.00 % | < 1 % |
-Accelerometer scale Da: worst axis off 1 | A | 0.36 % | 0.46 % | 0.51 % | 2.05 % | |
+Accelerometer scale Da: worst axis off 1 | A | 0.33 % | 0.44 % | 0.49 % | 2.06 % | |
 | B | 0.01 % | 0.00 % | 0.00 % | 0.00 % | < 1 % |
-Largest bias (m/s²) | A | 0.036 | 0.093 | 0.064 | 0.161 | |
-| B | 0.002 | 0.0002 | 0.0003 | 0.002 | < 0.02 |
+Largest bias (m/s²) | A | 0.032 | 0.089 | 0.065 | 0.164 | |
+| B | 0.002 | 0.0003 | 0.0004 | 0.002 | < 0.02 |
 t_ga (ms) | A | −0.82 | +0.10 | +0.01 | −6.74 | |
 | B | +0.30 | 0.00 | 0.01 | 0.00 | warn-only, near 0 |
 td to base (ms) | A | — | −0.69 | −2.07 | −7.17 | |
@@ -3323,33 +3331,33 @@ gone in B. The base Xsens keeps +0.30 ms of t_ga, well under 2 ms.
 Full scale diagonals (x, y, z)
 
 IMU | Dw, A | Dw, B | Da, A | Da, B |
-Xsens (base) | 0.9981, 0.9977, 1.0009 | 1.0000, 1.0000, 1.0000 | 0.9999, 0.9964, 1.0013 | 0.9999, 1.0001, 1.0000 |
-GX3-25 | 0.9999, 0.9998, 1.0027 | 1.0000, 1.0000, 1.0000 | 0.9954, 1.0011, 1.0008 | 1.0000, 1.0000, 1.0000 |
-GX3-35 | 0.9990, 0.9986, 1.0009 | 1.0000, 1.0000, 1.0000 | 0.9949, 1.0004, 1.0006 | 1.0000, 1.0000, 1.0000 |
-T265 IMU | 0.9967, 1.0037, 1.0028 | 1.0000, 1.0000, 1.0000 | 1.0205, 1.0204, 1.0123 | 1.0000, 1.0000, 1.0000 |
+Xsens (base) | 0.9982, 0.9978, 1.0005 | 1.0000, 1.0000, 1.0000 | 1.0000, 0.9966, 1.0012 | 0.9999, 1.0001, 1.0000 |
+GX3-25 | 1.0001, 0.9999, 1.0023 | 1.0000, 1.0000, 1.0000 | 0.9956, 1.0012, 1.0008 | 1.0000, 1.0000, 1.0000 |
+GX3-35 | 0.9991, 0.9987, 1.0005 | 1.0000, 1.0000, 1.0000 | 0.9951, 1.0005, 1.0006 | 1.0000, 1.0000, 1.0000 |
+T265 IMU | 0.9968, 1.0033, 1.0029 | 1.0000, 1.0000, 1.0000 | 1.0206, 1.0204, 1.0125 | 1.0000, 1.0000, 1.0000 |
 
 Cameras: the geometry stays. apply-calib does not touch the lever arms, rotations and intrinsics that A
 found, so B should find them again. Only the lever rows and the T265 baseline are graded; the other rows are
 shown for reference.
 
 Check | Calibration | T265 left | T265 right | ELP left | ELP right | Pass if |
-Lever arm to base (mm) | A | 130.82 | 112.24 | 145.12 | 185.95 | |
-| B | 130.90 | 112.33 | 145.16 | 185.98 | |
-Lever change (mm) | A → B | 0.09 | 0.09 | 0.08 | 0.06 | ≤ 2 mm |
-Rotation change (mrad) | A → B | 0.08 | 0.11 | 0.12 | 0.11 | |
-td (ms) | A | −5.41 | −7.47 | −123.25 | −123.30 | |
+Lever arm to base (mm) | A | 130.85 | 112.17 | 144.96 | 185.79 | |
+| B | 130.94 | 112.24 | 145.02 | 185.81 | |
+Lever change (mm) | A → B | 0.09 | 0.08 | 0.08 | 0.06 | ≤ 2 mm |
+Rotation change (mrad) | A → B | 0.06 | 0.09 | 0.11 | 0.11 | |
+td (ms) | A | −5.40 | −7.46 | −123.25 | −123.31 | |
 | B | 0.00 | 0.00 | 0.00 | 0.00 | warn-only, near 0 |
-fx (px) | A | 286.54 | 286.51 | 426.90 | 423.58 | |
-| B | 286.53 | 286.50 | 426.89 | 423.58 | |
-fy (px) | A | 286.34 | 286.08 | 426.45 | 423.10 | |
-| B | 286.33 | 286.08 | 426.45 | 423.11 | |
+fx (px) | A | 286.61 | 286.61 | 426.98 | 423.69 | |
+| B | 286.61 | 286.60 | 426.98 | 423.69 | |
+fy (px) | A | 286.38 | 286.14 | 426.49 | 423.17 | |
+| B | 286.37 | 286.13 | 426.49 | 423.18 | |
 
 Stereo baseline | A | B | Pass if |
 T265 pair (cam0–cam1, graded) | 63.69 mm | 63.69 mm | moves ≤ 2 mm |
-ELP pair (shown only) | 59.39 mm | 59.40 mm | |
+ELP pair (shown only) | 59.40 mm | 59.39 mm | |
 
-- Geometry: every camera moves by under 0.1 mm and turns by under 0.13 mrad; fx and fy move by under
-0.01 px. The reprojection error stays at 0.52 px RMS.
+- Geometry: every camera moves by under 0.1 mm and turns by under 0.12 mrad; fx and fy move by under
+0.01 px. The reprojection error stays at 0.51 px RMS.
 
 - Camera td: it collapses with the IMU terms. It is a timing term that A measured and apply-calib
 removed.
@@ -3359,7 +3367,7 @@ removed.
 The check list as mvis roundtrip prints it: report.txt.
 The report of calibration B, as MVIS wrote it except for local folder names:
 
-Open full screen (HTML, 11.6 MB). The report
+Open full screen (HTML, 16.2 MB). The report
 of calibration A is the one in step 4.
 
 ## Export a corrected dataset
