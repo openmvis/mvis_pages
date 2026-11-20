@@ -4,7 +4,7 @@
    "slug": "intel-t265",
    "title": "Intel RealSense T265",
    "name": "T265",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/intel-t265/",
    "cameras": [
     {
@@ -13,7 +13,8 @@
      "via": "Vision Systems Design, 2019",
      "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
      "count": 2,
-     "src": "Teardown"
+     "src": "Teardown",
+     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -23,7 +24,8 @@
      "via": "RealSense IMU article",
      "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
     }
    ]
   },
@@ -31,7 +33,7 @@
    "slug": "realsense-d455",
    "title": "RealSense D455",
    "name": "D455",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/realsense-d455/",
    "cameras": [
     {
@@ -41,7 +43,8 @@
      "via": "D400 datasheet, Mar 2026",
      "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
      "count": 3,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"D400 datasheet, Mar 2026 · IR pair + RGB\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9782</span> <span class=x>×3</span></span></span>"
     }
    ],
    "imus": [
@@ -52,7 +55,8 @@
      "via": "D400 datasheet",
      "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"D400 datasheet · by production revision\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055 / BMI085</span></span></span>"
     }
    ]
   },
@@ -60,7 +64,7 @@
    "slug": "realsense-d456",
    "title": "RealSense D456",
    "name": "D456",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/realsense-d456/",
    "cameras": [
     {
@@ -70,7 +74,8 @@
      "via": "D400 datasheet, Mar 2026",
      "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
      "count": 3,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"D400 datasheet, Mar 2026 · IR pair + RGB\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9782</span> <span class=x>×3</span></span></span>"
     }
    ],
    "imus": [
@@ -80,7 +85,8 @@
      "via": "D400 datasheet",
      "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"D400 datasheet\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI085</span></span></span>"
     }
    ]
   },
@@ -88,7 +94,7 @@
    "slug": "realsense-d435i",
    "title": "RealSense D435i",
    "name": "D435i",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/realsense-d435i/",
    "cameras": [
     {
@@ -98,7 +104,8 @@
      "via": "D400 datasheet, Mar 2026",
      "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"D400 datasheet, Mar 2026 · RGB, rolling shutter\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV2740</span></span></span>"
     }
    ],
    "imus": [
@@ -109,7 +116,8 @@
      "via": "D400 datasheet",
      "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"D400 datasheet · by production revision\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055 / BMI085</span></span></span>"
     }
    ],
    "uncalibrated": [
@@ -120,7 +128,8 @@
      "via": "D400 datasheet, Mar 2026",
      "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
      "count": 2,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"D400 datasheet, Mar 2026 · IR pair, not yet calibrated\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     }
    ]
   },
@@ -128,7 +137,7 @@
    "slug": "robobaton-neo",
    "title": "RoboBaton Neo",
    "name": "Neo",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/robobaton-neo/",
    "cameras": [
     {
@@ -136,7 +145,8 @@
      "part": "SC132GS",
      "via": "maker's device-config file, no public link",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"maker&#x27;s device-config file, no public link\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC132GS</span></span></span>"
     }
    ],
    "imus": [
@@ -146,7 +156,8 @@
      "via": "RoboBaton Neo docs",
      "url": "https://hessian-matrix.github.io/RoboBaton_Neo_docs/",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"RoboBaton Neo docs\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-42670-P</span></span></span>"
     }
    ]
   },
@@ -154,16 +165,23 @@
    "slug": "zed2",
    "title": "Stereolabs ZED 2",
    "name": "ZED 2",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/zed2/",
    "cameras": [
     {
-     "count": 2
+     "maker": "OmniVision",
+     "part": "OV4689",
+     "via": "Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)",
+     "url": "https://github.com/stereolabs/zed-open-capture/blob/master/src/videocapture.cpp",
+     "count": 2,
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV4689</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
     }
    ]
   },
@@ -171,7 +189,7 @@
    "slug": "looper-insight9",
    "title": "LooperRobotics Insight 9",
    "name": "Insight 9",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/looper-insight9/",
    "cameras": [
     {
@@ -181,7 +199,8 @@
      "via": "Insight 9 product page",
      "url": "https://looper-robotics.com/home/product/insight-9/",
      "count": 2,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Insight 9 product page · mono, global shutter\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC132GS</span> <span class=x>×2</span></span></span>"
     },
     {
      "maker": "Sony",
@@ -190,7 +209,8 @@
      "via": "Insight 9 product page",
      "url": "https://looper-robotics.com/home/product/insight-9/",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Insight 9 product page · colour, rolling shutter\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>Sony</b> <span class=p>IMX415</span></span></span>"
     }
    ],
    "imus": [
@@ -200,7 +220,8 @@
      "via": "Insight 9 product page",
      "url": "https://looper-robotics.com/home/product/insight-9/",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"Insight 9 product page\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI088</span></span></span>"
     }
    ]
   },
@@ -208,7 +229,7 @@
    "slug": "dibuli-prism-a4l",
    "title": "Dibuli Prism-A4L",
    "name": "Prism-A4L",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/dibuli-prism-a4l/",
    "cameras": [
     {
@@ -217,7 +238,8 @@
      "via": "Prism docs",
      "url": "https://dibuli.com/content/docs/en/prism.md",
      "count": 4,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Prism docs\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC130GS</span> <span class=x>×4</span></span></span>"
     }
    ],
    "imus": [
@@ -228,7 +250,8 @@
      "via": "Prism docs",
      "url": "https://dibuli.com/content/docs/en/prism.md",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"Prism docs · maker default; ICM-42688 by configuration\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-45686</span></span></span>"
     }
    ]
   },
@@ -236,11 +259,12 @@
    "slug": "alg-avs111c",
    "title": "ALG AVS111C-Y stereo module",
    "name": "AVS111C-Y stereo",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/alg-avs111c/",
    "cameras": [
     {
-     "count": 2
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -249,7 +273,8 @@
      "part": "ICM-45686",
      "via": "ALG datasheet and message, no public link",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"ALG datasheet and message, no public link\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-45686</span></span></span>"
     }
    ]
   },
@@ -257,11 +282,12 @@
    "slug": "alg-avs115d",
    "title": "ALG AVS115D-Y stereo module",
    "name": "AVS115D-Y stereo",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/alg-avs115d/",
    "cameras": [
     {
-     "count": 2
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -270,7 +296,8 @@
      "part": "ICM-45686",
      "via": "named by ALG, no public link",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"named by ALG, no public link\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-45686</span></span></span>"
     }
    ]
   },
@@ -278,7 +305,7 @@
    "slug": "cyperstereo",
    "title": "CyperStereo four-camera module",
    "name": "CyperStereo",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/cyperstereo/",
    "cameras": [
     {
@@ -286,7 +313,8 @@
      "part": "SC136HGS",
      "via": "maker's product manual, no public link",
      "count": 4,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"maker&#x27;s product manual, no public link\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC136HGS</span> <span class=x>×4</span></span></span>"
     }
    ],
    "imus": [
@@ -295,7 +323,8 @@
      "part": "BMI088",
      "via": "maker's product manual, no public link",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"maker&#x27;s product manual, no public link\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI088</span></span></span>"
     }
    ]
   },
@@ -303,16 +332,24 @@
    "slug": "hampo",
    "title": "Hampo stereo module",
    "name": "Stereo module",
-   "group": "cameras",
+   "group": "Tracking modules",
    "href": "/devices/hampo/",
    "cameras": [
     {
-     "count": 2
+     "maker": "SmartSens",
+     "part": "SC235HGS",
+     "note": "the closest published model; our unit is not confirmed to be a 3372",
+     "via": "Hampo listing for the 3372",
+     "url": "https://hampotech.en.made-in-china.com/product/EzSYVaWDufhm/China-Hampo-Head-Worn-USB-Stereo-EGO-Camera-Global-Shutter-Dual-Lens-Microsecond-Imu-Sync-Robot-Learning-Vio-Slam-Research-3840X1080.html",
+     "count": 2,
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Hampo listing for the 3372 · the closest published model; our unit is not confirmed to be a 3372\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC235HGS</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
     }
    ]
   },
@@ -320,16 +357,24 @@
    "slug": "gi-ego1",
    "title": "GI Ego1",
    "name": "GI Ego1",
-   "group": "head-worn",
+   "group": "Head-worn cameras",
    "href": "/devices/gi-ego1/",
    "cameras": [
     {
-     "count": 2
+     "maker": "SmartSens",
+     "part": "SC3336",
+     "note": "read from firmware 0.1.2; our recording ran firmware 1.0.x",
+     "via": "device tree in GI's public firmware ego-v0.1.2",
+     "url": "https://github.com/General-Intelligence-Labs/device-firmware/releases/tag/ego-v0.1.2-ef54e1f",
+     "count": 2,
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"device tree in GI&#x27;s public firmware ego-v0.1.2 · read from firmware 0.1.2; our recording ran firmware 1.0.x\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC3336</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
     }
    ]
   },
@@ -337,16 +382,18 @@
    "slug": "gi-ego1gs",
    "title": "GI EGO1GS",
    "name": "GI EGO1GS",
-   "group": "head-worn",
+   "group": "Head-worn cameras",
    "href": "/devices/gi-ego1gs/",
    "cameras": [
     {
-     "count": 2
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
     }
    ]
   },
@@ -354,16 +401,18 @@
    "slug": "xq20",
    "title": "XQ20 stereo headset",
    "name": "XQ20 stereo headset",
-   "group": "head-worn",
+   "group": "Head-worn cameras",
    "href": "/devices/xq20/",
    "cameras": [
     {
-     "count": 2
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
     }
    ]
   },
@@ -371,11 +420,12 @@
    "slug": "valve-index",
    "title": "Valve Index",
    "name": "Index",
-   "group": "vr",
+   "group": "VR headsets",
    "href": "/devices/valve-index/",
    "cameras": [
     {
-     "count": 2
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -385,7 +435,8 @@
      "via": "iFixit chip ID",
      "url": "https://www.ifixit.com/Guide/Valve+Index+Chip+ID/155948",
      "count": 1,
-     "src": "Teardown"
+     "src": "Teardown",
+     "html": "<span class=\"cl imu\" title=\"iFixit chip ID\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
     }
    ]
   },
@@ -393,16 +444,23 @@
    "slug": "hp-reverb-g2",
    "title": "HP Reverb G2",
    "name": "Reverb G2",
-   "group": "vr",
+   "group": "VR headsets",
    "href": "/devices/hp-reverb-g2/",
    "cameras": [
     {
-     "count": 4
+     "count": 4,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×4</span></span></span>"
     }
    ],
    "imus": [
     {
-     "count": 1
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
+     "via": "headset calibration file in the dataset",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras",
+     "count": 1,
+     "src": "Dataset",
+     "html": "<span class=\"cl imu\" title=\"headset calibration file in the dataset\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
     }
    ]
   },
@@ -410,7 +468,7 @@
    "slug": "samsung-odyssey-plus",
    "title": "Samsung Odyssey+",
    "name": "Odyssey+",
-   "group": "vr",
+   "group": "VR headsets",
    "href": "/devices/samsung-odyssey-plus/",
    "cameras": [
     {
@@ -419,7 +477,8 @@
      "via": "Monado dataset authors",
      "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
      "count": 2,
-     "src": "Dataset"
+     "src": "Dataset",
+     "html": "<span class=\"cl cam\" title=\"Monado dataset authors\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV7251</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -429,7 +488,8 @@
      "via": "headset calibration file in the dataset",
      "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
      "count": 1,
-     "src": "Dataset"
+     "src": "Dataset",
+     "html": "<span class=\"cl imu\" title=\"headset calibration file in the dataset\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
     }
    ]
   },
@@ -437,16 +497,18 @@
    "slug": "insta360-one-rs-1inch-360",
    "title": "Insta360 ONE RS 1-Inch 360 Edition",
    "name": "ONE RS 1-Inch 360",
-   "group": "panoramic",
+   "group": "360° cameras",
    "href": "/devices/insta360-one-rs-1inch-360/",
    "cameras": [
     {
-     "count": 2
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
     }
    ]
   }
@@ -454,7 +516,7 @@
  "datasets": [
   {
    "slug": "virig-4imus-3cams",
-   "label": "VI-Rig 4 IMUs + 3 cams",
+   "name": "VI-Rig 4 IMUs + 3 cams",
    "ours": true,
    "href": "/benchmark/results/virig-4imus-3cams/",
    "cameras": [
@@ -465,7 +527,8 @@
      "via": "FLIR spec page",
      "url": "https://softwareservices.flir.com/BFS-U3-16S2/latest/Model/spec.html",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"FLIR spec page\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>Sony</b> <span class=p>IMX273</span></span></span>"
     },
     {
      "maker": "OmniVision",
@@ -474,24 +537,28 @@
      "via": "Vision Systems Design, 2019",
      "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
      "count": 2,
-     "src": "Teardown"
+     "src": "Teardown",
+     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
      "module": "Xsens MTi-100",
      "device": "VI-Rig",
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Xsens MTi-100</b></span><span class=cl-chip>chip not known</span></span>"
     },
     {
      "module": "MicroStrain 3DM-GX3-25",
      "device": "VI-Rig",
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>MicroStrain 3DM-GX3-25</b></span><span class=cl-chip>chip not known</span></span>"
     },
     {
      "module": "MicroStrain 3DM-GX3-35",
      "device": "VI-Rig",
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>MicroStrain 3DM-GX3-35</b></span><span class=cl-chip>chip not known</span></span>"
     },
     {
      "maker": "Bosch",
@@ -500,13 +567,14 @@
      "via": "RealSense IMU article",
      "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
     }
    ]
   },
   {
    "slug": "virig-4imus-4cams",
-   "label": "VI-Rig 4 IMUs + 4 cams",
+   "name": "VI-Rig 4 IMUs + 4 cams",
    "ours": true,
    "href": "/benchmark/results/virig-4imus-4cams/",
    "cameras": [
@@ -517,13 +585,19 @@
      "via": "Vision Systems Design, 2019",
      "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
      "count": 2,
-     "src": "Teardown"
+     "src": "Teardown",
+     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     },
     {
-     "module": "ELP-960P2CAM-V90-VC",
-     "note": "model from the MVIS paper (Yang et al., IJRR 2023)",
+     "maker": "OmniVision",
+     "part": "OV9750",
+     "note": "module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)",
      "device": "ELP stereo, rolling shutter",
-     "count": 2
+     "via": "ELP page for the USB960P2CAM-V90",
+     "url": "https://www.elpcctv.com/13mp-960p-usb20-dual-lens-usb-camera-module-synchronization-camera-for-3d-depth-detection-p-126.html",
+     "count": 2,
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"ELP page for the USB960P2CAM-V90 · module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9750</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -534,18 +608,20 @@
      "via": "RealSense IMU article",
      "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
     },
     {
      "module": "Xsens MTi-100",
      "device": "VI-Rig",
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Xsens MTi-100</b></span><span class=cl-chip>chip not known</span></span>"
     }
    ]
   },
   {
    "slug": "virig-5imus-4cams",
-   "label": "VI-Rig 5 IMUs + 4 cams",
+   "name": "VI-Rig 5 IMUs + 4 cams",
    "ours": true,
    "href": "/benchmark/results/virig-5imus-4cams/",
    "cameras": [
@@ -556,24 +632,28 @@
      "via": "Vision Systems Design, 2019",
      "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
      "count": 4,
-     "src": "Teardown"
+     "src": "Teardown",
+     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×4</span></span></span>"
     }
    ],
    "imus": [
     {
      "module": "Xsens MTi-100",
      "device": "VI-Rig",
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Xsens MTi-100</b></span><span class=cl-chip>chip not known</span></span>"
     },
     {
      "module": "MicroStrain 3DM-GX3-25",
      "device": "VI-Rig",
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>MicroStrain 3DM-GX3-25</b></span><span class=cl-chip>chip not known</span></span>"
     },
     {
      "module": "MicroStrain 3DM-GX3-35",
      "device": "VI-Rig",
-     "count": 1
+     "count": 1,
+     "html": "<span class=\"cl imu mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>MicroStrain 3DM-GX3-35</b></span><span class=cl-chip>chip not known</span></span>"
     },
     {
      "maker": "Bosch",
@@ -582,20 +662,26 @@
      "via": "RealSense IMU article",
      "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
      "count": 2,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span> <span class=x>×2</span></span></span>"
     }
    ]
   },
   {
    "slug": "tum-vi",
-   "label": "TUM-VI",
+   "name": "TUM-VI",
    "ours": false,
    "href": "/benchmark/results/tum-vi/",
    "cameras": [
     {
-     "module": "IDS uEye UI-3241LE-M-GL",
-     "device": "IDS uEye cameras",
-     "count": 2
+     "maker": "e2v",
+     "part": "EV76C560ABT",
+     "device": "IDS uEye UI-3241LE-M-GL",
+     "via": "IDS product page",
+     "url": "http://web.archive.org/web/20250513095453/https://en.ids-imaging.com/store/ui-3241le.html",
+     "count": 2,
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"IDS product page\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>e2v</b> <span class=p>EV76C560ABT</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -606,13 +692,14 @@
      "via": "TUM-VI paper, Schubert et al. 2018",
      "url": "https://arxiv.org/pdf/1804.06120",
      "count": 1,
-     "src": "Dataset"
+     "src": "Dataset",
+     "html": "<span class=\"cl imu\" title=\"TUM-VI paper, Schubert et al. 2018\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI160</span></span></span>"
     }
    ]
   },
   {
    "slug": "looper-insight9",
-   "label": "Looper Insight 9",
+   "name": "Looper Insight 9",
    "ours": false,
    "href": "/benchmark/results/looper-insight9/",
    "cameras": [
@@ -622,7 +709,8 @@
      "device": "Insight 9",
      "via": "Insight 9 product page",
      "count": 2,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Insight 9 product page\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC132GS</span> <span class=x>×2</span></span></span>"
     },
     {
      "maker": "Sony",
@@ -630,7 +718,8 @@
      "device": "Insight 9",
      "via": "Insight 9 product page",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Insight 9 product page\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>Sony</b> <span class=p>IMX415</span></span></span>"
     }
    ],
    "imus": [
@@ -640,31 +729,39 @@
      "device": "Insight 9",
      "via": "Insight 9 product page",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"Insight 9 product page\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI088</span></span></span>"
     }
    ]
   },
   {
    "slug": "monado-mgc",
-   "label": "Monado MGC",
+   "name": "Monado MGC",
    "ours": false,
    "href": "/benchmark/results/monado-mgc/",
    "cameras": [
     {
      "device": "HP Reverb G2",
-     "count": 2
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
      "device": "HP Reverb G2",
-     "count": 1
+     "via": "headset calibration file in the dataset",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras",
+     "count": 1,
+     "src": "Dataset",
+     "html": "<span class=\"cl imu\" title=\"headset calibration file in the dataset\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
     }
    ]
   },
   {
    "slug": "uzh-fpv",
-   "label": "UZH-FPV",
+   "name": "UZH-FPV",
    "ours": false,
    "href": "/benchmark/results/uzh-fpv/",
    "cameras": [
@@ -675,7 +772,8 @@
      "via": "UZH-FPV paper, Delmerico et al. 2019",
      "url": "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf",
      "count": 1,
-     "src": "Dataset"
+     "src": "Dataset",
+     "html": "<span class=\"cl cam\" title=\"UZH-FPV paper, Delmerico et al. 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>iniVation</b> <span class=p>DAVIS346</span></span></span>"
     },
     {
      "maker": "OmniVision",
@@ -684,7 +782,8 @@
      "via": "UZH-FPV paper, Delmerico et al. 2019",
      "url": "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf",
      "count": 2,
-     "src": "Dataset"
+     "src": "Dataset",
+     "html": "<span class=\"cl cam\" title=\"UZH-FPV paper, Delmerico et al. 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV7251</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -695,7 +794,8 @@
      "via": "iniVation IMU docs",
      "url": "https://docs.inivation.com/hardware/hardware-advanced-usage/imu.html",
      "count": 1,
-     "src": "Maker"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"iniVation IMU docs\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>MPU-6500</span></span></span>"
     },
     {
      "maker": "TDK InvenSense",
@@ -704,7 +804,8 @@
      "via": "ArduPilot docs",
      "url": "https://ardupilot.org/plane/docs/common-qualcomm-snapdragon-flight-kit.html",
      "count": 1,
-     "src": "Teardown"
+     "src": "Teardown",
+     "html": "<span class=\"cl imu\" title=\"ArduPilot docs\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>MPU-9250</span></span></span>"
     }
    ]
   }
@@ -712,20 +813,583 @@
  "counts": {
   "cameras": {
    "total": 45,
-   "not_known": 22,
+   "not_known": 16,
    "by_maker": {
-    "OmniVision": 11,
-    "SmartSens": 11,
+    "OmniVision": 13,
+    "SmartSens": 15,
     "Sony": 1
    }
   },
   "imus": {
    "total": 19,
-   "not_known": 7,
+   "not_known": 6,
    "by_maker": {
     "Bosch": 6,
-    "TDK InvenSense": 6
+    "TDK InvenSense": 7
    }
   }
+ },
+ "makers": [
+  {
+   "kind": "cameras",
+   "maker": "OmniVision",
+   "key": "omnivision",
+   "on_devices": 13,
+   "in_datasets": 12,
+   "parts": [
+    {
+     "part": "OV9282",
+     "tags": [
+      "Teardown"
+     ],
+     "uses": [
+      {
+       "name": "T265",
+       "href": "/devices/intel-t265/",
+       "count": 2,
+       "dataset": false
+      },
+      {
+       "name": "VI-Rig 4 IMUs + 3 cams",
+       "href": "/benchmark/results/virig-4imus-3cams/",
+       "count": 2,
+       "dataset": true
+      },
+      {
+       "name": "VI-Rig 4 IMUs + 4 cams",
+       "href": "/benchmark/results/virig-4imus-4cams/",
+       "count": 2,
+       "dataset": true
+      },
+      {
+       "name": "VI-Rig 5 IMUs + 4 cams",
+       "href": "/benchmark/results/virig-5imus-4cams/",
+       "count": 4,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "OV9782",
+     "tags": [],
+     "uses": [
+      {
+       "name": "D455",
+       "href": "/devices/realsense-d455/",
+       "count": 3,
+       "dataset": false
+      },
+      {
+       "name": "D456",
+       "href": "/devices/realsense-d456/",
+       "count": 3,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "OV2740",
+     "tags": [],
+     "uses": [
+      {
+       "name": "D435i",
+       "href": "/devices/realsense-d435i/",
+       "count": 1,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "OV4689",
+     "tags": [],
+     "uses": [
+      {
+       "name": "ZED 2",
+       "href": "/devices/zed2/",
+       "count": 2,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "OV7251",
+     "tags": [
+      "Dataset"
+     ],
+     "uses": [
+      {
+       "name": "Odyssey+",
+       "href": "/devices/samsung-odyssey-plus/",
+       "count": 2,
+       "dataset": false
+      },
+      {
+       "name": "UZH-FPV",
+       "href": "/benchmark/results/uzh-fpv/",
+       "count": 2,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "OV9750",
+     "tags": [],
+     "uses": [
+      {
+       "name": "VI-Rig 4 IMUs + 4 cams",
+       "href": "/benchmark/results/virig-4imus-4cams/",
+       "count": 2,
+       "dataset": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cameras",
+   "maker": "SmartSens",
+   "key": "smartsens",
+   "on_devices": 15,
+   "in_datasets": 2,
+   "parts": [
+    {
+     "part": "SC132GS",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Neo",
+       "href": "/devices/robobaton-neo/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "Insight 9",
+       "href": "/devices/looper-insight9/",
+       "count": 2,
+       "dataset": false
+      },
+      {
+       "name": "Looper Insight 9",
+       "href": "/benchmark/results/looper-insight9/",
+       "count": 2,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "SC130GS",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Prism-A4L",
+       "href": "/devices/dibuli-prism-a4l/",
+       "count": 4,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "SC136HGS",
+     "tags": [],
+     "uses": [
+      {
+       "name": "CyperStereo",
+       "href": "/devices/cyperstereo/",
+       "count": 4,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "SC235HGS",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Stereo module",
+       "href": "/devices/hampo/",
+       "count": 2,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "SC3336",
+     "tags": [],
+     "uses": [
+      {
+       "name": "GI Ego1",
+       "href": "/devices/gi-ego1/",
+       "count": 2,
+       "dataset": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cameras",
+   "maker": "Sony",
+   "key": "sony",
+   "on_devices": 1,
+   "in_datasets": 2,
+   "parts": [
+    {
+     "part": "IMX415",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Insight 9",
+       "href": "/devices/looper-insight9/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "Looper Insight 9",
+       "href": "/benchmark/results/looper-insight9/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "IMX273",
+     "tags": [],
+     "uses": [
+      {
+       "name": "VI-Rig 4 IMUs + 3 cams",
+       "href": "/benchmark/results/virig-4imus-3cams/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cameras",
+   "maker": "iniVation",
+   "key": "inivation",
+   "on_devices": 0,
+   "in_datasets": 1,
+   "parts": [
+    {
+     "part": "DAVIS346",
+     "tags": [
+      "Dataset"
+     ],
+     "uses": [
+      {
+       "name": "UZH-FPV",
+       "href": "/benchmark/results/uzh-fpv/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cameras",
+   "maker": "e2v",
+   "key": "e2v",
+   "on_devices": 0,
+   "in_datasets": 2,
+   "parts": [
+    {
+     "part": "EV76C560ABT",
+     "tags": [],
+     "uses": [
+      {
+       "name": "TUM-VI",
+       "href": "/benchmark/results/tum-vi/",
+       "count": 2,
+       "dataset": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "imus",
+   "maker": "Bosch",
+   "key": "bosch",
+   "on_devices": 6,
+   "in_datasets": 6,
+   "parts": [
+    {
+     "part": "BMI055",
+     "tags": [],
+     "uses": [
+      {
+       "name": "T265",
+       "href": "/devices/intel-t265/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "VI-Rig 4 IMUs + 3 cams",
+       "href": "/benchmark/results/virig-4imus-3cams/",
+       "count": 1,
+       "dataset": true
+      },
+      {
+       "name": "VI-Rig 4 IMUs + 4 cams",
+       "href": "/benchmark/results/virig-4imus-4cams/",
+       "count": 1,
+       "dataset": true
+      },
+      {
+       "name": "VI-Rig 5 IMUs + 4 cams",
+       "href": "/benchmark/results/virig-5imus-4cams/",
+       "count": 2,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "BMI055 / BMI085",
+     "tags": [],
+     "uses": [
+      {
+       "name": "D455",
+       "href": "/devices/realsense-d455/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "D435i",
+       "href": "/devices/realsense-d435i/",
+       "count": 1,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "BMI085",
+     "tags": [],
+     "uses": [
+      {
+       "name": "D456",
+       "href": "/devices/realsense-d456/",
+       "count": 1,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "BMI088",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Insight 9",
+       "href": "/devices/looper-insight9/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "CyperStereo",
+       "href": "/devices/cyperstereo/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "Looper Insight 9",
+       "href": "/benchmark/results/looper-insight9/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "BMI160",
+     "tags": [
+      "Dataset"
+     ],
+     "uses": [
+      {
+       "name": "TUM-VI",
+       "href": "/benchmark/results/tum-vi/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "imus",
+   "maker": "TDK InvenSense",
+   "key": "tdk-invensense",
+   "on_devices": 7,
+   "in_datasets": 3,
+   "parts": [
+    {
+     "part": "ICM-42670-P",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Neo",
+       "href": "/devices/robobaton-neo/",
+       "count": 1,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "ICM-45686",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Prism-A4L",
+       "href": "/devices/dibuli-prism-a4l/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "AVS111C-Y stereo",
+       "href": "/devices/alg-avs111c/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "AVS115D-Y stereo",
+       "href": "/devices/alg-avs115d/",
+       "count": 1,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "ICM-20602",
+     "tags": [
+      "Teardown",
+      "Dataset"
+     ],
+     "uses": [
+      {
+       "name": "Index",
+       "href": "/devices/valve-index/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "Reverb G2",
+       "href": "/devices/hp-reverb-g2/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "Odyssey+",
+       "href": "/devices/samsung-odyssey-plus/",
+       "count": 1,
+       "dataset": false
+      },
+      {
+       "name": "Monado MGC",
+       "href": "/benchmark/results/monado-mgc/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "MPU-6500",
+     "tags": [],
+     "uses": [
+      {
+       "name": "UZH-FPV",
+       "href": "/benchmark/results/uzh-fpv/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "MPU-9250",
+     "tags": [
+      "Teardown"
+     ],
+     "uses": [
+      {
+       "name": "UZH-FPV",
+       "href": "/benchmark/results/uzh-fpv/",
+       "count": 1,
+       "dataset": true
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "not_known": {
+  "cameras": [
+   {
+    "name": "AVS111C-Y stereo",
+    "href": "/devices/alg-avs111c/",
+    "count": 2
+   },
+   {
+    "name": "AVS115D-Y stereo",
+    "href": "/devices/alg-avs115d/",
+    "count": 2
+   },
+   {
+    "name": "GI EGO1GS",
+    "href": "/devices/gi-ego1gs/",
+    "count": 2
+   },
+   {
+    "name": "XQ20 stereo headset",
+    "href": "/devices/xq20/",
+    "count": 2
+   },
+   {
+    "name": "Index",
+    "href": "/devices/valve-index/",
+    "count": 2
+   },
+   {
+    "name": "Reverb G2",
+    "href": "/devices/hp-reverb-g2/",
+    "count": 4
+   },
+   {
+    "name": "ONE RS 1-Inch 360",
+    "href": "/devices/insta360-one-rs-1inch-360/",
+    "count": 2
+   }
+  ],
+  "imus": [
+   {
+    "name": "ZED 2",
+    "href": "/devices/zed2/",
+    "count": 1
+   },
+   {
+    "name": "Stereo module",
+    "href": "/devices/hampo/",
+    "count": 1
+   },
+   {
+    "name": "GI Ego1",
+    "href": "/devices/gi-ego1/",
+    "count": 1
+   },
+   {
+    "name": "GI EGO1GS",
+    "href": "/devices/gi-ego1gs/",
+    "count": 1
+   },
+   {
+    "name": "XQ20 stereo headset",
+    "href": "/devices/xq20/",
+    "count": 1
+   },
+   {
+    "name": "ONE RS 1-Inch 360",
+    "href": "/devices/insta360-one-rs-1inch-360/",
+    "count": 1
+   }
+  ]
  }
 }

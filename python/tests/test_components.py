@@ -51,7 +51,7 @@ def test_a_chip_named_in_page_text_has_its_label(entry):
 
 
 def test_part_re_finds_the_chips_we_name():
-    text = "OV9282 SC136HGS SC132GS IMX415 BMI055 BMI160 ICM-42670-P ICM-45686 MPU-9250 AR0234"
+    text = "OV9282 OV4689 SC136HGS SC132GS SC235HGS SC3336 EV76C560ABT IMX415 BMI055 BMI160 ICM-42670-P ICM-45686 MPU-9250 AR0234"
     assert C.PART_RE.findall(text) == text.split()
 
 
@@ -78,24 +78,74 @@ def test_block_problems():
 
 
 def test_label_drops_empty_fields_and_shows_the_source_tag():
-    assert C.label({"maker": "Bosch", "part": "BMI088", "src": "report", "via": "iFixit", "note": ""}) == \
-        {"maker": "Bosch", "part": "BMI088", "via": "iFixit", "count": 1, "src": "Teardown"}
-    assert C.label({"module": "Xsens MTi-100", "device": "VI-Rig"}) == {"module": "Xsens MTi-100", "device": "VI-Rig", "count": 1}
-    assert C.label({"count": 2}) == {"count": 2}
+    got = C.label({"maker": "Bosch", "part": "BMI088", "src": "report", "via": "iFixit", "note": ""}, "imus")
+    assert {k: v for k, v in got.items() if k != "html"} == {"maker": "Bosch", "part": "BMI088", "via": "iFixit", "count": 1, "src": "Teardown"}
+    assert got["html"] == C.label_html("imus", {"maker": "Bosch", "part": "BMI088", "src": "report", "via": "iFixit"})
+    assert C.label({"module": "Xsens MTi-100", "device": "VI-Rig"}, "imus").keys() == {"module", "device", "count", "html"}
+    assert C.label({"count": 2}, "cameras")["count"] == 2
 
 
-def test_catalog_counts_devices_only_by_maker_in_list_order():
-    sensors = {"a": {"title": "A", "group": "g", "card": {"name": "A"},
-                     "components": {"cameras": [{"maker": "Sony", "part": "IMX1", "count": 2, "src": "maker", "via": "v"}, {"count": 1}],
-                                    "imus": [{"maker": "Bosch", "part": "BMI088", "src": "maker", "via": "v"}]}},
-               "b": {"title": "B", "group": "g", "card": {},
-                     "components": {"cameras": [{"maker": "OmniVision", "part": "OV1", "src": "maker", "via": "v"}], "imus": [{"module": "Xsens MTi"}]}}}
-    datasets = [{"slug": "s", "label": "S", "components": {"cameras": [{"maker": "Sony", "part": "IMX1", "count": 9, "device": "x", "src": "maker", "via": "v"}],
-                                                           "imus": [{"device": "x"}]}}]
-    cat = C.catalog(sensors, datasets, "/devices/", "/benchmark/results/")
+def test_label_html_named_chip_on_a_card_and_in_a_header():
+    x = {"maker": "OmniVision", "part": "OV9282", "count": 2, "src": "report", "via": "Trade press", "note": "IR pair", "url": "https://x.org/a?b=1&c=2"}
+    card = C.label_html("cameras", x)
+    assert card.startswith('<span class="cl cam" title="Trade press · IR pair"><svg') and "<b>OmniVision</b> <span class=p>OV9282</span>" in card
+    assert "<span class=x>×2</span>" in card and "cl-src" not in card and "<a" not in card   # a card is one link already
+    head = C.label_html("cameras", x, link=True)
+    assert head.endswith('<a class=cl-src href="https://x.org/a?b=1&amp;c=2">Teardown ↗</a></span>')
+    no_url = C.label_html("imus", {"maker": "Bosch", "part": "BMI088", "src": "maker", "via": "Manual, no public link"}, link=True)
+    assert 'class="cl imu"' in no_url and no_url.endswith("<span class=cl-src>Maker</span></span>")
+
+
+def test_label_html_module_unknown_and_escaping():
+    m = C.label_html("imus", {"module": "Xsens MTi-100", "count": 1})
+    assert 'class="cl imu mod"' in m and "<b>Xsens MTi-100</b>" in m and "<span class=cl-chip>chip not known</span>" in m and "×" not in m
+    assert C.label_html("cameras", {"count": 4}).endswith("<span class=t>Camera not known <span class=x>×4</span></span></span>")
+    assert "IMU not known" in C.label_html("imus", {})
+    assert 'class="cl cam"' in C.label_html("uncalibrated", {"maker": "Sony", "part": "IMX1", "src": "maker", "via": "v"})
+    assert "<b>A&lt;b&gt;</b>" in C.label_html("cameras", {"module": "A<b>"})
+
+
+PUB = {"groups": [{"id": "g1", "title": "First"}, {"id": "g2", "title": "Second"}],
+       "sensors": {"b": {"title": "B", "group": "g2", "card": {},
+                         "components": {"cameras": [{"maker": "OmniVision", "part": "OV1", "src": "maker", "via": "v"}], "imus": [{"module": "Xsens MTi"}]}},
+                   "a": {"title": "A", "group": "g1", "card": {"name": "A1"},
+                         "components": {"cameras": [{"maker": "Sony", "part": "IMX1", "count": 2, "src": "report", "via": "v"}, {"count": 1}],
+                                        "imus": [{"maker": "Bosch", "part": "BMI088", "src": "maker", "via": "v"}]}}}}
+SETS = [{"slug": "s", "label": "Set S", "ours": True,
+         "components": {"cameras": [{"maker": "Sony", "part": "IMX1", "count": 9, "device": "x", "src": "dataset", "via": "v"}], "imus": [{"device": "x"}]}}]
+
+
+def test_catalog_counts_devices_only_in_sidebar_group_order():
+    cat = C.catalog(PUB, SETS, "/devices/", "/benchmark/results/")
     assert cat["counts"] == {"cameras": {"total": 4, "not_known": 1, "by_maker": {"OmniVision": 1, "Sony": 2}},
                              "imus": {"total": 2, "not_known": 1, "by_maker": {"Bosch": 1}}}
-    assert [d["href"] for d in cat["devices"]] == ["/devices/a/", "/devices/b/"] and cat["devices"][1]["name"] == "B"
-    assert cat["datasets"][0] == {"slug": "s", "label": "S", "ours": False, "href": "/benchmark/results/s/",
-                                  "cameras": [{"maker": "Sony", "part": "IMX1", "device": "x", "via": "v", "count": 9, "src": "Maker"}],
-                                  "imus": [{"device": "x", "count": 1}]}
+    assert [(d["slug"], d["name"], d["group"], d["href"]) for d in cat["devices"]] == [("a", "A1", "First", "/devices/a/"), ("b", "B", "Second", "/devices/b/")]
+    assert {k: v for k, v in cat["datasets"][0].items() if k not in ("cameras", "imus")} == {"slug": "s", "name": "Set S", "ours": True, "href": "/benchmark/results/s/"}
+
+
+def test_by_maker_lists_parts_devices_first_with_their_source_tags():
+    makers = C.catalog(PUB, SETS, "/devices/", "/r/")["makers"]
+    assert [(m["kind"], m["maker"], m["key"]) for m in makers] == [("cameras", "OmniVision", "omnivision"), ("cameras", "Sony", "sony"), ("imus", "Bosch", "bosch")]
+    sony = makers[1]
+    assert (sony["on_devices"], sony["in_datasets"]) == (2, 9)
+    assert sony["parts"] == [{"part": "IMX1", "tags": ["Teardown", "Dataset"], "uses": [
+        {"name": "A1", "href": "/devices/a/", "count": 2, "dataset": False}, {"name": "Set S", "href": "/r/s/", "count": 9, "dataset": True}]}]
+    assert makers[0]["parts"][0]["tags"] == []   # a maker source needs no tag
+
+
+def test_not_known_lists_devices_only():
+    assert C.catalog(PUB, SETS, "/devices/", "/r/")["not_known"] == {"cameras": [{"name": "A1", "href": "/devices/a/", "count": 1}],
+                                                                       "imus": [{"name": "B", "href": "/devices/b/", "count": 1}]}
+
+
+def test_catalog_refuses_a_sensor_in_no_group():
+    pub = {**PUB, "groups": PUB["groups"][:1]}
+    with pytest.raises(ValueError, match=r"in no group.*\['b'\]"):
+        C.catalog(pub, [], "/devices/", "/r/")
+
+
+def test_committed_catalog_matches_the_plan_totals():
+    """Devices: 45 cameras and 19 IMUs; cameras without a named chip 16, IMUs 6 (2026-11-20, after the chip search)."""
+    pub = yaml.safe_load((DATA / "public_sensors.yaml").read_text(encoding="utf-8"))
+    c = C.catalog(pub, DATASETS, "/devices/", "/r/")["counts"]
+    assert (c["cameras"]["total"], c["cameras"]["not_known"], c["imus"]["total"], c["imus"]["not_known"]) == (45, 16, 19, 6)

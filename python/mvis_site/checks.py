@@ -23,8 +23,11 @@ def routes(docs: Path) -> set[str]:
     return out
 
 
+DEVICE_TOP = ["Overview", "Cameras and IMUs"]   # the Device wiki's own pages, before the sensor-nav.json groups (astro.config.mjs)
+
+
 def sidebar_problems(s: dict, nav: list[dict], results_nav: list[dict] | None = None) -> list[str]:
-    """Top-level sections, Benchmark, and the Device wiki: Overview, then one subgroup per sensor-nav.json group in its
+    """Top-level sections, Benchmark, and the Device wiki: Overview and Cameras and IMUs, then one subgroup per sensor-nav.json group in its
     order, each holding its sensors once. With results_nav, Benchmark › Datasets eval holds one page per results-nav.json entry in its order. s is a measured sidebar
     {sections, children, groups, links, paths}; paths maps "A › B › C" to the labels inside that group."""
     out = []
@@ -39,7 +42,7 @@ def sidebar_problems(s: dict, nav: list[dict], results_nav: list[dict] | None = 
     by_group = {}
     for n in nav:
         by_group.setdefault(n["group"], []).append(n["label"])
-    want = ["Overview", *by_group]
+    want = [*DEVICE_TOP, *by_group]
     if s["children"].get("Device wiki") != want:
         out.append(f"Device wiki holds {s['children'].get('Device wiki')}, want {want}")
     got = s["groups"].get("Device wiki", {})

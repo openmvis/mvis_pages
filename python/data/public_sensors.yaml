@@ -301,12 +301,13 @@ sensors:
     card: {name: "ZED 2", maker: Stereolabs, tags: [Rolling shutter, 2 cameras, 400 Hz IMU]}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
-        - {count: 2}
+        - {maker: OmniVision, part: OV4689, count: 2, src: maker, via: "Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)", url: "https://github.com/stereolabs/zed-open-capture/blob/master/src/videocapture.cpp"}
       imus:
         - {}
     hardware:
       - [Maker, Stereolabs, Maker]
       - [Image sensors, "2 × 4 MP 1/3-inch back-illuminated CMOS, 2 µm pixels", Maker]
+      - [Image sensor chip, "OmniVision OV4689, from the chip ID check in Stereolabs' open-source capture code", Maker]
       - [Shutter, "Rolling, the two cameras synchronised; readout 14.1 ms (left) and 14.0 ms (right) solved here", Maker]
       - [Lenses, "2.1 mm, 110° × 70° (120° diagonal)", Maker]
       - [Baseline, "120 mm", Maker]
@@ -602,7 +603,7 @@ sensors:
     card: {name: "Stereo module", maker: Hampo, tags: [2 cameras, 505 Hz IMU]}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
-        - {count: 2}
+        - {maker: SmartSens, part: SC235HGS, count: 2, src: maker, via: "Hampo listing for the 3372", url: "https://hampotech.en.made-in-china.com/product/EzSYVaWDufhm/China-Hampo-Head-Worn-USB-Stereo-EGO-Camera-Global-Shutter-Dual-Lens-Microsecond-Imu-Sync-Robot-Learning-Vio-Slam-Research-3840X1080.html", note: "the closest published model; our unit is not confirmed to be a 3372"}
       imus:
         - {}
     hardware:
@@ -611,6 +612,7 @@ sensors:
       - [Shutter, "Not confirmed on this unit; global on the USB-3372 sheet", Unknown]
       - [IMU, "505 Hz measured, 500 Hz set", Measured]
       - [Sync, "Both cameras share one frame time in the recorder log", Measured]
+      - [Image sensors, "SmartSens SC235HGS on Hampo's listing for the 3372; not confirmed on this unit", Maker]
     dataset:
       - [Recordings, "1 recording. cam0 107.8 s, 3,235 frames. cam1 stops at 57.6 s, 1,728 frames"]
       - [Format, "Unfinalised MP4s, rebuilt, then converted to EuRoC layout"]
@@ -649,7 +651,7 @@ sensors:
     demo: {from: "gi-ego1-blurred_small", note: "The 3D scene MVIS recovered from this recording. Everything except the board is blurred."}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
-        - {count: 2}
+        - {maker: SmartSens, part: SC3336, count: 2, src: maker, via: "device tree in GI's public firmware ego-v0.1.2", url: "https://github.com/General-Intelligence-Labs/device-firmware/releases/tag/ego-v0.1.2-ef54e1f", note: "read from firmware 0.1.2; our recording ran firmware 1.0.x"}
       imus:
         - {}
     hardware:
@@ -657,7 +659,8 @@ sensors:
       - [Cameras, "2 × 1920×1080 at about 30 fps", Measured]
       - [Field of view, "120° × 72°", Maker]
       - [IMU, "200 Hz, 9-DoF", Maker]
-      - [Sensor part numbers, Not published, Unknown]
+      - [Image sensors, "2 × SmartSens SC3336, from the device tree in GI's public firmware 0.1.2 (this recording ran 1.0.x)", Maker]
+      - [IMU chip, Not published, Unknown]
     dataset:
       - [Recording, "2026-07-17, 30.1 s"]
       - [Format, "MCAP, H.265"]
@@ -856,11 +859,12 @@ sensors:
       cameras:
         - {count: 4}
       imus:
-        - {}
+        - {maker: TDK InvenSense, part: ICM-20602, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras"}
     hardware:
       - [Cameras, "4 × 640×480 grayscale at 30 Hz", Dataset]
       - [IMU, "About 1 kHz", Dataset]
-      - [Sensor part numbers, Not published, Unknown]
+      - [IMU chip, "TDK InvenSense ICM-20602, from the headset calibration file in the dataset", Dataset]
+      - [Camera chips, Not published, Unknown]
     dataset:
       - [Recordings, "Monado MGC round 1: imucalib01, 02 and 13, one for each camera pair"]
       - [Source, "Monado SLAM Datasets, Collabora"]

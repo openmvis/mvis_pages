@@ -146,7 +146,7 @@ def components_json(pub: dict, datasets: list[dict]) -> tuple[str, list[str]]:
     found += [x for d in datasets for x in component_problems(d.get("components"), d["slug"], dataset=True)]
     if found:  # the labels can't be drawn from a bad block
         return "", found
-    cat = catalog(pub["sensors"], datasets, SENSOR_BASE, RESULTS)
+    cat = catalog(pub, datasets, SENSOR_BASE, RESULTS)
     words = json.dumps([{k: v for k, v in r.items() if k != "href"} for r in cat["devices"] + cat["datasets"]], ensure_ascii=False)
     return json.dumps(cat, ensure_ascii=False, indent=1) + "\n", found + [f"components: {x}" for x in public_problems(strip_urls(words))]
 
