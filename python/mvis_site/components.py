@@ -17,7 +17,7 @@ SOURCES = {"maker": "Maker", "dataset": "Dataset", "report": "Teardown"}
 KINDS = ("cameras", "imus")
 KEYS = {"maker", "part", "count", "src", "via", "url", "note", "module", "device"}
 # A chip part number in page text; each one must also be a component, so no part sits in a spec row without its label.
-PART_RE = re.compile(r"\b(?:OV\d{4}|SC\d{3,4}(?:H?GS)?|EV76C\d{3}[A-Z]*|IMX\d{3}|AR0\d{3}|BMI0\d\d|BMI1\d\d|ICM-\d{5}(?:-P)?|MPU-\d{4})\b")
+PART_RE = re.compile(r"\b(?:OV\d{4}|SC\d{3,4}(?:H?GS)?|EV76C\d{3}[A-Z]*|IMX\d{3}|AR0\d{3}|BMI0\d\d|BMI1\d\d|BMI2\d\d|BNO0\d\d|ICM-\d{5}(?:-P)?|MPU-\d{4})\b")
 
 
 def named(x: dict) -> bool:

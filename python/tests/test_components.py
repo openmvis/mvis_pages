@@ -51,7 +51,7 @@ def test_a_chip_named_in_page_text_has_its_label(entry):
 
 
 def test_part_re_finds_the_chips_we_name():
-    text = "OV9282 OV4689 SC136HGS SC132GS SC235HGS SC3336 EV76C560ABT IMX415 BMI055 BMI160 ICM-42670-P ICM-45686 MPU-9250 AR0234"
+    text = "OV9282 OV4689 SC136HGS SC132GS SC235HGS SC3336 EV76C560ABT IMX415 BMI055 BMI160 BMI270 BNO055 ICM-42670-P ICM-45686 MPU-9250 AR0234"
     assert C.PART_RE.findall(text) == text.split()
 
 
@@ -145,7 +145,7 @@ def test_catalog_refuses_a_sensor_in_no_group():
 
 
 def test_committed_catalog_matches_the_plan_totals():
-    """Devices: 45 cameras and 19 IMUs; cameras without a named chip 16, IMUs 6 (2026-11-20, after the chip search)."""
+    """Devices: 45 cameras and 19 IMUs; cameras without a named chip 10, IMUs 4 (2026-11-20, after the second chip search)."""
     pub = yaml.safe_load((DATA / "public_sensors.yaml").read_text(encoding="utf-8"))
     c = C.catalog(pub, DATASETS, "/devices/", "/r/")["counts"]
-    assert (c["cameras"]["total"], c["cameras"]["not_known"], c["imus"]["total"], c["imus"]["not_known"]) == (45, 16, 19, 6)
+    assert (c["cameras"]["total"], c["cameras"]["not_known"], c["imus"]["total"], c["imus"]["not_known"]) == (45, 10, 19, 4)

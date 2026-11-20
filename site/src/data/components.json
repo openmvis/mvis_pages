@@ -10,22 +10,22 @@
     {
      "maker": "OmniVision",
      "part": "OV9282",
-     "via": "Vision Systems Design, 2019",
-     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 2,
-     "src": "Teardown",
-     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
     {
      "maker": "Bosch",
      "part": "BMI055",
-     "via": "RealSense IMU article",
-     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 1,
      "src": "Maker",
-     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
+     "html": "<span class=\"cl imu\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
     }
    ]
   },
@@ -180,8 +180,14 @@
    ],
    "imus": [
     {
+     "maker": "Bosch",
+     "part": "BMI270",
+     "note": "Bosch's BMI270 start-up file is in every ZED 2 sensor firmware; Stereolabs does not publish the part",
+     "via": "ZED 2 sensor firmware in the ZED SDK",
+     "url": "https://www.stereolabs.com/developers/release",
      "count": 1,
-     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"ZED 2 sensor firmware in the ZED SDK · Bosch&#x27;s BMI270 start-up file is in every ZED 2 sensor firmware; Stereolabs does not publish the part\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI270</span></span></span>"
     }
    ]
   },
@@ -373,8 +379,14 @@
    ],
    "imus": [
     {
+     "maker": "Bosch",
+     "part": "BNO055",
+     "note": "outputs about 100 Hz; our recordings match",
+     "via": "setup file in GI's public firmware ego-v0.1.2",
+     "url": "https://github.com/General-Intelligence-Labs/device-firmware/releases/tag/ego-v0.1.2-ef54e1f",
      "count": 1,
-     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"setup file in GI&#x27;s public firmware ego-v0.1.2 · outputs about 100 Hz; our recordings match\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BNO055</span></span></span>"
     }
    ]
   },
@@ -448,8 +460,13 @@
    "href": "/devices/hp-reverb-g2/",
    "cameras": [
     {
+     "maker": "OmniVision",
+     "part": "OV7251",
+     "via": "Monado SLAM datasets paper, Table II",
+     "url": "https://arxiv.org/pdf/2508.00088",
      "count": 4,
-     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×4</span></span></span>"
+     "src": "Dataset",
+     "html": "<span class=\"cl cam\" title=\"Monado SLAM datasets paper, Table II\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV7251</span> <span class=x>×4</span></span></span>"
     }
    ],
    "imus": [
@@ -501,8 +518,14 @@
    "href": "/devices/insta360-one-rs-1inch-360/",
    "cameras": [
     {
+     "maker": "Sony",
+     "part": "IMX283",
+     "note": "the firmware names the driver, not the lens; the 1-Inch 360 is the only ONE RS lens with two 1-inch sensors",
+     "via": "ONE RS firmware (IMX283 dual sensor driver)",
+     "url": "https://file.insta360.com/static/671669adf53b801139f8e724bb58bdf2/Insta360OneRSFW.bin",
      "count": 2,
-     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"ONE RS firmware (IMX283 dual sensor driver) · the firmware names the driver, not the lens; the 1-Inch 360 is the only ONE RS lens with two 1-inch sensors\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>Sony</b> <span class=p>IMX283</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -534,11 +557,11 @@
      "maker": "OmniVision",
      "part": "OV9282",
      "device": "RealSense T265",
-     "via": "Vision Systems Design, 2019",
-     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 2,
-     "src": "Teardown",
-     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -564,11 +587,11 @@
      "maker": "Bosch",
      "part": "BMI055",
      "device": "RealSense T265",
-     "via": "RealSense IMU article",
-     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 1,
      "src": "Maker",
-     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
+     "html": "<span class=\"cl imu\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
     }
    ]
   },
@@ -582,22 +605,22 @@
      "maker": "OmniVision",
      "part": "OV9282",
      "device": "RealSense T265",
-     "via": "Vision Systems Design, 2019",
-     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 2,
-     "src": "Teardown",
-     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     },
     {
      "maker": "OmniVision",
      "part": "OV9750",
      "note": "module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)",
      "device": "ELP stereo, rolling shutter",
-     "via": "ELP page for the USB960P2CAM-V90",
-     "url": "https://www.elpcctv.com/13mp-960p-usb20-dual-lens-usb-camera-module-synchronization-camera-for-3d-depth-detection-p-126.html",
+     "via": "ELP page for the ELP-960P2CAM-V90",
+     "url": "https://www.hdusbcameras.com/elp-960p-synchronization-usb-stereo-camera-module-mini-80165mm-board-mjpeg-2560x960-dual-lens-ov9750-3d-vr-usb-webcam-for-windows-android-linux-raspberry-pi.html",
      "count": 2,
      "src": "Maker",
-     "html": "<span class=\"cl cam\" title=\"ELP page for the USB960P2CAM-V90 · module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9750</span> <span class=x>×2</span></span></span>"
+     "html": "<span class=\"cl cam\" title=\"ELP page for the ELP-960P2CAM-V90 · module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9750</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -605,11 +628,11 @@
      "maker": "Bosch",
      "part": "BMI055",
      "device": "RealSense T265",
-     "via": "RealSense IMU article",
-     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 1,
      "src": "Maker",
-     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
+     "html": "<span class=\"cl imu\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span></span></span>"
     },
     {
      "module": "Xsens MTi-100",
@@ -629,11 +652,11 @@
      "maker": "OmniVision",
      "part": "OV9282",
      "device": "RealSense T265 A and B",
-     "via": "Vision Systems Design, 2019",
-     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 4,
-     "src": "Teardown",
-     "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×4</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×4</span></span></span>"
     }
    ],
    "imus": [
@@ -659,11 +682,11 @@
      "maker": "Bosch",
      "part": "BMI055",
      "device": "RealSense T265 A and B",
-     "via": "RealSense IMU article",
-     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "via": "Intel T265 datasheet 572522-004",
+     "url": "https://dev.realsenseai.com/download/42170/",
      "count": 2,
      "src": "Maker",
-     "html": "<span class=\"cl imu\" title=\"RealSense IMU article\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span> <span class=x>×2</span></span></span>"
+     "html": "<span class=\"cl imu\" title=\"Intel T265 datasheet 572522-004\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055</span> <span class=x>×2</span></span></span>"
     }
    ]
   },
@@ -741,9 +764,14 @@
    "href": "/benchmark/results/monado-mgc/",
    "cameras": [
     {
+     "maker": "OmniVision",
+     "part": "OV7251",
      "device": "HP Reverb G2",
+     "via": "Monado SLAM datasets paper, Table II",
+     "url": "https://arxiv.org/pdf/2508.00088",
      "count": 2,
-     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
+     "src": "Dataset",
+     "html": "<span class=\"cl cam\" title=\"Monado SLAM datasets paper, Table II\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV7251</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -790,22 +818,23 @@
     {
      "maker": "TDK InvenSense",
      "part": "MPU-6500",
+     "note": "named for the DAVIS346; the mini version is not stated",
      "device": "iniVation mDAVIS346",
      "via": "iniVation IMU docs",
      "url": "https://docs.inivation.com/hardware/hardware-advanced-usage/imu.html",
      "count": 1,
      "src": "Maker",
-     "html": "<span class=\"cl imu\" title=\"iniVation IMU docs\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>MPU-6500</span></span></span>"
+     "html": "<span class=\"cl imu\" title=\"iniVation IMU docs · named for the DAVIS346; the mini version is not stated\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>MPU-6500</span></span></span>"
     },
     {
      "maker": "TDK InvenSense",
      "part": "MPU-9250",
      "device": "Snapdragon Flight",
-     "via": "ArduPilot docs",
-     "url": "https://ardupilot.org/plane/docs/common-qualcomm-snapdragon-flight-kit.html",
+     "via": "Qualcomm ATLFlight firmware config (mpu9250 driver)",
+     "url": "https://github.com/ATLFlight/Firmware/blob/eagle_drone_1.2_cs_0/cmake/configs/qurt_sdflight_default.cmake",
      "count": 1,
-     "src": "Teardown",
-     "html": "<span class=\"cl imu\" title=\"ArduPilot docs\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>MPU-9250</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl imu\" title=\"Qualcomm ATLFlight firmware config (mpu9250 driver)\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>MPU-9250</span></span></span>"
     }
    ]
   }
@@ -813,18 +842,18 @@
  "counts": {
   "cameras": {
    "total": 45,
-   "not_known": 16,
+   "not_known": 10,
    "by_maker": {
-    "OmniVision": 13,
+    "OmniVision": 17,
     "SmartSens": 15,
-    "Sony": 1
+    "Sony": 3
    }
   },
   "imus": {
    "total": 19,
-   "not_known": 6,
+   "not_known": 4,
    "by_maker": {
-    "Bosch": 6,
+    "Bosch": 8,
     "TDK InvenSense": 7
    }
   }
@@ -834,14 +863,12 @@
    "kind": "cameras",
    "maker": "OmniVision",
    "key": "omnivision",
-   "on_devices": 13,
-   "in_datasets": 12,
+   "on_devices": 17,
+   "in_datasets": 14,
    "parts": [
     {
      "part": "OV9282",
-     "tags": [
-      "Teardown"
-     ],
+     "tags": [],
      "uses": [
       {
        "name": "T265",
@@ -918,10 +945,22 @@
      ],
      "uses": [
       {
+       "name": "Reverb G2",
+       "href": "/devices/hp-reverb-g2/",
+       "count": 4,
+       "dataset": false
+      },
+      {
        "name": "Odyssey+",
        "href": "/devices/samsung-odyssey-plus/",
        "count": 2,
        "dataset": false
+      },
+      {
+       "name": "Monado MGC",
+       "href": "/benchmark/results/monado-mgc/",
+       "count": 2,
+       "dataset": true
       },
       {
        "name": "UZH-FPV",
@@ -1030,7 +1069,7 @@
    "kind": "cameras",
    "maker": "Sony",
    "key": "sony",
-   "on_devices": 1,
+   "on_devices": 3,
    "in_datasets": 2,
    "parts": [
     {
@@ -1048,6 +1087,18 @@
        "href": "/benchmark/results/looper-insight9/",
        "count": 1,
        "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "IMX283",
+     "tags": [],
+     "uses": [
+      {
+       "name": "ONE RS 1-Inch 360",
+       "href": "/devices/insta360-one-rs-1inch-360/",
+       "count": 2,
+       "dataset": false
       }
      ]
     },
@@ -1113,7 +1164,7 @@
    "kind": "imus",
    "maker": "Bosch",
    "key": "bosch",
-   "on_devices": 6,
+   "on_devices": 8,
    "in_datasets": 6,
    "parts": [
     {
@@ -1177,6 +1228,18 @@
      ]
     },
     {
+     "part": "BMI270",
+     "tags": [],
+     "uses": [
+      {
+       "name": "ZED 2",
+       "href": "/devices/zed2/",
+       "count": 1,
+       "dataset": false
+      }
+     ]
+    },
+    {
      "part": "BMI088",
      "tags": [],
      "uses": [
@@ -1197,6 +1260,18 @@
        "href": "/benchmark/results/looper-insight9/",
        "count": 1,
        "dataset": true
+      }
+     ]
+    },
+    {
+     "part": "BNO055",
+     "tags": [],
+     "uses": [
+      {
+       "name": "GI Ego1",
+       "href": "/devices/gi-ego1/",
+       "count": 1,
+       "dataset": false
       }
      ]
     },
@@ -1306,9 +1381,7 @@
     },
     {
      "part": "MPU-9250",
-     "tags": [
-      "Teardown"
-     ],
+     "tags": [],
      "uses": [
       {
        "name": "UZH-FPV",
@@ -1347,32 +1420,12 @@
     "name": "Index",
     "href": "/devices/valve-index/",
     "count": 2
-   },
-   {
-    "name": "Reverb G2",
-    "href": "/devices/hp-reverb-g2/",
-    "count": 4
-   },
-   {
-    "name": "ONE RS 1-Inch 360",
-    "href": "/devices/insta360-one-rs-1inch-360/",
-    "count": 2
    }
   ],
   "imus": [
    {
-    "name": "ZED 2",
-    "href": "/devices/zed2/",
-    "count": 1
-   },
-   {
     "name": "Stereo module",
     "href": "/devices/hampo/",
-    "count": 1
-   },
-   {
-    "name": "GI Ego1",
-    "href": "/devices/gi-ego1/",
     "count": 1
    },
    {
