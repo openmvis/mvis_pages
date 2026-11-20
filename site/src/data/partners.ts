@@ -59,7 +59,7 @@ export const partners: Partner[] = [
   },
   {
     name: 'RoboBaton', site: 'https://hessian-matrix.github.io/RoboBaton_Neo_docs/',
-    shared: 'Calibration recording of their VIO module',
+    shared: 'Calibration recording of their Neo VIO module, hosted on the Hub (community/robobaton-neo)',
     devices: [{ label: 'Neo', href: '/devices/robobaton-neo/' }],
     // people: pending the contact's OK to be named (2026-11-19)
   },
