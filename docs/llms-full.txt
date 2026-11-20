@@ -9952,7 +9952,7 @@ Tracking modules · Head-worn cameras · VR headsets · 360° cameras
 
 - RoboBaton Neo VIO module: global-shutter fisheye camera with a TDK ICM-42670-P IMU SmartSens SC132GS TDK InvenSense ICM-42670-P Global shutter 1 camera 200 Hz IMU
 
-- Stereolabs ZED 2 Stereo depth camera: two rolling-shutter cameras with a 400 Hz IMU OmniVision OV4689 ×2 IMU not known Rolling shutter 2 cameras 400 Hz IMU
+- Stereolabs ZED 2 Stereo depth camera: two rolling-shutter cameras with a 400 Hz IMU OmniVision OV4689 ×2 Bosch BMI270 Rolling shutter 2 cameras 400 Hz IMU
 
 - LooperRobotics Insight 9 Spatial AI camera: stereo pair, rolling-shutter colour camera, 6-axis IMU, VIO SmartSens SC132GS ×2 Sony IMX415 Bosch BMI088 Global + rolling shutter 3 cameras 400 Hz IMU
 
@@ -9968,7 +9968,7 @@ Tracking modules · Head-worn cameras · VR headsets · 360° cameras
 
 ## Head-worn cameras
 
-- General Intelligence Labs GI Ego1 Head-worn stereo headset: colour rolling-shutter fisheye cameras, 9-DoF IMU SmartSens SC3336 ×2 IMU not known Rolling shutter 2 cameras 200 Hz IMU
+- General Intelligence Labs GI Ego1 Head-worn stereo headset: colour rolling-shutter fisheye cameras, 9-DoF IMU SmartSens SC3336 ×2 Bosch BNO055 Rolling shutter 2 cameras 200 Hz IMU
 
 - General Intelligence Labs GI EGO1GS Head-worn stereo headset: colour global-shutter cameras, 9-DoF IMU, stereo audio Camera not known ×2 IMU not known Global shutter 2 cameras 400 Hz IMU
 
@@ -9978,13 +9978,13 @@ Tracking modules · Head-worn cameras · VR headsets · 360° cameras
 
 - Valve Index VR headset with a global-shutter fisheye stereo pair and a 1 kHz IMU Camera not known ×2 TDK InvenSense ICM-20602 Global shutter 2 cameras 1 kHz IMU
 
-- HP Reverb G2 VR headset with four tracking cameras and a 1 kHz IMU Camera not known ×4 TDK InvenSense ICM-20602 4 cameras 1 kHz IMU
+- HP Reverb G2 VR headset with four tracking cameras and a 1 kHz IMU OmniVision OV7251 ×4 TDK InvenSense ICM-20602 4 cameras 1 kHz IMU
 
 - Samsung Odyssey+ VR headset with two tracking cameras and a 1 kHz IMU OmniVision OV7251 ×2 TDK InvenSense ICM-20602 2 cameras 1 kHz IMU
 
 ## 360° cameras
 
-- Insta360 ONE RS 1-Inch 360 360° camera: two back-to-back rolling-shutter fisheye lenses with a 1 kHz IMU Camera not known ×2 IMU not known Rolling shutter 2 cameras 1 kHz IMU
+- Insta360 ONE RS 1-Inch 360 360° camera: two back-to-back rolling-shutter fisheye lenses with a 1 kHz IMU Sony IMX283 ×2 TDK InvenSense ICM-40609 Rolling shutter 2 cameras 1 kHz IMU
 
 What these pages show
 Each page shows what MVIS solved, and any repeatability we have. It says when no independent source exists. The pages have no scores, and they aren’t part of the results tables.
@@ -10832,6 +10832,7 @@ Video modes | Up to 2208×1242 at 15 fps; 1280×720 at 60, 30 or 15 fps |
 Measured in these recordings |
 Images in the recording | 2 × 1280×720 grey at 19.7 Hz (the dataset states 30 fps) |
 IMU | 6-axis, 400 Hz on the sheet; 381 Hz in the recording |
+IMU chip | Bosch BMI270: Bosch's BMI270 start-up file is in every ZED 2 sensor firmware in the ZED SDK |
 Calibrated field of view | cam0 ~102° × 69° · cam1 ~102° × 69° |
 From the dataset |
 Model | The dataset names a ZED2. The original ZED 2 rather than the later ZED 2i is inferred from the recording date (December 2020) and the solved focal length |
@@ -12226,12 +12227,11 @@ Published by the maker |
 Field of view | 120° × 72° |
 IMU | 200 Hz, 9-DoF |
 Image sensors | 2 × SmartSens SC3336, from the device tree in GI's public firmware 0.1.2 (this recording ran 1.0.x) |
+IMU chip | Bosch BNO055, from the setup file in GI's public firmware 0.1.2. It outputs about 100 Hz, and every other 200 Hz sample in our recording is filled in |
 Measured in these recordings |
 Shutter | Rolling, readout about 26 ms (solved) |
 Cameras | 2 × 1920×1080 at about 30 fps |
 Calibrated field of view | cam0 ~122° × 68° · cam1 ~128° × 68° |
-Not published |
-Open | IMU chip |
 
 ## Dataset
 
@@ -12898,10 +12898,9 @@ From the dataset |
 Cameras | 4 × 640×480 grayscale at 30 Hz |
 IMU | About 1 kHz |
 IMU chip | TDK InvenSense ICM-20602, from the headset calibration file in the dataset |
+Camera chips | 4 × OmniVision OV7251, from the dataset authors' sensor table (Table II of their paper) |
 Measured in these recordings |
 Calibrated field of view | cam0 118° × 94° · cam1 119° × 95° · cam2 118° × 94° · cam3 118° × 94° |
-Not published |
-Open | Camera chips |
 
 ## Dataset
 
@@ -13223,7 +13222,8 @@ Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame.
 
 Published by the maker |
 Maker | Insta360 (Arashi Vision), lenses co-engineered with Leica |
-Image sensors | 2 × 1-inch CMOS |
+Image sensors | 2 × 1-inch CMOS; Sony IMX283, from the IMX283 dual sensor driver in the ONE RS firmware v2.0.8 |
+IMU chip | TDK InvenSense ICM-40609: the gyro type the camera writes into each video (INSDEV_IMU_TYPE_40609 in a 1-Inch 360 sample video published by 360 Rumors) |
 Maker video modes | Up to 6K 360° video (5888×2944 at 30 fps) |
 From the dataset |
 Lenses | Leica Super-Summicron-A, f/2.2, 6.52 mm (35 mm equivalent); about 200° each, back to back |
@@ -18794,25 +18794,25 @@ Every camera and IMU we have calibrated, by who made the chip. A label names a p
 19 devices calibrated
 45 + 19 cameras + IMUs on them
 5 chip makers named
-22 / 64 parts not known
+13 / 64 parts not known
 
-Image sensors 29 of 45 cameras named, on the devices below
+Image sensors 35 of 45 cameras named, on the devices below
 
-OmniVision 13 SmartSens 15 Sony 1 not known 16
+OmniVision 17 SmartSens 15 Sony 3 not known 10
 
-IMU chips 13 of 19 IMUs named, on the devices below
+IMU chips 16 of 19 IMUs named, on the devices below
 
-Bosch 6 TDK InvenSense 7 not known 6
+Bosch 8 TDK InvenSense 8 not known 3
 
 ### OmniVision
 
-Image sensors · 13 cameras on devices · 12 in datasets
+Image sensors · 17 cameras on devices · 14 in datasets
 
-- OV9282 Teardown T265 ×2 VI-Rig 4 IMUs + 3 cams ×2 VI-Rig 4 IMUs + 4 cams ×2 VI-Rig 5 IMUs + 4 cams ×4
+- OV9282 T265 ×2 VI-Rig 4 IMUs + 3 cams ×2 VI-Rig 4 IMUs + 4 cams ×2 VI-Rig 5 IMUs + 4 cams ×4
 - OV9782 D455 ×3 D456 ×3
 - OV2740 D435i
 - OV4689 ZED 2 ×2
-- OV7251 Dataset Odyssey+ ×2 UZH-FPV ×2
+- OV7251 Dataset Reverb G2 ×4 Odyssey+ ×2 Monado MGC ×2 UZH-FPV ×2
 - OV9750 VI-Rig 4 IMUs + 4 cams ×2
 
 ### SmartSens
@@ -18827,9 +18827,10 @@ Image sensors · 15 cameras on devices · 2 in datasets
 
 ### Sony
 
-Image sensors · 1 camera on devices · 2 in datasets
+Image sensors · 3 cameras on devices · 2 in datasets
 
 - IMX415 Insight 9 Looper Insight 9
+- IMX283 ONE RS 1-Inch 360 ×2
 - IMX273 VI-Rig 4 IMUs + 3 cams
 
 ### iniVation
@@ -18846,37 +18847,40 @@ Image sensors · 2 in datasets
 
 ### Bosch
 
-IMU chips · 6 IMUs on devices · 6 in datasets
+IMU chips · 8 IMUs on devices · 6 in datasets
 
 - BMI055 T265 VI-Rig 4 IMUs + 3 cams VI-Rig 4 IMUs + 4 cams VI-Rig 5 IMUs + 4 cams ×2
 - BMI055 / BMI085 D455 D435i
 - BMI085 D456
+- BMI270 ZED 2
 - BMI088 Insight 9 CyperStereo Looper Insight 9
+- BNO055 GI Ego1
 - BMI160 Dataset TUM-VI
 
 ### TDK InvenSense
 
-IMU chips · 7 IMUs on devices · 3 in datasets
+IMU chips · 8 IMUs on devices · 3 in datasets
 
 - ICM-42670-P Neo
 - ICM-45686 Prism-A4L AVS111C-Y stereo AVS115D-Y stereo
 - ICM-20602 Teardown Dataset Index Reverb G2 Odyssey+ Monado MGC
+- ICM-40609 ONE RS 1-Inch 360
 - MPU-6500 UZH-FPV
-- MPU-9250 Teardown UZH-FPV
+- MPU-9250 UZH-FPV
 
 ### Not known
 
-Image sensors · 16 cameras on 7 devices
-AVS111C-Y stereo ×2 AVS115D-Y stereo ×2 GI EGO1GS ×2 XQ20 stereo headset ×2 Index ×2 Reverb G2 ×4 ONE RS 1-Inch 360 ×2
+Image sensors · 10 cameras on 5 devices
+AVS111C-Y stereo ×2 AVS115D-Y stereo ×2 GI EGO1GS ×2 XQ20 stereo headset ×2 Index ×2
 
 ### Not known
 
-IMU chips · 6 IMUs on 6 devices
-ZED 2 Stereo module GI Ego1 GI EGO1GS XQ20 stereo headset ONE RS 1-Inch 360
+IMU chips · 3 IMUs on 3 devices
+Stereo module GI EGO1GS XQ20 stereo headset
 Tracking modules
 Device | Image sensor | IMU chip |
-Intel RealSense T265 2 cameras · 1 IMU | OmniVision OV9282 ×2 Teardown Vision Systems Design, 2019
-| Bosch BMI055 RealSense IMU article
+Intel RealSense T265 2 cameras · 1 IMU | OmniVision OV9282 ×2 Intel T265 datasheet 572522-004
+| Bosch BMI055 Intel T265 datasheet 572522-004
 |
 RealSense D455 3 cameras · 1 IMU | OmniVision OV9782 ×3 D400 datasheet, Mar 2026 · IR pair + RGB
 | Bosch BMI055 / BMI085 D400 datasheet · by production revision
@@ -18891,7 +18895,7 @@ RoboBaton Neo 1 camera · 1 IMU | SmartSens SC132GS maker's device-config file, 
 | TDK InvenSense ICM-42670-P RoboBaton Neo docs
 |
 Stereolabs ZED 2 2 cameras · 1 IMU | OmniVision OV4689 ×2 Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)
-| IMU not known
+| Bosch BMI270 ZED 2 sensor firmware in the ZED SDK · Bosch's BMI270 start-up file is in every ZED 2 sensor firmware; Stereolabs does not publish the part
 |
 LooperRobotics Insight 9 3 cameras · 1 IMU | SmartSens SC132GS ×2 Insight 9 product page · mono, global shutter
 Sony IMX415 Insight 9 product page · colour, rolling shutter
@@ -18916,7 +18920,7 @@ Hampo stereo module 2 cameras · 1 IMU | SmartSens SC235HGS ×2 Hampo listing fo
 Head-worn cameras
 Device | Image sensor | IMU chip |
 GI Ego1 2 cameras · 1 IMU | SmartSens SC3336 ×2 device tree in GI's public firmware ego-v0.1.2 · read from firmware 0.1.2; our recording ran firmware 1.0.x
-| IMU not known
+| Bosch BNO055 setup file in GI's public firmware ego-v0.1.2 · outputs about 100 Hz; our recordings match
 |
 GI EGO1GS 2 cameras · 1 IMU | Camera not known ×2
 | IMU not known
@@ -18930,7 +18934,7 @@ Device | Image sensor | IMU chip |
 Valve Index 2 cameras · 1 IMU | Camera not known ×2
 | TDK InvenSense ICM-20602 Teardown iFixit chip ID
 |
-HP Reverb G2 4 cameras · 1 IMU | Camera not known ×4
+HP Reverb G2 4 cameras · 1 IMU | OmniVision OV7251 ×4 Dataset Monado SLAM datasets paper, Table II
 | TDK InvenSense ICM-20602 Dataset headset calibration file in the dataset
 |
 Samsung Odyssey+ 2 cameras · 1 IMU | OmniVision OV7251 ×2 Dataset Monado dataset authors
@@ -18939,8 +18943,8 @@ Samsung Odyssey+ 2 cameras · 1 IMU | OmniVision OV7251 ×2 Dataset Monado datas
 
 360° cameras
 Device | Image sensor | IMU chip |
-Insta360 ONE RS 1-Inch 360 Edition 2 cameras · 1 IMU | Camera not known ×2
-| IMU not known
+Insta360 ONE RS 1-Inch 360 Edition 2 cameras · 1 IMU | Sony IMX283 ×2 ONE RS firmware (IMX283 dual sensor driver) · the firmware names the driver, not the lens; the 1-Inch 360 is the only ONE RS lens with two 1-inch sensors
+| TDK InvenSense ICM-40609 gyro type in the metadata of a 1-Inch 360 sample video (360 Rumors) · the camera writes its gyro type into every video; the ONE RS firmware supports ICM-20948 and ICM-40609
 |
 
 7 evaluations. A part used in several evaluations is counted in each; the tiles above count devices only.
@@ -18953,7 +18957,7 @@ Results →
 cameras
 
 - Sony IMX273 FLIR Blackfly S BFS-U3-16S2M
-- OmniVision OV9282 ×2 Teardown RealSense T265
+- OmniVision OV9282 ×2 RealSense T265
 IMUs
 
 - Xsens MTi-100 chip not known
@@ -18967,7 +18971,7 @@ Results →
 4 cameras, 2 IMUs
 cameras
 
-- OmniVision OV9282 ×2 Teardown RealSense T265
+- OmniVision OV9282 ×2 RealSense T265
 - OmniVision OV9750 ×2 ELP stereo, rolling shutter
 IMUs
 
@@ -18980,7 +18984,7 @@ Results →
 4 cameras, 5 IMUs
 cameras
 
-- OmniVision OV9282 ×4 Teardown RealSense T265 A and B
+- OmniVision OV9282 ×4 RealSense T265 A and B
 IMUs
 
 - Xsens MTi-100 chip not known
@@ -19019,7 +19023,7 @@ Results →
 2 cameras, 1 IMU
 cameras
 
-- Camera not known ×2 HP Reverb G2
+- OmniVision OV7251 ×2 Dataset HP Reverb G2
 IMUs
 
 - TDK InvenSense ICM-20602 Dataset HP Reverb G2
@@ -19035,4 +19039,4 @@ cameras
 IMUs
 
 - TDK InvenSense MPU-6500 iniVation mDAVIS346
-- TDK InvenSense MPU-9250 Teardown Snapdragon Flight
+- TDK InvenSense MPU-9250 Snapdragon Flight
