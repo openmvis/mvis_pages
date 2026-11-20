@@ -122,6 +122,22 @@ def closed_problems(opened: dict[str, bool]) -> list[str]:
     return [f"{link}: current page not shown open" for link, ok in opened.items() if not ok]
 
 
+PROBE = "/getting-started/overview/"  # the page nav_check reads the sidebar from
+
+
+def served_build_problem(base: str, served: bytes | None, local: Path) -> list[str]:
+    """The sidebar is checked against this checkout's sensor-nav.json, so the server at base must serve this
+    checkout's docs/. Another build (a server left on the port by another worktree) gives false findings."""
+    page = local / PROBE.strip("/") / "index.html"
+    if not page.is_file():
+        return [f"{page}: missing; run npm run build first"]
+    if served is None:
+        return [f"{base}{PROBE}: no page"]
+    if served != page.read_bytes():
+        return [f"{base} serves another build than {local}; check which server holds the port"]
+    return []
+
+
 def maker_heights_problem(heights) -> list[str]:
     heights = set(heights)
     return [f"maker lines differ in height at 320 px: {sorted(heights)}"] if len(heights) > 1 else []
