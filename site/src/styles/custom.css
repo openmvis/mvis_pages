@@ -445,18 +445,18 @@ section[data-rp-section] .sl-heading-wrapper + p { margin-top: 0.3rem; font-size
 :root {
   --cl-cam: #0369a1; --cl-imu: #6d28d9; --cl-hatch: var(--sl-color-gray-5);
   --mk-omnivision: #0369a1; --mk-smartsens: #0d9488; --mk-sony: #64748b; --mk-onsemi: #b45309; --mk-inivation: #b45309;
-  --mk-bosch: #7c3aed; --mk-tdk-invensense: #c026d3; --mk-stmicroelectronics: #4d7c0f;
+  --mk-bosch: #7c3aed; --mk-tdk-invensense: #c026d3; --mk-stmicroelectronics: #4d7c0f; --mk-e2v: #be123c;
 }
 :root[data-theme='dark'] {
   --cl-cam: #38bdf8; --cl-imu: #c4b5fd; --cl-hatch: #475569;
   --mk-omnivision: #38bdf8; --mk-smartsens: #2dd4bf; --mk-sony: #cbd5e1; --mk-onsemi: #fbbf24; --mk-inivation: #fbbf24;
-  --mk-bosch: #a78bfa; --mk-tdk-invensense: #f0abfc; --mk-stmicroelectronics: #a3e635;
+  --mk-bosch: #a78bfa; --mk-tdk-invensense: #f0abfc; --mk-stmicroelectronics: #a3e635; --mk-e2v: #fda4af;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --cl-cam: #38bdf8; --cl-imu: #c4b5fd; --cl-hatch: #475569;
     --mk-omnivision: #38bdf8; --mk-smartsens: #2dd4bf; --mk-sony: #cbd5e1; --mk-onsemi: #fbbf24; --mk-inivation: #fbbf24;
-    --mk-bosch: #a78bfa; --mk-tdk-invensense: #f0abfc; --mk-stmicroelectronics: #a3e635;
+    --mk-bosch: #a78bfa; --mk-tdk-invensense: #f0abfc; --mk-stmicroelectronics: #a3e635; --mk-e2v: #fda4af;
   }
 }
 .cl { display: inline-flex; align-items: center; gap: 0.35rem; max-width: 100%; min-width: 0; font-size: 0.76rem; line-height: 1.3; padding: 0.16rem 0.5rem 0.16rem 0.4rem; border-radius: 0.35rem; border: 1px solid var(--sl-color-hairline); background: var(--sl-color-bg); color: var(--sl-color-text); white-space: nowrap; vertical-align: middle; }

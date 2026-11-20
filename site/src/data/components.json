@@ -169,8 +169,13 @@
    "href": "/devices/zed2/",
    "cameras": [
     {
+     "maker": "OmniVision",
+     "part": "OV4689",
+     "via": "Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)",
+     "url": "https://github.com/stereolabs/zed-open-capture/blob/master/src/videocapture.cpp",
      "count": 2,
-     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV4689</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -331,8 +336,14 @@
    "href": "/devices/hampo/",
    "cameras": [
     {
+     "maker": "SmartSens",
+     "part": "SC235HGS",
+     "note": "the closest published model; our unit is not confirmed to be a 3372",
+     "via": "Hampo listing for the 3372",
+     "url": "https://hampotech.en.made-in-china.com/product/EzSYVaWDufhm/China-Hampo-Head-Worn-USB-Stereo-EGO-Camera-Global-Shutter-Dual-Lens-Microsecond-Imu-Sync-Robot-Learning-Vio-Slam-Research-3840X1080.html",
      "count": 2,
-     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"Hampo listing for the 3372 · the closest published model; our unit is not confirmed to be a 3372\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC235HGS</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -350,8 +361,14 @@
    "href": "/devices/gi-ego1/",
    "cameras": [
     {
+     "maker": "SmartSens",
+     "part": "SC3336",
+     "note": "read from firmware 0.1.2; our recording ran firmware 1.0.x",
+     "via": "device tree in GI's public firmware ego-v0.1.2",
+     "url": "https://github.com/General-Intelligence-Labs/device-firmware/releases/tag/ego-v0.1.2-ef54e1f",
      "count": 2,
-     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"device tree in GI&#x27;s public firmware ego-v0.1.2 · read from firmware 0.1.2; our recording ran firmware 1.0.x\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>SmartSens</b> <span class=p>SC3336</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -437,8 +454,13 @@
    ],
    "imus": [
     {
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
+     "via": "headset calibration file in the dataset",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras",
      "count": 1,
-     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
+     "src": "Dataset",
+     "html": "<span class=\"cl imu\" title=\"headset calibration file in the dataset\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
     }
    ]
   },
@@ -567,11 +589,15 @@
      "html": "<span class=\"cl cam\" title=\"Vision Systems Design, 2019\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     },
     {
-     "module": "ELP-960P2CAM-V90-VC",
-     "note": "model from the MVIS paper (Yang et al., IJRR 2023)",
+     "maker": "OmniVision",
+     "part": "OV9750",
+     "note": "module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)",
      "device": "ELP stereo, rolling shutter",
+     "via": "ELP page for the USB960P2CAM-V90",
+     "url": "https://www.elpcctv.com/13mp-960p-usb20-dual-lens-usb-camera-module-synchronization-camera-for-3d-depth-detection-p-126.html",
      "count": 2,
-     "html": "<span class=\"cl cam mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>ELP-960P2CAM-V90-VC</b> <span class=x>×2</span></span><span class=cl-chip>chip not known</span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"ELP page for the USB960P2CAM-V90 · module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9750</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -648,10 +674,14 @@
    "href": "/benchmark/results/tum-vi/",
    "cameras": [
     {
-     "module": "IDS uEye UI-3241LE-M-GL",
-     "device": "IDS uEye cameras",
+     "maker": "e2v",
+     "part": "EV76C560ABT",
+     "device": "IDS uEye UI-3241LE-M-GL",
+     "via": "IDS product page",
+     "url": "http://web.archive.org/web/20250513095453/https://en.ids-imaging.com/store/ui-3241le.html",
      "count": 2,
-     "html": "<span class=\"cl cam mod\" title=\"Packaged module; no source names the chip inside\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>IDS uEye UI-3241LE-M-GL</b> <span class=x>×2</span></span><span class=cl-chip>chip not known</span></span>"
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"IDS product page\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>e2v</b> <span class=p>EV76C560ABT</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -718,9 +748,14 @@
    ],
    "imus": [
     {
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
      "device": "HP Reverb G2",
+     "via": "headset calibration file in the dataset",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras",
      "count": 1,
-     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
+     "src": "Dataset",
+     "html": "<span class=\"cl imu\" title=\"headset calibration file in the dataset\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
     }
    ]
   },
@@ -778,19 +813,19 @@
  "counts": {
   "cameras": {
    "total": 45,
-   "not_known": 22,
+   "not_known": 16,
    "by_maker": {
-    "OmniVision": 11,
-    "SmartSens": 11,
+    "OmniVision": 13,
+    "SmartSens": 15,
     "Sony": 1
    }
   },
   "imus": {
    "total": 19,
-   "not_known": 7,
+   "not_known": 6,
    "by_maker": {
     "Bosch": 6,
-    "TDK InvenSense": 6
+    "TDK InvenSense": 7
    }
   }
  },
@@ -799,8 +834,8 @@
    "kind": "cameras",
    "maker": "OmniVision",
    "key": "omnivision",
-   "on_devices": 11,
-   "in_datasets": 10,
+   "on_devices": 13,
+   "in_datasets": 12,
    "parts": [
     {
      "part": "OV9282",
@@ -865,6 +900,18 @@
      ]
     },
     {
+     "part": "OV4689",
+     "tags": [],
+     "uses": [
+      {
+       "name": "ZED 2",
+       "href": "/devices/zed2/",
+       "count": 2,
+       "dataset": false
+      }
+     ]
+    },
+    {
      "part": "OV7251",
      "tags": [
       "Dataset"
@@ -883,6 +930,18 @@
        "dataset": true
       }
      ]
+    },
+    {
+     "part": "OV9750",
+     "tags": [],
+     "uses": [
+      {
+       "name": "VI-Rig 4 IMUs + 4 cams",
+       "href": "/benchmark/results/virig-4imus-4cams/",
+       "count": 2,
+       "dataset": true
+      }
+     ]
     }
    ]
   },
@@ -890,7 +949,7 @@
    "kind": "cameras",
    "maker": "SmartSens",
    "key": "smartsens",
-   "on_devices": 11,
+   "on_devices": 15,
    "in_datasets": 2,
    "parts": [
     {
@@ -937,6 +996,30 @@
        "name": "CyperStereo",
        "href": "/devices/cyperstereo/",
        "count": 4,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "SC235HGS",
+     "tags": [],
+     "uses": [
+      {
+       "name": "Stereo module",
+       "href": "/devices/hampo/",
+       "count": 2,
+       "dataset": false
+      }
+     ]
+    },
+    {
+     "part": "SC3336",
+     "tags": [],
+     "uses": [
+      {
+       "name": "GI Ego1",
+       "href": "/devices/gi-ego1/",
+       "count": 2,
        "dataset": false
       }
      ]
@@ -999,6 +1082,27 @@
        "name": "UZH-FPV",
        "href": "/benchmark/results/uzh-fpv/",
        "count": 1,
+       "dataset": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cameras",
+   "maker": "e2v",
+   "key": "e2v",
+   "on_devices": 0,
+   "in_datasets": 2,
+   "parts": [
+    {
+     "part": "EV76C560ABT",
+     "tags": [],
+     "uses": [
+      {
+       "name": "TUM-VI",
+       "href": "/benchmark/results/tum-vi/",
+       "count": 2,
        "dataset": true
       }
      ]
@@ -1116,8 +1220,8 @@
    "kind": "imus",
    "maker": "TDK InvenSense",
    "key": "tdk-invensense",
-   "on_devices": 6,
-   "in_datasets": 2,
+   "on_devices": 7,
+   "in_datasets": 3,
    "parts": [
     {
      "part": "ICM-42670-P",
@@ -1169,10 +1273,22 @@
        "dataset": false
       },
       {
+       "name": "Reverb G2",
+       "href": "/devices/hp-reverb-g2/",
+       "count": 1,
+       "dataset": false
+      },
+      {
        "name": "Odyssey+",
        "href": "/devices/samsung-odyssey-plus/",
        "count": 1,
        "dataset": false
+      },
+      {
+       "name": "Monado MGC",
+       "href": "/benchmark/results/monado-mgc/",
+       "count": 1,
+       "dataset": true
       }
      ]
     },
@@ -1208,11 +1324,6 @@
  "not_known": {
   "cameras": [
    {
-    "name": "ZED 2",
-    "href": "/devices/zed2/",
-    "count": 2
-   },
-   {
     "name": "AVS111C-Y stereo",
     "href": "/devices/alg-avs111c/",
     "count": 2
@@ -1220,16 +1331,6 @@
    {
     "name": "AVS115D-Y stereo",
     "href": "/devices/alg-avs115d/",
-    "count": 2
-   },
-   {
-    "name": "Stereo module",
-    "href": "/devices/hampo/",
-    "count": 2
-   },
-   {
-    "name": "GI Ego1",
-    "href": "/devices/gi-ego1/",
     "count": 2
    },
    {
@@ -1282,11 +1383,6 @@
    {
     "name": "XQ20 stereo headset",
     "href": "/devices/xq20/",
-    "count": 1
-   },
-   {
-    "name": "Reverb G2",
-    "href": "/devices/hp-reverb-g2/",
     "count": 1
    },
    {

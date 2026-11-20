@@ -3,7 +3,7 @@ public_results.yaml (one per dataset evaluation), checked here and turned into t
 site/src/data/components.json, which the Cameras and IMUs page reads.
 
 A part is {maker, part, count, src, via, url, note} for a named chip, {module, count} for a packaged module whose
-chip no source names (Xsens, MicroStrain, ELP, IDS), and {count} alone when nothing names it ("not known"). Dataset
+chip no source names (Xsens, MicroStrain), and {count} alone when nothing names it ("not known"). Dataset
 parts also say `device`, the device they sit on. src says who named the chip: the device maker (also a private file or
 message, then without url), the dataset authors, or a teardown / trade report. We never name a chip from a guess.
 """
@@ -12,12 +12,12 @@ from __future__ import annotations
 import re
 from html import escape as e
 
-CHIP_MAKERS = ("OmniVision", "SmartSens", "Sony", "onsemi", "iniVation", "Bosch", "TDK InvenSense", "STMicroelectronics")
+CHIP_MAKERS = ("OmniVision", "SmartSens", "Sony", "onsemi", "iniVation", "Bosch", "TDK InvenSense", "STMicroelectronics", "e2v")
 SOURCES = {"maker": "Maker", "dataset": "Dataset", "report": "Teardown"}
 KINDS = ("cameras", "imus")
 KEYS = {"maker", "part", "count", "src", "via", "url", "note", "module", "device"}
 # A chip part number in page text; each one must also be a component, so no part sits in a spec row without its label.
-PART_RE = re.compile(r"\b(?:OV\d{4}|SC1\d\dH?GS|IMX\d{3}|AR0\d{3}|BMI0\d\d|BMI1\d\d|ICM-\d{5}(?:-P)?|MPU-\d{4})\b")
+PART_RE = re.compile(r"\b(?:OV\d{4}|SC\d{3,4}(?:H?GS)?|EV76C\d{3}[A-Z]*|IMX\d{3}|AR0\d{3}|BMI0\d\d|BMI1\d\d|ICM-\d{5}(?:-P)?|MPU-\d{4})\b")
 
 
 def named(x: dict) -> bool:

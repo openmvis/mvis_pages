@@ -65,7 +65,7 @@ datasets:
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:
         - {maker: OmniVision, part: OV9282, count: 2, device: "RealSense T265", src: report, via: "Vision Systems Design, 2019", url: "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices"}
-        - {module: ELP-960P2CAM-V90-VC, count: 2, device: "ELP stereo, rolling shutter", note: "model from the MVIS paper (Yang et al., IJRR 2023)"}
+        - {maker: OmniVision, part: OV9750, count: 2, device: "ELP stereo, rolling shutter", src: maker, via: "ELP page for the USB960P2CAM-V90", url: "https://www.elpcctv.com/13mp-960p-usb20-dual-lens-usb-camera-module-synchronization-camera-for-3d-depth-detection-p-126.html", note: "module ELP-960P2CAM-V90-VC, from the MVIS paper (Yang et al., IJRR 2023)"}
       imus:
         - {maker: Bosch, part: BMI055, count: 1, device: "RealSense T265", src: maker, via: RealSense IMU article, url: "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/"}
         - {module: Xsens MTi-100, device: VI-Rig}
@@ -145,7 +145,7 @@ datasets:
       dataset: /datasets/#third-party-datasets
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:
-        - {module: IDS uEye UI-3241LE-M-GL, count: 2, device: IDS uEye cameras}
+        - {maker: e2v, part: EV76C560ABT, count: 2, device: IDS uEye UI-3241LE-M-GL, src: maker, via: IDS product page, url: "http://web.archive.org/web/20250513095453/https://en.ids-imaging.com/store/ui-3241le.html"}
       imus:
         - {maker: Bosch, part: BMI160, device: Genuino 101 board, src: dataset, via: "TUM-VI paper, Schubert et al. 2018", url: "https://arxiv.org/pdf/1804.06120"}
     families:
@@ -203,7 +203,7 @@ datasets:
       cameras:
         - {count: 2, device: HP Reverb G2}
       imus:
-        - {device: HP Reverb G2}
+        - {maker: TDK InvenSense, part: ICM-20602, device: HP Reverb G2, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras"}
     families:
       - {id: T5, shutter: global}
       - {id: T12, shutter: global}
