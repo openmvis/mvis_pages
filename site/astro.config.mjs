@@ -170,7 +170,7 @@ export default defineConfig({
         {
           // Open, with collapsed device-kind subgroups: 4 rows on a phone; a sensor page opens its own subgroup.
           label: 'Device wiki',
-          items: [{ label: 'Overview', link: '/devices/' }, ...sensorGroups],
+          items: [{ label: 'Overview', link: '/devices/' }, { label: 'Cameras and IMUs', link: '/devices/components/' }, ...sensorGroups],
         },
         {
           // Own section since 2026-11-12; pages order by frontmatter sidebar.order.

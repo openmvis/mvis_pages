@@ -10,6 +10,7 @@ message, then without url), the dataset authors, or a teardown / trade report. W
 from __future__ import annotations
 
 import re
+from html import escape as e
 
 CHIP_MAKERS = ("OmniVision", "SmartSens", "Sony", "onsemi", "iniVation", "Bosch", "TDK InvenSense", "STMicroelectronics")
 SOURCES = {"maker": "Maker", "dataset": "Dataset", "report": "Teardown"}
@@ -63,17 +64,43 @@ def count(c: dict, kind: str) -> int:
     return sum(x.get("count", 1) for x in c[kind])
 
 
-def label(x: dict) -> dict:
-    """One part as the site's label component reads it: no empty fields, src as its shown tag."""
+# Lens and chip outlines; the kind reads from the icon as well as the colour.
+ICONS = {"cameras": '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="4" width="13" height="9" rx="2"/><circle cx="8" cy="8.5" r="2.6"/>'
+                    '<path d="M5.5 4l1-1.6h3l1 1.6"/></svg>',
+         "imus": '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="1.2"/>'
+                 '<path d="M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2"/></svg>'}
+NOT_KNOWN = {"cameras": "Camera not known", "imus": "IMU not known"}
+
+
+def label_html(kind: str, x: dict, link: bool = False) -> str:
+    """One label, the same on cards, device headers and the Cameras and IMUs page (styles: .cl in custom.css). With link,
+    a named chip ends in its source tag, linked when the source has a url; cards leave the tag to the device page."""
+    n = x.get("count", 1)
+    times = f" <span class=x>×{n}</span>" if n > 1 else ""
+    icon, k = (ICONS["imus"], "imu") if kind == "imus" else (ICONS["cameras"], "cam")   # uncalibrated parts are cameras
+    if named(x):
+        tip = " · ".join(v for v in (x["via"], x.get("note")) if v)
+        tag = SOURCES[x["src"]]
+        src = (f' <a class=cl-src href="{e(x["url"])}">{tag} ↗</a>' if x.get("url") else f" <span class=cl-src>{tag}</span>") if link else ""
+        return f'<span class="cl {k}" title="{e(tip)}">{icon}<span class=t><b>{e(x["maker"])}</b> <span class=p>{e(x["part"])}</span>{times}</span>{src}</span>'
+    if x.get("module"):
+        return (f'<span class="cl {k} mod" title="Packaged module; no source names the chip inside">{icon}'
+                f'<span class=t><b>{e(x["module"])}</b>{times}</span><span class=cl-chip>chip not known</span></span>')
+    return f'<span class="cl {k} unk">{icon}<span class=t>{NOT_KNOWN["imus" if kind == "imus" else "cameras"]}{times}</span></span>'
+
+
+def label(x: dict, kind: str) -> dict:
+    """One part as the site reads it: no empty fields, src as its shown tag, and its label's html."""
     out = {k: x[k] for k in ("maker", "part", "module", "note", "device", "via", "url") if x.get(k)}
     out["count"] = x.get("count", 1)
     if named(x):
         out["src"] = SOURCES[x["src"]]
+    out["html"] = label_html(kind, x)
     return out
 
 
 def labels(c: dict) -> dict:
-    return {kind: [label(x) for x in c.get(kind) or []] for kind in (*KINDS, "uncalibrated") if c.get(kind)}
+    return {kind: [label(x, kind) for x in c.get(kind) or []] for kind in (*KINDS, "uncalibrated") if c.get(kind)}
 
 
 def tally(rows: list[dict]) -> dict:
@@ -92,11 +119,50 @@ def tally(rows: list[dict]) -> dict:
     return out
 
 
-def catalog(sensors: dict, datasets: list[dict], device_base: str, results_base: str) -> dict:
-    """components.json: every device and every dataset evaluation with its labels, and the device-only tally the page's
-    tiles and bars show (a T265 used in three evaluations would count four times if datasets were added)."""
-    devices = [{"slug": slug, "title": p["title"], "name": p["card"].get("name", p["title"]), "group": p["group"],
-                "href": f"{device_base}{slug}/", **labels(p["components"])} for slug, p in sensors.items()]
-    evals = [{"slug": d["slug"], "label": d["label"], "ours": bool(d.get("ours")), "href": f"{results_base}{d['slug']}/",
+def by_maker(devices: list[dict], evals: list[dict]) -> list[dict]:
+    """The "By chip maker" view: per kind and maker (CHIP_MAKERS order), each part with its source tags and where it is
+    used, devices first, then dataset evaluations."""
+    out = []
+    for kind in KINDS:
+        for maker in CHIP_MAKERS:
+            parts: dict[str, dict] = {}
+            for rows, is_set in ((devices, False), (evals, True)):
+                for r in rows:
+                    for x in r[kind]:
+                        if x.get("maker") != maker:
+                            continue
+                        p = parts.setdefault(x["part"], {"part": x["part"], "tags": [], "uses": []})
+                        if x["src"] != SOURCES["maker"] and x["src"] not in p["tags"]:
+                            p["tags"].append(x["src"])
+                        p["uses"].append({"name": r["name"], "href": r["href"], "count": x["count"], "dataset": is_set})
+            if parts:
+                n = lambda s: sum(u["count"] for p in parts.values() for u in p["uses"] if u["dataset"] is s)
+                out.append({"kind": kind, "maker": maker, "key": slug(maker), "on_devices": n(False), "in_datasets": n(True),
+                            "parts": list(parts.values())})
+    return out
+
+
+def not_known(devices: list[dict]) -> dict:
+    """Devices with a part that no source names, per kind (devices only, like the tiles)."""
+    return {kind: [{"name": r["name"], "href": r["href"], "count": sum(x["count"] for x in r[kind] if not x.get("maker"))}
+                   for r in devices if any(not x.get("maker") for x in r[kind])] for kind in KINDS}
+
+
+def slug(maker: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", maker.lower()).strip("-")
+
+
+def catalog(pub: dict, datasets: list[dict], device_base: str, results_base: str) -> dict:
+    """components.json: every device (in the sidebar's group order) and every dataset evaluation with its labels, the
+    views' groupings, and the device-only tally the page's tiles and bars show (a T265 used in three evaluations would
+    count four times if datasets were added)."""
+    sensors = pub["sensors"]
+    devices = [{"slug": slug_, "title": p["title"], "name": p["card"].get("name", p["title"]), "group": g["title"],
+                "href": f"{device_base}{slug_}/", **labels(p["components"])}
+               for g in pub["groups"] for slug_, p in sensors.items() if p["group"] == g["id"]]
+    if len(devices) != len(sensors):
+        raise ValueError(f"sensors in no group of public_sensors.yaml: {sorted(set(sensors) - {d['slug'] for d in devices})}")
+    evals = [{"slug": d["slug"], "name": d["label"], "ours": bool(d.get("ours")), "href": f"{results_base}{d['slug']}/",
               **labels(d["components"])} for d in datasets]
-    return {"devices": devices, "datasets": evals, "counts": tally(devices)}
+    return {"devices": devices, "datasets": evals, "counts": tally(devices), "makers": by_maker(devices, evals),
+            "not_known": not_known(devices)}

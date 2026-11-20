@@ -4,17 +4,17 @@ import re
 import pytest
 
 import make_fixtures as F
+from mvis_site.components import labels
 from mvis_site import assets
 from mvis_site import site_files as S
 
 
 def test_card_takes_its_own_name_and_maker_first():
     p = F.pub_entry("photo")
-    assert S.card_for("rig", p) == {"title": "Rig", "href": "/devices/rig/", "image": "/media/sensors/rig/rig.jpg", "alt": "The rig",
-                                    "maker": "Maker Co", "type": "Stereo module", "tags": p["card"]["tags"],
-                                    "components": {"cameras": [{"maker": "OmniVision", "part": "OV9282", "count": 2, "src": "Maker", "via": "Datasheet",
-                                                                "url": "https://example.com/d"}],
-                                                   "imus": [{"maker": "Bosch", "part": "BMI088", "count": 1, "src": "Teardown", "via": "A teardown"}]}}
+    card = S.card_for("rig", p)
+    assert {k: v for k, v in card.items() if k != "components"} == {"title": "Rig", "href": "/devices/rig/", "image": "/media/sensors/rig/rig.jpg",
+                                                                     "alt": "The rig", "maker": "Maker Co", "type": "Stereo module", "tags": p["card"]["tags"]}
+    assert card["components"] == labels(p["components"])
     p["card"]["maker"] = "Short"
     assert S.card_for("rig", p)["maker"] == "Short"
     q = F.pub_entry("old")

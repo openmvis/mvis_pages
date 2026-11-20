@@ -17,7 +17,7 @@ NAV = [{"label": "T265", "link": "/devices/t265/", "group": "Tracking"}, {"label
 
 
 def _sidebar(**kw):
-    s = {"sections": C.SECTIONS, "children": {"Benchmark": C.BENCHMARK, "Device wiki": ["Overview", "Tracking", "Head-worn"]},
+    s = {"sections": C.SECTIONS, "children": {"Benchmark": C.BENCHMARK, "Device wiki": [*C.DEVICE_TOP, "Tracking", "Head-worn"]},
          "groups": {"Device wiki": {"Tracking": ["T265"], "Head-worn": ["Ego", "Ego GS"]}}}
     s.update(kw)
     return s
@@ -54,12 +54,12 @@ def test_page_problems_name_a_sideways_scroll_and_a_theme_that_did_not_apply():
 
 def test_sidebar_problems_name_what_is_wrong():
     assert C.sidebar_problems({"sections": ["X"], "children": {}, "groups": {}}, NAV) == [
-        "sections are ['X']", "Benchmark holds None", "Device wiki holds None, want ['Overview', 'Tracking', 'Head-worn']",
+        "sections are ['X']", "Benchmark holds None", "Device wiki holds None, want ['Overview', 'Cameras and IMUs', 'Tracking', 'Head-worn']",
         "Device wiki › Tracking holds None, want ['T265']", "Device wiki › Head-worn holds None, want ['Ego', 'Ego GS']"]
 
 
 def test_a_sensor_under_benchmark_fails():
-    s = _sidebar(children={"Benchmark": [*C.BENCHMARK, "Sensors"], "Device wiki": ["Overview", "Tracking", "Head-worn"]})
+    s = _sidebar(children={"Benchmark": [*C.BENCHMARK, "Sensors"], "Device wiki": [*C.DEVICE_TOP, "Tracking", "Head-worn"]})
     assert C.sidebar_problems(s, NAV) == ["Benchmark holds ['Leaderboard', 'Methodology', 'Datasets eval', 'Examples', 'Sensors']"]
 
 
@@ -313,7 +313,7 @@ def test_every_device_page_has_one_sidebar_entry():
     """The Device wiki sidebar comes from sensor-nav.json (astro.config.mjs). A page missing there builds but is
     reachable only by URL; an entry without a page is a dead link."""
     from mvis_site import SITE
-    pages = {f"/devices/{p.stem}/" for p in (SITE / "src/content/docs/devices").glob("*.md*") if p.stem != "index"}
+    pages = {f"/devices/{p.stem}/" for p in (SITE / "src/content/docs/devices").glob("*.md*") if p.stem not in ("index", "components")}
     links = [n["link"] for n in json.loads((SITE / "src/data/sensor-nav.json").read_text(encoding="utf-8"))]
     assert sorted(pages - set(links)) == []
     assert sorted(set(links) - pages) == []
