@@ -141,7 +141,7 @@ Device wiki
 
 ## Calibrated on real hardware, from many makers.
 
-18 devices from 13 makers (ALG Tech, Borme, Dibuli, General Intelligence Labs, Hampo, LooperRobotics, Tujian, HP, Insta360, Intel RealSense, Samsung, Stereolabs, Valve), plus our own VI-Rig. Each has a page with its calibration, the data and the results.
+19 devices from 14 makers (ALG Tech, Borme, Dibuli, General Intelligence Labs, Hampo, LooperRobotics, RoboBaton, Tujian, HP, Insta360, Intel RealSense, Samsung, Stereolabs, Valve), plus our own VI-Rig. Each has a page with its calibration, the data and the results.
 
 - OpenMVIS VI-Rig
 - ALG Tech AVS111C-Y stereo
@@ -152,6 +152,7 @@ Device wiki
 - General Intelligence Labs GI EGO1GS
 - Hampo Stereo module
 - LooperRobotics Insight 9
+- RoboBaton Neo
 - Tujian CyperStereo
 - HP Reverb G2
 - Insta360 ONE RS 1-Inch 360
@@ -171,6 +172,7 @@ Recordings and units from
 -
 -
 - Hampo
+- RoboBaton
 - Borme
 Also calibrated, from public datasets
 
@@ -9940,6 +9942,8 @@ Tracking modules · Head-worn cameras · VR headsets · 360° cameras
 
 - RealSense D435i Depth camera: global-shutter infrared stereo, rolling-shutter RGB and a 6-axis IMU Rolling shutter 1 camera 200 Hz IMU
 
+- RoboBaton Neo VIO module: global-shutter fisheye camera with a TDK ICM-42670-P IMU Global shutter 1 camera 200 Hz IMU
+
 - Stereolabs ZED 2 Stereo depth camera: two rolling-shutter cameras with a 400 Hz IMU Rolling shutter 2 cameras 400 Hz IMU
 
 - LooperRobotics Insight 9 Spatial AI camera: stereo pair, rolling-shutter colour camera, 6-axis IMU, VIO Global + rolling shutter 3 cameras 400 Hz IMU
@@ -10638,6 +10642,127 @@ t_ga ms | −3.43 ± 0.72 |
 ## How it was run
 
 - RGB camera with the IMU in one solve per recording, as a rolling-shutter camera with the readout time estimated. Pinhole camera with radial-tangential distortion, seeded from a single-camera solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-14.
+
+
+---
+
+# RoboBaton Neo camera–IMU calibration | OpenMVIS
+
+URL: https://openmvis.com/devices/robobaton-neo/
+
+## Demo and values
+
+Small VIO module from RoboBaton, 8.7 g on a 40 × 20 mm board, with one global-shutter fisheye camera and a TDK ICM-42670-P IMU, hardware-triggered. One hand-held recording in front of an AprilGrid shown on a monitor, recorded by the module's own capture tool and solved as camera + IMU.
+The 3D scene MVIS recovered from the recording.
+
+Reprojection median 0.41 px
+cam0 td +1.14 ms
+cam0 lever arm 30.8 mm
+
+Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
+One recording, 5 frames per second. The maker's own calibration of the same recording agrees on the rotation (within 0.4°) and on the lever arm across the image (within 2 mm), but not along the optical axis (17 mm here against 9 mm) nor on the time offset (1.1 ms against 0.3 ms). A digital twin of the recording puts the noise on z at about 1 mm, so the gap is systematic; the image stamp convention and the tag size on the monitor are the open questions.
+
+## Calibration process
+
+The path of the rig around the board, as MVIS solved it. To explore it:
+
+- Press Play or drag the bar to follow the path.
+- Use the view buttons to change the view.
+- Pick a camera card to put that camera on the frustum, the pyramid that shows its view.
+Each card draws the board from the solved pose, with the corners MVIS detected. We publish no camera images.
+
+## Solved rig
+
+The solved rig in 3D, to scale. Tap a sensor to see its values. In full screen you can rotate and zoom. Grid squares are 20 mm.
+
+### To scale, from above and the front
+
+From above
+
+From the front
+
+Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
+cam0 | −24.6, +6.4, +17.3 | 30.8 | [−0.002, +0.006, −1.570] | +1.14 | 126° × ~147° |
+
+Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
+
+## Specifications
+
+Published by the maker |
+Maker | RoboBaton (documentation site; company name not given there) |
+Shutter | Global |
+Lens | Fisheye, 193.8° diagonal |
+IMU | TDK ICM-42670-P, gyro and accelerometer at 200 Hz with multi-sample averaging |
+Sync | Hardware-triggered camera and IMU on one clock |
+Link | USB-C (network adapter with an HTTP stream), 6-pin UART with trigger in and exposure out, microSD; 8.69 g bare, 13.86 g cased |
+Measured in these recordings |
+Camera | SmartSens SC132GS, 1080 × 1280 native at 60 fps; the calibration stream is 544 × 640 at 5 Hz |
+Calibrated field of view | cam0 126° × ~147° |
+
+## Dataset
+
+Recording | 1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz |
+Format | EuRoC mav0: PNG and IMU CSV, written by the module's capture tool |
+Board | AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor |
+Data | Not hosted |
+
+AprilGrid 6 × 6, 188 × 188 mm. Standard pattern, to scale
+
+## Detailed results
+
+Lens Calibrated field of view
+Calibrated field of view, horizontal × vertical. cam0: 126° × ~147°, corners reach 68° from the axis
+
+cam0
+We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
+
+IMU Gyro–accel time offset t_ga −0.27 ms
+Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: −0.27 ± 0.07 ms.
+Gyro scale x−0.28 %
+Gyro scale y−0.39 %
+Gyro scale z+0.02 %
+Accel scale x+0.33 %
+Accel scale y+0.17 %
+Accel scale z−0.36 %
+−8 %0+8 %
+
+Timing cam0 td +1.14 ms
+The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td.
+
+Board shape peak to peak 1.1 mm
+The calibration board isn't perfectly flat, so this solve estimated the height of every corner off the flat board along with the calibration. The board's mean plane and tilt belong to its pose, so a flat board shows only noise here.
+Height of each corner off the flat board: peak to peak 1.1 mm, rms 0.2 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
+
+Full results Every solved parameter
+Rotation is log(R) in rad, camera in the IMU frame.
+Parameter | MVIS |
+cam0 |
+fx px | 236.10 |
+fy px | 234.22 |
+cx px | 268.43 |
+cy px | 321.46 |
+k1 | 0.04271 |
+k2 | −0.00205 |
+k3 | −0.00126 |
+k4 | 0.00042 |
+Lever x mm | −24.64 |
+Lever y mm | +6.44 |
+Lever z mm | +17.34 |
+log(R) rad | [−0.0020, +0.0059, −1.5702] |
+td ms | +1.137 |
+Reprojection px | 0.501 |
+IMU |
+t_ga ms | −0.27 ± 0.07 |
+
+## Limits
+
+- One recording, 5 frames per second. The maker's own calibration of the same recording agrees on the rotation (within 0.4°) and on the lever arm across the image (within 2 mm), but not along the optical axis (17 mm here against 9 mm) nor on the time offset (1.1 ms against 0.3 ms). A digital twin of the recording puts the noise on z at about 1 mm, so the gap is systematic; the image stamp convention and the tag size on the monitor are the open questions.
+- The tag size, 25 mm, is the value in the capture tool's config, not a measurement on the monitor; it scales the lever arm.
+- A double-sphere model fits as well as kb4, but its focal length and xi trade off along a flat valley, so only the projection is comparable between the two.
+
+## How it was run
+
+- Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the ICM-42670-P datasheet value times three. Solved 2026-11-19.
 
 
 ---
@@ -17551,6 +17676,14 @@ Stereo fisheye module recording
 - Hampo stereo module
 Thanks to Zhou Yuhua (周宇华), sales manager
 cannychow@dghpdz.cn
+
+RoboBaton
+
+### RoboBaton
+
+Calibration recording of their VIO module
+
+- Neo
 
 Borme
 

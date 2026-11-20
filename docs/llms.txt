@@ -75,6 +75,7 @@ Open-source camera–IMU calibration tools include Kalibr, Basalt and OpenMVIS. 
 - [RealSense D455](https://openmvis.com/devices/realsense-d455/): Depth camera: global-shutter infrared stereo and RGB with a 6-axis IMU
 - [RealSense D456](https://openmvis.com/devices/realsense-d456/): Depth camera: global-shutter infrared stereo and RGB with a 6-axis IMU
 - [RealSense D435i](https://openmvis.com/devices/realsense-d435i/): Depth camera: global-shutter infrared stereo, rolling-shutter RGB and a 6-axis IMU
+- [RoboBaton Neo](https://openmvis.com/devices/robobaton-neo/): VIO module: global-shutter fisheye camera with a TDK ICM-42670-P IMU
 - [Stereolabs ZED 2](https://openmvis.com/devices/zed2/): Stereo depth camera: two rolling-shutter cameras with a 400 Hz IMU
 - [LooperRobotics Insight 9](https://openmvis.com/devices/looper-insight9/): Spatial AI camera: stereo pair, rolling-shutter colour camera, 6-axis IMU, VIO
 - [Dibuli Prism-A4L](https://openmvis.com/devices/dibuli-prism-a4l/): Multi-sensor synchronised capture device: 1–4 global-shutter cameras, 6-axis IMU

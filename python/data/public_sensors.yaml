@@ -175,6 +175,93 @@ sensors:
         baseline: {v: "50 mm, infrared pair (not used here)", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}
         imu: {v: "200 Hz", tag: measured, also: {v: "Bosch BMI055 or BMI085, by production revision", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}}
         output: {v: "USB-C, EuRoC mav0", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
+  robobaton-neo:
+    group: cameras
+    key: robobaton-neo
+    title: RoboBaton Neo
+    description: Monocular visual-inertial odometry module with a global-shutter fisheye camera and a 6-axis IMU,
+      calibrated with MVIS as camera + IMU on one AprilGrid recording from the maker.
+    lead: Small VIO module from RoboBaton, 8.7 g on a 40 × 20 mm board, with one global-shutter fisheye camera
+      and a TDK ICM-42670-P IMU, hardware-triggered. One hand-held recording in front of an AprilGrid shown on a
+      monitor, recorded by the module's own capture tool and solved as camera + IMU.
+    demo:
+      from: robobaton-neo_small
+      note: The 3D scene MVIS recovered from the recording.
+    run_labels:
+      - Recording 1
+    card:
+      name: Neo
+      maker: RoboBaton
+      tags:
+        - Global shutter
+        - 1 camera
+        - 200 Hz IMU
+    hardware:
+      - [Maker, "RoboBaton (documentation site; company name not given there)", Maker]
+      - [Camera, "SmartSens SC132GS, 1080 × 1280 native at 60 fps; the calibration stream is 544 × 640 at 5 Hz", Measured]
+      - [Shutter, "Global", Maker]
+      - [Lens, "Fisheye, 193.8° diagonal", Maker]
+      - [IMU, "TDK ICM-42670-P, gyro and accelerometer at 200 Hz with multi-sample averaging", Maker]
+      - [Sync, "Hardware-triggered camera and IMU on one clock", Maker]
+      - [Link, "USB-C (network adapter with an HTTP stream), 6-pin UART with trigger in and exposure out, microSD; 8.69 g bare, 13.86 g cased", Maker]
+    dataset:
+      - [Recording, "1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz"]
+      - [Format, "EuRoC mav0: PNG and IMU CSV, written by the module's capture tool"]
+      - [Board, "AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor"]
+      - [Data, "Not hosted"]
+    method: Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera
+      solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the
+      gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the ICM-42670-P
+      datasheet value times three. Solved 2026-11-19.
+    limits:
+      - "One recording, 5 frames per second. The maker's own calibration of the same recording agrees on the rotation (within 0.4°) and on the lever arm across the image (within 2 mm), but not along the optical axis (17 mm here against 9 mm) nor on the time offset (1.1 ms against 0.3 ms). A digital twin of the recording puts the noise on z at about 1 mm, so the gap is systematic; the image stamp convention and the tag size on the monitor are the open questions."
+      - "The tag size, 25 mm, is the value in the capture tool's config, not a measurement on the monitor; it scales the lever arm."
+      - "A double-sphere model fits as well as kb4, but its focal length and xi trade off along a flat valley, so only the projection is comparable between the two."
+    header:
+      type: "VIO module: global-shutter fisheye camera with a TDK ICM-42670-P IMU"
+      maker:
+        name: RoboBaton
+        url: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
+      links:
+        product: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
+        product_label: RoboBaton Neo documentation
+        more:
+          - label: Quick start
+            url: https://hessian-matrix.github.io/RoboBaton_Neo_docs/quick-start.html
+      image:
+        kind: photo
+        file: robobaton-neo.jpg
+        alt: RoboBaton Neo in its case, front view
+        credit: "Photo: RoboBaton"
+        url: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
+      foot: Maker values from the Neo documentation site, read 2026-11-19 · 1 recording, 77 s
+      key_specs:
+        cameras:
+          v: "544 × 640 here, 1080 × 1280 native"
+          tag: measured
+        shutter:
+          v: Global
+          tag: maker
+          src: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
+        fov:
+          auto: fov
+          also:
+            v: 193.8° diagonal
+            tag: maker
+            src: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
+        baseline:
+          auto: baseline
+        imu:
+          v: 200 Hz
+          tag: measured
+          also:
+            v: TDK ICM-42670-P
+            tag: maker
+            src: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
+        output:
+          v: USB-C network stream, UART; EuRoC mav0 from the capture tool
+          tag: maker
+          src: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
   zed2:
     group: cameras
     key: zed2
