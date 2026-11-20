@@ -270,8 +270,11 @@ def pub_entry(kind="photo"):
     p = {"group": "g1", "title": f"Rig {kind}", "description": "A test rig.", "lead": "Two cameras & an IMU.", "chips": ["2 cameras"],
          "hardware": [["Shutter", "Global", "Maker"], ["Weight", "Not published", "Unknown"], ["Mount", "Clip", "Unknown"], ["Lens", "M12", "Catalog"]],
          "dataset": [["Board", "AprilGrid 6×6"]], "folder": "rig/", "method": "Camera + IMU, intrinsics free.",
-         "limits": ["One recording.", "No second unit."], "card": {"tags": ["Global shutter", "2 cameras", "400 Hz IMU"]}}
+         "limits": ["One recording.", "No second unit."], "card": {"tags": ["Global shutter", "2 cameras", "400 Hz IMU"]},
+         "components": {"cameras": [{"count": 2}], "imus": [{}]}}   # not known: the plain case
     if kind == "photo":
+        p["components"] = {"cameras": [{"maker": "OmniVision", "part": "OV9282", "count": 2, "src": "maker", "via": "Datasheet", "url": "https://example.com/d"}],
+                           "imus": [{"maker": "Bosch", "part": "BMI088", "src": "report", "via": "A teardown"}]}
         p["header"] = {"type": "Stereo module", "foot": "Values from the maker.", "maker": {"name": "Maker Co", "url": "https://example.com"},
                        "image": {"kind": "photo", "file": "rig.jpg", "alt": "The rig", "credit": "Maker Co", "url": "https://example.com/p"},
                        "key_specs": key_specs(), "links": {"product": "https://example.com/p", "more": [{"url": "https://example.com/d", "label": "Docs"}]},
@@ -286,6 +289,7 @@ def pub_entry(kind="photo"):
                        "groups": [{"title": "From the dataset", "rows": [{"item": "Rate", "v": "30 Hz", "src": "https://example.com/r"}]}]}
         p["demo"] = {"from": "clip_c", "note": "C"}
         p["key"] = "shared"
+        p["components"] = {"cameras": [{"count": 2}], "imus": [{"module": "Xsens MTi-100"}]}
     else:
         p["image"] = {"file": "old.jpg", "alt": "Old", "caption": "Old photo"}  # the lead photo, before headers had one
         p["header"] = {"type": "Headset", "foot": "Maker data.", "maker": {"name": "Old Co"}, "image": {"kind": "photo", "file": "old.jpg", "alt": "Old", "credit": "Old Co"},

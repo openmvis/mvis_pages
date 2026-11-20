@@ -1,0 +1,731 @@
+{
+ "devices": [
+  {
+   "slug": "intel-t265",
+   "title": "Intel RealSense T265",
+   "name": "T265",
+   "group": "cameras",
+   "href": "/devices/intel-t265/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV9282",
+     "via": "Vision Systems Design, 2019",
+     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "count": 2,
+     "src": "Teardown"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI055",
+     "via": "RealSense IMU article",
+     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "realsense-d455",
+   "title": "RealSense D455",
+   "name": "D455",
+   "group": "cameras",
+   "href": "/devices/realsense-d455/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV9782",
+     "note": "IR pair + RGB",
+     "via": "D400 datasheet, Mar 2026",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 3,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI055 / BMI085",
+     "note": "by production revision",
+     "via": "D400 datasheet",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "realsense-d456",
+   "title": "RealSense D456",
+   "name": "D456",
+   "group": "cameras",
+   "href": "/devices/realsense-d456/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV9782",
+     "note": "IR pair + RGB",
+     "via": "D400 datasheet, Mar 2026",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 3,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI085",
+     "via": "D400 datasheet",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "realsense-d435i",
+   "title": "RealSense D435i",
+   "name": "D435i",
+   "group": "cameras",
+   "href": "/devices/realsense-d435i/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV2740",
+     "note": "RGB, rolling shutter",
+     "via": "D400 datasheet, Mar 2026",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 1,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI055 / BMI085",
+     "note": "by production revision",
+     "via": "D400 datasheet",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 1,
+     "src": "Maker"
+    }
+   ],
+   "uncalibrated": [
+    {
+     "maker": "OmniVision",
+     "part": "OV9282",
+     "note": "IR pair, not yet calibrated",
+     "via": "D400 datasheet, Mar 2026",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 2,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "robobaton-neo",
+   "title": "RoboBaton Neo",
+   "name": "Neo",
+   "group": "cameras",
+   "href": "/devices/robobaton-neo/",
+   "cameras": [
+    {
+     "maker": "SmartSens",
+     "part": "SC132GS",
+     "via": "maker's device-config file, no public link",
+     "count": 1,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-42670-P",
+     "via": "RoboBaton Neo docs",
+     "url": "https://hessian-matrix.github.io/RoboBaton_Neo_docs/",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "zed2",
+   "title": "Stereolabs ZED 2",
+   "name": "ZED 2",
+   "group": "cameras",
+   "href": "/devices/zed2/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "looper-insight9",
+   "title": "LooperRobotics Insight 9",
+   "name": "Insight 9",
+   "group": "cameras",
+   "href": "/devices/looper-insight9/",
+   "cameras": [
+    {
+     "maker": "SmartSens",
+     "part": "SC132GS",
+     "note": "mono, global shutter",
+     "via": "Insight 9 product page",
+     "url": "https://looper-robotics.com/home/product/insight-9/",
+     "count": 2,
+     "src": "Maker"
+    },
+    {
+     "maker": "Sony",
+     "part": "IMX415",
+     "note": "colour, rolling shutter",
+     "via": "Insight 9 product page",
+     "url": "https://looper-robotics.com/home/product/insight-9/",
+     "count": 1,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI088",
+     "via": "Insight 9 product page",
+     "url": "https://looper-robotics.com/home/product/insight-9/",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "dibuli-prism-a4l",
+   "title": "Dibuli Prism-A4L",
+   "name": "Prism-A4L",
+   "group": "cameras",
+   "href": "/devices/dibuli-prism-a4l/",
+   "cameras": [
+    {
+     "maker": "SmartSens",
+     "part": "SC130GS",
+     "via": "Prism docs",
+     "url": "https://dibuli.com/content/docs/en/prism.md",
+     "count": 4,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-45686",
+     "note": "maker default; ICM-42688 by configuration",
+     "via": "Prism docs",
+     "url": "https://dibuli.com/content/docs/en/prism.md",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "alg-avs111c",
+   "title": "ALG AVS111C-Y stereo module",
+   "name": "AVS111C-Y stereo",
+   "group": "cameras",
+   "href": "/devices/alg-avs111c/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-45686",
+     "via": "ALG datasheet and message, no public link",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "alg-avs115d",
+   "title": "ALG AVS115D-Y stereo module",
+   "name": "AVS115D-Y stereo",
+   "group": "cameras",
+   "href": "/devices/alg-avs115d/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-45686",
+     "via": "named by ALG, no public link",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "cyperstereo",
+   "title": "CyperStereo four-camera module",
+   "name": "CyperStereo",
+   "group": "cameras",
+   "href": "/devices/cyperstereo/",
+   "cameras": [
+    {
+     "maker": "SmartSens",
+     "part": "SC136HGS",
+     "via": "maker's product manual, no public link",
+     "count": 4,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI088",
+     "via": "maker's product manual, no public link",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "hampo",
+   "title": "Hampo stereo module",
+   "name": "Stereo module",
+   "group": "cameras",
+   "href": "/devices/hampo/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "gi-ego1",
+   "title": "GI Ego1",
+   "name": "GI Ego1",
+   "group": "head-worn",
+   "href": "/devices/gi-ego1/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "gi-ego1gs",
+   "title": "GI EGO1GS",
+   "name": "GI EGO1GS",
+   "group": "head-worn",
+   "href": "/devices/gi-ego1gs/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "xq20",
+   "title": "XQ20 stereo headset",
+   "name": "XQ20 stereo headset",
+   "group": "head-worn",
+   "href": "/devices/xq20/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "valve-index",
+   "title": "Valve Index",
+   "name": "Index",
+   "group": "vr",
+   "href": "/devices/valve-index/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
+     "via": "iFixit chip ID",
+     "url": "https://www.ifixit.com/Guide/Valve+Index+Chip+ID/155948",
+     "count": 1,
+     "src": "Teardown"
+    }
+   ]
+  },
+  {
+   "slug": "hp-reverb-g2",
+   "title": "HP Reverb G2",
+   "name": "Reverb G2",
+   "group": "vr",
+   "href": "/devices/hp-reverb-g2/",
+   "cameras": [
+    {
+     "count": 4
+    }
+   ],
+   "imus": [
+    {
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "samsung-odyssey-plus",
+   "title": "Samsung Odyssey+",
+   "name": "Odyssey+",
+   "group": "vr",
+   "href": "/devices/samsung-odyssey-plus/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV7251",
+     "via": "Monado dataset authors",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
+     "count": 2,
+     "src": "Dataset"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
+     "via": "headset calibration file in the dataset",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
+     "count": 1,
+     "src": "Dataset"
+    }
+   ]
+  },
+  {
+   "slug": "insta360-one-rs-1inch-360",
+   "title": "Insta360 ONE RS 1-Inch 360 Edition",
+   "name": "ONE RS 1-Inch 360",
+   "group": "panoramic",
+   "href": "/devices/insta360-one-rs-1inch-360/",
+   "cameras": [
+    {
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "count": 1
+    }
+   ]
+  }
+ ],
+ "datasets": [
+  {
+   "slug": "virig-4imus-3cams",
+   "label": "VI-Rig 4 IMUs + 3 cams",
+   "ours": true,
+   "href": "/benchmark/results/virig-4imus-3cams/",
+   "cameras": [
+    {
+     "maker": "Sony",
+     "part": "IMX273",
+     "device": "FLIR Blackfly S BFS-U3-16S2M",
+     "via": "FLIR spec page",
+     "url": "https://softwareservices.flir.com/BFS-U3-16S2/latest/Model/spec.html",
+     "count": 1,
+     "src": "Maker"
+    },
+    {
+     "maker": "OmniVision",
+     "part": "OV9282",
+     "device": "RealSense T265",
+     "via": "Vision Systems Design, 2019",
+     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "count": 2,
+     "src": "Teardown"
+    }
+   ],
+   "imus": [
+    {
+     "module": "Xsens MTi-100",
+     "device": "VI-Rig",
+     "count": 1
+    },
+    {
+     "module": "MicroStrain 3DM-GX3-25",
+     "device": "VI-Rig",
+     "count": 1
+    },
+    {
+     "module": "MicroStrain 3DM-GX3-35",
+     "device": "VI-Rig",
+     "count": 1
+    },
+    {
+     "maker": "Bosch",
+     "part": "BMI055",
+     "device": "RealSense T265",
+     "via": "RealSense IMU article",
+     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "virig-4imus-4cams",
+   "label": "VI-Rig 4 IMUs + 4 cams",
+   "ours": true,
+   "href": "/benchmark/results/virig-4imus-4cams/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV9282",
+     "device": "RealSense T265",
+     "via": "Vision Systems Design, 2019",
+     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "count": 2,
+     "src": "Teardown"
+    },
+    {
+     "module": "ELP-960P2CAM-V90-VC",
+     "note": "model from the MVIS paper (Yang et al., IJRR 2023)",
+     "device": "ELP stereo, rolling shutter",
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI055",
+     "device": "RealSense T265",
+     "via": "RealSense IMU article",
+     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "count": 1,
+     "src": "Maker"
+    },
+    {
+     "module": "Xsens MTi-100",
+     "device": "VI-Rig",
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "virig-5imus-4cams",
+   "label": "VI-Rig 5 IMUs + 4 cams",
+   "ours": true,
+   "href": "/benchmark/results/virig-5imus-4cams/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV9282",
+     "device": "RealSense T265 A and B",
+     "via": "Vision Systems Design, 2019",
+     "url": "https://www.vision-systems.com/embedded/article/16748259/selfcontained-tracking-camera-from-intel-targets-robots-and-autonomous-devices",
+     "count": 4,
+     "src": "Teardown"
+    }
+   ],
+   "imus": [
+    {
+     "module": "Xsens MTi-100",
+     "device": "VI-Rig",
+     "count": 1
+    },
+    {
+     "module": "MicroStrain 3DM-GX3-25",
+     "device": "VI-Rig",
+     "count": 1
+    },
+    {
+     "module": "MicroStrain 3DM-GX3-35",
+     "device": "VI-Rig",
+     "count": 1
+    },
+    {
+     "maker": "Bosch",
+     "part": "BMI055",
+     "device": "RealSense T265 A and B",
+     "via": "RealSense IMU article",
+     "url": "https://www.realsenseai.com/news-insights/how-to-getting-imu-data-from-d435i-and-t265/",
+     "count": 2,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "tum-vi",
+   "label": "TUM-VI",
+   "ours": false,
+   "href": "/benchmark/results/tum-vi/",
+   "cameras": [
+    {
+     "module": "IDS uEye UI-3241LE-M-GL",
+     "device": "IDS uEye cameras",
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI160",
+     "device": "Genuino 101 board",
+     "via": "TUM-VI paper, Schubert et al. 2018",
+     "url": "https://arxiv.org/pdf/1804.06120",
+     "count": 1,
+     "src": "Dataset"
+    }
+   ]
+  },
+  {
+   "slug": "looper-insight9",
+   "label": "Looper Insight 9",
+   "ours": false,
+   "href": "/benchmark/results/looper-insight9/",
+   "cameras": [
+    {
+     "maker": "SmartSens",
+     "part": "SC132GS",
+     "device": "Insight 9",
+     "via": "Insight 9 product page",
+     "count": 2,
+     "src": "Maker"
+    },
+    {
+     "maker": "Sony",
+     "part": "IMX415",
+     "device": "Insight 9",
+     "via": "Insight 9 product page",
+     "count": 1,
+     "src": "Maker"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "Bosch",
+     "part": "BMI088",
+     "device": "Insight 9",
+     "via": "Insight 9 product page",
+     "count": 1,
+     "src": "Maker"
+    }
+   ]
+  },
+  {
+   "slug": "monado-mgc",
+   "label": "Monado MGC",
+   "ours": false,
+   "href": "/benchmark/results/monado-mgc/",
+   "cameras": [
+    {
+     "device": "HP Reverb G2",
+     "count": 2
+    }
+   ],
+   "imus": [
+    {
+     "device": "HP Reverb G2",
+     "count": 1
+    }
+   ]
+  },
+  {
+   "slug": "uzh-fpv",
+   "label": "UZH-FPV",
+   "ours": false,
+   "href": "/benchmark/results/uzh-fpv/",
+   "cameras": [
+    {
+     "maker": "iniVation",
+     "part": "DAVIS346",
+     "device": "iniVation mDAVIS346",
+     "via": "UZH-FPV paper, Delmerico et al. 2019",
+     "url": "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf",
+     "count": 1,
+     "src": "Dataset"
+    },
+    {
+     "maker": "OmniVision",
+     "part": "OV7251",
+     "device": "Snapdragon Flight",
+     "via": "UZH-FPV paper, Delmerico et al. 2019",
+     "url": "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf",
+     "count": 2,
+     "src": "Dataset"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "MPU-6500",
+     "device": "iniVation mDAVIS346",
+     "via": "iniVation IMU docs",
+     "url": "https://docs.inivation.com/hardware/hardware-advanced-usage/imu.html",
+     "count": 1,
+     "src": "Maker"
+    },
+    {
+     "maker": "TDK InvenSense",
+     "part": "MPU-9250",
+     "device": "Snapdragon Flight",
+     "via": "ArduPilot docs",
+     "url": "https://ardupilot.org/plane/docs/common-qualcomm-snapdragon-flight-kit.html",
+     "count": 1,
+     "src": "Teardown"
+    }
+   ]
+  }
+ ],
+ "counts": {
+  "cameras": {
+   "total": 45,
+   "not_known": 22,
+   "by_maker": {
+    "OmniVision": 11,
+    "SmartSens": 11,
+    "Sony": 1
+   }
+  },
+  "imus": {
+   "total": 19,
+   "not_known": 7,
+   "by_maker": {
+    "Bosch": 6,
+    "TDK InvenSense": 6
+   }
+  }
+ }
+}

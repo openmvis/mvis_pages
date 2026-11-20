@@ -11,7 +11,10 @@ from mvis_site import site_files as S
 def test_card_takes_its_own_name_and_maker_first():
     p = F.pub_entry("photo")
     assert S.card_for("rig", p) == {"title": "Rig", "href": "/devices/rig/", "image": "/media/sensors/rig/rig.jpg", "alt": "The rig",
-                                    "maker": "Maker Co", "type": "Stereo module", "tags": p["card"]["tags"]}
+                                    "maker": "Maker Co", "type": "Stereo module", "tags": p["card"]["tags"],
+                                    "components": {"cameras": [{"maker": "OmniVision", "part": "OV9282", "count": 2, "src": "Maker", "via": "Datasheet",
+                                                                "url": "https://example.com/d"}],
+                                                   "imus": [{"maker": "Bosch", "part": "BMI088", "count": 1, "src": "Teardown", "via": "A teardown"}]}}
     p["card"]["maker"] = "Short"
     assert S.card_for("rig", p)["maker"] == "Short"
     q = F.pub_entry("old")
