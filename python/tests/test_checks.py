@@ -42,6 +42,17 @@ def test_datasets_eval_holds_one_page_per_results_nav_entry():
         "Benchmark › Datasets eval holds None, want ['VI-Rig 4 IMUs + 3 cams', 'TUM-VI']"]
 
 
+def test_grouped_results_nav_entries_sit_in_one_subgroup_at_their_first_place():
+    rnav = [*RNAV[:1], {"label": "Monado MIC", "link": "/benchmark/results/monado-mic/", "group": "Monado", "nav_label": "MIC"},
+            {"label": "Monado MGC", "link": "/benchmark/results/monado-mgc/", "group": "Monado", "nav_label": "MGC"}, RNAV[1]]
+    want = {"Benchmark › Datasets eval": ["VI-Rig 4 IMUs + 3 cams", "Monado", "TUM-VI"],
+            "Benchmark › Datasets eval › Monado": ["MIC", "MGC"]}
+    assert C.results_nav_paths(rnav) == want
+    assert C.sidebar_problems(_sidebar(paths=want), NAV, rnav) == []
+    flat = {"Benchmark › Datasets eval": ["VI-Rig 4 IMUs + 3 cams", "Monado MIC", "Monado MGC", "TUM-VI"]}
+    assert len(C.sidebar_problems(_sidebar(paths=flat), NAV, rnav)) == 2
+
+
 def test_page_problems_name_a_sideways_scroll_and_a_theme_that_did_not_apply():
     ok = {"vw": 390, "scrollW": 390, "theme": "dark", "wide": []}
     assert C.page_problems("/p/", "phone-390", "dark", ok) == []

@@ -175,6 +175,8 @@ a.lb-d:hover .lb-n b, a.lb-d:focus-visible .lb-n b { text-decoration: underline;
 .ev-lv { font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ev-ln { color: var(--ev-mut); white-space: normal; }
 .ev-missing .ev-lv, .ev-shown .ev-lv, .ev-other_model .ev-lv { white-space: normal; }
+/* poor solves of this tool: the values stay as solved, the reason in grey below the lane, under its chart */
+.ev-poor { margin: 0 0 0.2rem 8rem; color: var(--sl-color-gray-3); font-size: 0.72rem; line-height: 1.3; }
 
 .ev-ml, .ev-notes, .ev-reading { margin: 0.3rem 0 0.5rem 1.1rem; padding: 0; font-size: 0.9rem; }
 .ev-ml li, .ev-notes li, .ev-reading li { margin: 0.25rem 0; }
@@ -195,6 +197,7 @@ a.lb-d:hover .lb-n b, a.lb-d:focus-visible .lb-n b { text-decoration: underline;
   .ev-drows .ev-gauge { grid-column: 1 / -1; grid-row: 2; width: 100%; max-width: 18rem; height: auto; }
   .ev-lane { grid-template-columns: 5.6rem minmax(0, 1fr) 6.6rem; gap: 0.35rem; font-size: 0.74rem; }
   .ev-lv .ev-sd, .ev-fixed .ev-ln { display: none; }
+  .ev-poor { margin-left: 6rem; }
   .ev-solved li { grid-template-columns: 5.5rem minmax(0, 1fr) 3.8rem; }
   .ev-sq i { width: 9px; height: 9px; }
 }

@@ -122,10 +122,14 @@ def minmax(stats_row: dict | None, col: str, n: int) -> dict | None:
 
 
 # ---------------------------------------------------------------- one family
-def lane(col: str, label: str, cell: dict | None, stats_row: dict | None, dec: int, other_model: bool = False) -> dict:
+def lane(col: str, label: str, cell: dict | None, stats_row: dict | None, dec: int, other_model: bool = False,
+         poor: str | None = None) -> dict:
     """One tool's lane of a parameter chart. other_model: the Space says the tools' models differ on this row (its
-    delta reason "model"), so a non-MVIS value is printed, not drawn, as repeatability.MODEL_DIFFERS treats it."""
+    delta reason "model"), so a non-MVIS value is printed, not drawn, as repeatability.MODEL_DIFFERS treats it.
+    poor: public_results.yaml `poor` text of this tool and family, printed under the lane; the values stay as solved."""
     out = {"col": col, "tool": TOOL_OF[col], "label": label}
+    if poor:
+        out["poor"] = poor
     if not cell:
         return dict(out, state="missing", note="no value")
     if cell["state"] in ("missing", "shown_no_value"):
@@ -143,16 +147,22 @@ def lane(col: str, label: str, cell: dict | None, stats_row: dict | None, dec: i
     return out
 
 
-def axis(lanes: list[dict]) -> dict | None:
-    """Shared axis of one parameter: centred on the cross-tool median, half-width to the farthest whisker or box edge."""
+def axis(lanes: list[dict], centre: str | None = None) -> dict | None:
+    """Shared axis of one parameter: centred on the cross-tool median, half-width to the farthest whisker or box edge.
+    centre: a tool (public_results.yaml `axis_centre`) whose first drawn lane gives the centre instead, so another
+    tool's outliers do not move it; the cross-tool median when that tool has no drawn lane on this parameter."""
     on = [x for x in lanes if x["state"] in ON_AXIS]
     if not on:
         return None
-    c = statistics.median(x["med"] for x in on)
+    own = [x for x in on if centre and x.get("tool") == centre]
+    c = own[0]["med"] if own else statistics.median(x["med"] for x in on)
     far = [abs(v - c) for x in on
            for v in (x["med"], x["med"] - (x["sd"] or 0), x["med"] + (x["sd"] or 0), x.get("min", x["med"]), x.get("max", x["med"]))]
     h = max(far) * 1.1 or max(abs(c) * 1e-6, 1e-9)
-    return {"c": sig(c), "h": sig(h)}
+    out = {"c": sig(c), "h": sig(h)}
+    if own:
+        out["by"] = centre
+    return out
 
 
 def tg_tiles(rows: list[dict], cols: list[tuple[str, str]], sid: dict) -> list[dict]:
@@ -209,8 +219,10 @@ def diffs(rows: list[dict], pairs: list, camimu: bool, decs: dict, sid: dict) ->
     return out
 
 
-def sensors(rows: list[dict], cols: list[tuple[str, str]], stats_rows: dict, decs: dict, sid: dict) -> list[dict]:
-    """Charted parameters by sensor, in record order: one lane per tool column."""
+def sensors(rows: list[dict], cols: list[tuple[str, str]], stats_rows: dict, decs: dict, sid: dict,
+            centre: str | None = None, poor: dict | None = None) -> list[dict]:
+    """Charted parameters by sensor, in record order: one lane per tool column. centre: axis() centre tool; poor:
+    {tool: text} of this family (public_results.yaml `poor`)."""
     out = {}
     for r in rows:
         cls = param_class(r["key"])
@@ -220,12 +232,12 @@ def sensors(rows: list[dict], cols: list[tuple[str, str]], stats_rows: dict, dec
         vals = [r[c]["med"] for c, _ in cols if r.get(c) and r[c]["med"] is not None]
         dec = decimals(decs, r["key"], vals)
         other = any(d.get("reason") == "model" for d in r["deltas"].values())
-        lanes = [lane(c, label, r.get(c), srow, dec, other) for c, label in cols]
+        lanes = [lane(c, label, r.get(c), srow, dec, other, (poor or {}).get(TOOL_OF[c])) for c, label in cols]
         if not any(x["state"] in ON_AXIS for x in lanes):
             continue
         s = out.setdefault(sid[r["sensor"]], {"id": sid[r["sensor"]], "label": short(r["sensor"]), "params": []})
-        s["params"].append({"key": r["key"], "label": r["label"], "unit": r["unit"], "cls": cls, "axis": axis(lanes),
-                            "lanes": lanes})
+        s["params"].append({"key": r["key"], "label": r["label"], "unit": r["unit"], "cls": cls,
+                            "axis": axis(lanes, centre), "lanes": lanes})
     return list(out.values())
 
 
@@ -236,7 +248,7 @@ def solved(records: dict, T: str, of: int) -> list[dict]:
 
 
 def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, records: dict, stats_fam: dict,
-           sid: dict, hub: dict) -> dict:
+           sid: dict, hub: dict, centre: str | None = None, poor: dict | None = None) -> dict:
     camimu = is_camimu(meta["mode"])
     of = meta.get("n_recordings") or 0
     done = solved(records, T, of)
@@ -254,7 +266,7 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
             "solved": done, "read_first": _no_notes_ref(sp["read_first"]),
             "notes": sp["notes"], "records": hub, "fit": fit_rows(rows, cols, decs),
             "diffs": ds, "tally": {d["pair"]: [d["marked"], d["compared"]] for d in ds},
-            "sensors": sensors(rows, cols, stats_rows, decs, sid), "model_terms": tg_tiles(rows, cols, sid),
+            "sensors": sensors(rows, cols, stats_rows, decs, sid, centre, poor), "model_terms": tg_tiles(rows, cols, sid),
             "has_tga": any(base(r["key"]) == "t_ga_ms" for r in rows)}
 
 
@@ -331,12 +343,19 @@ def _no_notes_ref(text: str) -> str:
 def dataset(entry: dict, sp: dict, records: dict, stats: dict, batch: str, commit: str | None, rep_ds: dict | None) -> dict:
     fams_meta = records["families"]["families"]
     sid = entry["sensors"]
+    unknown = sorted(set(entry.get("poor") or {}) - {f["id"] for f in entry["families"]})
+    if unknown or (entry.get("axis_centre") or "MVIS") not in TOOLS:
+        raise ValueError(f"{entry['slug']}: poor names families {unknown} it does not list, or axis_centre is not a tool")
     fams = [family(f["id"], fams_meta[f["id"]], f["shutter"], sp["families"][f["id"]], sp["pairs"], sp["decimals"],
-                   records, stats["families"][f["id"]], sid, hub_links(f["id"], batch, commit)) for f in entry["families"]]
+                   records, stats["families"][f["id"]], sid, hub_links(f["id"], batch, commit), entry.get("axis_centre"),
+                   (entry.get("poor") or {}).get(f["id"])) for f in entry["families"]]
     for f in fams:  # a study names why the other tools did not run (repeatability.NOT_RUN covers the board's families)
         for s in f["solved"]:
             if "reason" in s and entry.get("not_run"):
                 s["reason"] = entry["not_run"]
+    if entry.get("study") and entry["id"] != "uzh_fpv":
+        for f in fams:  # no rendered board to count a separate study's ◆ against (UZH-FPV has its own), so none are kept
+            f["diffs"], f["tally"] = [], {}
     keep = ("slug", "id", "label", "title", "ours", "licence", "intro", "chips", "image", "links", "reading",
             "no_repeatability", "study_note")
     return {**{k: entry[k] for k in keep if k in entry}, "study": bool(entry.get("study")), "batch": batch,
@@ -362,8 +381,18 @@ def leaderboard(pages: list[dict], pub: dict, batch: str, commit: str) -> dict:
             "studies": study}
 
 
-def nav(pages: list[dict]) -> list[dict]:
-    return [{"label": p["label"], "link": p["link"], "slug": p["slug"], "legacy": p["legacy"]} for p in pages]
+def nav(pages: list[dict], pub: dict | None = None) -> list[dict]:
+    """The Results sidebar in page order. An entry with `nav_group` in public_results.yaml joins the collapsed group
+    of that name (astro.config.mjs), listed under its `nav_label`."""
+    entry = {e["slug"]: e for e in (pub or {}).get("datasets", [])}
+    out = []
+    for p in pages:
+        e = entry.get(p["slug"], {})
+        n = {"label": p["label"], "link": p["link"], "slug": p["slug"], "legacy": p["legacy"]}
+        if e.get("nav_group"):
+            n.update(group=e["nav_group"], nav_label=e.get("nav_label") or p["label"])
+        out.append(n)
+    return out
 
 
 def page_tools(page: dict) -> list[str]:
@@ -442,7 +471,7 @@ def render(pages: list[dict], pub: dict, batch: str, commit: str, boards: dict[s
             bad.append(f"{p['id']}: no rendered board to check its ◆ counts against")
     if bad:
         raise ValueError("◆ counts differ from the rendered board:\n  " + "\n  ".join(bad))
-    files = {f"{OUT_DIR}/index.json": dumps(leaderboard(pages, pub, batch, commit)), NAV_FILE: dumps(nav(pages))}
+    files = {f"{OUT_DIR}/index.json": dumps(leaderboard(pages, pub, batch, commit)), NAV_FILE: dumps(nav(pages, pub))}
     for p in pages:
         files[f"{OUT_DIR}/{p['slug']}.json"] = dumps(p)
         files[f"{MDX_DIR}/{p['slug']}.mdx"] = mdx(p)
@@ -508,8 +537,9 @@ def collect(leaderboard_dir, records_dir, stats_file, batch: str, commit: str, u
     return pages, pub, sp["pairs"], boards, private_words(stats) + tuple(w for _, _, st in srows.values() for w in private_words(st))
 
 
-def write(files: dict[str, str], site, commit: str, private: tuple = ()) -> list:
-    """Writes every file, or none when one has a problem. Generated MDX of a dataset no longer listed is removed."""
+def write(files: dict[str, str], site, commit: str, private: tuple = (), prune: bool = True) -> list:
+    """Writes every file, or none when one has a problem. Generated MDX of a dataset no longer listed is removed
+    (prune; off when only some pages are written)."""
     from pathlib import Path
 
     found = problems(files, commit, private)
@@ -517,10 +547,70 @@ def write(files: dict[str, str], site, commit: str, private: tuple = ()) -> list
         raise SystemExit("refusing to write:\n  " + "\n  ".join(found[:20]))
     site = Path(site)
     keep = {site / p for p in files}
-    for old in (site / MDX_DIR).glob("*.mdx"):
+    for old in (site / MDX_DIR).glob("*.mdx") if prune else ():
         if old not in keep:
             old.unlink()
     for p, text in files.items():
         (site / p).parent.mkdir(parents=True, exist_ok=True)
         (site / p).write_text(text, encoding="utf-8")
     return sorted(keep)
+
+
+# ---------------------------------------------------------------- separate studies alone (site/scripts/export_study.py)
+def collect_studies(leaderboard_dir, studies: dict) -> tuple[list[dict], dict, tuple]:
+    """(pages, pub, private words) of the separate studies in `studies` ({slug: stats file}), without the leaderboard
+    batch inputs. Every other page, its sidebar entry and the Leaderboard rows stay as they were last exported."""
+    import tempfile
+    from pathlib import Path
+
+    import yaml
+
+    from . import DATA, space
+    from .repeatability import gate, load_records, private_words
+
+    pub = yaml.safe_load((DATA / "public_results.yaml").read_text(encoding="utf-8"))
+    other = {e["slug"]: e for e in pub["datasets"] if e.get("study") and e["slug"] != "uzh-fpv"}
+    found = [f"{s}: not a separate study in public_results.yaml" for s in studies if s not in other]
+    pages, private = [], ()
+    for slug, path in studies.items():
+        if slug not in other:
+            continue
+        e, st = other[slug], json.loads(Path(path).read_text())
+        with tempfile.TemporaryDirectory(prefix="results_eval_") as tmp:
+            rows = space.study_rows(leaderboard_dir, st, Path(tmp) / "rec", e["batch"], (e["id"], e["stats_key"], e["label"]),
+                                    e["read_first"], e["like_for_like"])
+            recs = load_records(Path(tmp) / "rec", e["batch"])
+        found += gate(st, recs, e["batch"])
+        pages.append(dataset(e, rows, recs, st, e["batch"], None, None))
+        private += private_words(st)
+    if found:
+        raise SystemExit("inputs disagree:\n  " + "\n  ".join(found[:40]))
+    order = [e["slug"] for e in pub["datasets"]]
+    return sorted(pages, key=lambda p: order.index(p["slug"])), pub, private
+
+
+def render_studies(pages: list[dict], pub: dict, nav_old: list[dict], board: dict) -> dict[str, str]:
+    """{path: text}: the study pages' JSON and MDX; the sidebar in page order with these entries replaced and every
+    entry's group taken from public_results.yaml; the Leaderboard's study list with these studies replaced."""
+    fresh = {n["slug"]: n for n in nav(pages, pub)}
+    have = {n["slug"]: n for n in nav_old}
+    side = []
+    for e in pub["datasets"]:
+        n = dict(fresh.get(e["slug"]) or have.get(e["slug"]) or {})
+        if not n:
+            continue
+        n.pop("group", None)
+        n.pop("nav_label", None)
+        if e.get("nav_group"):
+            n.update(group=e["nav_group"], nav_label=e.get("nav_label") or n["label"])
+        side.append(n)
+    links = [f"{RESULTS}{e['slug']}/" for e in pub["datasets"]]
+    study = {s["link"]: s for s in board.get("studies", [])}
+    study.update({p["link"]: {"label": p["label"], "link": p["link"], "batch": p["batch"], "note": p.get("study_note", "")}
+                  for p in pages})
+    board = dict(board, studies=sorted(study.values(), key=lambda s: links.index(s["link"]) if s["link"] in links else len(links)))
+    files = {NAV_FILE: dumps(side), f"{OUT_DIR}/index.json": dumps(board)}
+    for p in pages:
+        files[f"{OUT_DIR}/{p['slug']}.json"] = dumps(p)
+        files[f"{MDX_DIR}/{p['slug']}.mdx"] = mdx(p)
+    return files

@@ -26,6 +26,22 @@ def routes(docs: Path) -> set[str]:
 DEVICE_TOP = ["Overview", "Cameras and IMUs"]   # the Device wiki's own pages, before the sensor-nav.json groups (astro.config.mjs)
 
 
+def results_nav_paths(results_nav: list[dict]) -> dict:
+    """What Benchmark › Datasets eval should hold (astro.config.mjs): the pages in order, an entry with a group as that
+    group's subgroup at its first entry, which lists its pages by nav_label."""
+    top, groups = [], {}
+    for n in results_nav:
+        g = n.get("group")
+        if not g:
+            top.append(n["label"])
+            continue
+        if g not in groups:
+            groups[g] = []
+            top.append(g)
+        groups[g].append(n.get("nav_label") or n["label"])
+    return {"Benchmark › Datasets eval": top, **{f"Benchmark › Datasets eval › {g}": v for g, v in groups.items()}}
+
+
 def sidebar_problems(s: dict, nav: list[dict], results_nav: list[dict] | None = None) -> list[str]:
     """Top-level sections, Benchmark, and the Device wiki: Overview and Cameras and IMUs, then one subgroup per sensor-nav.json group in its
     order, each holding its sensors once. With results_nav, Benchmark › Datasets eval holds one page per results-nav.json entry in its order. s is a measured sidebar
@@ -33,7 +49,7 @@ def sidebar_problems(s: dict, nav: list[dict], results_nav: list[dict] | None = 
     out = []
     if results_nav is not None:
         paths = s.get("paths", {})
-        want = {"Benchmark › Datasets eval": [n["label"] for n in results_nav]}
+        want = results_nav_paths(results_nav)
         out += [f"{p} holds {paths.get(p)}, want {w}" for p, w in want.items() if paths.get(p) != w]
     if s["sections"] != SECTIONS:
         out.append(f"sections are {s['sections']}")

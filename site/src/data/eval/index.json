@@ -557,6 +557,18 @@
    "note": "Separate study (batch 2026-11-02), MVIS only: Kalibr and Basalt were not run on this set, so it has no row here."
   },
   {
+   "label": "Monado MIC",
+   "link": "/benchmark/results/monado-mic/",
+   "batch": "2026-11-21",
+   "note": "Separate study (batch 2026-11-21): MVIS, Kalibr and Basalt on the 8 MIC camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+  },
+  {
+   "label": "Monado MOC",
+   "link": "/benchmark/results/monado-moc/",
+   "batch": "2026-11-21",
+   "note": "Separate study (batch 2026-11-21): MVIS, Kalibr and Basalt on the 4 MOC camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+  },
+  {
    "label": "UZH-FPV",
    "link": "/benchmark/results/uzh-fpv/",
    "batch": "2026-11-04",

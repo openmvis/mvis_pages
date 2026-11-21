@@ -1,0 +1,2113 @@
+{
+ "slug": "monado-moc",
+ "id": "monado_moc",
+ "label": "Monado MOC",
+ "title": "Monado MOC (Samsung Odyssey+)",
+ "ours": false,
+ "licence": "CC BY 4.0",
+ "intro": "The MOC calibration recordings of the Monado SLAM Datasets, made with a Samsung Odyssey+ headset: its two tracking cameras and its IMU, 4 camera + IMU recordings.",
+ "chips": [
+  "2 tracking cameras",
+  "headset IMU",
+  "4 recordings",
+  "AprilGrid 6×6, 30 mm"
+ ],
+ "image": {
+  "src": "/media/sensors/samsung-odyssey-plus/samsung-odyssey-plus.jpg",
+  "alt": "Samsung HMD Odyssey+ headset",
+  "credit": "Photo: Samsung Newsroom Brasil"
+ },
+ "links": {
+  "dataset": "/datasets/#third-party-datasets",
+  "sensor": "/devices/samsung-odyssey-plus/",
+  "hub": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_moc"
+ },
+ "no_repeatability": "This study has no repeatability cells: they are computed for the leaderboard batch only, and 4 recordings are too few for the test. Each tool's spread is in Parameters by sensor.",
+ "study_note": "Separate study (batch 2026-11-21): MVIS, Kalibr and Basalt on the 4 MOC camera + IMU recordings, run outside the leaderboard batch, so it has no row here.",
+ "study": true,
+ "batch": "2026-11-21",
+ "results_commit": null,
+ "link": "/benchmark/results/monado-moc/",
+ "has_repeatability": false,
+ "legacy": [],
+ "families": [
+  {
+   "id": "MOC",
+   "title": "cam0 + cam1 + IMU",
+   "mode": "cam+imu",
+   "shutter": "global",
+   "n": 4,
+   "columns": [
+    {
+     "col": "calyx",
+     "tool": "MVIS",
+     "label": "MVIS"
+    },
+    {
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS (K-IMU)"
+    },
+    {
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr"
+    },
+    {
+     "col": "basalt",
+     "tool": "Basalt",
+     "label": "Basalt"
+    }
+   ],
+   "solved": [
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "MVIS"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Kalibr"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Basalt"
+    }
+   ],
+   "read_first": "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them. 3 of its 4 solves are poor (grey note under each Kalibr lane).",
+   "notes": [
+    [
+     "Like for like",
+     "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt pinhole-radtan8 (the dataset authors' model, so its intrinsics are shown, not compared)."
+    ],
+    [
+     "Basalt",
+     "pinhole-radtan8, the dataset authors' model; its intrinsics are shown, not counted."
+    ]
+   ],
+   "records": {},
+   "fit": [
+    {
+     "sensor": "Odyssey+ cam0",
+     "by_col": {
+      "calyx": "0.129",
+      "mvis": "0.129",
+      "kalibr": "0.680"
+     }
+    },
+    {
+     "sensor": "Odyssey+ cam1",
+     "by_col": {
+      "calyx": "0.137",
+      "mvis": "0.137",
+      "kalibr": "0.685"
+     }
+    }
+   ],
+   "diffs": [],
+   "tally": {},
+   "sensors": [
+    {
+     "id": "cam0",
+     "label": "Odyssey+ cam0",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 269.255,
+        "h": 44.5409,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 269.255,
+         "sd": 0.175444,
+         "n": 4,
+         "text": "269.25",
+         "min": 269.092,
+         "max": 269.448
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 269.256,
+         "sd": 0.175374,
+         "n": 4,
+         "text": "269.26",
+         "min": 269.092,
+         "max": 269.448
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 296.142,
+         "sd": 13.6047,
+         "n": 4,
+         "text": "296.14",
+         "note": "input",
+         "min": 270.472,
+         "max": 300.02
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 269.797,
+         "sd": 0.0817026,
+         "n": 4,
+         "text": "269.80",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 269.199,
+        "h": 46.5468,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 269.199,
+         "sd": 0.220611,
+         "n": 4,
+         "text": "269.20",
+         "min": 268.95,
+         "max": 269.411
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 269.199,
+         "sd": 0.220463,
+         "n": 4,
+         "text": "269.20",
+         "min": 268.951,
+         "max": 269.411
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 297.492,
+         "sd": 14.0223,
+         "n": 4,
+         "text": "297.49",
+         "note": "input",
+         "min": 270.403,
+         "max": 299.97
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 269.684,
+         "sd": 0.0579581,
+         "n": 4,
+         "text": "269.68",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 323.243,
+        "h": 41.4211,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 323.243,
+         "sd": 0.17002,
+         "n": 4,
+         "text": "323.24",
+         "min": 323.061,
+         "max": 323.386
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 323.243,
+         "sd": 0.169975,
+         "n": 4,
+         "text": "323.24",
+         "min": 323.061,
+         "max": 323.386
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 299.06,
+         "sd": 13.4725,
+         "n": 4,
+         "text": "299.06",
+         "note": "input",
+         "min": 292.397,
+         "max": 323.032
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 323.491,
+         "sd": 0.0926881,
+         "n": 4,
+         "text": "323.49",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 245.673,
+        "h": 44.8569,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 245.673,
+         "sd": 0.0959789,
+         "n": 4,
+         "text": "245.67",
+         "min": 245.592,
+         "max": 245.804
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 245.673,
+         "sd": 0.0957644,
+         "n": 4,
+         "text": "245.67",
+         "min": 245.592,
+         "max": 245.804
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 266.605,
+         "sd": 16.7616,
+         "n": 4,
+         "text": "266.61",
+         "note": "input",
+         "min": 246.049,
+         "max": 286.452
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 245.706,
+         "sd": 0.151066,
+         "n": 4,
+         "text": "245.71",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.073984,
+        "h": 0.0259418,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.073984,
+         "sd": 0.00232663,
+         "n": 4,
+         "text": "0.07398",
+         "min": 0.0723714,
+         "max": 0.0778317
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 0.0739837,
+         "sd": 0.00232703,
+         "n": 4,
+         "text": "0.07398",
+         "min": 0.0723696,
+         "max": 0.0778313
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 0.0587965,
+         "sd": 0.00839597,
+         "n": 4,
+         "text": "0.05880",
+         "note": "input",
+         "min": 0.0524587,
+         "max": 0.071839
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 0.509497,
+         "sd": 0.0160436,
+         "n": 4,
+         "text": "0.50950",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0147964,
+        "h": 0.0677269,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.0147964,
+         "sd": 0.00731136,
+         "n": 4,
+         "text": "−0.01480",
+         "min": -0.0215683,
+         "max": -0.00429895
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": -0.0147957,
+         "sd": 0.00731279,
+         "n": 4,
+         "text": "−0.01480",
+         "min": -0.0215674,
+         "max": -0.0042944
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 0.0201815,
+         "sd": 0.0216022,
+         "n": 4,
+         "text": "0.02018",
+         "note": "input",
+         "min": -0.00247471,
+         "max": 0.0467735
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 0.238011,
+         "sd": 0.0443905,
+         "n": 4,
+         "text": "0.23801",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.189299,
+        "h": 0.122992,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.189299,
+         "sd": 0.0101382,
+         "n": 4,
+         "text": "0.18930",
+         "min": 0.171577,
+         "max": 0.193721
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 0.189298,
+         "sd": 0.0101403,
+         "n": 4,
+         "text": "0.18930",
+         "min": 0.171571,
+         "max": 0.19372
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 0.118844,
+         "sd": 0.0413556,
+         "n": 4,
+         "text": "0.11884",
+         "note": "input",
+         "min": 0.091013,
+         "max": 0.178216
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": -0.000192328,
+         "sd": 1.82752e-05,
+         "n": 4,
+         "text": "−0.00019",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.111661,
+        "h": 0.0613116,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.111661,
+         "sd": 0.00480031,
+         "n": 4,
+         "text": "−0.11166",
+         "min": -0.113494,
+         "max": -0.102993
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": -0.111661,
+         "sd": 0.00480116,
+         "n": 4,
+         "text": "−0.11166",
+         "min": -0.113493,
+         "max": -0.102991
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": -0.0787722,
+         "sd": 0.022849,
+         "n": 4,
+         "text": "−0.07877",
+         "note": "input",
+         "min": -0.110143,
+         "max": -0.0607973
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 0.00019236,
+         "sd": 2.04581e-05,
+         "n": 4,
+         "text": "0.00019",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "td_ms",
+       "label": "time offset td to base IMU",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": -1.4755,
+        "h": 4.11069,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -1.4755,
+         "sd": 1.07418,
+         "n": 4,
+         "text": "−1.476",
+         "min": -2.54573,
+         "max": -0.506364
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": -1.47548,
+         "sd": 1.07417,
+         "n": 4,
+         "text": "−1.475",
+         "min": -2.54574,
+         "max": -0.506401
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": -1.57792,
+         "sd": 2.22031,
+         "n": 4,
+         "text": "−1.578",
+         "min": -5.21249,
+         "max": -0.377677
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -1.35677,
+         "sd": 1.07487,
+         "n": 4,
+         "text": "−1.357",
+         "min": -2.39229,
+         "max": -0.348463
+        }
+       ]
+      },
+      {
+       "key": "lever_mm",
+       "label": "distance to base IMU ‖p‖",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 84.2631,
+        "h": 17.9805,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 84.2631,
+         "sd": 0.0438323,
+         "n": 4,
+         "text": "84.26",
+         "min": 84.1855,
+         "max": 84.283
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 84.2622,
+         "sd": 0.0435192,
+         "n": 4,
+         "text": "84.26",
+         "min": 84.1852,
+         "max": 84.2821
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 88.7525,
+         "sd": 7.13753,
+         "n": 4,
+         "text": "88.75",
+         "min": 84.3231,
+         "max": 100.609
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 84.1243,
+         "sd": 0.587236,
+         "n": 4,
+         "text": "84.12",
+         "min": 83.4728,
+         "max": 84.9035
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "cam1",
+     "label": "Odyssey+ cam1",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 270.478,
+        "h": 43.0152,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 270.478,
+         "sd": 0.230584,
+         "n": 4,
+         "text": "270.48",
+         "min": 270.144,
+         "max": 270.704
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 270.478,
+         "sd": 0.230615,
+         "n": 4,
+         "text": "270.48",
+         "min": 270.144,
+         "max": 270.704
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 296.119,
+         "sd": 13.4637,
+         "n": 4,
+         "text": "296.12",
+         "note": "input",
+         "min": 271.243,
+         "max": 301.03
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 271.105,
+         "sd": 0.281795,
+         "n": 4,
+         "text": "271.11",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 271.065,
+        "h": 45.3563,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 271.065,
+         "sd": 0.223391,
+         "n": 4,
+         "text": "271.06",
+         "min": 270.696,
+         "max": 271.222
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 271.065,
+         "sd": 0.223367,
+         "n": 4,
+         "text": "271.06",
+         "min": 270.696,
+         "max": 271.222
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 298.336,
+         "sd": 13.962,
+         "n": 4,
+         "text": "298.34",
+         "note": "input",
+         "min": 271.789,
+         "max": 301.846
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 271.06,
+         "sd": 0.188055,
+         "n": 4,
+         "text": "271.06",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 323.347,
+        "h": 40.6113,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 323.347,
+         "sd": 0.080309,
+         "n": 4,
+         "text": "323.35",
+         "min": 323.2,
+         "max": 323.377
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 323.348,
+         "sd": 0.0804721,
+         "n": 4,
+         "text": "323.35",
+         "min": 323.2,
+         "max": 323.378
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 348.257,
+         "sd": 12.0094,
+         "n": 4,
+         "text": "348.26",
+         "note": "input",
+         "min": 324.85,
+         "max": 349.724
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 324.039,
+         "sd": 0.126639,
+         "n": 4,
+         "text": "324.04",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 250.943,
+        "h": 46.4343,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 250.943,
+         "sd": 0.174859,
+         "n": 4,
+         "text": "250.94",
+         "min": 250.757,
+         "max": 251.184
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 250.943,
+         "sd": 0.174632,
+         "n": 4,
+         "text": "250.94",
+         "min": 250.757,
+         "max": 251.183
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 273.201,
+         "sd": 17.2512,
+         "n": 4,
+         "text": "273.20",
+         "note": "input",
+         "min": 251.757,
+         "max": 293.156
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 250.947,
+         "sd": 0.256045,
+         "n": 4,
+         "text": "250.95",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.056868,
+        "h": 0.00532194,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.056868,
+         "sd": 0.00313879,
+         "n": 4,
+         "text": "0.05687",
+         "min": 0.0539146,
+         "max": 0.0599247
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 0.0568693,
+         "sd": 0.00313833,
+         "n": 4,
+         "text": "0.05687",
+         "min": 0.0539159,
+         "max": 0.0599253
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 0.0596986,
+         "sd": 0.00200753,
+         "n": 4,
+         "text": "0.05970",
+         "note": "input",
+         "min": 0.055905,
+         "max": 0.0601869
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 0.503724,
+         "sd": 0.0174606,
+         "n": 4,
+         "text": "0.50372",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.00661356,
+        "h": 0.0144301,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.00661356,
+         "sd": 0.0110978,
+         "n": 4,
+         "text": "0.00661",
+         "min": -0.00234884,
+         "max": 0.0188135
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 0.00661174,
+         "sd": 0.0110963,
+         "n": 4,
+         "text": "0.00661",
+         "min": -0.0023483,
+         "max": 0.0188094
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 0.00195528,
+         "sd": 0.00846001,
+         "n": 4,
+         "text": "0.00196",
+         "note": "input",
+         "min": -0.00218829,
+         "max": 0.0156557
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 0.182585,
+         "sd": 0.0536211,
+         "n": 4,
+         "text": "0.18258",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.177322,
+        "h": 0.0519002,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.177322,
+         "sd": 0.0146523,
+         "n": 4,
+         "text": "0.17732",
+         "min": 0.158559,
+         "max": 0.188372
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 0.177322,
+         "sd": 0.0146513,
+         "n": 4,
+         "text": "0.17732",
+         "min": 0.158561,
+         "max": 0.188374
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 0.158598,
+         "sd": 0.0149922,
+         "n": 4,
+         "text": "0.15860",
+         "note": "input",
+         "min": 0.13014,
+         "max": 0.161807
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": -2.70661e-06,
+         "sd": 2.98868e-05,
+         "n": 4,
+         "text": "0.00000",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.110401,
+        "h": 0.0374651,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.110401,
+         "sd": 0.00649603,
+         "n": 4,
+         "text": "−0.11040",
+         "min": -0.115462,
+         "max": -0.101576
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": -0.1104,
+         "sd": 0.00649603,
+         "n": 4,
+         "text": "−0.11040",
+         "min": -0.115462,
+         "max": -0.101575
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": -0.0955061,
+         "sd": 0.0115061,
+         "n": 4,
+         "text": "−0.09551",
+         "note": "input",
+         "min": -0.10266,
+         "max": -0.0763418
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "shown",
+         "med": 0.000886952,
+         "sd": 7.21236e-05,
+         "n": 4,
+         "text": "0.00089",
+         "note": "different model, not compared"
+        }
+       ]
+      },
+      {
+       "key": "baseline_mm",
+       "label": "baseline to Odyssey+ cam0",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 105.421,
+        "h": 0.318475,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 105.421,
+         "sd": 0.0389389,
+         "n": 4,
+         "text": "105.421",
+         "min": 105.391,
+         "max": 105.482
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 105.421,
+         "sd": 0.0389336,
+         "n": 4,
+         "text": "105.421",
+         "min": 105.391,
+         "max": 105.482
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "fixed",
+         "med": 105.606,
+         "sd": 0.104523,
+         "n": 4,
+         "text": "105.606",
+         "note": "input",
+         "min": 105.433,
+         "max": 105.679
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 105.459,
+         "sd": 0.0471272,
+         "n": 4,
+         "text": "105.459",
+         "min": 105.449,
+         "max": 105.549
+        }
+       ]
+      },
+      {
+       "key": "td_ms",
+       "label": "time offset td to base IMU",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": -1.47954,
+        "h": 4.32286,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -1.47954,
+         "sd": 1.0722,
+         "n": 4,
+         "text": "−1.480",
+         "min": -2.54289,
+         "max": -0.512083
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": -1.47955,
+         "sd": 1.07216,
+         "n": 4,
+         "text": "−1.480",
+         "min": -2.54287,
+         "max": -0.51213
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": -1.49715,
+         "sd": 2.34527,
+         "n": 4,
+         "text": "−1.497",
+         "min": -5.40941,
+         "max": -0.371522
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -1.35677,
+         "sd": 1.07487,
+         "n": 4,
+         "text": "−1.357",
+         "min": -2.39229,
+         "max": -0.348463
+        }
+       ]
+      },
+      {
+       "key": "lever_mm",
+       "label": "distance to base IMU ‖p‖",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 21.7769,
+        "h": 60.1563,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 21.7769,
+         "sd": 0.0567171,
+         "n": 4,
+         "text": "21.78",
+         "min": 21.7078,
+         "max": 21.8224
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 21.7774,
+         "sd": 0.0564941,
+         "n": 4,
+         "text": "21.78",
+         "min": 21.7087,
+         "max": 21.8227
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 32.9095,
+         "sd": 24.4101,
+         "n": 4,
+         "text": "32.91",
+         "min": 21.6496,
+         "max": 76.4644
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 22.6464,
+         "sd": 0.613835,
+         "n": 4,
+         "text": "22.65",
+         "min": 21.7315,
+         "max": 23.1152
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "imu0",
+     "label": "Odyssey+ IMU",
+     "params": [
+      {
+       "key": "Dw[0,0]",
+       "label": "gyro Dw[0,0] scale x",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00115,
+        "h": 0.0959475,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 1.00115,
+         "sd": 0.000472186,
+         "n": 4,
+         "text": "1.00115",
+         "min": 1.00039,
+         "max": 1.00145
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 0.992441,
+         "sd": 0.0406532,
+         "n": 4,
+         "text": "0.99244",
+         "min": 0.913925,
+         "max": 0.999211
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.997424,
+         "sd": 0.00292792,
+         "n": 4,
+         "text": "0.99742",
+         "min": 0.992723,
+         "max": 0.999541
+        }
+       ]
+      },
+      {
+       "key": "Dw[1,1]",
+       "label": "gyro Dw[1,1] scale y",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00126,
+        "h": 0.0413435,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 1.00126,
+         "sd": 0.000276174,
+         "n": 4,
+         "text": "1.00126",
+         "min": 1.00104,
+         "max": 1.00162
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 0.989698,
+         "sd": 0.0158152,
+         "n": 4,
+         "text": "0.98970",
+         "min": 0.963675,
+         "max": 1.00089
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.99694,
+         "sd": 0.00327749,
+         "n": 4,
+         "text": "0.99694",
+         "min": 0.992014,
+         "max": 0.999567
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,2]",
+       "label": "gyro Dw[2,2] scale z",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 0.99993,
+        "h": 0.0668217,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 0.99993,
+         "sd": 0.000284424,
+         "n": 4,
+         "text": "0.99993",
+         "min": 0.999684,
+         "max": 1.00028
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 1.00115,
+         "sd": 0.0319636,
+         "n": 4,
+         "text": "1.00115",
+         "min": 0.939183,
+         "max": 1.00634
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.999765,
+         "sd": 0.000331627,
+         "n": 4,
+         "text": "0.99977",
+         "min": 0.999468,
+         "max": 1.00019
+        }
+       ]
+      },
+      {
+       "key": "Dw[1,0]",
+       "label": "gyro Dw[1,0] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": 0.000382581,
+        "h": 0.0844371,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 0.000382581,
+         "sd": 0.000334414,
+         "n": 4,
+         "text": "0.00038",
+         "min": 0.000150176,
+         "max": 0.0008104
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 0.00317424,
+         "sd": 0.0384281,
+         "n": 4,
+         "text": "0.00317",
+         "min": -0.004281,
+         "max": 0.0771436
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.000108925,
+         "sd": 0.0002056,
+         "n": 4,
+         "text": "0.00011",
+         "min": -0.000145655,
+         "max": 0.00032858
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,0]",
+       "label": "gyro Dw[2,0] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": 9.88517e-05,
+        "h": 0.0755049,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 9.88517e-05,
+         "sd": 9.28856e-05,
+         "n": 4,
+         "text": "0.00010",
+         "min": -5.77601e-05,
+         "max": 0.000155294
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": -0.0031716,
+         "sd": 0.0338756,
+         "n": 4,
+         "text": "−0.00317",
+         "min": -0.068542,
+         "max": 0.00272327
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.000370611,
+         "sd": 0.000914226,
+         "n": 4,
+         "text": "−0.00037",
+         "min": -0.00138435,
+         "max": 0.000819919
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,1]",
+       "label": "gyro Dw[2,1] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": -0.000989292,
+        "h": 0.0638393,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": -0.000989292,
+         "sd": 0.000107745,
+         "n": 4,
+         "text": "−0.00099",
+         "min": -0.0011021,
+         "max": -0.000844602
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 0.00622571,
+         "sd": 0.026939,
+         "n": 4,
+         "text": "0.00623",
+         "min": 2.9705e-05,
+         "max": 0.0570464
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.000483605,
+         "sd": 0.000889444,
+         "n": 4,
+         "text": "0.00048",
+         "min": 0.000113932,
+         "max": 0.00210296
+        }
+       ]
+      },
+      {
+       "key": "Da[0,0]",
+       "label": "accel Da[0,0] scale x",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00952,
+        "h": 0.802186,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 1.00952,
+         "sd": 0.000327201,
+         "n": 4,
+         "text": "1.00952",
+         "min": 1.00905,
+         "max": 1.00984
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 1.01227,
+         "sd": 0.363745,
+         "n": 4,
+         "text": "1.01227",
+         "min": 1.00936,
+         "max": 1.73878
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00222,
+         "sd": 0.00594979,
+         "n": 4,
+         "text": "1.00222",
+         "min": 0.993519,
+         "max": 1.00674
+        }
+       ]
+      },
+      {
+       "key": "Da[1,1]",
+       "label": "accel Da[1,1] scale y",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00766,
+        "h": 0.047432,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 1.00766,
+         "sd": 0.00015462,
+         "n": 4,
+         "text": "1.00766",
+         "min": 1.00745,
+         "max": 1.00783
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 1.01498,
+         "sd": 0.0191708,
+         "n": 4,
+         "text": "1.01498",
+         "min": 1.00874,
+         "max": 1.05078
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00165,
+         "sd": 0.00614694,
+         "n": 4,
+         "text": "1.00165",
+         "min": 0.991824,
+         "max": 1.00572
+        }
+       ]
+      },
+      {
+       "key": "Da[2,2]",
+       "label": "accel Da[2,2] scale z",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.01394,
+        "h": 101.531,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "missing",
+         "note": "no value"
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 1.01394,
+         "sd": 0.000311859,
+         "n": 4,
+         "text": "1.01394",
+         "min": 1.01369,
+         "max": 1.01443
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "ok",
+         "med": 1.06038,
+         "sd": 46.1346,
+         "n": 4,
+         "text": "1.06038",
+         "min": 1.01532,
+         "max": 93.3146
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00251,
+         "sd": 0.00651338,
+         "n": 4,
+         "text": "1.00251",
+         "min": 0.992583,
+         "max": 1.00689
+        }
+       ]
+      },
+      {
+       "key": "t_ga_ms",
+       "label": "t_ga gyro−accel",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": 2.25835,
+        "h": 0.046035,
+        "by": "MVIS"
+       },
+       "lanes": [
+        {
+         "col": "calyx",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 2.25835,
+         "sd": 0.0340424,
+         "n": 4,
+         "text": "2.258",
+         "min": 2.2189,
+         "max": 2.3001
+        },
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS (K-IMU)",
+         "state": "ok",
+         "med": 2.25855,
+         "sd": 0.0339629,
+         "n": 4,
+         "text": "2.259",
+         "min": 2.2192,
+         "max": 2.3002
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).",
+         "state": "missing",
+         "note": "not in this tool's model"
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "missing",
+         "note": "not in this tool's model"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "model_terms": [
+    {
+     "sensor": "Odyssey+ IMU",
+     "sensor_id": "imu0",
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS (K-IMU)",
+     "cells": {
+      "00": {
+       "med": -0.0183632,
+       "sd": 0.0506229,
+       "text": "−0.018"
+      },
+      "01": {
+       "med": -0.0206411,
+       "sd": 0.0465826,
+       "text": "−0.021"
+      },
+      "02": {
+       "med": -0.016093,
+       "sd": 0.085646,
+       "text": "−0.016"
+      },
+      "10": {
+       "med": 0.0128035,
+       "sd": 0.0308398,
+       "text": "0.013"
+      },
+      "11": {
+       "med": -0.0618172,
+       "sd": 0.0364961,
+       "text": "−0.062"
+      },
+      "12": {
+       "med": -0.0622201,
+       "sd": 0.0411878,
+       "text": "−0.062"
+      },
+      "20": {
+       "med": -0.0112835,
+       "sd": 0.00552524,
+       "text": "−0.011"
+      },
+      "21": {
+       "med": -0.000574844,
+       "sd": 0.0454904,
+       "text": "−0.001"
+      },
+      "22": {
+       "med": -0.0125621,
+       "sd": 0.00625962,
+       "text": "−0.013"
+      }
+     }
+    },
+    {
+     "sensor": "Odyssey+ IMU",
+     "sensor_id": "imu0",
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr",
+     "cells": {
+      "00": {
+       "med": 0.442389,
+       "sd": 10.0312,
+       "text": "0.442"
+      },
+      "01": {
+       "med": 0.140963,
+       "sd": 12.4283,
+       "text": "0.141"
+      },
+      "02": {
+       "med": 0.315214,
+       "sd": 32.4641,
+       "text": "0.315"
+      },
+      "10": {
+       "med": 0.0282348,
+       "sd": 33.1108,
+       "text": "0.028"
+      },
+      "11": {
+       "med": -0.134787,
+       "sd": 29.4826,
+       "text": "−0.135"
+      },
+      "12": {
+       "med": 0.243488,
+       "sd": 8.76922,
+       "text": "0.243"
+      },
+      "20": {
+       "med": -0.555388,
+       "sd": 21.1942,
+       "text": "−0.555"
+      },
+      "21": {
+       "med": 0.379214,
+       "sd": 81.1671,
+       "text": "0.379"
+      },
+      "22": {
+       "med": -0.172759,
+       "sd": 8.82602,
+       "text": "−0.173"
+      }
+     }
+    }
+   ],
+   "has_tga": true
+  }
+ ],
+ "full_tables": null
+}

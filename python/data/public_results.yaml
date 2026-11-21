@@ -185,9 +185,46 @@ datasets:
       "cam2 – Looper RS cam2": cam2
       "base IMU – Looper MEMS imu0": imu0
 
+  - slug: monado-mic
+    id: monado_mic
+    stats_key: monado_mic      # the dataset key inside the study's stats file (--study)
+    label: Monado MIC
+    nav_group: Monado
+    nav_label: "MIC · Valve Index"
+    title: "Monado MIC (Valve Index)"
+    ours: false
+    study: true
+    batch: "2026-11-21"
+    study_note: "Separate study (batch 2026-11-21): MVIS, Kalibr and Basalt on the 8 MIC camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+    licence: CC BY 4.0
+    intro: "The MIC calibration recordings of the Monado SLAM Datasets, made with a Valve Index headset: its front fisheye pair and its IMU, 8 camera + IMU recordings."
+    chips: ["front fisheye pair", "headset IMU", "8 recordings", "AprilGrid 6×6, 30 mm"]
+    image: {src: /media/sensors/valve-index/valve-index.jpg, alt: "Valve Index headset", credit: "Image: Valve, Steam store page"}
+    links:
+      dataset: /datasets/#third-party-datasets
+      sensor: /devices/valve-index/
+      hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/tum_mic
+    no_repeatability: "This study has no repeatability cells: they are computed for the leaderboard batch only. Each tool's spread over the 8 recordings is in Parameters by sensor."
+    read_first: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them."
+    like_for_like: "Every tool ran on the same 8 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+    axis_centre: MVIS          # each chart is centred on the MVIS median, so another tool's poor solves do not move it
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {count: 2, device: Valve Index}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-20602, device: Valve Index, src: report, via: iFixit chip ID, url: "https://www.ifixit.com/Guide/Valve+Index+Chip+ID/155948"}
+    families:
+      - {id: MIC, shutter: global}
+    sensors:
+      "cam0 – Valve Index cam0": cam0
+      "cam1 – Valve Index cam1": cam1
+      "base IMU – Valve Index IMU": imu0
+
   - slug: monado-mgc
     id: monado_msd
     label: Monado MGC
+    nav_group: Monado
+    nav_label: "MGC · HP Reverb G2"
     title: "Monado MGC (HP Reverb G2)"
     ours: false
     licence: CC BY 4.0
@@ -211,6 +248,44 @@ datasets:
       "cam0 – Reverb G2 cam0": cam0
       "cam1 – Reverb G2 cam1": cam1
       "base IMU – Reverb G2 IMU": imu0
+
+  - slug: monado-moc
+    id: monado_moc
+    stats_key: monado_moc
+    label: Monado MOC
+    nav_group: Monado
+    nav_label: "MOC · Samsung Odyssey+"
+    title: "Monado MOC (Samsung Odyssey+)"
+    ours: false
+    study: true
+    batch: "2026-11-21"
+    study_note: "Separate study (batch 2026-11-21): MVIS, Kalibr and Basalt on the 4 MOC camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+    licence: CC BY 4.0
+    intro: "The MOC calibration recordings of the Monado SLAM Datasets, made with a Samsung Odyssey+ headset: its two tracking cameras and its IMU, 4 camera + IMU recordings."
+    chips: ["2 tracking cameras", "headset IMU", "4 recordings", "AprilGrid 6×6, 30 mm"]
+    image: {src: /media/sensors/samsung-odyssey-plus/samsung-odyssey-plus.jpg, alt: "Samsung HMD Odyssey+ headset", credit: "Photo: Samsung Newsroom Brasil"}
+    links:
+      dataset: /datasets/#third-party-datasets
+      sensor: /devices/samsung-odyssey-plus/
+      hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_moc
+    no_repeatability: "This study has no repeatability cells: they are computed for the leaderboard batch only, and 4 recordings are too few for the test. Each tool's spread is in Parameters by sensor."
+    read_first: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them. 3 of its 4 solves are poor (grey note under each Kalibr lane)."
+    like_for_like: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt pinhole-radtan8 (the dataset authors' model, so its intrinsics are shown, not compared)."
+    axis_centre: MVIS
+    poor:         # family -> tool -> why its solves are poor; printed in grey under every lane of that tool, values unchanged
+      MOC:
+        Kalibr: "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269)."
+    components:
+      cameras:
+        - {maker: OmniVision, part: OV7251, count: 2, device: Samsung Odyssey+, src: dataset, via: Monado dataset authors, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-20602, device: Samsung Odyssey+, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}
+    families:
+      - {id: MOC, shutter: global}
+    sensors:
+      "cam0 – Odyssey+ cam0": cam0
+      "cam1 – Odyssey+ cam1": cam1
+      "base IMU – Odyssey+ IMU": imu0
 
   - slug: uzh-fpv
     id: uzh_fpv

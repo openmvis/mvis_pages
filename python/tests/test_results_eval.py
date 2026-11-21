@@ -119,6 +119,22 @@ def test_axis_is_centred_on_the_cross_tool_median_of_drawn_lanes():
     assert R.axis([{"state": "missing"}]) is None
 
 
+
+def test_axis_centre_tool_holds_the_centre_against_another_tools_poor_solves():
+    lanes = [{"tool": "MVIS", "state": "ok", "med": 1.0, "sd": 0.1},
+             {"tool": "Kalibr", "state": "ok", "med": 9.0, "sd": 0.1, "min": 1.0, "max": 30.0},
+             {"tool": "Basalt", "state": "ok", "med": 1.2, "sd": 0.1}]
+    assert R.axis(lanes, "MVIS") == {"c": 1.0, "h": pytest.approx(31.9), "by": "MVIS"}
+    assert R.axis(lanes)["c"] == 1.2 and "by" not in R.axis(lanes)
+    assert R.axis(lanes[1:], "MVIS") == R.axis(lanes[1:])  # no MVIS lane drawn: the cross-tool median
+
+
+def test_a_lane_with_poor_solves_keeps_its_values_and_carries_the_reason():
+    x = R.lane("kalibr", "Kalibr", {"state": "ok", "med": 2.0, "sd": 0.5, "n": 4}, None, 2, poor="Poor on 3 of 4.")
+    assert (x["state"], x["text"], x["n"], x["poor"]) == ("ok", "2.00", 4, "Poor on 3 of 4.")
+    assert "poor" not in R.lane("kalibr", "Kalibr", {"state": "ok", "med": 2.0, "sd": 0.5, "n": 4}, None, 2)
+
+
 # ---------------------------------------------------------------- one family
 def test_a_camimu_family_page():
     f = fam()
@@ -260,9 +276,9 @@ def test_the_public_text_holds_every_dataset_in_page_order_ours_first():
     pub = _pub()
     ds = pub["datasets"]
     assert [d["slug"] for d in ds] == ["virig-4imus-3cams", "virig-4imus-4cams", "virig-5imus-4cams", "tum-vi", "looper-insight9",
-                                       "monado-mgc", "uzh-fpv"]
+                                       "monado-mic", "monado-mgc", "monado-moc", "uzh-fpv"]
     assert [d["ours"] for d in ds[:3]] == [True, True, True] and not any(d["ours"] for d in ds[3:])
-    assert [d["slug"] for d in ds if d.get("study")] == ["virig-5imus-4cams", "uzh-fpv"]
+    assert [d["slug"] for d in ds if d.get("study")] == ["virig-5imus-4cams", "monado-mic", "monado-moc", "uzh-fpv"]
     assert all(d["study_note"] for d in ds if d.get("study"))
     assert R.problems({"public_results.yaml": (DATA / "public_results.yaml").read_text(encoding="utf-8")}, SHA) == []
     for d in ds:
@@ -307,7 +323,7 @@ def test_our_own_results_paths_and_the_commit_pass_the_lint():
 def test_committed_outputs_pass_the_lint():
     files = {p.name: p.read_text(encoding="utf-8") for p in [*(SITE / "eval").glob("*.json"), SITE / "results-nav.json",
                                                              *(REPO / R.MDX_DIR).glob("*.mdx")]}
-    assert len(files) == 16 and R.problems(files, json.loads((SITE / "eval/index.json").read_text())["results_commit"]) == []
+    assert len(files) == 20 and R.problems(files, json.loads((SITE / "eval/index.json").read_text())["results_commit"]) == []
 
 
 def test_write_writes_all_or_nothing_and_drops_stale_pages(tmp_path):
@@ -458,3 +474,32 @@ def test_the_mdx_title_says_results_and_names_only_the_tools_that_ran():
 def test_reading_notes_reach_the_page_only_when_there_are_some():
     assert "<E.Reading" not in R.mdx(_page())
     assert "## Notes\n" in R.mdx(dict(_page(), reading=["<b>x</b>"])) and "<E.Reading page={page} />" in R.mdx(dict(_page(), reading=["x"]))
+
+
+def test_a_page_centred_on_mvis_with_a_poor_tool_and_its_sidebar_group():
+    entry = {"slug": "x-rig", "id": "x", "label": "X rig", "title": "X: a rig", "ours": False, "licence": "CC BY 4.0",
+             "intro": "A rig.", "chips": ["2 cameras"], "links": {}, "families": [{"id": "T1", "shutter": "global"}], "sensors": SID,
+             "axis_centre": "MVIS", "poor": {"T1": {"Kalibr": "Poor on 1 of 4."}}, "nav_group": "G", "nav_label": "X"}
+    p = _page(entry)
+    lanes = [x for s in p["families"][0]["sensors"] for q in s["params"] for x in q["lanes"]]
+    assert {x["tool"] for x in lanes if x.get("poor")} == {"Kalibr"} and all(x["poor"] == "Poor on 1 of 4." for x in lanes if x.get("poor"))
+    assert all(q["axis"].get("by") == "MVIS" for s in p["families"][0]["sensors"] for q in s["params"]
+               if any(x["tool"] == "MVIS" and x["state"] in R.ON_AXIS for x in q["lanes"]))
+    assert R.nav([p], {"datasets": [entry]}) == [{"label": "X rig", "link": "/benchmark/results/x-rig/", "slug": "x-rig",
+                                                  "legacy": [], "group": "G", "nav_label": "X"}]
+    with pytest.raises(ValueError):
+        _page(dict(entry, poor={"T9": {"Kalibr": "x"}}))
+
+
+def test_studies_alone_replace_their_own_entries_and_keep_every_other():
+    y = dict(_page(), slug="y-rig", id="y", label="Y rig", link="/benchmark/results/y-rig/", study=True, batch="b2")
+    pub = {"datasets": [{"slug": "x-rig"}, {"slug": "y-rig", "study": True, "nav_group": "G"}, {"slug": "z-rig", "study": True}]}
+    old_nav = [{"label": "X rig", "link": "/benchmark/results/x-rig/", "slug": "x-rig", "legacy": ["ds-x"]},
+               {"label": "Z rig", "link": "/benchmark/results/z-rig/", "slug": "z-rig", "legacy": []}]
+    z = {"label": "Z rig", "link": "/benchmark/results/z-rig/", "batch": "b0", "note": "z"}
+    files = R.render_studies([y], pub, old_nav, {"batch": "b1", "datasets": ["kept"], "studies": [z]})
+    nav = json.loads(files[R.NAV_FILE])
+    assert [(n["slug"], n.get("group"), n["legacy"]) for n in nav] == [("x-rig", None, ["ds-x"]), ("y-rig", "G", []), ("z-rig", None, [])]
+    board = json.loads(files[f"{R.OUT_DIR}/index.json"])
+    assert board["datasets"] == ["kept"] and [s["link"] for s in board["studies"]] == ["/benchmark/results/y-rig/", "/benchmark/results/z-rig/"]
+    assert set(files) == {R.NAV_FILE, f"{R.OUT_DIR}/index.json", f"{R.OUT_DIR}/y-rig.json", f"{R.MDX_DIR}/y-rig.mdx"}

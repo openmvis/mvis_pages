@@ -1,8 +1,10 @@
 ---
 // Parameters by sensor: one tab per sensor (radio buttons + CSS), one chart per parameter, one lane per tool column.
 // A lane: whisker min–max, box median ± sd, tick at the median, value and n printed. The axis is shared by the lanes
-// of one parameter and centred on the cross-tool median. Hollow box = input, not estimated; hatched = another model,
-// printed, not drawn; dashed = no value. Open by default since 2026-11-11 (the summary counts the charts). Tool colour marks identity only. Inline SVG at build time, no script.
+// of one parameter and centred on the cross-tool median, or on the MVIS median where the page sets axis_centre
+// (axis.by). Hollow box = input, not estimated; hatched = another model, printed, not drawn; dashed = no value. A lane
+// whose tool has poor solves in this family keeps its values and gets the reason in grey below it (l.poor).
+// Open by default since 2026-11-11 (the summary counts the charts). Tool colour marks identity only. Inline SVG at build time, no script.
 import RpShape from '../RpShape.astro';
 interface Props { page: any; i: number }
 const { page, i } = Astro.props;
@@ -31,12 +33,12 @@ const inAxis = (v: number | undefined, ax: any) => v !== undefined && !(Math.abs
           return (
             <div class="ev-param">
               <p class="ev-ph"><b>{p.label}</b>{p.unit && <span class="ev-u"> {p.unit}</span>}
-                <small>axis {p3(p.axis.c)} ± {p3(p.axis.h)}{showRef && ` · line at ${ref}`}</small></p>
+                <small>axis {p3(p.axis.c)} ± {p3(p.axis.h)}{p.axis.by && ` · centre: ${p.axis.by} median`}{showRef && ` · line at ${ref}`}</small></p>
               {p.lanes.map((l: any) => {
                 const drawn = l.state === 'ok' || l.state === 'fixed';
                 const title = drawn ? `${l.label}: median ${l.text}, sd ${p2(l.sd)}, n ${l.n}${l.min !== undefined ? `, range ${p3(l.min)} to ${p3(l.max)}` : ''}${l.note ? ` (${l.note})` : ''}` : `${l.label}: ${l.note}${l.text ? `, ${l.text}` : ''}`;
-                return (
-                  <div class={`ev-lane ev-${l.state}`} title={title}>
+                return (<>
+                  <div class={`ev-lane ev-${l.state}${l.poor ? ' ev-haspoor' : ''}`} title={title}>
                     <span class="ev-ll"><RpShape tool={l.tool} /> {l.label}</span>
                     <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" class={`ev-pr rp-t-${l.tool}`} role="img" aria-label={title}>
                       <line class="ev-mid" x1={M} x2={M} y1="0" y2={H} />
@@ -49,7 +51,8 @@ const inAxis = (v: number | undefined, ax: any) => v !== undefined && !(Math.abs
                     </svg>
                     <span class="ev-lv">{drawn ? <><b>{l.text}</b><span class="ev-sd"> ± {p2(l.sd)} <small>({l.n})</small></span></> : l.text ? <>{l.text}</> : null}{l.note && <small class="ev-ln"> {l.note}</small>}</span>
                   </div>
-                );
+                  {l.poor && <p class="ev-poor">{l.poor}</p>}
+                </>);
               })}
             </div>
           );
