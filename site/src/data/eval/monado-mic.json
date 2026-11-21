@@ -22,6 +22,9 @@
   "sensor": "/devices/valve-index/",
   "hub": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/tum_mic"
  },
+ "reading": [
+  "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
+ ],
  "no_repeatability": "This study has no repeatability cells: they are computed for the leaderboard batch only. Each tool's spread over the 8 recordings is in Parameters by sensor.",
  "study_note": "Separate study (batch 2026-11-21): MVIS, Kalibr and Basalt on the 8 MIC camera + IMU recordings, run outside the leaderboard batch, so it has no row here.",
  "study": true,
@@ -119,9 +122,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 419.327,
-        "h": 2.3441,
-        "by": "MVIS"
+        "c": 420.527,
+        "h": 3.6641,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -181,9 +184,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 419.445,
-        "h": 2.3639,
-        "by": "MVIS"
+        "c": 420.668,
+        "h": 3.3495,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -243,9 +246,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 469.748,
-        "h": 1.5851,
-        "by": "MVIS"
+        "c": 469.483,
+        "h": 1.2936,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -305,9 +308,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 479.216,
-        "h": 0.918966,
-        "by": "MVIS"
+        "c": 479.137,
+        "h": 1.00587,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -367,9 +370,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.19419,
-        "h": 0.0293183,
-        "by": "MVIS"
+        "c": 0.192938,
+        "h": 0.0306955,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -429,9 +432,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.0345732,
-        "h": 0.0974807,
-        "by": "MVIS"
+        "c": 0.0421152,
+        "h": 0.105777,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -491,9 +494,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.21852,
-        "h": 0.120959,
-        "by": "MVIS"
+        "c": -0.233115,
+        "h": 0.137014,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -553,9 +556,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.0876775,
-        "h": 0.0521073,
-        "by": "MVIS"
+        "c": 0.0954103,
+        "h": 0.0606134,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -615,9 +618,9 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -0.100055,
-        "h": 0.835551,
-        "by": "MVIS"
+        "c": -0.33537,
+        "h": 0.576705,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -676,9 +679,9 @@
        "unit": "mm",
        "cls": "length",
        "axis": {
-        "c": 139.797,
-        "h": 3.916,
-        "by": "MVIS"
+        "c": 139.83,
+        "h": 3.9523,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -743,9 +746,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 420.403,
-        "h": 3.025,
-        "by": "MVIS"
+        "c": 421.236,
+        "h": 3.1086,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -805,9 +808,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 420.522,
-        "h": 3.0558,
-        "by": "MVIS"
+        "c": 421.467,
+        "h": 3.047,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -867,9 +870,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 468.428,
-        "h": 1.2078,
-        "by": "MVIS"
+        "c": 467.747,
+        "h": 1.9569,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -929,9 +932,9 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 484.047,
-        "h": 1.1396,
-        "by": "MVIS"
+        "c": 484.481,
+        "h": 0.7843,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -991,9 +994,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.199648,
-        "h": 0.0074118,
-        "by": "MVIS"
+        "c": 0.190179,
+        "h": 0.0178277,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -1053,9 +1056,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.0129509,
-        "h": 0.0192048,
-        "by": "MVIS"
+        "c": 0.054672,
+        "h": 0.065098,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -1115,9 +1118,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.183184,
-        "h": 0.0213257,
-        "by": "MVIS"
+        "c": -0.249142,
+        "h": 0.0938795,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -1177,9 +1180,9 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.0714936,
-        "h": 0.0119657,
-        "by": "MVIS"
+        "c": 0.103103,
+        "h": 0.046736,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -1239,9 +1242,9 @@
        "unit": "mm",
        "cls": "length",
        "axis": {
-        "c": 133.722,
-        "h": 0.23988,
-        "by": "MVIS"
+        "c": 133.783,
+        "h": 0.17278,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -1301,9 +1304,9 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -0.0916147,
-        "h": 0.911588,
-        "by": "MVIS"
+        "c": -0.33537,
+        "h": 0.643457,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -1362,9 +1365,9 @@
        "unit": "mm",
        "cls": "length",
        "axis": {
-        "c": 71.425,
-        "h": 2.02972,
-        "by": "MVIS"
+        "c": 71.4636,
+        "h": 1.98726,
+        "by": "reference"
        },
        "lanes": [
         {
@@ -1431,7 +1434,7 @@
        "axis": {
         "c": 0.987982,
         "h": 0.007942,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1487,7 +1490,7 @@
        "axis": {
         "c": 0.991405,
         "h": 0.0055187,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1543,7 +1546,7 @@
        "axis": {
         "c": 1.00093,
         "h": 0.000572,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1599,7 +1602,7 @@
        "axis": {
         "c": -0.0048152,
         "h": 0.00209447,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1655,7 +1658,7 @@
        "axis": {
         "c": -0.0049117,
         "h": 0.00358072,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1711,7 +1714,7 @@
        "axis": {
         "c": -0.00547135,
         "h": 0.00146917,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1767,7 +1770,7 @@
        "axis": {
         "c": 1.0555,
         "h": 0.0970673,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1823,7 +1826,7 @@
        "axis": {
         "c": 1.0588,
         "h": 0.0839806,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1879,7 +1882,7 @@
        "axis": {
         "c": 1.06514,
         "h": 0.0916663,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {
@@ -1935,7 +1938,7 @@
        "axis": {
         "c": -0.8758,
         "h": 0.25311,
-        "by": "MVIS"
+        "by": "MVIS median"
        },
        "lanes": [
         {

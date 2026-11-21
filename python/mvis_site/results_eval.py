@@ -147,21 +147,28 @@ def lane(col: str, label: str, cell: dict | None, stats_row: dict | None, dec: i
     return out
 
 
-def axis(lanes: list[dict], centre: str | None = None) -> dict | None:
+def axis(lanes: list[dict], centre: str | None = None, ref: float | None = None) -> dict | None:
     """Shared axis of one parameter: centred on the cross-tool median, half-width to the farthest whisker or box edge.
     centre: a tool (public_results.yaml `axis_centre`) whose first drawn lane gives the centre instead, so another
-    tool's outliers do not move it; the cross-tool median when that tool has no drawn lane on this parameter."""
+    tool's outliers do not move it; the cross-tool median when that tool has no drawn lane on this parameter.
+    ref: the dataset's reference value of this parameter (public_results.yaml `reference`), which is the centre when
+    given, before any tool.
+    A lane with poor solves (lane `poor`) does not set the axis either, unless every drawn lane has them: it is drawn
+    on the others' scale, and what falls outside is marked at the edge (Parameters.astro). `by` names the centre."""
     on = [x for x in lanes if x["state"] in ON_AXIS]
     if not on:
         return None
+    on = [x for x in on if not x.get("poor")] or on
     own = [x for x in on if centre and x.get("tool") == centre]
-    c = own[0]["med"] if own else statistics.median(x["med"] for x in on)
+    c = ref if ref is not None else own[0]["med"] if own else statistics.median(x["med"] for x in on)
     far = [abs(v - c) for x in on
            for v in (x["med"], x["med"] - (x["sd"] or 0), x["med"] + (x["sd"] or 0), x.get("min", x["med"]), x.get("max", x["med"]))]
     h = max(far) * 1.1 or max(abs(c) * 1e-6, 1e-9)
     out = {"c": sig(c), "h": sig(h)}
-    if own:
-        out["by"] = centre
+    if ref is not None:
+        out["by"] = "reference"
+    elif own:
+        out["by"] = f"{centre} median"
     return out
 
 
@@ -220,9 +227,9 @@ def diffs(rows: list[dict], pairs: list, camimu: bool, decs: dict, sid: dict) ->
 
 
 def sensors(rows: list[dict], cols: list[tuple[str, str]], stats_rows: dict, decs: dict, sid: dict,
-            centre: str | None = None, poor: dict | None = None) -> list[dict]:
+            centre: str | None = None, poor: dict | None = None, ref: dict | None = None) -> list[dict]:
     """Charted parameters by sensor, in record order: one lane per tool column. centre: axis() centre tool; poor:
-    {tool: text} of this family (public_results.yaml `poor`)."""
+    {tool: {"n", "text"}} of this family (public_results.yaml `poor`)."""
     out = {}
     for r in rows:
         cls = param_class(r["key"])
@@ -232,12 +239,12 @@ def sensors(rows: list[dict], cols: list[tuple[str, str]], stats_rows: dict, dec
         vals = [r[c]["med"] for c, _ in cols if r.get(c) and r[c]["med"] is not None]
         dec = decimals(decs, r["key"], vals)
         other = any(d.get("reason") == "model" for d in r["deltas"].values())
-        lanes = [lane(c, label, r.get(c), srow, dec, other, (poor or {}).get(TOOL_OF[c])) for c, label in cols]
+        lanes = [lane(c, label, r.get(c), srow, dec, other, ((poor or {}).get(TOOL_OF[c]) or {}).get("text")) for c, label in cols]
         if not any(x["state"] in ON_AXIS for x in lanes):
             continue
         s = out.setdefault(sid[r["sensor"]], {"id": sid[r["sensor"]], "label": short(r["sensor"]), "params": []})
         s["params"].append({"key": r["key"], "label": r["label"], "unit": r["unit"], "cls": cls,
-                            "axis": axis(lanes, centre), "lanes": lanes})
+                            "axis": axis(lanes, centre, ((ref or {}).get(r["sensor"]) or {}).get(r["key"])), "lanes": lanes})
     return list(out.values())
 
 
@@ -248,10 +255,13 @@ def solved(records: dict, T: str, of: int) -> list[dict]:
 
 
 def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, records: dict, stats_fam: dict,
-           sid: dict, hub: dict, centre: str | None = None, poor: dict | None = None) -> dict:
+           sid: dict, hub: dict, centre: str | None = None, poor: dict | None = None, ref: dict | None = None) -> dict:
     camimu = is_camimu(meta["mode"])
     of = meta.get("n_recordings") or 0
     done = solved(records, T, of)
+    for s in done:  # poor solves still count as run, but Coverage shows them apart from the good ones
+        if (poor or {}).get(s["tool"]):
+            s.update(poor=poor[s["tool"]]["n"], poor_why=poor[s["tool"]]["text"])
     ran = {x["tool"] for x in done if "reason" not in x}
     rows = sp["rows"]
     # a tool that did not run gets no lanes, nor a method that holds no value (a study without the K-IMU run)
@@ -266,7 +276,7 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
             "solved": done, "read_first": _no_notes_ref(sp["read_first"]),
             "notes": sp["notes"], "records": hub, "fit": fit_rows(rows, cols, decs),
             "diffs": ds, "tally": {d["pair"]: [d["marked"], d["compared"]] for d in ds},
-            "sensors": sensors(rows, cols, stats_rows, decs, sid, centre, poor), "model_terms": tg_tiles(rows, cols, sid),
+            "sensors": sensors(rows, cols, stats_rows, decs, sid, centre, poor, ref), "model_terms": tg_tiles(rows, cols, sid),
             "has_tga": any(base(r["key"]) == "t_ga_ms" for r in rows)}
 
 
@@ -343,12 +353,18 @@ def _no_notes_ref(text: str) -> str:
 def dataset(entry: dict, sp: dict, records: dict, stats: dict, batch: str, commit: str | None, rep_ds: dict | None) -> dict:
     fams_meta = records["families"]["families"]
     sid = entry["sensors"]
-    unknown = sorted(set(entry.get("poor") or {}) - {f["id"] for f in entry["families"]})
-    if unknown or (entry.get("axis_centre") or "MVIS") not in TOOLS:
-        raise ValueError(f"{entry['slug']}: poor names families {unknown} it does not list, or axis_centre is not a tool")
+    poor = entry.get("poor") or {}
+    unknown = sorted(set(poor) - {f["id"] for f in entry["families"]})
+    bad = [(T, t) for T, by in poor.items() for t, v in by.items()
+           if t not in TOOLS or not isinstance(v, dict) or not isinstance(v.get("n"), int) or not v.get("text")]
+    bad += [("reference", s) for s in (entry.get("reference") or {}).get("values", {}) if s not in sid]
+    if unknown or bad or (entry.get("axis_centre") or "MVIS") not in TOOLS:
+        raise ValueError(f"{entry['slug']}: poor names families {unknown} it does not list, malformed poor {bad} "
+                         "(tool: {n, text}), or axis_centre is not a tool")
     fams = [family(f["id"], fams_meta[f["id"]], f["shutter"], sp["families"][f["id"]], sp["pairs"], sp["decimals"],
                    records, stats["families"][f["id"]], sid, hub_links(f["id"], batch, commit), entry.get("axis_centre"),
-                   (entry.get("poor") or {}).get(f["id"])) for f in entry["families"]]
+                   (entry.get("poor") or {}).get(f["id"]), (entry.get("reference") or {}).get("values"))
+            for f in entry["families"]]
     for f in fams:  # a study names why the other tools did not run (repeatability.NOT_RUN covers the board's families)
         for s in f["solved"]:
             if "reason" in s and entry.get("not_run"):

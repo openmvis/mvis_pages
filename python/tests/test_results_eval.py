@@ -124,9 +124,13 @@ def test_axis_centre_tool_holds_the_centre_against_another_tools_poor_solves():
     lanes = [{"tool": "MVIS", "state": "ok", "med": 1.0, "sd": 0.1},
              {"tool": "Kalibr", "state": "ok", "med": 9.0, "sd": 0.1, "min": 1.0, "max": 30.0},
              {"tool": "Basalt", "state": "ok", "med": 1.2, "sd": 0.1}]
-    assert R.axis(lanes, "MVIS") == {"c": 1.0, "h": pytest.approx(31.9), "by": "MVIS"}
+    assert R.axis(lanes, "MVIS") == {"c": 1.0, "h": pytest.approx(31.9), "by": "MVIS median"}
     assert R.axis(lanes)["c"] == 1.2 and "by" not in R.axis(lanes)
     assert R.axis(lanes[1:], "MVIS") == R.axis(lanes[1:])  # no MVIS lane drawn: the cross-tool median
+    poor = [lanes[0], dict(lanes[1], poor="Poor."), lanes[2]]  # a poor lane is drawn on the others' scale
+    assert R.axis(poor, "MVIS") == {"c": 1.0, "h": pytest.approx(0.33), "by": "MVIS median"}
+    assert R.axis(poor, "MVIS", ref=0.5) == {"c": 0.5, "h": pytest.approx(0.88), "by": "reference"}
+    assert R.axis([dict(lanes[1], poor="Poor.")])["c"] == 9.0  # every lane poor: they set the axis after all
 
 
 def test_a_lane_with_poor_solves_keeps_its_values_and_carries_the_reason():
@@ -479,16 +483,20 @@ def test_reading_notes_reach_the_page_only_when_there_are_some():
 def test_a_page_centred_on_mvis_with_a_poor_tool_and_its_sidebar_group():
     entry = {"slug": "x-rig", "id": "x", "label": "X rig", "title": "X: a rig", "ours": False, "licence": "CC BY 4.0",
              "intro": "A rig.", "chips": ["2 cameras"], "links": {}, "families": [{"id": "T1", "shutter": "global"}], "sensors": SID,
-             "axis_centre": "MVIS", "poor": {"T1": {"Kalibr": "Poor on 1 of 4."}}, "nav_group": "G", "nav_label": "X"}
+             "axis_centre": "MVIS", "poor": {"T1": {"Kalibr": {"n": 1, "text": "Poor on 1 of 4."}}}, "nav_group": "G", "nav_label": "X"}
     p = _page(entry)
     lanes = [x for s in p["families"][0]["sensors"] for q in s["params"] for x in q["lanes"]]
     assert {x["tool"] for x in lanes if x.get("poor")} == {"Kalibr"} and all(x["poor"] == "Poor on 1 of 4." for x in lanes if x.get("poor"))
-    assert all(q["axis"].get("by") == "MVIS" for s in p["families"][0]["sensors"] for q in s["params"]
+    k = next(s for s in p["families"][0]["solved"] if s["tool"] == "Kalibr")
+    assert (k["poor"], k["poor_why"]) == (1, "Poor on 1 of 4.") and all("poor" not in s for s in p["families"][0]["solved"] if s["tool"] != "Kalibr")
+    assert all(q["axis"].get("by") == "MVIS median" for s in p["families"][0]["sensors"] for q in s["params"]
                if any(x["tool"] == "MVIS" and x["state"] in R.ON_AXIS for x in q["lanes"]))
     assert R.nav([p], {"datasets": [entry]}) == [{"label": "X rig", "link": "/benchmark/results/x-rig/", "slug": "x-rig",
                                                   "legacy": [], "group": "G", "nav_label": "X"}]
-    with pytest.raises(ValueError):
-        _page(dict(entry, poor={"T9": {"Kalibr": "x"}}))
+    for wrong in ({"poor": {"T9": {"Kalibr": {"n": 1, "text": "x"}}}}, {"poor": {"T1": {"Kalibr": "no count"}}},
+                  {"reference": {"values": {"cam9 – nowhere": {"fx": 1.0}}}}):
+        with pytest.raises(ValueError):
+            _page(dict(entry, **wrong))
 
 
 def test_studies_alone_replace_their_own_entries_and_keep_every_other():
@@ -503,3 +511,17 @@ def test_studies_alone_replace_their_own_entries_and_keep_every_other():
     board = json.loads(files[f"{R.OUT_DIR}/index.json"])
     assert board["datasets"] == ["kept"] and [s["link"] for s in board["studies"]] == ["/benchmark/results/y-rig/", "/benchmark/results/z-rig/"]
     assert set(files) == {R.NAV_FILE, f"{R.OUT_DIR}/index.json", f"{R.OUT_DIR}/y-rig.json", f"{R.MDX_DIR}/y-rig.mdx"}
+
+
+def test_a_reference_value_centres_its_chart_and_other_charts_keep_the_mvis_median():
+    entry = {"slug": "x-rig", "id": "x", "label": "X rig", "title": "X: a rig", "ours": False, "licence": "CC BY 4.0",
+             "intro": "A rig.", "chips": ["2 cameras"], "links": {}, "families": [{"id": "T1", "shutter": "global"}], "sensors": SID,
+             "axis_centre": "MVIS"}
+    plain = _page(entry)
+    s0 = plain["families"][0]["sensors"][0]
+    sensor = next(k for k, v in SID.items() if v == s0["id"])
+    key = s0["params"][0]["key"]
+    p = _page(dict(entry, reference={"source": "x", "values": {sensor: {key: 123.0}}}))
+    q = p["families"][0]["sensors"][0]["params"]
+    assert (q[0]["axis"]["c"], q[0]["axis"]["by"]) == (123.0, "reference")
+    assert all(x["axis"].get("by") != "reference" for x in q[1:])
