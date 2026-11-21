@@ -12012,7 +12012,6 @@ cam0 td −4.74 ms
 cam0 lever arm 34.5 mm
 
 Reprojection median 0.26 px
-cam0–cam1 baseline –
 cam0 td −4.74 ms
 cam0 lever arm 34.8 mm
 
@@ -12089,7 +12088,7 @@ Calibrated field of view, horizontal × vertical. cam0: ~154° × 121°, corners
 cam0 cam1
 We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
 
-IMU Gyro–accel time offset t_ga +0.03 ms
+IMU Gyro–accel time offset t_ga +0.03 ms Gyro–accel time offset t_ga +0.04 ms
 Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: +0.03 ± 0.98 ms.
 Gyro scale x−0.57 %
 Gyro scale y−0.34 %
@@ -12108,7 +12107,7 @@ Accel scale y−0.14 %
 Accel scale z−0.14 %
 −8 %0+8 %
 
-Timing cam0 td −4.74 ms
+Timing cam0 td −4.74 ms cam0 td −4.74 ms
 The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td.
 
 Full results Every solved parameter
@@ -12190,7 +12189,7 @@ The 3D scene MVIS recovered from this recording. Everything except the board is 
 
 Reprojection median 0.15 px
 cam0–cam1 baseline 62.1 mm
-cam0 td +55.55 ms
+cam0 td, first row +55.55 ms +42.30 ms at mid-frame
 cam0 lever arm 31.9 mm
 
 Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
@@ -12264,8 +12263,8 @@ Accel scale y+2.45 %
 Accel scale z+2.06 %
 −8 %0+8 %
 
-Timing cam0 td +55.55 ms
-The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td.
+Timing cam0 td, first row +55.55 ms
+The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td. For a rolling-shutter camera td is the time of the first image row; the middle row is td + readout / 2, which is what a global-shutter calibration reports.
 
 Full results Every solved parameter
 Rotation is log(R) in rad, camera in the IMU frame.
@@ -13167,12 +13166,12 @@ cam0 td, first row −20.93 ms −5.40 ms at mid-frame
 cam0 lever arm 30.4 mm
 
 Reprojection median 0.15 px
-cam0–cam1 baseline –
+Readout time 31.1 ms
 cam0 td, first row −20.93 ms −5.40 ms at mid-frame
 cam0 lever arm 30.4 mm
 
 Reprojection median 0.18 px
-cam0–cam1 baseline –
+Readout time 31.3 ms
 cam0 td, first row −21.08 ms −5.43 ms at mid-frame
 cam0 lever arm 34.7 mm
 
@@ -13259,7 +13258,7 @@ Calibrated field of view, horizontal × vertical. cam0: 187° × 182°, corners 
 cam0 cam1
 We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
 
-IMU Gyro–accel time offset t_ga −0.04 ms
+IMU Gyro–accel time offset t_ga −0.04 ms Gyro–accel time offset t_ga −0.04 ms Gyro–accel time offset t_ga −0.33 ms
 Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: −0.04 ± 0.08 ms.
 Gyro scale x+0.27 %
 Gyro scale y+0.20 %
@@ -13287,10 +13286,10 @@ Accel scale y+0.08 %
 Accel scale z+0.03 %
 −8 %0+8 %
 
-Timing cam0 td, first row −20.93 ms
+Timing cam0 td, first row −20.93 ms cam0 td, first row −20.93 ms cam0 td, first row −21.08 ms
 The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td. For a rolling-shutter camera td is the time of the first image row; the middle row is td + readout / 2, which is what a global-shutter calibration reports.
 
-Board shape peak to peak 12.2 mm
+Board shape peak to peak 12.2 mm peak to peak 12.2 mm peak to peak 11.9 mm
 The calibration board isn't perfectly flat, so this solve estimated the height of every corner off the flat board along with the calibration. The board's mean plane and tilt belong to its pose, so a flat board shows only noise here.
 Height of each corner off the flat board: peak to peak 12.2 mm, rms 2.3 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
 
