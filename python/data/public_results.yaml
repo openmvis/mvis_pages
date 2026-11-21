@@ -276,7 +276,7 @@ datasets:
       sensor: /devices/samsung-odyssey-plus/
       hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_moc
     no_repeatability: "This study has no repeatability cells: they are computed for the leaderboard batch only, and 4 recordings are too few for the test. Each tool's spread is in Parameters by sensor."
-    read_first: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them. 3 of its 4 solves are poor (grey note under each Kalibr lane)."
+    read_first: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them."
     like_for_like: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt pinhole-radtan8 (the dataset authors' model, so its intrinsics are shown, not compared)."
     reading:
       - "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.kb4.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
@@ -286,11 +286,11 @@ datasets:
       values:
         "cam0 – Odyssey+ cam0": {"fx": 268.764, "fy": 268.625, "cx": 322.999, "cy": 245.854, "dist[0]": 0.0796733, "dist[1]": -0.0281938, "dist[2]": 0.202731, "dist[3]": -0.116912, "td_ms": -1.03892, "lever_mm": 83.4533}
         "cam1 – Odyssey+ cam1": {"fx": 270.382, "fy": 270.895, "cx": 322.591, "cy": 250.765, "dist[0]": 0.059216, "dist[1]": 0.000848561, "dist[2]": 0.18691, "dist[3]": -0.115812, "td_ms": -1.03892, "lever_mm": 22.9841, "baseline_mm": 105.474}
-    poor:         # family -> tool -> {n: poor solves, text: why}; Coverage counts them apart, each lane keeps its values, greyed, with the text below
+    poor:         # family -> tool -> {n: poor solves, text: why}; Coverage counts them apart, lanes keep their values, greyed; the text once under Read first
       MOC:
         Kalibr:
           n: 3
-          text: "Poor on 3 of 4 recordings: MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269)."
+          text: "MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269)."
     components:
       cameras:
         - {maker: OmniVision, part: OV7251, count: 2, device: Samsung Odyssey+, src: dataset, via: Monado dataset authors, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}

@@ -123,13 +123,14 @@ def minmax(stats_row: dict | None, col: str, n: int) -> dict | None:
 
 # ---------------------------------------------------------------- one family
 def lane(col: str, label: str, cell: dict | None, stats_row: dict | None, dec: int, other_model: bool = False,
-         poor: str | None = None) -> dict:
+         poor: bool = False) -> dict:
     """One tool's lane of a parameter chart. other_model: the Space says the tools' models differ on this row (its
     delta reason "model"), so a non-MVIS value is printed, not drawn, as repeatability.MODEL_DIFFERS treats it.
-    poor: public_results.yaml `poor` text of this tool and family, printed under the lane; the values stay as solved."""
+    poor: this tool has poor solves in this family (public_results.yaml `poor`): the lane is greyed and keeps its
+    values; the reason is printed once, under the family's read-first line."""
     out = {"col": col, "tool": TOOL_OF[col], "label": label}
     if poor:
-        out["poor"] = poor
+        out["poor"] = True
     if not cell:
         return dict(out, state="missing", note="no value")
     if cell["state"] in ("missing", "shown_no_value"):
@@ -239,7 +240,7 @@ def sensors(rows: list[dict], cols: list[tuple[str, str]], stats_rows: dict, dec
         vals = [r[c]["med"] for c, _ in cols if r.get(c) and r[c]["med"] is not None]
         dec = decimals(decs, r["key"], vals)
         other = any(d.get("reason") == "model" for d in r["deltas"].values())
-        lanes = [lane(c, label, r.get(c), srow, dec, other, ((poor or {}).get(TOOL_OF[c]) or {}).get("text")) for c, label in cols]
+        lanes = [lane(c, label, r.get(c), srow, dec, other, TOOL_OF[c] in (poor or {})) for c, label in cols]
         if not any(x["state"] in ON_AXIS for x in lanes):
             continue
         s = out.setdefault(sid[r["sensor"]], {"id": sid[r["sensor"]], "label": short(r["sensor"]), "params": []})
@@ -261,7 +262,7 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
     done = solved(records, T, of)
     for s in done:  # poor solves still count as run, but Coverage shows them apart from the good ones
         if (poor or {}).get(s["tool"]):
-            s.update(poor=poor[s["tool"]]["n"], poor_why=poor[s["tool"]]["text"])
+            s["poor"] = poor[s["tool"]]["n"]
     ran = {x["tool"] for x in done if "reason" not in x}
     rows = sp["rows"]
     # a tool that did not run gets no lanes, nor a method that holds no value (a study without the K-IMU run)
@@ -274,6 +275,7 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
     return {"id": T, "title": meta.get("title") or T, "mode": "cam+imu" if camimu else "cam", "shutter": shutter,
             "n": of, "columns": [{"col": c, "tool": TOOL_OF[c], "label": l} for c, l in cols],
             "solved": done, "read_first": _no_notes_ref(sp["read_first"]),
+            "poor": [{"tool": t, "n": v["n"], "text": v["text"]} for t, v in (poor or {}).items()],
             "notes": sp["notes"], "records": hub, "fit": fit_rows(rows, cols, decs),
             "diffs": ds, "tally": {d["pair"]: [d["marked"], d["compared"]] for d in ds},
             "sensors": sensors(rows, cols, stats_rows, decs, sid, centre, poor, ref), "model_terms": tg_tiles(rows, cols, sid),

@@ -80,6 +80,7 @@
     }
    ],
    "read_first": "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them.",
+   "poor": [],
    "notes": [
     [
      "Like for like",

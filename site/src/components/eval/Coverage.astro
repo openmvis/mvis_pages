@@ -1,6 +1,6 @@
 ---
-// Solved n of N per tool (one square per recording, anonymous order; poor solves grey and not counted, with the
-// reason from public_results.yaml `poor`), the reason where a tool did not run, the
+// Solved n of N per tool (one square per recording, anonymous order; poor solves grey and not counted, their
+// reason under the family's read-first line), the reason where a tool did not run, the
 // record files behind every number, and the fit (reprojection median) folded: fit of each tool's own model.
 import RpShape from '../RpShape.astro';
 interface Props { page: any; i: number }
@@ -16,7 +16,7 @@ const label = (c: string) => f.columns.find((x: any) => x.col === c)?.label ?? c
         <span class="ev-sq" aria-hidden="true">{Array.from({ length: s.of }, (_, k) => <i class={k < s.n - (s.poor ?? 0) ? `rp-bg-${s.tool}` : k < s.n ? 'ev-poorsq' : 'ev-empty'}></i>)}</span>
         <span class="ev-n">{s.n - (s.poor ?? 0)} of {s.of}</span>
         {s.reason && <span class="ev-why">{s.reason}</span>}
-        {s.poor > 0 && <span class="ev-why">{s.poor} more solved, poor quality (grey): {s.poor_why}</span>}
+        {s.poor > 0 && <span class="ev-why">{s.poor} more solved, poor quality (grey)</span>}
       </li>
     ))}
   </ul>

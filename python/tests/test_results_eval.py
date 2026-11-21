@@ -134,8 +134,8 @@ def test_axis_centre_tool_holds_the_centre_against_another_tools_poor_solves():
 
 
 def test_a_lane_with_poor_solves_keeps_its_values_and_carries_the_reason():
-    x = R.lane("kalibr", "Kalibr", {"state": "ok", "med": 2.0, "sd": 0.5, "n": 4}, None, 2, poor="Poor on 3 of 4.")
-    assert (x["state"], x["text"], x["n"], x["poor"]) == ("ok", "2.00", 4, "Poor on 3 of 4.")
+    x = R.lane("kalibr", "Kalibr", {"state": "ok", "med": 2.0, "sd": 0.5, "n": 4}, None, 2, poor=True)
+    assert (x["state"], x["text"], x["n"], x["poor"]) == ("ok", "2.00", 4, True)
     assert "poor" not in R.lane("kalibr", "Kalibr", {"state": "ok", "med": 2.0, "sd": 0.5, "n": 4}, None, 2)
 
 
@@ -486,9 +486,10 @@ def test_a_page_centred_on_mvis_with_a_poor_tool_and_its_sidebar_group():
              "axis_centre": "MVIS", "poor": {"T1": {"Kalibr": {"n": 1, "text": "Poor on 1 of 4."}}}, "nav_group": "G", "nav_label": "X"}
     p = _page(entry)
     lanes = [x for s in p["families"][0]["sensors"] for q in s["params"] for x in q["lanes"]]
-    assert {x["tool"] for x in lanes if x.get("poor")} == {"Kalibr"} and all(x["poor"] == "Poor on 1 of 4." for x in lanes if x.get("poor"))
+    assert {x["tool"] for x in lanes if x.get("poor")} == {"Kalibr"}  # greyed lanes; the reason once, on the family
+    assert p["families"][0]["poor"] == [{"tool": "Kalibr", "n": 1, "text": "Poor on 1 of 4."}]
     k = next(s for s in p["families"][0]["solved"] if s["tool"] == "Kalibr")
-    assert (k["poor"], k["poor_why"]) == (1, "Poor on 1 of 4.") and all("poor" not in s for s in p["families"][0]["solved"] if s["tool"] != "Kalibr")
+    assert k["poor"] == 1 and all("poor" not in s for s in p["families"][0]["solved"] if s["tool"] != "Kalibr")
     assert all(q["axis"].get("by") == "MVIS median" for s in p["families"][0]["sensors"] for q in s["params"]
                if any(x["tool"] == "MVIS" and x["state"] in R.ON_AXIS for x in q["lanes"]))
     assert R.nav([p], {"datasets": [entry]}) == [{"label": "X rig", "link": "/benchmark/results/x-rig/", "slug": "x-rig",
