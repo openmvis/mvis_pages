@@ -11488,10 +11488,10 @@ URL: https://openmvis.com/devices/alg-avs111c/
 GMSL2 stereo camera module from Shenzhen Aili-Light Technology (ALG Tech, 艾利光), with two global-shutter cameras 50 mm apart and a 6-axis IMU. Three recordings, each solved as stereo + IMU; this page shows the longest. The recordings match ALG's AVS111C-Y; the exact model isn't confirmed by the maker.
 The 3D scene MVIS recovered from the 08:41:48 recording, the one solved on this page.
 
-Reprojection median 0.11 px
+Reprojection median 0.10 px
 cam0–cam1 baseline 49.9 mm
 cam0 td −16.32 ms
-cam0 lever arm 46.6 mm
+cam0 lever arm 46.4 mm
 
 Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
 No independent reference, so these values show what MVIS solved, not how close they are to the truth.
@@ -11516,8 +11516,8 @@ From above
 From the front
 
 Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
-cam0 | +42.1, +8.0, −18.3 | 46.6 | [+0.006, −3.140, +0.002] | −16.32 | ~119° × 76° |
-cam1 | −7.8, +8.1, −18.7 | 21.8 | [−0.025, +3.136, −0.001] | −16.37 | ~121° × 76° |
+cam0 | +42.2, +7.6, −17.9 | 46.4 | [+0.006, −3.140, +0.002] | −16.32 | ~119° × 76° |
+cam1 | −7.7, +7.6, −18.3 | 21.3 | [−0.025, +3.136, −0.001] | −16.37 | ~121° × 76° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
 
@@ -11556,14 +11556,14 @@ Calibrated field of view, horizontal × vertical. cam0: ~119° × 76°, corners 
 cam0 cam1
 We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
 
-IMU Gyro–accel time offset t_ga +0.84 ms
-Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: +0.84 ± 0.83 ms.
+IMU Gyro–accel time offset t_ga +0.83 ms
+Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: +0.83 ± 0.83 ms.
 Gyro scale x+0.53 %
-Gyro scale y+0.26 %
-Gyro scale z−0.05 %
-Accel scale x+0.24 %
+Gyro scale y+0.28 %
+Gyro scale z−0.04 %
+Accel scale x+0.23 %
 Accel scale y+0.17 %
-Accel scale z+0.17 %
+Accel scale z+0.15 %
 −8 %0+8 %
 
 Timing cam0 td −16.32 ms
@@ -11573,49 +11573,49 @@ Full results Every solved parameter
 Rotation is log(R) in rad, camera in the IMU frame.
 Parameter | MVIS |
 cam0 |
-fx px | 599.32 |
-fy px | 599.42 |
-cx px | 624.50 |
-cy px | 399.97 |
-k1 | 0.01191 |
-k2 | 0.01856 |
-k3 | −0.02284 |
-k4 | 0.01333 |
-Lever x mm | +42.15 |
-Lever y mm | +8.03 |
-Lever z mm | −18.27 |
-log(R) rad | [+0.0064, −3.1398, +0.0023] |
-td ms | −16.322 |
-Reprojection px | 0.142 |
+fx px | 599.33 |
+fy px | 599.44 |
+cx px | 624.04 |
+cy px | 399.55 |
+k1 | 0.01199 |
+k2 | 0.01866 |
+k3 | −0.02362 |
+k4 | 0.01417 |
+Lever x mm | +42.18 |
+Lever y mm | +7.56 |
+Lever z mm | −17.90 |
+log(R) rad | [+0.0064, −3.1398, +0.0022] |
+td ms | −16.316 |
+Reprojection px | 0.131 |
 cam1 |
-fx px | 597.69 |
-fy px | 597.62 |
-cx px | 622.44 |
-cy px | 405.33 |
-k1 | 0.01709 |
-k2 | 0.00502 |
-k3 | 0.00738 |
-k4 | −0.01263 |
-Lever x mm | −7.76 |
-Lever y mm | +8.10 |
-Lever z mm | −18.73 |
-log(R) rad | [−0.0246, +3.1360, −0.0012] |
-td ms | −16.371 |
-Reprojection px | 0.145 |
+fx px | 597.75 |
+fy px | 597.68 |
+cx px | 621.95 |
+cy px | 404.90 |
+k1 | 0.01703 |
+k2 | 0.00549 |
+k3 | 0.00598 |
+k4 | −0.01161 |
+Lever x mm | −7.72 |
+Lever y mm | +7.63 |
+Lever z mm | −18.33 |
+log(R) rad | [−0.0246, +3.1361, −0.0011] |
+td ms | −16.369 |
+Reprojection px | 0.134 |
 IMU |
-t_ga ms | +0.84 ± 0.83 |
+t_ga ms | +0.83 ± 0.83 |
 
 ## Limits
 
 - No independent reference, so these values show what MVIS solved, not how close they are to the truth.
-- We solved three recordings of the same unit separately. The lever arm agrees within 3 mm, the camera-to-IMU time offset within 0.2 ms, the focal lengths within 1.3 px and the IMU scales within 0.4 %. The IMU position also agrees with the maker's drawing within 2 mm.
+- We solved three recordings of the same unit separately. The lever arm agrees within 2.5 mm, the camera-to-IMU time offset within 0.25 ms, the focal lengths within 1.3 px and the IMU scales within 0.45 %. The IMU position also agrees with the maker's drawing within 2 mm.
 - The board reaches about 54° off-axis. Past that, toward the image edges (61°) and corners (72°), the lens model is extrapolated: the three solves differ by up to 7 px at the edges and 35 px at the corners.
 - The motion is gentle (about 6 to 11°/s RMS). In a simulated copy of each recording, with noise matched to this unit, MVIS recovered the lever arm within 1.1 mm, the rotation within 0.6 mrad, the time offset within 0.1 ms and the IMU scales within 0.4 %. The solver's own σ for the lever arm (2 to 4 mm) is wider, because the solve used MVIS's default IMU noise, which is looser than this IMU needs.
 - The model is matched from resolution, baseline, field of view and shutter, not confirmed by the maker.
 
 ## How it was run
 
-- Both cameras and the IMU, global shutter, default IMU noise, t_ga estimated, camera intrinsics free. The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Batch of 2026-11-11.
+- Both cameras and the IMU, global shutter, default IMU noise, t_ga estimated, camera intrinsics free. The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively; cx and cy are about 0.45 px lower than in the first solve of 2026-11-11.
 
 
 ---
@@ -11631,16 +11631,16 @@ The 3D scene MVIS recovered from recording 1.
 
 Reprojection median 0.17 px
 cam0–cam1 baseline 65.5 mm
-cam0 td, first row −14.29 ms +1.26 ms at mid-frame
+cam0 td, first row −14.25 ms +1.26 ms at mid-frame
 cam0 lever arm 37.0 mm
 
 Reprojection median 0.15 px
 cam0–cam1 baseline 65.4 mm
-cam0 td, first row −1.43 ms +14.53 ms at mid-frame
+cam0 td, first row −1.42 ms +14.54 ms at mid-frame
 cam0 lever arm 37.7 mm
 
 Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
-No independent reference on this page. These values show what MVIS solved, not how close they are to the truth. The two recordings agree within 1.4 mm on the lever arm, 0.15 % on the gyro scales, 0.8 ms on the readout and 0.1 mm on the baseline.
+No independent reference on this page. These values show what MVIS solved, not how close they are to the truth. The two recordings agree within 1.5 mm on the lever arm, 0.15 % on the gyro scales, 0.9 ms on the readout and 0.1 mm on the baseline.
 
 ## Calibration process
 
@@ -11662,16 +11662,16 @@ From above
 From the front
 
 Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
-cam0 | +33.0, −7.6, +15.1 | 37.0 | [−0.015, −0.003, −3.140] | −14.29 | ~118° × 118° |
-cam1 | −32.5, −7.8, +15.8 | 37.0 | [+0.006, +0.005, +3.141] | −14.43 | 119° × 118° |
+cam0 | +33.0, −7.6, +15.0 | 37.0 | [−0.015, −0.003, −3.140] | −14.25 | ~118° × 118° |
+cam1 | −32.5, −7.8, +15.7 | 37.0 | [+0.006, +0.005, +3.141] | −14.40 | 119° × 118° |
 
 From above
 
 From the front
 
 Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
-cam0 | +33.3, −6.2, +16.5 | 37.7 | [−0.014, −0.016, −3.141] | −1.43 | 119° × 119° |
-cam1 | −32.1, −6.4, +17.2 | 36.9 | [+0.005, +0.019, +3.140] | −1.53 | 118° × 118° |
+cam0 | +33.3, −6.2, +16.5 | 37.7 | [−0.014, −0.016, −3.141] | −1.42 | 119° × 119° |
+cam1 | −32.1, −6.4, +17.2 | 36.9 | [+0.005, +0.019, +3.140] | −1.51 | 118° × 118° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
 
@@ -11712,105 +11712,105 @@ Calibrated field of view, horizontal × vertical. cam0: 119° × 119°, corners 
 cam0 cam1
 We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
 
-IMU Gyro–accel time offset t_ga +0.96 ms Gyro–accel time offset t_ga +1.08 ms
+IMU Gyro–accel time offset t_ga +0.96 ms Gyro–accel time offset t_ga +1.07 ms
 Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: +0.96 ± 0.16 ms.
-Gyro scale x+0.21 %
-Gyro scale y+0.11 %
+Gyro scale x+0.19 %
+Gyro scale y+0.10 %
 Gyro scale z+0.06 %
 Accel scale x+0.17 %
 Accel scale y+0.04 %
-Accel scale z+0.26 %
+Accel scale z+0.27 %
 −8 %0+8 %
 
-Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: +1.08 ± 0.20 ms.
+Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: +1.07 ± 0.20 ms.
 Gyro scale x+0.36 %
 Gyro scale y+0.24 %
 Gyro scale z−0.09 %
 Accel scale x+0.37 %
-Accel scale y+0.32 %
-Accel scale z+0.27 %
+Accel scale y+0.33 %
+Accel scale z+0.28 %
 −8 %0+8 %
 
-Timing cam0 td, first row −14.29 ms cam0 td, first row −1.43 ms
+Timing cam0 td, first row −14.25 ms cam0 td, first row −1.42 ms
 The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td. For a rolling-shutter camera td is the time of the first image row; the middle row is td + readout / 2, which is what a global-shutter calibration reports.
 
 Full results Every solved parameter
 Rotation is log(R) in rad, camera in the IMU frame.
 Parameter | MVIS |
 cam0 |
-fx px | 953.28 |
-fy px | 953.43 |
-cx px | 948.79 |
-cy px | 958.01 |
+fx px | 953.24 |
+fy px | 953.37 |
+cx px | 948.31 |
+cy px | 957.59 |
 k1 | −0.01454 |
-k2 | −0.01968 |
-k3 | 0.02142 |
-k4 | −0.01036 |
-Lever x mm | +32.97 |
-Lever y mm | −7.58 |
-Lever z mm | +15.10 |
-log(R) rad | [−0.0147, −0.0027, −3.1401] |
-td ms | −14.288 |
-Reprojection px | 0.240 |
-Readout ms | +31.09 |
+k2 | −0.01984 |
+k3 | 0.02190 |
+k4 | −0.01070 |
+Lever x mm | +32.98 |
+Lever y mm | −7.61 |
+Lever z mm | +15.00 |
+log(R) rad | [−0.0147, −0.0026, −3.1400] |
+td ms | −14.254 |
+Reprojection px | 0.237 |
+Readout ms | +31.03 |
 cam1 |
-fx px | 953.19 |
-fy px | 953.35 |
-cx px | 961.33 |
-cy px | 955.48 |
-k1 | −0.01769 |
-k2 | −0.00811 |
-k3 | 0.00362 |
-k4 | −0.00178 |
-Lever x mm | −32.52 |
-Lever y mm | −7.81 |
-Lever z mm | +15.84 |
-log(R) rad | [+0.0056, +0.0055, +3.1413] |
-td ms | −14.432 |
-Reprojection px | 0.257 |
-Readout ms | +31.41 |
+fx px | 953.16 |
+fy px | 953.29 |
+cx px | 960.85 |
+cy px | 955.04 |
+k1 | −0.01776 |
+k2 | −0.00776 |
+k3 | 0.00322 |
+k4 | −0.00166 |
+Lever x mm | −32.51 |
+Lever y mm | −7.85 |
+Lever z mm | +15.73 |
+log(R) rad | [+0.0056, +0.0055, +3.1414] |
+td ms | −14.397 |
+Reprojection px | 0.253 |
+Readout ms | +31.35 |
 IMU |
 t_ga ms | +0.96 ± 0.16 |
 
 Parameter | MVIS |
 cam0 |
-fx px | 952.37 |
-fy px | 952.35 |
-cx px | 949.20 |
-cy px | 958.50 |
-k1 | −0.01700 |
-k2 | −0.00971 |
-k3 | 0.00483 |
-k4 | −0.00168 |
-Lever x mm | +33.31 |
-Lever y mm | −6.16 |
-Lever z mm | +16.54 |
-log(R) rad | [−0.0139, −0.0158, −3.1410] |
-td ms | −1.432 |
-Reprojection px | 0.209 |
+fx px | 952.40 |
+fy px | 952.38 |
+cx px | 948.73 |
+cy px | 958.09 |
+k1 | −0.01709 |
+k2 | −0.00947 |
+k3 | 0.00451 |
+k4 | −0.00154 |
+Lever x mm | +33.30 |
+Lever y mm | −6.17 |
+Lever z mm | +16.50 |
+log(R) rad | [−0.0140, −0.0155, −3.1410] |
+td ms | −1.421 |
+Reprojection px | 0.206 |
 Readout ms | +31.92 |
 cam1 |
-fx px | 952.31 |
-fy px | 952.24 |
-cx px | 961.54 |
-cy px | 955.72 |
-k1 | −0.01818 |
-k2 | −0.00826 |
-k3 | 0.00584 |
-k4 | −0.00244 |
+fx px | 952.35 |
+fy px | 952.27 |
+cx px | 961.06 |
+cy px | 955.30 |
+k1 | −0.01814 |
+k2 | −0.00836 |
+k3 | 0.00587 |
+k4 | −0.00242 |
 Lever x mm | −32.07 |
-Lever y mm | −6.36 |
-Lever z mm | +17.20 |
-log(R) rad | [+0.0047, +0.0192, +3.1403] |
-td ms | −1.527 |
-Reprojection px | 0.208 |
-Readout ms | +32.10 |
+Lever y mm | −6.37 |
+Lever z mm | +17.16 |
+log(R) rad | [+0.0048, +0.0189, +3.1403] |
+td ms | −1.507 |
+Reprojection px | 0.207 |
+Readout ms | +32.08 |
 IMU |
-t_ga ms | +1.08 ± 0.20 |
+t_ga ms | +1.07 ± 0.20 |
 
 ## Limits
 
-- No independent reference on this page. These values show what MVIS solved, not how close they are to the truth. The two recordings agree within 1.4 mm on the lever arm, 0.15 % on the gyro scales, 0.8 ms on the readout and 0.1 mm on the baseline.
+- No independent reference on this page. These values show what MVIS solved, not how close they are to the truth. The two recordings agree within 1.5 mm on the lever arm, 0.15 % on the gyro scales, 0.9 ms on the readout and 0.1 mm on the baseline.
 - The camera-only solve, without the IMU, puts the readout at 25 ms (recording 1) and 21 ms (recording 2) against 31–32 ms here; the board's motion alone pins it less well, so the joint value is the one shown.
 - In a simulated copy of recording 1, with noise matched to this unit, MVIS recovered the lever arm within 1.2 mm, the rotation within 0.3 mrad, the time offset within 0.5 ms, the readout within 0.6 ms and the gyro scales within 0.7 %. With MVIS's default IMU noise the same test drifts (lever arm 6 mm along the optical axis, gyro scales 1 to 1.6 %), which is why this solve uses the tighter noise.
 - The camera–IMU time offset differs between the recordings: td is −14.3 ms in recording 1 and −1.4 ms in recording 2, each ± 0.1 ms, while everything else repeats. The likely cause is the exposure time. The driver stamps each image a fixed 45 ms before it reaches the host in both bags, so the stamp follows the readout. td refers to the middle of the first row's exposure, which comes before the readout by half the exposure time: a longer exposure moves it earlier and makes td more negative.
@@ -11819,7 +11819,7 @@ t_ga ms | +1.08 ± 0.20 |
 
 ## How it was run
 
-- Both cameras and the IMU, rolling shutter with each camera's readout time estimated, Kannala–Brandt (kb4) lenses with intrinsics free, IMU noise set about 5× tighter than MVIS's default to match this unit, t_ga estimated. Fast motion blurred some frames; stereo pairs whose board edges were more than 1.5× wider than the median were left out (17 % of the pairs in recording 1, 0.6 % in recording 2). The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Solved 2026-11-14 (recording 1) and 2026-11-15 (recording 2), with the same settings.
+- Both cameras and the IMU, rolling shutter with each camera's readout time estimated, Kannala–Brandt (kb4) lenses with intrinsics free, IMU noise set about 5× tighter than MVIS's default to match this unit, t_ga estimated. Fast motion blurred some frames; stereo pairs whose board edges were more than 1.5× wider than the median were left out (17 % of the pairs in recording 1, 0.6 % in recording 2). The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Both recordings solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively, with the same settings; cx and cy are about 0.45 px lower than in the first solves of 2026-11-14 and 2026-11-15.
 
 
 ---
