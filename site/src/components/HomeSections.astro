@@ -10,8 +10,7 @@ import HomeDevices from './HomeDevices.astro';
   <section class="mhs-band">
     <div class="mhs-split">
       <div>
-        <p class="mhs-kicker">Calibrate a whole rig at once</p>
-        <h2>From one recording to a full sensor model.</h2>
+        <h2>The whole rig in one solve</h2>
         <div class="mhs-prose">
           <p>MVIS is the calibration toolbox behind the OpenMVIS benchmark. It solves camera intrinsics and distortion, extrinsics, time offsets, rolling-shutter readout, board poses and (optionally) the board shape, camera–IMU transforms, IMU intrinsics and biases in a single GTSAM factor graph.</p>
           <p>It reads ROS1 and ROS2 bags through <code>rosbags</code>, so ROS does not need to be installed. It also reads EuRoC/ASL folders, image folders and timestamped images.</p>
@@ -36,14 +35,13 @@ import HomeDevices from './HomeDevices.astro';
   </section>
 
   <section class="mhs-band">
-    <p class="mhs-kicker">Not in Kalibr or Basalt</p>
-    <h2>Six things the common tools do not do.</h2>
+    <h2>What Kalibr and Basalt do not cover</h2>
     <p class="mhs-lede">Kalibr and Basalt are the open-source camera–IMU toolboxes most people use. Neither covers these six cases. See the <a href="/getting-started/comparison/">full comparison</a>.</p>
     <ol class="mhs-gaps">
       <li>
         <h3>Rolling shutter + IMU</h3>
         <p>A rolling-shutter camera reads its rows one after another. MVIS solves that readout time together with the IMU. Kalibr's rolling-shutter tool is camera-only; Basalt has none.</p>
-        <p class="mhs-gap-links"><a href="/guides/rolling-shutter/">Guide</a><a href="/why/rolling-shutter/">Why it matters</a></p>
+        <p class="mhs-gap-links"><a href="/guides/rolling-shutter/">Guide</a><a href="/why/rolling-shutter/">Why calibrate rolling shutter</a></p>
       </li>
       <li>
         <h3>Global + rolling shutter + IMU</h3>
@@ -53,12 +51,12 @@ import HomeDevices from './HomeDevices.astro';
       <li>
         <h3>Board shape and pose</h3>
         <p>MVIS solves the board pose and, optionally, one height per corner (<code>estimate.board_points</code>). Kalibr and Basalt assume a flat board. On our VI-Rig mount, a flat solve biases the focal length by up to 1 % and the gyro scale by about 1 %.</p>
-        <p class="mhs-gap-links"><a href="/why/board-shape/">Why it matters</a></p>
+        <p class="mhs-gap-links"><a href="/why/board-shape/">Why calibrate the board shape</a></p>
       </li>
       <li>
         <h3>Gyro-to-accel time offset</h3>
         <p><code>t_ga</code> is the time offset between an IMU's gyroscope and its accelerometer. MVIS fits it by default in camera–IMU runs. Kalibr and Basalt use one IMU clock, so the offset leaks into the camera time offset.</p>
-        <p class="mhs-gap-links"><a href="/why/tga/">Why it matters</a></p>
+        <p class="mhs-gap-links"><a href="/why/tga/">Why calibrate t_ga</a></p>
       </li>
       <li>
         <h3>Digital-twin simulation</h3>
@@ -74,8 +72,7 @@ import HomeDevices from './HomeDevices.astro';
   </section>
 
   <section class="mhs-band">
-    <p class="mhs-kicker">What the graph estimates</p>
-    <h2>The state, not a sequence of stages.</h2>
+    <h2>What the graph estimates</h2>
     <div class="mhs-state">
       <table>
         <thead>
@@ -88,10 +85,10 @@ import HomeDevices from './HomeDevices.astro';
           <tr><td class="q">Rolling-shutter readout</td><td class="sym">t_r</td><td class="per">camera</td><td class="unit">ms</td><td>Each corner projected at its own row time</td></tr>
           <tr><td class="q">IMU–IMU extrinsics</td><td class="sym">T_IstoI</td><td class="per">aux IMU</td><td class="unit">m · log(R) rad</td><td>Plus a per-IMU time offset</td></tr>
           <tr><td class="q">IMU intrinsics</td><td class="sym">D_w, D_a</td><td class="per">IMU</td><td class="unit">—</td><td><code>kalibr</code>, <code>rpng</code> or <code>calyx</code> convention</td></tr>
-          <tr><td class="q">Gyro–accel offset</td><td class="sym">t_ga</td><td class="per">IMU</td><td class="unit">ms</td><td>About −6.7 ms on the T265 IMU over 15 recordings; <a href="/why/tga/">why it matters</a></td></tr>
+          <tr><td class="q">Gyro–accel offset</td><td class="sym">t_ga</td><td class="per">IMU</td><td class="unit">ms</td><td>About −6.7 ms on the T265 IMU over 15 recordings; <a href="/why/tga/">why calibrate t_ga</a></td></tr>
           <tr><td class="q">Biases</td><td class="sym">b_g, b_a</td><td class="per">IMU</td><td class="unit">rad/s · m/s²</td><td>Along the whole trajectory</td></tr>
           <tr><td class="q">Board pose + trajectory</td><td class="sym">T_BinW, T_ItoW(t)</td><td class="per">recording</td><td class="unit">m · log(R) rad</td><td>Chessboard, AprilGrid or ArUco targets</td></tr>
-          <tr><td class="q">Board shape</td><td class="sym">z_k</td><td class="per">corner</td><td class="unit">mm</td><td>Optional, off by default; on for our VI-Rig runs; <a href="/why/board-shape/">why it matters</a></td></tr>
+          <tr><td class="q">Board shape</td><td class="sym">z_k</td><td class="per">corner</td><td class="unit">mm</td><td>Optional, off by default; on for our VI-Rig runs; <a href="/why/board-shape/">why calibrate the board shape</a></td></tr>
         </tbody>
       </table>
     </div>
@@ -100,8 +97,7 @@ import HomeDevices from './HomeDevices.astro';
   <section class="mhs-band">
     <div class="mhs-split">
       <div>
-        <p class="mhs-kicker">Camera models</p>
-        <h2>Eight projection models.</h2>
+        <h2>Camera models</h2>
         <ul class="mhs-models">
           <li><code>radtan</code><span>Pinhole, radial–tangential</span></li>
           <li><code>kb4</code><span>Kannala–Brandt, the fisheye default (<code>fisheye</code> means kb4); <a href="/why/kb4/">why</a></span></li>
@@ -114,8 +110,7 @@ import HomeDevices from './HomeDevices.astro';
         </ul>
       </div>
       <div>
-        <p class="mhs-kicker">Benchmark</p>
-        <h2>Checked against Kalibr on TUM-VI.</h2>
+        <h2>Checked against Kalibr on TUM-VI</h2>
         <div class="mhs-figs">
           <div class="mhs-fig"><b>0.2<small>px</small></b><p>largest median focal-length (fx, fy) difference from Kalibr; principal point within 0.35 px. Camera-only stereo, 8 raw recordings, view angles cut to 85° or less for every tool</p></div>
           <div class="mhs-fig"><b>&lt;0.1<small>mm</small></b><p>median stereo-baseline difference, inside the 0.1 mm run-to-run spread; same 8 recordings</p></div>
@@ -134,8 +129,7 @@ import HomeDevices from './HomeDevices.astro';
         <figcaption>VI-Rig, our own rig: up to 5 IMUs and 4 cameras across its recordings. They are in <a href="/datasets/">Datasets</a>.</figcaption>
       </figure>
       <div>
-        <p class="mhs-kicker">It checks its own work</p>
-        <h2>A low residual is not the test.</h2>
+        <h2>Checking a calibration</h2>
         <div class="mhs-prose">
           <p>A low reprojection error says a calibration fits its own data, not that it is right. In a round trip, PASS needs the IMU intrinsics and biases to collapse to identity and zero, and the geometry to hold. See <a href="/guides/roundtrip/">Round-trip validation</a>.</p>
         </div>
@@ -150,14 +144,12 @@ import HomeDevices from './HomeDevices.astro';
   </section>
 
   <section class="mhs-band">
-    <p class="mhs-kicker">Device wiki</p>
-    <h2>Calibrated on real hardware, from many makers.</h2>
+    <h2>Devices calibrated so far</h2>
     <HomeDevices />
   </section>
 
   <section class="mhs-band">
-    <p class="mhs-kicker">Cite</p>
-    <h2>If you use the toolbox, this site or the benchmark results.</h2>
+    <h2>How to cite</h2>
     <div class="mhs-cites">
       <figure>
         <figcaption>Project</figcaption>
@@ -189,8 +181,7 @@ import HomeDevices from './HomeDevices.astro';
   <section class="mhs-band">
     <div class="mhs-split mhs-community">
       <div>
-        <p class="mhs-kicker">Community</p>
-        <h2>Bring your rig.</h2>
+        <h2>Contribute</h2>
         <div class="mhs-prose">
           <p>OpenMVIS is open: the toolbox, the benchmark records and our own VI-Rig recordings. Add your device, your dataset or your results, or tell us where MVIS breaks.</p>
         </div>
@@ -213,25 +204,22 @@ import HomeDevices from './HomeDevices.astro';
   /* Homepage body: wider than the 72rem `wide` pages, close to the full-bleed hero above it. */
   :root:has(.mhs) { --sl-content-width: 88rem; }
   .mhs {
-    --mhs-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-    --mhs-mono: "JetBrains Mono", var(--sl-font-mono, ui-monospace), monospace;
+      --mhs-mono: "JetBrains Mono", var(--sl-font-mono, ui-monospace), monospace;
     color: var(--sl-color-gray-2);
     padding-inline: clamp(0px, 3.5vw - 24px, 24px);   /* with Starlight's 24px, lines up with the hero's gutter */
   }
   .mhs code { font-family: var(--mhs-mono); font-size: 0.88em; }
-  .mhs-band { padding-block: clamp(48px, 7vw, 88px); border-top: 1px solid var(--sl-color-hairline); }
-  .mhs-band:first-child { border-top: 0; padding-top: clamp(32px, 5vw, 64px); }
-  .mhs-kicker { font: 500 12px/1 var(--mhs-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--sl-color-accent); margin: 0 0 14px; }
-  .mhs h2 { margin: 0; color: var(--sl-color-white); text-wrap: balance; font: 720 clamp(28px, 3.4vw, 42px)/1.05 var(--mhs-display); font-stretch: 112%; letter-spacing: -0.02em; }
+  .mhs-band { padding-block: clamp(28px, 3.5vw, 44px); border-top: 1px solid var(--sl-color-hairline); }
+  .mhs-band:first-child { border-top: 0; padding-top: clamp(20px, 2.5vw, 32px); }
+  .mhs h2 { margin: 0; color: var(--sl-color-white); text-wrap: balance; font-weight: 600; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.2; }
   .mhs-prose { max-width: 38rem; }
   .mhs .mhs-lede { max-width: 44rem; margin: 16px 0 0; }
 
-  .mhs-gaps { list-style: none; counter-reset: gap; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; border-top: 2px solid var(--sl-color-white); }
-  .mhs-gaps li { counter-increment: gap; margin: 0; padding: 18px 0 20px; border-bottom: 1px solid var(--sl-color-hairline); display: flex; flex-direction: column; min-width: 0; }
-  .mhs-gaps h3 { margin: 0; color: var(--sl-color-white); font: 650 18px/1.25 var(--mhs-display); font-stretch: 106%; letter-spacing: -0.01em; }
-  .mhs-gaps h3::before { content: counter(gap, decimal-leading-zero); display: block; font: 500 11px/1 var(--mhs-mono); letter-spacing: .12em; color: var(--sl-color-accent); margin-bottom: 10px; }
+  .mhs-gaps { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; border-top: 2px solid var(--sl-color-white); }
+  .mhs-gaps li { margin: 0; padding: 18px 0 20px; border-bottom: 1px solid var(--sl-color-hairline); display: flex; flex-direction: column; min-width: 0; }
+  .mhs-gaps h3 { margin: 0; color: var(--sl-color-white); font-weight: 600; font-size: 17px; line-height: 1.3; }
   .mhs-gaps p { margin: 10px 0 0; font-size: 15px; line-height: 1.55; }
-  .mhs-gaps .mhs-gap-links { margin-top: auto; padding-top: 12px; display: flex; flex-wrap: wrap; gap: 4px 18px; font: 500 13px/1.4 var(--mhs-mono); }
+  .mhs-gaps .mhs-gap-links { margin-top: auto; padding-top: 12px; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 14px; }
   .mhs-gaps a, .mhs-lede a, .mhs-prose a, .mhs-cap a, .mhs-rig a, .mhs-state a, .mhs-models a { color: var(--sl-color-accent); text-underline-offset: 3px; }
   .mhs-lede a:hover, .mhs-gaps a:hover, .mhs-prose a:hover, .mhs-cap a:hover, .mhs-rig a:hover { color: var(--sl-color-accent-high); }
   .mhs-prose p { margin: 16px 0 0; }
@@ -240,12 +228,12 @@ import HomeDevices from './HomeDevices.astro';
   .mhs-term { background: #0f172a; color: #dbe4ee; border-radius: 10px; font: 400 14px/1.75 var(--mhs-mono); padding: 18px 20px; overflow-x: auto; margin: 0; border: 1px solid var(--sl-color-hairline); }
   .mhs-term .p { color: #38bdf8; user-select: none; }
   .mhs-term .c { color: #7d8ea4; }
-  .mhs-cap { font: 500 12px/1.4 var(--mhs-mono); color: var(--sl-color-gray-3); margin: 10px 2px 0; }
+  .mhs-cap { font-size: 13px; line-height: 1.45; color: var(--sl-color-gray-3); margin: 10px 2px 0; }
 
   .mhs-state { margin-top: 36px; overflow-x: auto; border-top: 2px solid var(--sl-color-white); }
   .mhs-state table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 15px; }
   .mhs-state th, .mhs-state td { text-align: left; padding: 13px 14px 13px 0; border-bottom: 1px solid var(--sl-color-hairline); vertical-align: baseline; background: none; }
-  .mhs-state th { font: 500 11px/1 var(--mhs-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--sl-color-gray-3); padding-top: 14px; }
+  .mhs-state th { font-size: 13px; font-weight: 600; color: var(--sl-color-gray-3); padding-top: 14px; }
   .mhs-state td { color: var(--sl-color-gray-2); }
   .mhs-state td.q { color: var(--sl-color-white); font-weight: 500; }
   .mhs-state td.sym { font: 500 14px/1.3 var(--mhs-mono); color: var(--sl-color-accent); white-space: nowrap; }
@@ -255,25 +243,25 @@ import HomeDevices from './HomeDevices.astro';
   .mhs-models li { padding: 12px 0; margin: 0; border-bottom: 1px solid var(--sl-color-hairline); display: grid; gap: 3px; }
   .mhs-models code { font-size: 15px; color: var(--sl-color-white); font-weight: 500; }
   .mhs-models span { font-size: 13.5px; color: var(--sl-color-gray-3); }
-  .mhs-models .exp code::after { content: "experimental"; margin-left: 8px; font: 500 10px/1 var(--mhs-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--sl-color-gray-3); border: 1px solid var(--sl-color-hairline); border-radius: 4px; padding: 3px 5px; vertical-align: 2px; }
+  .mhs-models .exp code::after { content: "experimental"; margin-left: 8px; font-size: 12px; font-weight: 400; font-family: inherit; color: var(--sl-color-gray-3); border: 1px solid var(--sl-color-hairline); border-radius: 4px; padding: 3px 5px; vertical-align: 2px; }
 
   .mhs-figs { margin-top: 28px; }
   .mhs-fig { display: grid; grid-template-columns: minmax(7.5rem, auto) minmax(0, 1fr); gap: 18px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--sl-color-hairline); }
-  .mhs-fig b { font: 760 clamp(26px, 3vw, 36px)/1 var(--mhs-display); font-stretch: 115%; letter-spacing: -0.02em; color: var(--sl-color-white); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .mhs-fig b small { font: 500 15px/1 var(--mhs-mono); color: var(--sl-color-gray-3); margin-left: 4px; letter-spacing: 0; }
+  .mhs-fig b { font-weight: 600; font-size: clamp(22px, 2.4vw, 28px); line-height: 1; color: var(--sl-color-white); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mhs-fig b small { font-size: 15px; font-weight: 400; color: var(--sl-color-gray-3); margin-left: 4px; }
   .mhs-fig p { margin: 0; font-size: 15px; }
 
   .mhs-rig { margin: 0; }
   .mhs-rig img { display: block; width: 100%; height: auto; max-width: 100%; border-radius: 10px; }
-  .mhs-rig figcaption { font: 400 13px/1.5 var(--mhs-mono); color: var(--sl-color-gray-3); margin-top: 10px; }
+  .mhs-rig figcaption { font-size: 14px; line-height: 1.5; color: var(--sl-color-gray-3); margin-top: 10px; }
   .mhs-facts { margin: 26px 0 0; }
   .mhs-facts div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--sl-color-hairline); }
-  .mhs-facts dt { font: 500 11px/1.9 var(--mhs-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--sl-color-gray-3); }
+  .mhs-facts dt { font-size: 14px; font-weight: 600; color: var(--sl-color-gray-3); }
   .mhs-facts dd { margin: 0; font-size: 15px; }
 
   .mhs-cites { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 30px; }
   .mhs-cites figure { margin: 0; min-width: 0; }
-  .mhs-cites figcaption { font: 500 12px/1 var(--mhs-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--sl-color-gray-3); margin-bottom: 10px; }
+  .mhs-cites figcaption { font-size: 14px; font-weight: 600; color: var(--sl-color-gray-3); margin-bottom: 8px; }
   .mhs-cites .mhs-term { font-size: 13px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
   .mhs-community { align-items: center; }
   .mhs-join { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
@@ -281,7 +269,7 @@ import HomeDevices from './HomeDevices.astro';
   .mhs-join a:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
   .mhs-visitors { margin: 0; justify-self: center; width: min(100%, 320px); }
   .mhs .mhs-visitors .visitor-map { margin: 0; max-width: none; border-radius: 10px; overflow: hidden; border: 1px solid var(--sl-color-hairline); }
-  .mhs-visitors figcaption { font: 500 12px/1.4 var(--mhs-mono); color: var(--sl-color-gray-3); margin-top: 8px; text-align: center; }
+  .mhs-visitors figcaption { font-size: 13px; line-height: 1.4; color: var(--sl-color-gray-3); margin-top: 8px; text-align: center; }
 
   .mhs, .mhs-split > *, .mhs-cites > * { min-width: 0; max-width: 100%; }
   .mhs h2 { border-bottom: 0; padding-bottom: 0; }
@@ -292,7 +280,7 @@ import HomeDevices from './HomeDevices.astro';
     .mhs-split, .mhs-cites { grid-template-columns: minmax(0, 1fr); }
   }
   @media (max-width: 640px) {
-    .mhs-band { padding-block: 40px; }
+    .mhs-band { padding-block: 24px; }
     .mhs-term { font-size: 13px; }
     /* State table: one stacked block per row (quantity / symbol · per · unit / notes), no sideways scroll. */
     .mhs-state table { min-width: 0; }

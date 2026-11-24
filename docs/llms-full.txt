@@ -9,9 +9,7 @@ Generated from https://openmvis.com at build time. Index: https://openmvis.com/l
 
 URL: https://openmvis.com/
 
-Calibrate a whole rig at once
-
-## From one recording to a full sensor model.
+## The whole rig in one solve
 
 MVIS is the calibration toolbox behind the OpenMVIS benchmark. It solves camera intrinsics and distortion, extrinsics, time offsets, rolling-shutter readout, board poses and (optionally) the board shape, camera–IMU transforms, IMU intrinsics and biases in a single GTSAM factor graph.
 It reads ROS1 and ROS2 bags through rosbags, so ROS does not need to be installed. It also reads EuRoC/ASL folders, image folders and timestamped images.
@@ -30,9 +28,7 @@ $ mvis roundtrip -c cam_imu.yaml
 One self-contained HTML report per run.
 Package pymvis 0.1.0 on PyPI · command mvis · GPL-3.0-only or commercial · DOI 10.5281/zenodo.24239182
 
-Not in Kalibr or Basalt
-
-## Six things the common tools do not do.
+## What Kalibr and Basalt do not cover
 
 Kalibr and Basalt are the open-source camera–IMU toolboxes most people use. Neither covers these six cases. See the full comparison.
 
@@ -41,7 +37,7 @@ Kalibr and Basalt are the open-source camera–IMU toolboxes most people use. Ne
 ### Rolling shutter + IMU
 
 A rolling-shutter camera reads its rows one after another. MVIS solves that readout time together with the IMU. Kalibr's rolling-shutter tool is camera-only; Basalt has none.
-Guide Why it matters
+Guide Why calibrate rolling shutter
 
 -
 
@@ -55,14 +51,14 @@ Example Config
 ### Board shape and pose
 
 MVIS solves the board pose and, optionally, one height per corner (estimate.board_points). Kalibr and Basalt assume a flat board. On our VI-Rig mount, a flat solve biases the focal length by up to 1 % and the gyro scale by about 1 %.
-Why it matters
+Why calibrate the board shape
 
 -
 
 ### Gyro-to-accel time offset
 
 t_ga is the time offset between an IMU's gyroscope and its accelerometer. MVIS fits it by default in camera–IMU runs. Kalibr and Basalt use one IMU clock, so the offset leaks into the camera time offset.
-Why it matters
+Why calibrate t_ga
 
 -
 
@@ -78,9 +74,7 @@ Guide
 mvis roundtrip applies the calibration to its own data and calibrates again. It reports PASS or FAIL without ground truth, and exits non-zero on FAIL so it can run in CI.
 Guide
 
-What the graph estimates
-
-## The state, not a sequence of stages.
+## What the graph estimates
 
 Quantity | Symbol | Per | Unit | Notes |
 Intrinsics + distortion | f, c, k | camera | px | Eight models, mixable within one rig |
@@ -89,14 +83,12 @@ Camera time offset | t_d | camera | ms | About −123 ms of USB lag on the VI-Ri
 Rolling-shutter readout | t_r | camera | ms | Each corner projected at its own row time |
 IMU–IMU extrinsics | T_IstoI | aux IMU | m · log(R) rad | Plus a per-IMU time offset |
 IMU intrinsics | D_w, D_a | IMU | — | kalibr, rpng or calyx convention |
-Gyro–accel offset | t_ga | IMU | ms | About −6.7 ms on the T265 IMU over 15 recordings; why it matters |
+Gyro–accel offset | t_ga | IMU | ms | About −6.7 ms on the T265 IMU over 15 recordings; why calibrate t_ga |
 Biases | b_g, b_a | IMU | rad/s · m/s² | Along the whole trajectory |
 Board pose + trajectory | T_BinW, T_ItoW(t) | recording | m · log(R) rad | Chessboard, AprilGrid or ArUco targets |
-Board shape | z_k | corner | mm | Optional, off by default; on for our VI-Rig runs; why it matters |
+Board shape | z_k | corner | mm | Optional, off by default; on for our VI-Rig runs; why calibrate the board shape |
 
-Camera models
-
-## Eight projection models.
+## Camera models
 
 - radtanPinhole, radial–tangential
 - kb4Kannala–Brandt, the fisheye default (fisheye means kb4); why
@@ -107,9 +99,7 @@ Camera models
 - ucmUnified camera
 - omni_radtanOmnidirectional
 
-Benchmark
-
-## Checked against Kalibr on TUM-VI.
+## Checked against Kalibr on TUM-VI
 
 0.2pxlargest median focal-length (fx, fy) difference from Kalibr; principal point within 0.35 px. Camera-only stereo, 8 raw recordings, view angles cut to 85° or less for every tool
 
@@ -123,9 +113,7 @@ Benchmark batch 2026-11-10a. See the Leaderboard and each device's calibration.
 
 VI-Rig, our own rig: up to 5 IMUs and 4 cameras across its recordings. They are in Datasets.
 
-It checks its own work
-
-## A low residual is not the test.
+## Checking a calibration
 
 A low reprojection error says a calibration fits its own data, not that it is right. In a round trip, PASS needs the IMU intrinsics and biases to collapse to identity and zero, and the geometry to hold. See Round-trip validation.
 
@@ -137,9 +125,7 @@ Interop: Reads and writes Kalibr camchain and camchain-imucam
 
 Export: mvis apply-calib writes a copy of a raw ROS1 bag with the calibration applied
 
-Device wiki
-
-## Calibrated on real hardware, from many makers.
+## Devices calibrated so far
 
 19 devices from 14 makers (ALG Tech, Borme, Dibuli, General Intelligence Labs, Hampo, LooperRobotics, RoboBaton, Tujian, HP, Insta360, Intel RealSense, Samsung, Stereolabs, Valve), plus our own VI-Rig. Each has a page with its calibration, the data and the results.
 
@@ -186,9 +172,7 @@ Insta360
 - Stereolabs
 -
 
-Cite
-
-## If you use the toolbox, this site or the benchmark results.
+## How to cite
 
 Project
 @misc{openmvis,
@@ -212,9 +196,8 @@ doi = {10.1177/02783649241245726}
 }
 
 The DOI is the Zenodo concept DOI and resolves to the latest release. Cite leaderboard results as OpenMVIS leaderboard, batch 2026-11-10a. Dataset entries: Contributors & citation.
-Community
 
-## Bring your rig.
+## Contribute
 
 OpenMVIS is open: the toolbox, the benchmark records and our own VI-Rig recordings. Add your device, your dataset or your results, or tell us where MVIS breaks.
 
