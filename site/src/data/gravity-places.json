@@ -1,0 +1,161 @@
+{
+ "_source": "MVIS doc/local_gravity.md 'Common recording places'; g = mvis.core.gravity.normal_gravity(latitude_deg, altitude_m), MVIS 0.4.0 (openmvis-internal 3099ec63), 6 decimals",
+ "places": [
+  {
+   "name": "Singapore",
+   "latitude_deg": 1.35,
+   "altitude_m": 15,
+   "g": 9.780308
+  },
+  {
+   "name": "Bangalore",
+   "latitude_deg": 12.97,
+   "altitude_m": 920,
+   "g": 9.780088
+  },
+  {
+   "name": "Mexico City",
+   "latitude_deg": 19.43,
+   "altitude_m": 2240,
+   "g": 9.779129
+  },
+  {
+   "name": "Hong Kong",
+   "latitude_deg": 22.32,
+   "altitude_m": 10,
+   "g": 9.787746
+  },
+  {
+   "name": "Shenzhen",
+   "latitude_deg": 22.54,
+   "altitude_m": 20,
+   "g": 9.787855
+  },
+  {
+   "name": "São Paulo",
+   "latitude_deg": -23.55,
+   "altitude_m": 760,
+   "g": 9.786228
+  },
+  {
+   "name": "Abu Dhabi",
+   "latitude_deg": 24.45,
+   "altitude_m": 5,
+   "g": 9.789162
+  },
+  {
+   "name": "Kunming",
+   "latitude_deg": 25.04,
+   "altitude_m": 1890,
+   "g": 9.783749
+  },
+  {
+   "name": "Lhasa",
+   "latitude_deg": 29.65,
+   "altitude_m": 3650,
+   "g": 9.781711
+  },
+  {
+   "name": "Wuhan",
+   "latitude_deg": 30.59,
+   "altitude_m": 25,
+   "g": 9.793634
+  },
+  {
+   "name": "Shanghai",
+   "latitude_deg": 31.23,
+   "altitude_m": 5,
+   "g": 9.794206
+  },
+  {
+   "name": "Córdoba, Argentina",
+   "latitude_deg": -31.42,
+   "altitude_m": 400,
+   "g": 9.793139
+  },
+  {
+   "name": "Sydney",
+   "latitude_deg": -33.87,
+   "altitude_m": 20,
+   "g": 9.796322
+  },
+  {
+   "name": "Tokyo",
+   "latitude_deg": 35.68,
+   "altitude_m": 40,
+   "g": 9.797793
+  },
+  {
+   "name": "Seoul",
+   "latitude_deg": 37.57,
+   "altitude_m": 40,
+   "g": 9.799428
+  },
+  {
+   "name": "San Francisco",
+   "latitude_deg": 37.77,
+   "altitude_m": 15,
+   "g": 9.79968
+  },
+  {
+   "name": "Washington, DC",
+   "latitude_deg": 38.9,
+   "altitude_m": 20,
+   "g": 9.800659
+  },
+  {
+   "name": "Newark, Delaware",
+   "latitude_deg": 39.68,
+   "altitude_m": 40,
+   "g": 9.801289
+  },
+  {
+   "name": "Denver",
+   "latitude_deg": 39.74,
+   "altitude_m": 1610,
+   "g": 9.796497
+  },
+  {
+   "name": "Beijing",
+   "latitude_deg": 39.9,
+   "altitude_m": 45,
+   "g": 9.801469
+  },
+  {
+   "name": "Boston",
+   "latitude_deg": 42.36,
+   "altitude_m": 10,
+   "g": 9.803781
+  },
+  {
+   "name": "Zurich",
+   "latitude_deg": 47.37,
+   "altitude_m": 410,
+   "g": 9.807076
+  },
+  {
+   "name": "Seattle",
+   "latitude_deg": 47.61,
+   "altitude_m": 50,
+   "g": 9.808403
+  },
+  {
+   "name": "Munich",
+   "latitude_deg": 48.14,
+   "altitude_m": 520,
+   "g": 9.80743
+  },
+  {
+   "name": "Paris",
+   "latitude_deg": 48.86,
+   "altitude_m": 35,
+   "g": 9.809574
+  },
+  {
+   "name": "London",
+   "latitude_deg": 51.51,
+   "altitude_m": 15,
+   "g": 9.811996
+  }
+ ]
+}
