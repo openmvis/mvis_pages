@@ -10486,7 +10486,8 @@ Recordings | 4 recordings, 95, 73, 50 and 65 s, hand-held. RGB, left and right i
 Format | EuRoC mav0: PNG per camera and IMU CSV |
 Board | AprilGrid, 6×6 tags of 88 mm, spacing 0.3 |
 Exposure | Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed |
-Data | Not hosted yet. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; the results of the first of them are on the Hub, Calibench-VI community, realsense-d435i/ (access by automatic approval) |
+Data | Calibench-VI community, realsense-d435i/data/ (access by automatic approval). The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY-NC 4.0, for the data, clip and figures; commercial use by request. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs |
+Configs and results | Calibench-VI community, realsense-d435i/ (access by automatic approval) |
 
 AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 

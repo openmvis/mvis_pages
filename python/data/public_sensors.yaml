@@ -177,10 +177,8 @@ sensors:
       - [Format, "EuRoC mav0: PNG per camera and IMU CSV"]
       - [Board, "AprilGrid, 6×6 tags of 88 mm, spacing 0.3"]
       - [Exposure, "Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed"]
-      # On upload, replace the Data row with these two (and put realsense-d435i back out of NOT_HOSTED in test_public_data.py):
-      # - [Data, "__HUB:community/realsense-d435i/data/__. The four recordings as ROS1 bags, the three cameras and the IMU. CC BY-NC 4.0, for the data, clip and figures; commercial use by request. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub"]
-      # - [Configs and results, "__HUB:community/realsense-d435i/__"]
-      - [Data, "Not hosted yet. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; the results of the first of them are on the Hub, __HUB:community/realsense-d435i/__"]
+      - [Data, "__HUB:community/realsense-d435i/data/__. The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY-NC 4.0, for the data, clip and figures; commercial use by request. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs"]
+      - [Configs and results, "__HUB:community/realsense-d435i/__"]
     method: "Each camera first solved on its own, then the RGB and both infrared cameras with the IMU in one solve. The RGB camera is a rolling-shutter camera with the readout time estimated; the infrared pair is global shutter. Pinhole cameras with radial-tangential distortion, seeded from the single-camera solves and left free; the camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Gravity is the local value at the recording site, 9.7892 m/s² (UAE). Solved 2026-11-24."
     limits:
       - "We ran the same solve on all four recordings. They agree on the RGB lever arm across the image (x within 0.3 mm), the time offset (within 0.08 ms), the readout time (32.33 to 32.42 ms), the focal length (within 1.2 px) and the infrared baseline (49.98 to 50.08 mm, against the 50.05 mm stored in the camera). They do not agree along the optical axis: the RGB lever z is 17.7 to 21.8 mm, a 4.1 mm spread, and every camera sits 6 to 10 mm above the RealSense SDK's design values. The infrared cameras spread as much as the RGB camera, so the rolling shutter is not the cause. All four recordings turn the camera little about the axes across the image, which is what makes that distance observable, so z is not settled."
@@ -193,7 +191,7 @@ sensors:
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
       links: {product: "https://www.realsenseai.com/products/depth-camera-d435i/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d435i.jpg, alt: "RealSense D435i depth camera, front view", credit: "Photo: RealSense, D435i product page", url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
-      foot: "Maker values checked 2026-11-14 · 4 recordings, 50 to 95 s"
+      foot: "Maker values checked 2026-11-14 · 4 recordings, 50 to 95 s · CC BY-NC 4.0"
       key_specs:
         cameras: {v: "640 × 480 here: RGB + IR stereo", tag: measured}
         shutter: {v: "Rolling (RGB), global (IR pair)", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}

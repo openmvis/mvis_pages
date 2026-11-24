@@ -68,7 +68,7 @@ NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360",)   # alg-avs111c hosted since
 # zed2 (2026-11-17): no demo clip; the WHUVID authors' bag hosted unchanged in community (CC BY 4.0, per their paper).
 NO_DEMO = NO_DEMO_NOT_HOSTED + ("zed2",)
 # realsense-d435i (2026-11-24): three-camera recordings to be hosted after the frame review; not hosted yet.
-NOT_HOSTED = NO_DEMO_NOT_HOSTED + ("realsense-d435i",)   # robobaton-neo hosted since 2026-11-20
+NOT_HOSTED = NO_DEMO_NOT_HOSTED   # robobaton-neo hosted since 2026-11-20, realsense-d435i since 2026-11-24
 # cyperstereo: results-only 2026-11-15; the maker's bag hosted unchanged since 2026-11-15 (CC BY-NC 4.0, 2026-11-17).
 RESULTS_ONLY = ()
 
@@ -107,7 +107,7 @@ def test_every_sensor_page_links_to_its_hosted_data(pub):
             assert "not hosted" in html.lower() and "calibench-vi/datasets" not in html, slug
             continue
         if slug not in ("dibuli-prism-a4l", "hampo", "xq20", "realsense-d455", "realsense-d456", "alg-avs111c", "alg-avs115d", "zed2",
-                        "robobaton-neo", "cyperstereo"):
+                        "robobaton-neo", "cyperstereo", "realsense-d435i"):
             assert "calibench-vi/datasets/tree/main/" in html, slug
 
 
