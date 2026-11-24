@@ -152,7 +152,7 @@ window.mvisProgress = window.mvisProgress || function (id, s) {
       + ' \u00b7 ' + (uvAt(P, i).length ? (uvAt(P, i).length / 2) + ' corners' : 'no detection used here');
     var gx = P.grid[0], gy = P.grid[1], cw = P.w / gx, ch = P.h / gy, g;
     if (i < v.drawn || v.drawn < 0 || !E.base.width) {   // rewind / first draw: start over
-      g = fit(E.base, P); g.fillStyle = '#0F172A'; g.fillRect(0, 0, P.w, P.h);
+      g = fit(E.base, P); g.fillStyle = '#171717'; g.fillRect(0, 0, P.w, P.h);
       g.strokeStyle = 'rgba(148,163,184,0.25)'; g.lineWidth = P.w / 400;
       for (var a = 1; a < gx; a++) { g.beginPath(); g.moveTo(a * cw, 0); g.lineTo(a * cw, P.h); g.stroke(); }
       for (var b = 1; b < gy; b++) { g.beginPath(); g.moveTo(0, b * ch); g.lineTo(P.w, b * ch); g.stroke(); }

@@ -40,9 +40,6 @@ const countWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven
 const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} recordings`;
 ---
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=JetBrains+Mono:wght@400;500&display=swap" />
 
 <section class="mh" aria-label="OpenMVIS">
   <div class="mh-text">
@@ -110,12 +107,11 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
 
   .mh {
     --mh-night: #05070a;
-    --mh-ink: #eef3f8;
-    --mh-dim: #9aa9ba;
-    --mh-rule: rgba(148, 163, 184, 0.22);
-    --mh-sky: #38bdf8;
-    --mh-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-    --mh-mono: "JetBrains Mono", var(--sl-font-mono, ui-monospace), monospace;
+    --mh-ink: #f2f2f2;
+    --mh-dim: #a3a3a3;
+    --mh-rule: rgba(163, 163, 163, 0.24);
+    --mh-accent: #6fa3e6;   /* the site accent, dark-theme step */
+    --mh-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
     --mh-gutter: clamp(16px, 3.5vw, 48px);
     --mh-side: var(--mh-gutter);
 
@@ -129,20 +125,20 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
     display: grid;
     padding-inline: var(--mh-side);
   }
-  .mh :focus-visible { outline: 2px solid var(--mh-sky); outline-offset: 3px; border-radius: 3px; }
+  .mh :focus-visible { outline: 2px solid var(--mh-accent); outline-offset: 3px; border-radius: 3px; }
   .mh h1, .mh p, .mh dl, .mh ul { margin: 0; }
   .mh h1 { border-bottom: 0; padding-bottom: 0; color: var(--mh-ink); }
 
   /* ---- text ---- */
   .mh-text { min-width: 0; }
-  .mh h1 { font: 600 clamp(40px, 3.8vw, 72px)/1 var(--mh-display); white-space: nowrap; }
+  .mh h1 { font-weight: 600; font-size: clamp(40px, 3.8vw, 72px); line-height: 1; white-space: nowrap; }
   .mh .mh-sub { margin-top: 14px; color: #c9d4e0; font-weight: 400; font-size: clamp(19px, 1.7vw, 26px); line-height: 1.25; }
   .mh-nw { white-space: nowrap; }
   .mh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 26px; }
   .mh-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 8px;
             font-weight: 600; font-size: 15px; line-height: 1; text-decoration: none; border: 1px solid transparent; }
-  .mh-primary { background: var(--mh-sky); color: #04111c; }
-  .mh-primary:hover { background: #7dd3fc; color: #04111c; }
+  .mh-primary { background: var(--mh-accent); color: #0b1626; }
+  .mh-primary:hover { background: #93bbef; color: #0b1626; }
   .mh-textlinks { display: inline-flex; flex-wrap: wrap; gap: 4px 18px; margin-left: 8px; }
   .mh-textlinks a { color: var(--mh-ink); font-size: 15px; text-underline-offset: 3px; min-height: 44px; display: inline-flex; align-items: center; }
   .mh-textlinks a:hover { color: #fff; }
@@ -187,7 +183,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
   .mh-chip { flex: none; scroll-snap-align: start; font-size: 13px; font-weight: 500; line-height: 1; color: var(--mh-dim); background: transparent;
              border: 1px solid var(--mh-rule); border-radius: 6px; padding: 0 13px; min-height: 36px; cursor: pointer; white-space: nowrap; }
   .mh-chip:hover { color: var(--mh-ink); border-color: var(--mh-dim); }
-  .mh-chip[aria-pressed="true"] { color: #04111c; background: var(--mh-ink); border-color: var(--mh-ink); }
+  .mh-chip[aria-pressed="true"] { color: #0b1626; background: var(--mh-ink); border-color: var(--mh-ink); }
   .mh-ro { display: grid; gap: 10px 22px; transition: opacity 0.25s ease; min-width: 0; }
   .mh-ro.swap { opacity: 0; }
   .mh-ro div { min-width: 0; }
@@ -204,7 +200,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
   .mh-credit a:hover { color: var(--mh-ink); }
   .mh-more summary { cursor: pointer; list-style: none; font: 500 13px/1 var(--mh-mono); color: var(--mh-ink); min-height: 44px; display: flex; align-items: center; }
   .mh-more summary::-webkit-details-marker { display: none; }
-  .mh-more summary::before { content: "▸"; color: var(--mh-sky); margin-right: 8px; }
+  .mh-more summary::before { content: "▸"; color: var(--mh-accent); margin-right: 8px; }
   .mh-more[open] summary::before { content: "▾"; }
   .mh .mh-ro-more { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 4px; }
   .mh .mh-legend { margin-top: 12px; line-height: 1.55; }
@@ -221,7 +217,7 @@ const cycleLabel = `Cycling through ${countWords[rigs.length] ?? rigs.length} re
     .mh-cta-phone .mh-primary { width: 100%; min-height: 48px; font-size: 16px; }
     .mh-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 20px; }
     .mh-links a { color: var(--mh-ink); text-decoration: none; font-size: 15px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; }
-    .mh-links a:hover { color: var(--mh-sky); }
+    .mh-links a:hover { color: var(--mh-accent); }
     .mh-bar { padding: 10px var(--mh-gutter) 4px; border-top: 0; grid-template-columns: minmax(0, 1fr); gap: 12px; }
     .mh-chip { min-height: 40px; }
     /* three values in ~358 px: drop the long half of the label and tighten the columns,

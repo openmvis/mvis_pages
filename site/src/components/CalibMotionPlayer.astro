@@ -103,23 +103,23 @@ const main = mode === 'main';
 <style is:global>
   .cm {
     --cm-x: #d1382c; --cm-y: #2f9e44; --cm-z: #1c6fd1; --cm-g: #7c3aed; --cm-t: #d97706;
-    --cm-board: #f8fafc; --cm-tag: #0f172a; --cm-cov: 2, 132, 199;
-    --cm-s-lr: #0d9488; --cm-s-ud: #db2777; --cm-s-bf: #8b5e34; --cm-s-loop: #7c7c00; --cm-s-rest: #94a3b8;
+    --cm-board: #fafafa; --cm-tag: #171717; --cm-cov: 31, 95, 174;
+    --cm-s-lr: #0d9488; --cm-s-ud: #db2777; --cm-s-bf: #8b5e34; --cm-s-loop: #7c7c00; --cm-s-rest: #a3a3a3;
     --cm-now-bg: #f1f5f9; --cm-now-fg: var(--sl-color-white); --cm-corner: #16a34a; --cm-ghost: var(--sl-color-gray-3);
     --cm-cam0: #2563eb; --cm-cam1: #dc2626; --cm-cam2: #16a34a;
     --cm-text: var(--sl-color-gray-3);
     /* primary button: 5.9:1 white on sky-700 in light, 8:1 slate-900 on sky-400 in dark */
-    --cm-pri-bg: #0369a1; --cm-pri-fg: #fff;
+    --cm-pri-bg: #1f5fae; --cm-pri-fg: #fff;
     margin-block: 1rem 2rem;
     font-size: 0.9rem;
     outline: none;
   }
   :root[data-theme='dark'] .cm {
     --cm-x: #f87171; --cm-y: #4ade80; --cm-z: #60a5fa; --cm-g: #c4b5fd; --cm-t: #fbbf24;
-    --cm-board: #e2e8f0; --cm-tag: #0f172a; --cm-cov: 56, 189, 248;
-    --cm-s-lr: #2dd4bf; --cm-s-ud: #f472b6; --cm-s-bf: #d4a373; --cm-s-loop: #d9d65c; --cm-s-rest: #64748b;
+    --cm-board: #e5e5e5; --cm-tag: #171717; --cm-cov: 111, 163, 230;
+    --cm-s-lr: #2dd4bf; --cm-s-ud: #f472b6; --cm-s-bf: #d4a373; --cm-s-loop: #d9d65c; --cm-s-rest: #737373;
     --cm-now-bg: var(--sl-color-gray-6); --cm-corner: #4ade80;
-    --cm-pri-bg: #38bdf8; --cm-pri-fg: #0f172a;
+    --cm-pri-bg: #6fa3e6; --cm-pri-fg: #0b1626;
   }
   .cm :is(button, a, input):focus-visible { outline: 3px solid var(--sl-color-accent); outline-offset: 2px; }
   .cm:focus-visible { outline: 2px solid var(--sl-color-accent); outline-offset: 4px; border-radius: 0.5rem; }
