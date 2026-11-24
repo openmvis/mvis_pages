@@ -11,22 +11,11 @@ URL: https://openmvis.com/
 
 ## The whole rig in one solve
 
+OpenMVIS is developed by the OpenMVIS Contributors. The method is in our paper Multi-visual-inertial system: analysis, calibration, and estimation (Yang, Geneva and Huang, IJRR 2024). We test it on our own VI-Rig, shown here, and on recordings shared by device makers.
 MVIS is the calibration toolbox behind the OpenMVIS benchmark. It solves camera intrinsics and distortion, extrinsics, time offsets, rolling-shutter readout, board poses and (optionally) the board shape, camera–IMU transforms, IMU intrinsics and biases in a single GTSAM factor graph.
 It reads ROS1 and ROS2 bags through rosbags, so ROS does not need to be installed. It also reads EuRoC/ASL folders, image folders and timestamped images.
 
-# install (Python 3.11 or 3.12)
-$ pip install "pymvis[apriltag,ros1]"
-
-# cameras only
-$ mvis cam -c camera.yaml
-
-# cameras + IMUs, jointly
-$ mvis cam-imu -c cam_imu.yaml
-
-# check the result: PASS / FAIL
-$ mvis roundtrip -c cam_imu.yaml
-One self-contained HTML report per run.
-Package pymvis 0.1.0 on PyPI · command mvis · GPL-3.0-only or commercial · DOI 10.5281/zenodo.24239182
+VI-Rig, our own rig: up to 5 IMUs and 4 cameras across its recordings. They are in Datasets.
 
 ## What Kalibr and Basalt do not cover
 
@@ -111,7 +100,19 @@ Board shape | z_k | corner | mm | Optional, off by default; on for our VI-Rig ru
 
 Benchmark batch 2026-11-10a. See the Leaderboard and each device's calibration.
 
-VI-Rig, our own rig: up to 5 IMUs and 4 cameras across its recordings. They are in Datasets.
+# install (Python 3.11 or 3.12)
+$ pip install "pymvis[apriltag,ros1]"
+
+# cameras only
+$ mvis cam -c camera.yaml
+
+# cameras + IMUs, jointly
+$ mvis cam-imu -c cam_imu.yaml
+
+# check the result: PASS / FAIL
+$ mvis roundtrip -c cam_imu.yaml
+One self-contained HTML report per run.
+Package pymvis 0.1.0 on PyPI · command mvis · GPL-3.0-only or commercial · DOI 10.5281/zenodo.24239182
 
 ## Checking a calibration
 
