@@ -86,6 +86,12 @@ export default defineConfig({
       title: 'OpenMVIS',
       description:
         'Open-source multi-visual-inertial sensor calibration: the MVIS toolbox and the Calibench-VI benchmark.',
+      // Tab icon under a new name so browsers drop the cached old one; favicon.ico and the Apple icon for search results and home screens.
+      favicon: '/icon.svg',
+      head: [
+        { tag: 'link', attrs: { rel: 'icon', href: '/favicon.ico', sizes: '32x32' } },
+        { tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' } },
+      ],
       logo: { light: './src/assets/logo-light.svg', dark: './src/assets/logo-dark.svg', alt: '' },  // a mark beside the visible title, so no alt text (it would be read twice)
       // Header link: the toolbox repo. Edit links: this site's repo.
       social: [
