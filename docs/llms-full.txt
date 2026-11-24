@@ -5,7 +5,7 @@ Generated from https://openmvis.com at build time. Index: https://openmvis.com/l
 
 ---
 
-# OpenMVIS — open-source multi-visual-inertial sensor calibration
+# OpenMVIS: open-source multi-visual-inertial sensor calibration
 
 URL: https://openmvis.com/
 
@@ -149,7 +149,7 @@ Export: mvis apply-calib writes a copy of a raw ROS1 bag with the calibration ap
 - Samsung Odyssey+
 - Stereolabs ZED 2
 - Valve Index
-- Browse the device wiki →
+- Browse the device wiki
 Recordings and units from
 
 -
@@ -667,30 +667,30 @@ Leaderboard.
 ## Feature matrix
 
 Capability | MVIS | Kalibr | Basalt |
-Camera intrinsics + distortion | ✅ | ✅ | ✅ |
+Camera intrinsics + distortion | Yes | Yes | Yes |
 Distortion models | radtan, kb4, equidistant, FOV, DS, EUCM, UCM, omni_radtan (experimental) | radtan, equidistant, FOV, omni, omni-radtan, DS, EUCM | radtan, KB4, DS, EUCM, UCM |
-Different models in one rig | ✅ | ✅ | ✅ |
-Camera–IMU extrinsics + time offset | ✅ | ✅ | ✅ |
-Multiple IMUs in one solve | ✅ | ✅ | ✖ one IMU per run |
-Gyro-only mode per auxiliary IMU | ✅ | ✖ | ✖ |
-IMU intrinsics (scale, misalignment) | ✅ — 3 conventions (kalibr, rpng, calyx) | ✅ | ✅ scale + misalignment |
-G-sensitivity Tg | ✅ | ✅ | ✖ |
-Gyro↔accel offset t_ga | ✅ on by default | ✖ | ✖ |
-Board shape (one height per corner) | ✅ estimate.board_points | ✖ flat board | ✖ flat board |
-KB4-type polynomial past 90° | ✅ kb4, what fisheye means | ✖ pinhole-equi needs rays in front of the camera | ✅ KB4 |
-Rolling-shutter readout | ✅ in camera and camera–IMU solves | camera-only, separate tool | ✖ |
-Global + rolling shutter + IMUs in one solve | ✅ readout per camera | ✖ | ✖ |
-Corrected-dataset export | ✅ apply-calib | ✖ | ✖ |
-Digital-twin simulation | ✅ mvis.simulation | ✖ | ✖ |
-Round-trip PASS/FAIL validation | ✅ roundtrip | ✖ | ✖ |
-Batch sweep over a dataset family | ✅ input.bags | ✖ | ✖ |
-Dataset download + check | ✅ mvis datasets | ✖ | ✖ |
+Different models in one rig | Yes | Yes | Yes |
+Camera–IMU extrinsics + time offset | Yes | Yes | Yes |
+Multiple IMUs in one solve | Yes | Yes | No, one IMU per run |
+Gyro-only mode per auxiliary IMU | Yes | No | No |
+IMU intrinsics (scale, misalignment) | Yes, 3 conventions (kalibr, rpng, calyx) | Yes | Yes, scale + misalignment |
+G-sensitivity Tg | Yes | Yes | No |
+Gyro–accel offset t_ga | Yes, on by default | No | No |
+Board shape (one height per corner) | Yes, estimate.board_points | No, flat board | No, flat board |
+KB4-type polynomial past 90° | Yes, kb4, what fisheye means | No, pinhole-equi needs rays in front of the camera | Yes, KB4 |
+Rolling-shutter readout | Yes, in camera and camera–IMU solves | camera-only, separate tool | No |
+Global + rolling shutter + IMUs in one solve | Yes, readout per camera | No | No |
+Corrected-dataset export | Yes, apply-calib | No | No |
+Digital-twin simulation | Yes, mvis.simulation | No | No |
+Round-trip PASS/FAIL validation | Yes, roundtrip | No | No |
+Batch sweep over a dataset family | Yes, input.bags | No | No |
+Dataset download + check | Yes, mvis datasets | No | No |
 Trajectory model | discrete factor graph | continuous-time B-spline | continuous-time B-spline |
 Boards | AprilGrid, chessboard, ArUco | AprilGrid, chessboard, circles | AprilGrid |
 Input | ROS1/ROS2 bag, EuRoC, image folders | ROS bag | ROS bag, EuRoC |
-Runs without ROS | ✅ pure Python | ✖ | ✅ C++ build, no ROS |
+Runs without ROS | Yes, pure Python | No | Yes, C++ build, no ROS |
 Platforms | Linux, macOS, Windows (tentative) (Python 3.11–3.12) | Linux (ROS 1, or Docker) | Linux, macOS |
-Kalibr interop | ✅ read + write camchain, read AprilGrid targets | native | ✖ |
+Kalibr interop | Yes, read + write camchain, read AprilGrid targets | native | No |
 
 ## What is different
 
@@ -4848,32 +4848,32 @@ No totals: nothing is added up across cells, families or datasets, and rows are 
 
 Mode All Camera only Camera + IMU Shutter All Global Rolling or mixed MVIS Kalibr Basalt cell: whose estimates scatter least ≈ tie too few (under 6) ○ input – not compared K MVIS with Kalibr's IMU model
 Dataset · family Solved of N f + pp Dist Base Readout td Lever Gyro Accel ◆ MVISK − Kalibr ◆ Basalt − Kalibr ◆ BasaltK − MVIS
-VI-Rig 4 IMUs + 3 cams our data Results page →
+VI-Rig 4 IMUs + 3 cams our data Results page
 T6 3 GS cameras + 4 IMUs camera + IMU · global shutter · 10 recordings Solved 10 10 – Repeatability f + pp ○ Dist ○ Base ○ Readout · td ≈ Lever Gyro K Accel K ◆ differences larger than the spread MVISK − Kalibr 21/48 Basalt − Kalibr – Basalt − MVIS –
 T6c 3 GS cameras — camera calibration camera only · global shutter · 10 recordings Solved 10 10 10 Repeatability f + pp Dist Base only Readout · td · Lever · Gyro · Accel · ◆ differences larger than the spread MVIS − Kalibr 5/24 Basalt − Kalibr 2/16 Basalt − MVIS 6/16
 
-VI-Rig 4 IMUs + 4 cams our data Results page →
+VI-Rig 4 IMUs + 4 cams our data Results page
 T1 t265 GS fisheye stereo camera only · global shutter · 15 recordings Solved 15 15 15 Repeatability f + pp Dist Base ≈ Readout · td · Lever · Gyro · Accel · ◆ differences larger than the spread MVIS − Kalibr 5/17 Basalt − Kalibr 2/17 Basalt − MVIS 10/17
 T2 ELP RS stereo + readout camera only · rolling shutter · 15 recordings Solved 15 15 15 Repeatability f + pp – Dist – Base – Readout td · Lever · Gyro · Accel · ◆ differences larger than the spread MVIS − Kalibr 1/2 Basalt − Kalibr – Basalt − MVIS –
 T7 Mixed t265-f1 + ELP-L, aux Xsens camera + IMU · global + rolling shutter · 15 recordings Solved 15 14 – Repeatability f + pp ○ Dist ○ Base ○ Readout ○ td ≈ Lever Gyro K Accel K ◆ differences larger than the spread MVISK − Kalibr 12/22 Basalt − Kalibr – Basalt − MVIS –
 T8 ELP RS stereo + two IMUs (IMUs only) camera + IMU · rolling shutter · 15 recordings Solved 15 3 – Repeatability f + pp only Dist only Base only Readout only td Lever Gyro K Accel K ◆ differences larger than the spread MVISK − Kalibr 16/20 Basalt − Kalibr – Basalt − MVIS –
 
-TUM-VI Results page →
+TUM-VI Results page
 T3 Camera stereo (raw) camera only · global shutter · 8 recordings Solved 8 8 8 Repeatability f + pp Dist Base ≈ Readout · td · Lever · Gyro · Accel · ◆ differences larger than the spread MVIS − Kalibr 3/17 Basalt − Kalibr 0/17 Basalt − MVIS 4/17
 T9 Camera + IMU, raw stream camera + IMU · global shutter · 4 recordings Solved 4 4 4 Repeatability f + pp Dist Base Readout · td Lever Gyro K Accel K ◆ differences larger than the spread MVISK − Kalibr 9/13 Basalt − Kalibr 6/13 BasaltK − MVISK 10/30
 T10 Camera + IMU, standard-512 camera + IMU · global shutter · 4 recordings Solved 4 4 4 Repeatability f + pp Dist Base Readout · td Lever Gyro K Accel K ◆ differences larger than the spread MVISK − Kalibr 10/13 Basalt − Kalibr 6/13 BasaltK − MVISK 14/30
 
-Looper Insight 9 Results page →
+Looper Insight 9 Results page
 T4 Camera stereo camera only · global shutter · 10 recordings Solved 10 10 10 Repeatability f + pp Dist ≈ Base ≈ Readout · td · Lever · Gyro · Accel · ◆ differences larger than the spread MVIS − Kalibr 6/17 Basalt − Kalibr 3/17 Basalt − MVIS 2/17
 T11 3-cam + IMU camera + IMU · global + rolling shutter · 10 recordings Solved 10 10 10 Repeatability f + pp Dist ≈ Base ≈ Readout only td ≈ Lever ≈ Gyro ≈K Accel ≈K ◆ differences larger than the spread MVISK − Kalibr 7/13 Basalt − Kalibr 3/13 BasaltK − MVISK 15/30
 
-Monado MGC Results page →
+Monado MGC Results page
 T5 cam0 + cam1 stereo camera only · global shutter · 4 recordings Solved 4 4 4 Repeatability f + pp Dist Base Readout · td · Lever · Gyro · Accel · ◆ differences larger than the spread MVIS − Kalibr 4/17 Basalt − Kalibr 0/17 Basalt − MVIS 2/17
 T12 cam0 + cam1 + IMU camera + IMU · global shutter · 4 recordings Solved 4 4 4 Repeatability f + pp Dist Base Readout · td Lever Gyro K Accel K ◆ differences larger than the spread MVISK − Kalibr 3/13 Basalt − Kalibr 0/13 BasaltK − MVISK 16/30
 
-VI-Rig 5 IMUs + 4 cams separate study · batch 2026-11-02 Separate study (batch 2026-11-02), MVIS only: Kalibr and Basalt were not run on this set, so it has no row here. Results page →
+VI-Rig 5 IMUs + 4 cams separate study · batch 2026-11-02 Separate study (batch 2026-11-02), MVIS only: Kalibr and Basalt were not run on this set, so it has no row here. Results page
 
-UZH-FPV separate study · batch 2026-11-04 Separate study (batch 2026-11-04): no repeatability cells on the current schema, so it has no row here. Results page →
+UZH-FPV separate study · batch 2026-11-04 Separate study (batch 2026-11-04): no repeatability cells on the current schema, so it has no row here. Results page
 
 ◆ counts are the rows where two tools' medians differ by more than the larger of their spreads,
 counted by the same code as the parameter tables. They mark disagreement, not who is right. On camera + IMU
@@ -5096,7 +5096,7 @@ Photo: OpenMVIS
 Our rig: a FLIR Blackfly and a RealSense T265 fisheye pair, all global shutter, with four IMUs from 100 to 500 Hz.
 our data 3 global-shutter cameras 4 IMUs, 100–500 Hz
 Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
-Downloads → Dataset page The data → Hugging Face
+Dataset page: downloads Hugging Face: the data
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
@@ -5679,7 +5679,7 @@ MVIS solve view, from the homepage
 Our rig with a RealSense T265 fisheye pair (global shutter) and an ELP stereo pair (rolling shutter).
 our data 2 global-shutter + 2 rolling-shutter cameras
 Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
-Downloads → Dataset page The device → Device wiki The data → Hugging Face
+Dataset page: downloads Device wiki: the device Hugging Face: the data
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
@@ -6402,7 +6402,7 @@ URL: https://openmvis.com/benchmark/results/virig-5imus-4cams/
 Our rig with two RealSense T265 units (two global-shutter fisheye pairs) and five IMUs: an Xsens MTi as base, a GX3-25, a GX3-35 and the two T265 IMUs. A one-off MVIS study of 7 recordings, not part of the leaderboard batch or the regression suite. Kalibr and Basalt were not run on it.
 our data 4 global-shutter fisheye cameras 5 IMUs, 100–500 Hz 7 recordings MVIS only
 Separate study · batch 2026-11-02 · not part of the leaderboard batch
-How MVIS calibrates it → Example Downloads → Dataset page The device → Device wiki The data → Hugging Face
+Example: how MVIS calibrates it Dataset page: downloads Device wiki: the device Hugging Face: the data
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We made every run ourselves; only MVIS was run on this set.
@@ -6880,7 +6880,7 @@ MVIS solve view, from the homepage
 The calibration bags of the TUM visual-inertial dataset: a global-shutter fisheye stereo pair and a BMI160 IMU.
 2 global-shutter fisheye cameras, 20 Hz BMI160 IMU, 200 Hz AprilGrid 6×6, 88 mm
 Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
-How MVIS calibrates it → Example Downloads → Dataset page
+Example: how MVIS calibrates it Dataset page: downloads
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
@@ -7423,7 +7423,7 @@ Photo: LooperRobotics, Insight 9 product page
 Two global-shutter cameras, one rolling-shutter camera and a MEMS IMU, from Looper Robotics.
 2 global-shutter + 1 rolling-shutter camera MEMS IMU, 400 Hz AprilGrid 6×6, 55 mm
 Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
-How MVIS calibrates it → Example Downloads → Dataset page The device → Device wiki
+Example: how MVIS calibrates it Dataset page: downloads Device wiki: the device
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
@@ -7828,7 +7828,7 @@ Photo: HP, Reverb G2 press release
 The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset.
 2 of the 4 headset cameras (front pair) headset IMU AprilGrid 6×6, 30 mm
 Batch 2026-11-10a · results commit ac77987 · Leaderboard · Methodology
-How MVIS calibrates it → Example Downloads → Dataset page The device → Device wiki The data → Hugging Face
+Example: how MVIS calibrates it Dataset page: downloads Device wiki: the device Hugging Face: the data
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
@@ -8160,7 +8160,7 @@ MVIS solve view, from the homepage
 The camera–IMU calibration bags of the UZH-FPV Drone Racing dataset: an mDAVIS346 and a Snapdragon Flight, each recorded indoors and outdoors, at 45° and facing forward. A one-off study, not part of the leaderboard batch or the regression suite.
 2 devices, 4 bags each AprilGrid 5×4, 75 mm
 Separate study · batch 2026-11-04 · not part of the leaderboard batch
-How MVIS calibrates it → Example Downloads → Dataset page
+Example: how MVIS calibrates it Dataset page: downloads
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
@@ -8660,7 +8660,7 @@ Lever arms and rotations are each sensor in the base IMU frame; rotation is log(
 
 ## Check against a reference
 
-No published reference. No published calibration exists for this rig, so this page has nothing to compare against. What we can show is how much each value moves from one recording to the next. All 10 recordings and three tools: results page →
+No published reference. No published calibration exists for this rig, so this page has nothing to compare against. What we can show is how much each value moves from one recording to the next. All 10 recordings and three tools: results page
 
 ## Config and run
 
@@ -8776,7 +8776,7 @@ This is the config of the run on this page, with every path cut to its file name
 The solve took about 13 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS main, measured-noise batch of 2026-11-08
 Run date: 2026-11-08
-Data: VI-Rig 4 IMUs + 3 cams dataset page →
+Data: VI-Rig 4 IMUs + 3 cams dataset page
 Config: virig_4imus_3cams_cam_imu.yaml, above
 Command: mvis cam-imu -c virig_4imus_3cams_cam_imu.yaml
 
@@ -8787,14 +8787,14 @@ Command: mvis cam-imu -c virig_4imus_3cams_cam_imu.yaml
 - IMUs: the Xsens MTi is the base IMU; the two MicroStrain units and the T265's own IMU are solved against it.
 - Board: AprilGrid 6×6, tag 88 mm, spacing 0.3, t36h11.
 - Solve window: 80.0 s.
-Download: VI-Rig 4 IMUs + 3 cams dataset page → The recordings are listed there, not copied here.
+Download: VI-Rig 4 IMUs + 3 cams dataset page The recordings are listed there, not copied here.
 
 AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 ## More on this data
 
-- VI-Rig 4 IMUs + 3 cams dataset page →
-- All 10 recordings and three tools: results page →
+- VI-Rig 4 IMUs + 3 cams dataset page
+- All 10 recordings and three tools: results page
 
 
 ---
@@ -8837,7 +8837,7 @@ Lever arms and rotations are each sensor in the base IMU frame; rotation is log(
 
 ## Check against a reference
 
-No published reference. No published calibration exists for this rig, so this page has nothing to compare against. What we can show is how much each value moves from one recording to the next. All 15 recordings and tools: results page →
+No published reference. No published calibration exists for this rig, so this page has nothing to compare against. What we can show is how much each value moves from one recording to the next. All 15 recordings and tools: results page
 
 ## Config and run
 
@@ -8969,7 +8969,7 @@ This is the config of the run on this page, with every path cut to its file name
 The solve took about 12 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS main, 2026-11-10
 Run date: 2026-11-10
-Data: VI-Rig 4 IMUs + 4 cams dataset page →
+Data: VI-Rig 4 IMUs + 4 cams dataset page
 Config: virig_4imus_4cams_cam_imu.yaml, above
 Command: mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 
@@ -8980,14 +8980,14 @@ Command: mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 - IMUs: the Xsens MTi is the base IMU; the two MicroStrain units and the T265's own IMU are solved against it.
 - Board: AprilGrid 6×6, tag 88 mm, spacing 0.3, t36h11.
 - Solve window: 80.0 s.
-Download: VI-Rig 4 IMUs + 4 cams dataset page → The recordings are listed there, not copied here.
+Download: VI-Rig 4 IMUs + 4 cams dataset page The recordings are listed there, not copied here.
 
 AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 ## More on this data
 
-- VI-Rig 4 IMUs + 4 cams dataset page →
-- All 15 recordings and tools: results page →
+- VI-Rig 4 IMUs + 4 cams dataset page
+- All 15 recordings and tools: results page
 
 
 ---
@@ -9031,7 +9031,7 @@ Lever arms and rotations are each sensor in the base IMU frame; rotation is log(
 
 ## Check against a reference
 
-No published reference. No published calibration exists for this rig, so this page has nothing to compare against. What we can show is how much each value moves from one recording to the next. All 7 recordings: results page →
+No published reference. No published calibration exists for this rig, so this page has nothing to compare against. What we can show is how much each value moves from one recording to the next. All 7 recordings: results page
 
 ## Config and run
 
@@ -9148,7 +9148,7 @@ This is the config of the run on this page, with every path cut to its file name
 The solve took about 7 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS main, 2026-11-10
 Run date: 2026-11-10
-Data: VI-Rig 5 IMUs + 4 cams dataset page →
+Data: VI-Rig 5 IMUs + 4 cams dataset page
 Config: virig_5imus_4cams_cam_imu.yaml, above
 Command: mvis cam-imu -c virig_5imus_4cams_cam_imu.yaml
 
@@ -9159,14 +9159,14 @@ Command: mvis cam-imu -c virig_5imus_4cams_cam_imu.yaml
 - IMUs: the Xsens MTi is the base IMU; the two MicroStrain units and the two T265 IMUs are solved against it.
 - Board: AprilGrid 6×6, tag 88 mm, spacing 0.3, t36h11.
 - Solve window: 58.7 s.
-Download: VI-Rig 5 IMUs + 4 cams dataset page → The recordings are listed there, not copied here.
+Download: VI-Rig 5 IMUs + 4 cams dataset page The recordings are listed there, not copied here.
 
 AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 ## More on this data
 
-- VI-Rig 5 IMUs + 4 cams dataset page →
-- All 7 recordings: results page →
+- VI-Rig 5 IMUs + 4 cams dataset page
+- All 7 recordings: results page
 
 
 ---
@@ -9321,7 +9321,7 @@ This is the config of the run on this page, with every path cut to its file name
 The solve took about 4 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS main, example solves of 2026-11-10
 Run date: 2026-11-10
-Data: TUM-VI dataset page →
+Data: TUM-VI dataset page
 Config: tum_vi_imu1_cam_imu.yaml, above
 Command: mvis cam-imu -c tum_vi_imu1_cam_imu.yaml
 
@@ -9331,16 +9331,16 @@ Command: mvis cam-imu -c tum_vi_imu1_cam_imu.yaml
 - Cameras: two global-shutter fisheye cameras at 20 Hz, fitted with the kb4 (Kannala-Brandt) lens model. IMU: Bosch BMI160 at 200 Hz.
 - Board: AprilGrid 6×6, tag 88 mm, spacing 0.3, t36h11.
 - Solve window: 48.9 s.
-Download: TUM-VI dataset page → The recordings are listed there, not copied here.
+Download: TUM-VI dataset page The recordings are listed there, not copied here.
 
 AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 ## More on this data
 
-- TUM-VI dataset page →
-- All recordings and tools: results page →
+- TUM-VI dataset page
+- All recordings and tools: results page
 Other lens models kb4 is shown here
-This page uses kb4, the default MVIS fisheye model. How other lens models fit these cameras is covered on the camera model page. Camera model →
+This page uses kb4, the default MVIS fisheye model. How other lens models fit these cameras is covered on the camera model page. Camera model
 
 
 ---
@@ -9495,7 +9495,7 @@ This is the config of the run on this page, with every path cut to its file name
 The solve took about 3 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS main, example solves of 2026-11-10
 Run date: 2026-11-10
-Data: Monado SLAM Datasets →
+Data: Monado SLAM Datasets
 Config: monado_mgc_imucalib01_cam_imu.yaml, above
 Command: mvis cam-imu -c monado_mgc_imucalib01_cam_imu.yaml
 
@@ -9505,20 +9505,20 @@ Command: mvis cam-imu -c monado_mgc_imucalib01_cam_imu.yaml
 - Cameras: 640 × 480 grayscale at 30 Hz, fitted with the equidistant lens model, as in the MVIS regression config for this headset. IMU at about 1 kHz.
 - Board: AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11. The tag is much smaller than the usual 88 mm, and board size scales every translation.
 - Solve window: 41.6 s.
-Download: Monado SLAM Datasets → The recordings are listed there, not copied here.
+Download: Monado SLAM Datasets The recordings are listed there, not copied here.
 
 AprilGrid 6 × 6, 225 × 225 mm. Standard pattern, to scale
 
 ## More on this data
 
-- Monado SLAM Datasets →
-- All recordings and tools: results page →
-- HP Reverb G2 in the Device wiki →
+- Monado SLAM Datasets
+- All recordings and tools: results page
+- HP Reverb G2 in the Device wiki
 The other two camera pairs Device wiki
-The headset has four cameras, and each recording shows the board to one pair. The sensor page stitches all four together from three pair recordings. HP Reverb G2 →
+The headset has four cameras, and each recording shows the board to one pair. The sensor page stitches all four together from three pair recordings. HP Reverb G2
 
 t_ga on and off Why calibrate t_ga
-This run estimates t_ga, the time offset between the gyroscope and the accelerometer, as every MVIS camera + IMU run does by default. What happens to tools that cannot model it is shown on its own page. Why calibrate t_ga →
+This run estimates t_ga, the time offset between the gyroscope and the accelerometer, as every MVIS camera + IMU run does by default. What happens to tools that cannot model it is shown on its own page. Why calibrate t_ga
 
 
 ---
@@ -9557,7 +9557,7 @@ Lever arms and rotations are each sensor in the base IMU frame; rotation is log(
 
 ## Check against a reference
 
-No published reference. No published calibration exists for this device, so this page has nothing to compare against. What we can show is how much each value moves over the 10 hand-held recordings. All 10 recordings and tools: results page →
+No published reference. No published calibration exists for this device, so this page has nothing to compare against. What we can show is how much each value moves over the 10 hand-held recordings. All 10 recordings and tools: results page
 
 ## Config and run
 
@@ -9665,7 +9665,7 @@ This is the config of the run on this page, with every path cut to its file name
 The solve took about 6 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS main, measured-noise batch of 2026-11-08
 Run date: 2026-11-08
-Data: Calibench-VI, looper-insight9/ →
+Data: Calibench-VI, looper-insight9/
 Config: looper_insight9_bag1_cam_imu.yaml, above
 Command: mvis cam-imu -c looper_insight9_bag1_cam_imu.yaml
 
@@ -9676,17 +9676,17 @@ Command: mvis cam-imu -c looper_insight9_bag1_cam_imu.yaml
 - Board: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11.
 - Access is by automatic approval on the Hub; the data is CC BY-NC 4.0, commercial use by request.
 - Solve window: 66.4 s.
-Download: Calibench-VI, looper-insight9/ → The recordings are listed there, not copied here.
+Download: Calibench-VI, looper-insight9/ The recordings are listed there, not copied here.
 
 AprilGrid 6 × 6, 412 × 412 mm. Standard pattern, to scale
 
 ## More on this data
 
-- Calibench-VI, looper-insight9/ →
-- All 10 recordings and tools: results page →
-- Looper Insight 9 in the Device wiki →
+- Calibench-VI, looper-insight9/
+- All 10 recordings and tools: results page
+- Looper Insight 9 in the Device wiki
 Chessboard and robot-arm recordings Device wiki
-The sensor page also shows our own unit on a chessboard and two robot-arm recordings, each solved on its own. Looper Insight 9 →
+The sensor page also shows our own unit on a chessboard and two robot-arm recordings, each solved on its own. Looper Insight 9
 
 
 ---
@@ -9804,7 +9804,7 @@ This is the config of the run on this page, with every path cut to its file name
 The solve took about 3 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS main, example solves of 2026-11-10
 Run date: 2026-11-10
-Data: UZH-FPV datasets page →
+Data: UZH-FPV datasets page
 Config: uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml, above
 Command: mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
 
@@ -9815,7 +9815,7 @@ Command: mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
 - Board: AprilGrid 5×4, tag 75 mm, spacing 0.2, t36h11.
 - Cite Delmerico et al., "Are We Ready for Autonomous Drone Racing? The UZH-FPV Drone Racing Dataset", ICRA 2019. Licence: CC BY-NC-SA 3.0.
 - Solve window: 44.7 s.
-Download: UZH-FPV datasets page → The recordings are listed there, not copied here.
+Download: UZH-FPV datasets page The recordings are listed there, not copied here.
 
 AprilGrid 4 × 5, 435 × 345 mm. Standard pattern, to scale
 
@@ -9893,8 +9893,8 @@ This is the config of the run on this page, with every path cut to its file name
 
 ## More on this data
 
-- UZH-FPV datasets page →
-- MVIS: results page →
+- UZH-FPV datasets page
+- MVIS: results page
 
 
 ---
@@ -12362,12 +12362,12 @@ Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame.
 ## Specifications
 
 Published by the maker |
-Audio | Stereo, dual microphones ↗︎ |
-Synchronization | All four streams on one hardware clock ↗︎ |
-Storage | MicroSD, 128 GB card included ↗︎ |
-Connectivity | Wi-Fi and USB ↗︎ |
-Power | USB power bank; 12 to 16 hours on 10,000 mAh ↗︎ |
-Weight | About 200 g, headset only ↗︎ |
+Audio | Stereo, dual microphones (source) |
+Synchronization | All four streams on one hardware clock (source) |
+Storage | MicroSD, 128 GB card included (source) |
+Connectivity | Wi-Fi and USB (source) |
+Power | USB power bank; 12 to 16 hours on 10,000 mAh (source) |
+Weight | About 200 g, headset only (source) |
 Measured in these recordings |
 IMU rate | 470.9 Hz (recording 1), 476.8 Hz (recording 2) |
 Calibrated field of view | cam0 past the fit × 84° · cam1 ~162° × 85° |
@@ -18934,7 +18934,7 @@ Our rig: VI-Rig
 
 ### VI-Rig 4 IMUs + 3 cams
 
-Results →
+Results
 3 cameras, 4 IMUs
 cameras
 
@@ -18949,7 +18949,7 @@ IMUs
 
 ### VI-Rig 4 IMUs + 4 cams
 
-Results →
+Results
 4 cameras, 2 IMUs
 cameras
 
@@ -18962,7 +18962,7 @@ IMUs
 
 ### VI-Rig 5 IMUs + 4 cams
 
-Results →
+Results
 4 cameras, 5 IMUs
 cameras
 
@@ -18978,7 +18978,7 @@ Other datasets
 
 ### TUM-VI
 
-Results →
+Results
 2 cameras, 1 IMU
 cameras
 
@@ -18989,7 +18989,7 @@ IMUs
 
 ### Looper Insight 9
 
-Results →
+Results
 3 cameras, 1 IMU
 cameras
 
@@ -19001,7 +19001,7 @@ IMUs
 
 ### Monado MGC
 
-Results →
+Results
 2 cameras, 1 IMU
 cameras
 
@@ -19012,7 +19012,7 @@ IMUs
 
 ### UZH-FPV
 
-Results →
+Results
 3 cameras, 2 IMUs
 cameras
 

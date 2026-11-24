@@ -81,7 +81,7 @@ def label_html(kind: str, x: dict, link: bool = False) -> str:
     if named(x):
         tip = " · ".join(v for v in (x["via"], x.get("note")) if v)
         tag = SOURCES[x["src"]]
-        src = (f' <a class=cl-src href="{e(x["url"])}">{tag} ↗</a>' if x.get("url") else f" <span class=cl-src>{tag}</span>") if link else ""
+        src = (f' <a class=cl-src href="{e(x["url"])}">{tag}</a>' if x.get("url") else f" <span class=cl-src>{tag}</span>") if link else ""
         return f'<span class="cl {k}" title="{e(tip)}">{icon}<span class=t><b>{e(x["maker"])}</b> <span class=p>{e(x["part"])}</span>{times}</span>{src}</span>'
     if x.get("module"):
         return (f'<span class="cl {k} mod" title="Packaged module; no source names the chip inside">{icon}'

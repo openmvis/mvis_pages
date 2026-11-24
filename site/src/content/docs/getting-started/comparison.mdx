@@ -18,30 +18,30 @@ validated, and MVIS does not aim to replace it where it works well.
 
 | Capability | MVIS | Kalibr | Basalt |
 |---|---|---|---|
-| Camera intrinsics + distortion | ✅ | ✅ | ✅ |
+| Camera intrinsics + distortion | Yes | Yes | Yes |
 | Distortion models | radtan, kb4, equidistant, FOV, DS, EUCM, UCM, omni_radtan (experimental) | radtan, equidistant, FOV, omni, omni-radtan, DS, EUCM | radtan, KB4, DS, EUCM, UCM |
-| Different models in one rig | ✅ | ✅ | ✅ |
-| Camera–IMU extrinsics + time offset | ✅ | ✅ | ✅ |
-| Multiple IMUs in one solve | ✅ | ✅ | ✖ one IMU per run |
-| **Gyro-only mode per auxiliary IMU** | ✅ | ✖ | ✖ |
-| IMU intrinsics (scale, misalignment) | ✅ — 3 conventions (`kalibr`, `rpng`, `calyx`) | ✅ | ✅ scale + misalignment |
-| G-sensitivity `Tg` | ✅ | ✅ | ✖ |
-| **[Gyro↔accel offset `t_ga`](/why/tga/)** | ✅ on by default | ✖ | ✖ |
-| **[Board shape (one height per corner)](/why/board-shape/)** | ✅ `estimate.board_points` | ✖ flat board | ✖ flat board |
-| [KB4-type polynomial past 90°](/why/kb4/) | ✅ `kb4`, what `fisheye` means | ✖ pinhole-equi needs rays in front of the camera | ✅ KB4 |
-| Rolling-shutter readout | ✅ in camera and camera–IMU solves | camera-only, separate tool | ✖ |
-| **Global + rolling shutter + IMUs in one solve** | ✅ readout per camera | ✖ | ✖ |
-| **Corrected-dataset export** | ✅ `apply-calib` | ✖ | ✖ |
-| **[Digital-twin simulation](/guides/simulation/)** | ✅ `mvis.simulation` | ✖ | ✖ |
-| **Round-trip PASS/FAIL validation** | ✅ `roundtrip` | ✖ | ✖ |
-| **Batch sweep over a dataset family** | ✅ `input.bags` | ✖ | ✖ |
-| **Dataset download + check** | ✅ `mvis datasets` | ✖ | ✖ |
+| Different models in one rig | Yes | Yes | Yes |
+| Camera–IMU extrinsics + time offset | Yes | Yes | Yes |
+| Multiple IMUs in one solve | Yes | Yes | No, one IMU per run |
+| **Gyro-only mode per auxiliary IMU** | Yes | No | No |
+| IMU intrinsics (scale, misalignment) | Yes, 3 conventions (`kalibr`, `rpng`, `calyx`) | Yes | Yes, scale + misalignment |
+| G-sensitivity `Tg` | Yes | Yes | No |
+| **[Gyro–accel offset `t_ga`](/why/tga/)** | Yes, on by default | No | No |
+| **[Board shape (one height per corner)](/why/board-shape/)** | Yes, `estimate.board_points` | No, flat board | No, flat board |
+| [KB4-type polynomial past 90°](/why/kb4/) | Yes, `kb4`, what `fisheye` means | No, pinhole-equi needs rays in front of the camera | Yes, KB4 |
+| Rolling-shutter readout | Yes, in camera and camera–IMU solves | camera-only, separate tool | No |
+| **Global + rolling shutter + IMUs in one solve** | Yes, readout per camera | No | No |
+| **Corrected-dataset export** | Yes, `apply-calib` | No | No |
+| **[Digital-twin simulation](/guides/simulation/)** | Yes, `mvis.simulation` | No | No |
+| **Round-trip PASS/FAIL validation** | Yes, `roundtrip` | No | No |
+| **Batch sweep over a dataset family** | Yes, `input.bags` | No | No |
+| **Dataset download + check** | Yes, `mvis datasets` | No | No |
 | Trajectory model | discrete factor graph | continuous-time B-spline | continuous-time B-spline |
 | Boards | AprilGrid, chessboard, ArUco | AprilGrid, chessboard, circles | AprilGrid |
 | Input | ROS1/ROS2 bag, EuRoC, image folders | ROS bag | ROS bag, EuRoC |
-| **Runs without ROS** | ✅ pure Python | ✖ | ✅ C++ build, no ROS |
+| **Runs without ROS** | Yes, pure Python | No | Yes, C++ build, no ROS |
 | Platforms | Linux, macOS, Windows (tentative) (Python 3.11–3.12) | Linux (ROS 1, or Docker) | Linux, macOS |
-| Kalibr interop | ✅ read + write camchain, read AprilGrid targets | native | ✖ |
+| Kalibr interop | Yes, read + write camchain, read AprilGrid targets | native | No |
 
 ## What is different
 

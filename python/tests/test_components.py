@@ -91,7 +91,7 @@ def test_label_html_named_chip_on_a_card_and_in_a_header():
     assert card.startswith('<span class="cl cam" title="Trade press · IR pair"><svg') and "<b>OmniVision</b> <span class=p>OV9282</span>" in card
     assert "<span class=x>×2</span>" in card and "cl-src" not in card and "<a" not in card   # a card is one link already
     head = C.label_html("cameras", x, link=True)
-    assert head.endswith('<a class=cl-src href="https://x.org/a?b=1&amp;c=2">Teardown ↗</a></span>')
+    assert head.endswith('<a class=cl-src href="https://x.org/a?b=1&amp;c=2">Teardown</a></span>')
     no_url = C.label_html("imus", {"maker": "Bosch", "part": "BMI088", "src": "maker", "via": "Manual, no public link"}, link=True)
     assert 'class="cl imu"' in no_url and no_url.endswith("<span class=cl-src>Maker</span></span>")
 

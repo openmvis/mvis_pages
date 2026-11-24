@@ -112,7 +112,7 @@ const total = (xs: { count: number }[]) => xs.reduce((n, x) => n + x.count, 0);
         <div class="cc-grid">
           {s.rows.map((d) => (
             <article class="cc-card set">
-              <div class="cc-set-hd"><h3>{d.name}</h3><a href={d.href}>Results →</a></div>
+              <div class="cc-set-hd"><h3>{d.name}</h3><a href={d.href}>Results</a></div>
               <p class="cc-kind">{plural(total(d.cameras), 'cameras')}, {plural(total(d.imus), 'imus')}</p>
               {kinds.map((k) => (
                 <>

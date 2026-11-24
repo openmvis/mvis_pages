@@ -88,7 +88,6 @@ def test_render_page_content(world):
     assert set(j) == {"title", "parts", "rigs", "procs", "plotly", "card"}
     assert "header" in j["parts"] and "specifications" in j["parts"] and "rig" in j["parts"] and "detail" in j["parts"]
     assert "sha256 of the recording: <code>" + X.sha256(world["root"] / "rec.bin") + "</code>" in j["parts"]["run"]
-    assert "↗︎" in plan.texts["site/src/data/sensors/rig-photo.json"]  # the text-style arrow, in the data file only
     assert "︎" not in plan.texts["site/src/content/docs/devices/rig-photo.mdx"]
     assert j["procs"] == ["/media/sensors/rig-photo/process0.json", "/media/sensors/rig-photo/process1.json"]
     proc = json.loads(plan.texts["site/public/media/sensors/rig-photo/process0.json"])

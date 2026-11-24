@@ -123,7 +123,7 @@ def render(pub: dict, collected: dict, media: Path, photos: Path) -> Plan:
         if "by_variant" in p.get("demo", {}):
             for k, x in zip(demo_keys(p["demo"]), p["demo"]["by_variant"]):
                 plan.copies += [(clip(x["from"], "mp4"), f"{out}/demo{k}.mp4"), (clip(x["from"], "jpg"), f"{out}/demo{k}.jpg")]
-        plan.texts[f"{DATA_DIR}/{slug}.json"] = txt.replace("↗", "↗︎")  # text-style arrow; after the lint, which never sees it
+        plan.texts[f"{DATA_DIR}/{slug}.json"] = txt
         plan.texts[f"{DOCS}/{slug}.mdx"] = m
         plan.slugs.append(slug)
     nav = json.dumps(sensor_nav(pub), indent=1) + "\n"
