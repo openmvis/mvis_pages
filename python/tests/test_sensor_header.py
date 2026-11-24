@@ -31,12 +31,12 @@ def test_auto_baseline_and_plain_rows(variant):
     assert H._auto({"v": "x"}, variant) == {"v": "x"}
     # any row may carry a second value with its own source (the maker's chip under a measured rate)
     assert H._fov_row("imu", {"v": "y", "tag": "measured", "also": {"v": "z", "tag": "maker", "src": "https://m.example"}}) == (
-        'y<span class=sd-tag>Measured</span><br>z<a class=sd-tag href="https://m.example">Maker ↗</a>')
+        'y<span class=sd-tag>Measured</span><br>z<a class=sd-tag href="https://m.example">Maker</a>')
 
 
 def test_tags():
     url = "https://www.example.com/listing"
-    assert H._tag({"tag": "listing", "src": url}) == f'<a class=sd-tag href="{url}">Listing ↗</a>'
+    assert H._tag({"tag": "listing", "src": url}) == f'<a class=sd-tag href="{url}">Listing</a>'
     assert H._tag({"tag": "supplier"}) == "<span class=sd-tag>Supplier&#x27;s sheet</span>"
     assert H._tag({"tag": "own words"}) == "<span class=sd-tag>own words</span>"
 
@@ -85,7 +85,7 @@ def test_specs_html_links_sources_and_folds_the_contact(variant):
     p = F.pub_entry("photo")
     p["header"]["groups"] = [{"title": "From our catalog", "rows": [{"item": "a", "v": "1", "url": "https://x/a"}, {"item": "b", "v": "2", "src": "https://x/b"}, {"item": "c", "v": "3"}]}]
     html = H.specs_html(p, variant)
-    assert '<a href="https://x/a">1</a>' in html and 'aria-label="Source">↗' in html and 'id="sales-contact"' in html and "Checked once." in html
+    assert '<a href="https://x/a">1</a>' in html and '2 (<a href="https://x/b">source</a>)' in html and 'id="sales-contact"' in html and "Checked once." in html
     del p["header"]["contact"], p["header"]["spec_note"]
     assert "<p class=note>" not in H.specs_html(p, variant)
 
@@ -105,8 +105,16 @@ def _header(variant, p):
 
 def test_header_with_photo_buttons_and_thanks(variant):
     html = _header(variant, F.pub_entry("photo"))
-    assert '<img src="/media/sensors/rig/rig.jpg"' in html and "sd-maker" in html and "Maker Co product page ↗" in html and "Docs ↗" in html
+    assert '<img src="/media/sensors/rig/rig.jpg"' in html and "sd-maker" in html and "Maker Co product page" in html and ">Docs</a>" in html
     assert html.endswith("</aside></div>") and "All specs (" in html
+
+
+def test_header_shows_one_chip_label_per_part_under_the_type_line(variant):
+    html = _header(variant, F.pub_entry("photo"))
+    chips = html[html.index("<p class=sd-chips>"):html.index("</p>", html.index("<p class=sd-chips>"))]
+    assert html.index("class=sd-type") < html.index("class=sd-chips") < html.index("<figure")
+    assert chips.count('<span class="cl ') == 2 and chips.index("OmniVision") < chips.index("Bosch")   # cameras, then the IMU
+    assert '<a class=cl-src href="https://example.com/d">Maker</a>' in chips and "<span class=cl-src>Teardown</span>" in chips
 
 
 def test_header_refuses_an_image_that_is_not_a_photo(variant):

@@ -27,7 +27,7 @@ def test_t265_is_first_and_labels_keep_full_names(pub):
 
 def test_groups_follow_the_chosen_order(pub):
     assert [(g["title"], g["slugs"]) for g in sensor_groups(pub)] == [
-        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "realsense-d435i", "zed2", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
+        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "realsense-d435i", "robobaton-neo", "zed2", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
         ("Head-worn cameras", ["gi-ego1", "gi-ego1gs", "xq20"]),
         ("VR headsets", ["valve-index", "hp-reverb-g2", "samsung-odyssey-plus"]),
         ("360° cameras", ["insta360-one-rs-1inch-360"]),
@@ -68,7 +68,7 @@ NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360",)   # alg-avs111c hosted since
 # zed2 (2026-11-17): no demo clip; the WHUVID authors' bag hosted unchanged in community (CC BY 4.0, per their paper).
 NO_DEMO = NO_DEMO_NOT_HOSTED + ("zed2",)
 # realsense-d435i (2026-11-14): a collaborator's recordings, shared with us, no licence stated; not hosted.
-NOT_HOSTED = NO_DEMO_NOT_HOSTED + ("realsense-d435i",)
+NOT_HOSTED = NO_DEMO_NOT_HOSTED + ("realsense-d435i",)   # robobaton-neo hosted since 2026-11-20
 # cyperstereo: results-only 2026-11-15; the maker's bag hosted unchanged since 2026-11-15 (CC BY-NC 4.0, 2026-11-17).
 RESULTS_ONLY = ()
 
@@ -106,7 +106,8 @@ def test_every_sensor_page_links_to_its_hosted_data(pub):
         if slug in RESULTS_ONLY:
             assert "not hosted" in html.lower() and "calibench-vi/datasets" not in html, slug
             continue
-        if slug not in ("dibuli-prism-a4l", "hampo", "xq20", "realsense-d455", "realsense-d456", "alg-avs111c", "alg-avs115d", "zed2", "cyperstereo"):
+        if slug not in ("dibuli-prism-a4l", "hampo", "xq20", "realsense-d455", "realsense-d456", "alg-avs111c", "alg-avs115d", "zed2",
+                        "robobaton-neo", "cyperstereo"):
             assert "calibench-vi/datasets/tree/main/" in html, slug
 
 

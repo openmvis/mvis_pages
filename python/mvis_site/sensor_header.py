@@ -8,6 +8,7 @@ import re
 
 import numpy as np
 
+from .components import KINDS, label_html
 from .geometry import baseline_mm
 from .markup import MAP_STAGE, e, each, fov_pair, num, proc_html, td_label
 from .sensor_parts import map_panel
@@ -20,7 +21,7 @@ _TAG_LABELS = {"measured": "Measured", "not_published": "Not published", "suppli
 def _tag(row: dict) -> str:
     tag = row["tag"]
     if tag in ("maker", "listing"):
-        return f'<a class=sd-tag href="{e(row["src"])}">{tag.capitalize()} ↗</a>'
+        return f'<a class=sd-tag href="{e(row["src"])}">{tag.capitalize()}</a>'
     label = _TAG_LABELS.get(tag, tag)
     return f'<span class=sd-tag>{e(label)}</span>'
 
@@ -83,22 +84,24 @@ def header_html(slug: str, p: dict, h: dict, v: dict) -> str:
     if len(h["type"]) > 90:
         raise SystemExit(f"{p['title']}: type line is {len(h['type'])} characters")
     m = h.get("maker")
-    maker = f'<a class=sd-maker href="{e(m["url"])}">{e(m["name"])} ↗</a>' if m and m.get("url") else f'<span class="sd-maker none">{e(m["name"] if m else "Maker not confirmed")}</span>'
+    maker = f'<a class=sd-maker href="{e(m["url"])}">{e(m["name"])}</a>' if m and m.get("url") else f'<span class="sd-maker none">{e(m["name"] if m else "Maker not confirmed")}</span>'
     fov_v = h["key_specs"]["fov"]["v"]
     foot = h["foot"] + (" · " + FOV_FOOT if "~" in fov_v or "past the fit" in fov_v else "")
     rows = "".join(f'<div class=sd-row><dt>{lab}</dt><dd>{_fov_row(k, h["key_specs"][k])}</dd></div>' for k, lab in KEY_ROWS)
     n = sum(len(g["rows"]) for g in spec_groups(p))
     links = h.get("links", {})
     label = links.get("product_label", f"{m['name']} product page" if m else "Product page")
-    btn = (f'<a class="sd-btn primary" href="{e(links["product"])}">{e(label)} ↗</a>' if links.get("product") else "") + f'<a class=sd-btn href="#specifications">All specs ({n}) ↓</a>'
-    more = "".join(f'<a href="{e(x["url"])}">{e(x["label"])} ↗</a> · ' for x in links.get("more", [])).rstrip(" · ")
+    btn = (f'<a class="sd-btn primary" href="{e(links["product"])}">{e(label)}</a>' if links.get("product") else "") + f'<a class=sd-btn href="#specifications">All specs ({n})</a>'
+    more = ", ".join(f'<a href="{e(x["url"])}">{e(x["label"])}</a>' for x in links.get("more", []))
     more = f'<p class=sd-more>{more}</p>' if more else ""
     img = h["image"]
     if img.get("kind") != "photo":  # the Sensors overview card shows the same photo
         raise SystemExit(f"{p['title']}: header image must be a photo")
     art = f'<img src="/media/sensors/{slug}/{e(img["file"])}" alt="{e(img["alt"])}" width="800" height="533">'
-    cap = f'<a href="{e(img["url"])}">{e(img["credit"])} ↗</a>' if img.get("url") else e(img["credit"])
-    return (f'<div class=sd><div class=sd-grid><div class=sd-head>{maker}<h1 id="_top">{e(p["title"])}</h1><p class=sd-type>{e(h["type"])}</p></div>'
+    cap = f'<a href="{e(img["url"])}">{e(img["credit"])}</a>' if img.get("url") else e(img["credit"])
+    comps = p["components"]  # one label per part, each ending in its source; the Cameras and IMUs page lists them all
+    chips = '<p class=sd-chips>' + "".join(label_html(k, x, link=True) for k in KINDS for x in comps[k]) + '</p>'
+    return (f'<div class=sd><div class=sd-grid><div class=sd-head>{maker}<h1 id="_top">{e(p["title"])}</h1><p class=sd-type>{e(h["type"])}</p>{chips}</div>'
             f'<figure class=sd-plate><div class=sd-frame>{art}</div><figcaption>{cap}</figcaption></figure>'
             f'<div class=sd-cta><div class=sd-buttons>{btn}</div>{more}</div>'
             f'<div class=sd-specs><dl class=sd-rows>{rows}</dl><p class=sd-foot>{e(foot)}</p></div></div>{thanks_html(p.get("thanks"))}</div>')
@@ -213,7 +216,7 @@ def specs_html(p: dict, v: dict) -> str:
             if r.get("url"):
                 val = f'<a href="{e(r["url"])}">{val}</a>'
             elif r.get("src"):
-                val += f' <a href="{e(r["src"])}" aria-label="Source">↗</a>'
+                val += f' (<a href="{e(r["src"])}">source</a>)'
             out.append(f'<tr><td>{e(r["item"])}</td><td>{val}</td></tr>')
     note = f'<p class=note>{e(h["spec_note"])}</p>' if h.get("spec_note") else ""
     if h.get("contact"):

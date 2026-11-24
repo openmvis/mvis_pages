@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import pathlib
 
-from .. import SITE, checks
+from .. import REPO, SITE, checks
 
 SIDEBAR = """() => {
   const nav = document.querySelector('nav[aria-label="Main"]');
@@ -38,7 +38,13 @@ def run(base: str, out) -> int:  # pragma: no cover - drives Chrome through Play
     with sync_playwright() as p:
         browser = p.chromium.launch(channel="chrome")
         page = browser.new_page(viewport={"width": 1440, "height": 900})
-        page.goto(f"{base}/getting-started/overview/")
+        r = page.request.get(base + checks.PROBE)
+        wrong = checks.served_build_problem(base, r.body() if r.ok else None, REPO / "docs")
+        if wrong:  # every finding below would be about someone else's build
+            browser.close()
+            print("\n".join(wrong))
+            return 1
+        page.goto(base + checks.PROBE)
         s = page.evaluate(SIDEBAR)
         problems = checks.sidebar_problems(s, json.loads((SITE / "src/data/sensor-nav.json").read_text()),
                                            json.loads((SITE / "src/data/results-nav.json").read_text()))

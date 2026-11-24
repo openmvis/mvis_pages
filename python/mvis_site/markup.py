@@ -292,8 +292,9 @@ def tiles(r, readout_ms: float = 0.0) -> str:
     label, note = td_label(c0["td_ms"], readout_ms)
     note = f'<small class=tile-note>{note}</small>' if note else ""
     # one camera: no baseline to show; a rolling-shutter camera shows its readout time there instead
+    # (a global-shutter solve leaves a readout of ~1e-13 ms, not an exact 0: same 0.01 ms floor as the detail table)
     second = (f'<div><span>cam0–cam1 baseline</span>{b}</div>' if len(r["cams"]) > 1 else
-              f'<div><span>Readout time</span><b>{num(readout_ms,1)}<small> ms</small></b></div>' if readout_ms else "")
+              f'<div><span>Readout time</span><b>{num(readout_ms,1)}<small> ms</small></b></div>' if abs(readout_ms) > 0.01 else "")
     return (f'<div class=tiles><div><span>{rep[0]}</span><b>{num(rep[1],2)}<small> px</small></b></div>{second}'
             f'<div><span>{label}</span><b>{num(c0["td_ms"],2,True)}<small> ms</small></b>{note}</div><div><span>cam0 lever arm</span><b>{num(float(np.linalg.norm(c0["p_CinI_mm"])),1)}<small> mm</small></b></div></div>')
 

@@ -1,7 +1,7 @@
-/* OpenMVIS — palette
- * Light is the default (academic / benchmark norm).
- * Dark is a slate (Tailwind slate-900 family), not pure black: cohesive with
- * the sky-blue accent and reads more "research" than "consumer product".
+/* OpenMVIS palette
+ * One accent, the blue of the MVIS result plots (--rp-mvis #2a78d6), one step darker so links pass WCAG AA:
+ * #1f5fae on white (6.4:1), #6fa3e6 on the dark page (7.1:1). Neutral greys in dark mode, no blue tint.
+ * Light is the default. System fonts everywhere (no web fonts), so every page has the same face.
  */
 
 /* Shared layout + accent
@@ -14,10 +14,9 @@
 :root {
   --sl-content-width: 60rem;        /* default 45rem; `wide: true` → 72rem */
   --sl-sidebar-width: 19.5rem;      /* default 18.75rem */
-  --sl-color-accent: #0369a1;
-  --sl-color-accent-low: #bae6fd;
-  --sl-color-accent-high: #0c4a6e;
-  --mvis-display: "Archivo", var(--sl-font);  /* headings; Archivo is loaded by the font <link> */
+  --sl-color-accent: #1f5fae;
+  --sl-color-accent-low: #e3ecf8;
+  --sl-color-accent-high: #17467f;
 }
 
 /* 72-100rem on pages with a TOC: the TOC column would shrink to ~150 px beside a 60rem column, so the column
@@ -26,28 +25,31 @@
   :root[data-has-toc] { --sl-content-width: 48rem; }
 }
 
-/* Light theme: keep Starlight's clean defaults, just tweak accent */
+/* Light theme: Starlight's greys, our accent */
 :root[data-theme='light'] {
-  --sl-color-accent-low: #e0f2fe;
-  --sl-color-accent: #0369a1;
-  --sl-color-accent-high: #075985;
+  --sl-color-accent-low: #e3ecf8;
+  --sl-color-accent: #1f5fae;
+  --sl-color-accent-high: #17467f;
 }
 
-/* Dark theme: slate, not black */
+/* Dark theme: neutral greys */
 :root[data-theme='dark'] {
-  --sl-color-accent-low: #0c4a6e;
-  --sl-color-accent: #38bdf8;
-  --sl-color-accent-high: #bae6fd;
+  --sl-color-accent-low: #17345c;
+  --sl-color-accent: #6fa3e6;
+  --sl-color-accent-high: #c9dcf6;
 
-  --sl-color-white: #f8fafc;          /* slate-50 */
-  --sl-color-gray-1: #e2e8f0;         /* slate-200 */
-  --sl-color-gray-2: #cbd5e1;         /* slate-300 */
-  --sl-color-gray-3: #94a3b8;         /* slate-400 */
-  --sl-color-gray-4: #64748b;         /* slate-500 */
-  --sl-color-gray-5: #334155;         /* slate-700 */
-  --sl-color-gray-6: #1e293b;         /* slate-800 — sidebars, code bg */
-  --sl-color-black: #0f172a;          /* slate-900 — page bg */
+  --sl-color-white: #f5f5f5;
+  --sl-color-gray-1: #e5e5e5;
+  --sl-color-gray-2: #d4d4d4;
+  --sl-color-gray-3: #a3a3a3;
+  --sl-color-gray-4: #737373;
+  --sl-color-gray-5: #404040;
+  --sl-color-gray-6: #1f1f1f;         /* sidebars, code bg */
+  --sl-color-black: #141414;          /* page bg */
 }
+
+::selection { background: var(--sl-color-accent-low); color: var(--sl-color-white); }
+:root { accent-color: var(--sl-color-accent); }
 
 /* Hero polish */
 .hero {
@@ -86,11 +88,6 @@
   padding-bottom: 0.3rem;
 }
 
-/* Display font for the page title and h2 (falls back to the body font where Archivo is not loaded). */
-.content-panel h1#_top,
-.sl-markdown-content .sl-heading-wrapper.level-h2 > h2 {
-  font-family: var(--mvis-display);
-}
 .content-panel h1#_top { text-wrap: balance; }
 
 /* Phones: one heading scale for every page (Starlight's phone sizes are 35/29/24 px). */
@@ -438,3 +435,39 @@ section[data-rp-section] .sl-heading-wrapper + p { margin-top: 0.3rem; font-size
   max-width: 100%;
   padding-block: 0.25rem;
 }
+
+/* Chip labels (python/mvis_site/components.py label_html): one per camera or IMU part, on Device wiki cards, device
+ * page headers and the Cameras and IMUs page. Outlined, so a label never reads as a button; the icon carries the kind
+ * as well as the colour. A dashed outline is a part no source names. Maker colours fill the coverage bars only. */
+:root {
+  --cl-cam: #1f5fae; --cl-imu: #6d28d9; --cl-hatch: var(--sl-color-gray-5);
+  --mk-omnivision: #1f5fae; --mk-smartsens: #0d9488; --mk-sony: #737373; --mk-onsemi: #b45309; --mk-inivation: #b45309;
+  --mk-bosch: #7c3aed; --mk-tdk-invensense: #c026d3; --mk-stmicroelectronics: #4d7c0f; --mk-e2v: #be123c;
+}
+:root[data-theme='dark'] {
+  --cl-cam: #6fa3e6; --cl-imu: #c4b5fd; --cl-hatch: #525252;
+  --mk-omnivision: #6fa3e6; --mk-smartsens: #2dd4bf; --mk-sony: #d4d4d4; --mk-onsemi: #fbbf24; --mk-inivation: #fbbf24;
+  --mk-bosch: #a78bfa; --mk-tdk-invensense: #f0abfc; --mk-stmicroelectronics: #a3e635; --mk-e2v: #fda4af;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --cl-cam: #6fa3e6; --cl-imu: #c4b5fd; --cl-hatch: #525252;
+    --mk-omnivision: #6fa3e6; --mk-smartsens: #2dd4bf; --mk-sony: #d4d4d4; --mk-onsemi: #fbbf24; --mk-inivation: #fbbf24;
+    --mk-bosch: #a78bfa; --mk-tdk-invensense: #f0abfc; --mk-stmicroelectronics: #a3e635; --mk-e2v: #fda4af;
+  }
+}
+.cl { display: inline-flex; align-items: center; gap: 0.35rem; max-width: 100%; min-width: 0; font-size: 0.76rem; line-height: 1.3; padding: 0.16rem 0.5rem 0.16rem 0.4rem; border-radius: 0.35rem; border: 1px solid var(--sl-color-hairline); background: var(--sl-color-bg); color: var(--sl-color-text); white-space: nowrap; vertical-align: middle; }
+.cl svg { flex: none; width: 0.95rem; height: 0.95rem; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.cl.cam svg { color: var(--cl-cam); }
+.cl.imu svg { color: var(--cl-imu); }
+.cl .t { overflow: hidden; text-overflow: ellipsis; }
+.cl b { font-weight: 700; color: var(--sl-color-white); }
+.cl .p { color: var(--sl-color-gray-3); font-family: var(--sl-font-mono); font-size: 0.72rem; }
+.cl .x { color: var(--sl-color-gray-3); }
+.cl.unk { border-style: dashed; color: var(--sl-color-gray-3); }
+.cl.unk svg { color: var(--sl-color-gray-4); }
+.cl-chip { font-size: 0.66rem; color: var(--sl-color-gray-4); border-left: 1px solid var(--sl-color-hairline); padding-left: 0.4rem; }
+.cl-src { font-size: 0.68rem; font-weight: 600; color: var(--sl-color-gray-3); border-left: 1px solid var(--sl-color-hairline); padding-left: 0.4rem; margin-left: 0.1rem; text-decoration: none; }
+a.cl-src:hover { color: var(--sl-color-text-accent); }
+.sd-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.75rem 0 0; }
+.sd-chips .cl { font-size: 0.82rem; padding: 0.25rem 0.6rem 0.25rem 0.45rem; }

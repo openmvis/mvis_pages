@@ -20,6 +20,11 @@
   "group": "Tracking modules"
  },
  {
+  "label": "RoboBaton Neo",
+  "link": "/devices/robobaton-neo/",
+  "group": "Tracking modules"
+ },
+ {
   "label": "Stereolabs ZED 2",
   "link": "/devices/zed2/",
   "group": "Tracking modules"

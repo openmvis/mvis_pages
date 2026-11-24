@@ -21,14 +21,17 @@ from pathlib import Path
 import yaml
 
 from . import DATA, assets
+from .components import catalog, problems as component_problems
 from .lint import process_strings, public_problems, strip_urls
 from .results import expand_root, load_all_series, load_variant, refuse_frames, solve_config
 from .sensor_header import header_parts
 from .sensor_parts import demo_keys, parts_for
-from .site_files import mdx, overview_mdx, sensor_json, sensor_nav, site_css, site_js
+from .site_files import SENSOR_BASE, mdx, overview_mdx, sensor_json, sensor_nav, site_css, site_js
 
 MEDIA = "site/public/media/sensors"
 DATA_DIR = "site/src/data/sensors"
+COMPONENTS = "site/src/data/components.json"
+RESULTS = "/benchmark/results/"
 DOCS = "site/src/content/docs/devices"
 MAKE_DIRS = (DATA_DIR, DOCS, "site/src/scripts")
 FIGURE_DIGITS = 7   # significant digits kept in the process / views figure JSON
@@ -120,7 +123,7 @@ def render(pub: dict, collected: dict, media: Path, photos: Path) -> Plan:
         if "by_variant" in p.get("demo", {}):
             for k, x in zip(demo_keys(p["demo"]), p["demo"]["by_variant"]):
                 plan.copies += [(clip(x["from"], "mp4"), f"{out}/demo{k}.mp4"), (clip(x["from"], "jpg"), f"{out}/demo{k}.jpg")]
-        plan.texts[f"{DATA_DIR}/{slug}.json"] = txt.replace("↗", "↗︎")  # text-style arrow; after the lint, which never sees it
+        plan.texts[f"{DATA_DIR}/{slug}.json"] = txt
         plan.texts[f"{DOCS}/{slug}.mdx"] = m
         plan.slugs.append(slug)
     nav = json.dumps(sensor_nav(pub), indent=1) + "\n"
@@ -130,6 +133,22 @@ def render(pub: dict, collected: dict, media: Path, photos: Path) -> Plan:
     plan.texts[f"{DATA_DIR}/sensor.css"] = site_css(assets.page_css(), assets.header_css()) + "\n/* MVIS canvas views (mvis.analysis.views) */\n" + assets.views_css()
     plan.texts["site/src/scripts/sensor-page.js"] = site_js(assets.progress_js(), assets.page_js(), assets.views_js())
     return plan
+
+
+def public_datasets() -> list[dict]:
+    return yaml.safe_load((DATA / "public_results.yaml").read_text(encoding="utf-8"))["datasets"]
+
+
+def components_json(pub: dict, datasets: list[dict]) -> tuple[str, list[str]]:
+    """components.json from every device and every dataset evaluation, whichever sensors this run exports, with the
+    problems of each components block and the public lint of every word in it (our own hrefs are not text)."""
+    found = [x for slug, p in pub["sensors"].items() for x in component_problems(p.get("components"), slug)]
+    found += [x for d in datasets for x in component_problems(d.get("components"), d["slug"], dataset=True)]
+    if found:  # the labels can't be drawn from a bad block
+        return "", found
+    cat = catalog(pub, datasets, SENSOR_BASE, RESULTS)
+    words = json.dumps([{k: v for k, v in r.items() if k != "href"} for r in cat["devices"] + cat["datasets"]], ensure_ascii=False)
+    return json.dumps(cat, ensure_ascii=False, indent=1) + "\n", found + [f"components: {x}" for x in public_problems(strip_urls(words))]
 
 
 def _inside(site: Path, rel: str) -> Path:
@@ -180,7 +199,11 @@ def main(site: Path, private_config: Path, media: Path, slug: str | None = None,
     pub = public_sensors()
     cfg = solve_config(yaml.safe_load(Path(private_config).read_text(encoding="utf-8")))
     part = only(pub, slug) if slug else skipping(pub, skip) if skip else pub
+    comps, found = components_json(pub, public_datasets())
+    if found:  # before render: the cards draw these labels, and a bad block would stop there with a bare KeyError
+        raise SystemExit("Components or public lint failed, nothing written:\n" + "\n".join(found))
     plan = render(part, collect(part, cfg), Path(media), DATA / "photos")
+    plan.texts[COMPONENTS] = comps
     if skip:
         nav = json.dumps(sensor_nav(pub), indent=1) + "\n"
         plan.problems += [f"sidebar: {x}" for x in public_problems(nav)]

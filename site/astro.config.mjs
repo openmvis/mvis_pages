@@ -86,7 +86,13 @@ export default defineConfig({
       title: 'OpenMVIS',
       description:
         'Open-source multi-visual-inertial sensor calibration: the MVIS toolbox and the Calibench-VI benchmark.',
-      logo: { src: './src/assets/logo.svg', alt: '' },  // a mark beside the visible title, so no alt text (it would be read twice)
+      // Tab icon under a new name so browsers drop the cached old one; favicon.ico and the Apple icon for search results and home screens.
+      favicon: '/icon.svg',
+      head: [
+        { tag: 'link', attrs: { rel: 'icon', href: '/favicon.ico', sizes: '32x32' } },
+        { tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' } },
+      ],
+      logo: { light: './src/assets/logo-light.svg', dark: './src/assets/logo-dark.svg', alt: '' },  // a mark beside the visible title, so no alt text (it would be read twice)
       // Header link: the toolbox repo. Edit links: this site's repo.
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/openmvis/openmvis' },
@@ -170,7 +176,7 @@ export default defineConfig({
         {
           // Open, with collapsed device-kind subgroups: 4 rows on a phone; a sensor page opens its own subgroup.
           label: 'Device wiki',
-          items: [{ label: 'Overview', link: '/devices/' }, ...sensorGroups],
+          items: [{ label: 'Overview', link: '/devices/' }, { label: 'Cameras and IMUs', link: '/devices/components/' }, ...sensorGroups],
         },
         {
           // Own section since 2026-11-12; pages order by frontmatter sidebar.order.

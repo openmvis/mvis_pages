@@ -17,7 +17,7 @@ NAV = [{"label": "T265", "link": "/devices/t265/", "group": "Tracking"}, {"label
 
 
 def _sidebar(**kw):
-    s = {"sections": C.SECTIONS, "children": {"Benchmark": C.BENCHMARK, "Device wiki": ["Overview", "Tracking", "Head-worn"]},
+    s = {"sections": C.SECTIONS, "children": {"Benchmark": C.BENCHMARK, "Device wiki": [*C.DEVICE_TOP, "Tracking", "Head-worn"]},
          "groups": {"Device wiki": {"Tracking": ["T265"], "Head-worn": ["Ego", "Ego GS"]}}}
     s.update(kw)
     return s
@@ -54,12 +54,12 @@ def test_page_problems_name_a_sideways_scroll_and_a_theme_that_did_not_apply():
 
 def test_sidebar_problems_name_what_is_wrong():
     assert C.sidebar_problems({"sections": ["X"], "children": {}, "groups": {}}, NAV) == [
-        "sections are ['X']", "Benchmark holds None", "Device wiki holds None, want ['Overview', 'Tracking', 'Head-worn']",
+        "sections are ['X']", "Benchmark holds None", "Device wiki holds None, want ['Overview', 'Cameras and IMUs', 'Tracking', 'Head-worn']",
         "Device wiki › Tracking holds None, want ['T265']", "Device wiki › Head-worn holds None, want ['Ego', 'Ego GS']"]
 
 
 def test_a_sensor_under_benchmark_fails():
-    s = _sidebar(children={"Benchmark": [*C.BENCHMARK, "Sensors"], "Device wiki": ["Overview", "Tracking", "Head-worn"]})
+    s = _sidebar(children={"Benchmark": [*C.BENCHMARK, "Sensors"], "Device wiki": [*C.DEVICE_TOP, "Tracking", "Head-worn"]})
     assert C.sidebar_problems(s, NAV) == ["Benchmark holds ['Leaderboard', 'Methodology', 'Datasets eval', 'Examples', 'Sensors']"]
 
 
@@ -140,6 +140,19 @@ def test_status_and_closed_section_problems_keep_the_page_order():
     assert C.status_problems({"/a/": 200}) == []
     assert C.closed_problems({"/x/": True, "/y/": False}) == ["/y/: current page not shown open"]
     assert C.closed_problems({"/x/": True}) == []
+
+
+def test_served_build_must_be_this_checkouts_docs(tmp_path):
+    page = tmp_path / "getting-started/overview/index.html"
+    base = "http://127.0.0.1:4399"
+    assert C.served_build_problem(base, b"x", tmp_path) == [f"{page}: missing; run npm run build first"]
+    page.parent.mkdir(parents=True)
+    page.write_bytes(b"<nav>ZED 2</nav>")
+    assert C.served_build_problem(base, b"<nav>ZED 2</nav>", tmp_path) == []
+    # another worktree's older server on the port: the sidebar would look short by the newer devices
+    assert C.served_build_problem(base, b"<nav></nav>", tmp_path) == [
+        f"{base} serves another build than {tmp_path}; check which server holds the port"]
+    assert C.served_build_problem(base, None, tmp_path) == [f"{base}/getting-started/overview/: no page"]
 
 
 def test_maker_heights():
@@ -284,7 +297,7 @@ def test_device_wiki_moved_from_sensors_in_one_hop():
     from mvis_site import REPO
     moved = json.loads((REPO / "site/src/data/moved.json").read_text(encoding="utf-8"))
     nav = json.loads((REPO / "site/src/data/sensor-nav.json").read_text(encoding="utf-8"))
-    new_since_move = {"cyperstereo", "insta360-one-rs-1inch-360", "realsense-d455", "realsense-d456", "alg-avs115d", "realsense-d435i", "zed2"}   # first published under /devices/, so never had a /sensors/ address
+    new_since_move = {"cyperstereo", "insta360-one-rs-1inch-360", "realsense-d455", "realsense-d456", "alg-avs115d", "realsense-d435i", "zed2", "robobaton-neo"}   # first published under /devices/, so never had a /sensors/ address
     slugs = [n["link"].removeprefix("/devices/").strip("/") for n in nav]
     slugs = [s for s in slugs if s not in new_since_move]
     assert all(n["link"].startswith("/devices/") for n in nav)
@@ -294,3 +307,14 @@ def test_device_wiki_moved_from_sensors_in_one_hop():
     assert not [t for t in moved.values() if t.startswith("/sensors/")]
     config = (REPO / "site/astro.config.mjs").read_text(encoding="utf-8")
     assert not re.findall(r":\s*'/sensors/", config), "astro.config redirects must go straight to /devices/"
+
+
+def test_every_device_page_has_one_sidebar_entry():
+    """The Device wiki sidebar comes from sensor-nav.json (astro.config.mjs). A page missing there builds but is
+    reachable only by URL; an entry without a page is a dead link."""
+    from mvis_site import SITE
+    pages = {f"/devices/{p.stem}/" for p in (SITE / "src/content/docs/devices").glob("*.md*") if p.stem not in ("index", "components")}
+    links = [n["link"] for n in json.loads((SITE / "src/data/sensor-nav.json").read_text(encoding="utf-8"))]
+    assert sorted(pages - set(links)) == []
+    assert sorted(set(links) - pages) == []
+    assert len(links) == len(set(links))

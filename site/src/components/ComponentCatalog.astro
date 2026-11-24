@@ -1,0 +1,225 @@
+---
+// Cameras and IMUs (/devices/components/): every calibrated camera and IMU by who made the chip. All data and
+// groupings come from src/data/components.json (python/mvis_site/components.py, written by export_sensors.py);
+// this file only lays them out. Label html (.cl) is styled in custom.css. Without JS all three views show.
+import data from '../data/components.json';
+
+const KIND = { cameras: { one: 'camera', many: 'cameras', title: 'Image sensors' }, imus: { one: 'IMU', many: 'IMUs', title: 'IMU chips' } } as const;
+type Kind = keyof typeof KIND;
+const kinds: Kind[] = ['cameras', 'imus'];
+const c = data.counts;
+const makersNamed = new Set(kinds.flatMap((k) => Object.keys(c[k].by_maker))).size;
+const parts = c.cameras.total + c.imus.total;
+const unknown = c.cameras.not_known + c.imus.not_known;
+const plural = (n: number, k: Kind) => `${n} ${n === 1 ? KIND[k].one : KIND[k].many}`;
+const key = (m: string) => m.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const groups = [...new Set(data.devices.map((d) => d.group))];
+const sets = [
+  { title: 'Our rig: VI-Rig', rows: data.datasets.filter((d) => d.ours) },
+  { title: 'Other datasets', rows: data.datasets.filter((d) => !d.ours) },
+];
+const total = (xs: { count: number }[]) => xs.reduce((n, x) => n + x.count, 0);
+---
+
+<div class="not-content cc">
+  <div class="cc-tiles">
+    <div><b>{data.devices.length}</b><span>devices calibrated</span></div>
+    <div><b>{c.cameras.total}<small> + {c.imus.total}</small></b><span>cameras + IMUs on them</span></div>
+    <div><b>{makersNamed}</b><span>chip makers named</span></div>
+    <div><b>{unknown}<small> / {parts}</small></b><span>parts not known</span></div>
+  </div>
+
+  <div class="cc-bars">
+    {kinds.map((k) => (
+      <div class="cc-bar">
+        <p class="cc-bar-hd"><b>{KIND[k].title}</b> <span>{c[k].total - c[k].not_known} of {plural(c[k].total, k)} named, on the devices below</span></p>
+        <div class="cc-track" role="img" aria-label={`${KIND[k].title}: ${c[k].total - c[k].not_known} of ${c[k].total} named`}>
+          {Object.entries(c[k].by_maker).map(([m, n]) => <i style={`flex:${n};background:var(--mk-${key(m)})`} title={`${m} ${n}`} />)}
+          <i class="unk" style={`flex:${c[k].not_known}`} title={`not known ${c[k].not_known}`} />
+        </div>
+        <p class="cc-legend">
+          {Object.entries(c[k].by_maker).map(([m, n]) => <span><i style={`background:var(--mk-${key(m)})`} />{m} <b>{n}</b></span>)}
+          <span><i class="unk" />not known <b>{c[k].not_known}</b></span>
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <div class="cc-switch" role="group" aria-label="View" hidden>
+    <button type="button" data-v="maker" aria-pressed="true">By chip maker</button>
+    <button type="button" data-v="device" aria-pressed="false">By device</button>
+    <button type="button" data-v="dataset" aria-pressed="false">By dataset</button>
+  </div>
+
+  <section class="cc-view" data-view="maker" aria-label="By chip maker">
+    <div class="cc-grid">
+      {data.makers.map((m) => (
+        <article class={`cc-card ${m.kind}`} style={`--kc:var(--mk-${m.key})`}>
+          <h3>{m.maker}</h3>
+          <p class="cc-kind">{KIND[m.kind as Kind].title}{m.on_devices ? ` · ${plural(m.on_devices, m.kind as Kind)} on devices` : ''}{m.in_datasets ? ` · ${m.in_datasets} in datasets` : ''}</p>
+          <ul>
+            {m.parts.map((p) => (
+              <li>
+                <span class="cc-part">{p.part}</span>{p.tags.map((t) => <span class="cl-src cc-tag">{t}</span>)}
+                <span class="cc-uses">
+                  {p.uses.map((u) => <a class={u.dataset ? 'cc-use set' : 'cc-use'} href={u.href}>{u.name}{u.count > 1 && <em> ×{u.count}</em>}</a>)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+      {kinds.map((k) => (
+        <article class="cc-card unk">
+          <h3>Not known</h3>
+          <p class="cc-kind">{KIND[k].title} · {plural(total(data.not_known[k]), k)} on {data.not_known[k].length} devices</p>
+          <span class="cc-uses">{data.not_known[k].map((u) => <a class="cc-use" href={u.href}>{u.name}{u.count > 1 && <em> ×{u.count}</em>}</a>)}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="cc-view" data-view="device" aria-label="By device">
+    {groups.map((g) => (
+      <>
+        <p class="cc-group">{g}</p>
+        <table class="cc-table">
+          <thead><tr><th>Device</th><th>Image sensor</th><th>IMU chip</th></tr></thead>
+          <tbody>
+            {data.devices.filter((d) => d.group === g).map((d) => (
+              <tr>
+                <td><a href={d.href}>{d.title}</a><span class="cc-n">{plural(total(d.cameras), 'cameras')} · {plural(total(d.imus), 'imus')}</span></td>
+                <td data-k="Image sensor">
+                  {d.cameras.map((x) => <div class="cc-cell"><span set:html={x.html} />{x.src && x.src !== 'Maker' && <span class="cl-src cc-tag">{x.src}</span>}{x.via && <span class="cc-note">{x.via}{x.note && ` · ${x.note}`}</span>}</div>)}
+                  {(d.uncalibrated ?? []).map((x) => <span class="cc-note">On board, not yet calibrated: {x.maker} {x.part} ×{x.count}</span>)}
+                </td>
+                <td data-k="IMU chip">
+                  {d.imus.map((x) => <div class="cc-cell"><span set:html={x.html} />{x.src && x.src !== 'Maker' && <span class="cl-src cc-tag">{x.src}</span>}{x.via && <span class="cc-note">{x.via}{x.note && ` · ${x.note}`}</span>}</div>)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    ))}
+  </section>
+
+  <section class="cc-view" data-view="dataset" aria-label="By dataset">
+    <p class="cc-sum">{data.datasets.length} evaluations. A part used in several evaluations is counted in each; the tiles above count devices only.</p>
+    {sets.map((s) => (
+      <>
+        <p class="cc-group">{s.title}</p>
+        <div class="cc-grid">
+          {s.rows.map((d) => (
+            <article class="cc-card set">
+              <div class="cc-set-hd"><h3>{d.name}</h3><a href={d.href}>Results</a></div>
+              <p class="cc-kind">{plural(total(d.cameras), 'cameras')}, {plural(total(d.imus), 'imus')}</p>
+              {kinds.map((k) => (
+                <>
+                  <p class="cc-sub">{KIND[k].many}</p>
+                  <ul>
+                    {d[k].map((x) => (
+                      <li><span set:html={x.html} />{x.src && x.src !== 'Maker' && <span class="cl-src cc-tag">{x.src}</span>}{!x.module && <span class="cc-note">{x.device}</span>}</li>
+                    ))}
+                  </ul>
+                </>
+              ))}
+            </article>
+          ))}
+        </div>
+      </>
+    ))}
+  </section>
+</div>
+
+<script>
+  // One view at a time once JS runs; the buttons show only then.
+  for (const root of document.querySelectorAll<HTMLElement>('.cc')) {
+    const sw = root.querySelector<HTMLElement>('.cc-switch')!;
+    const views = root.querySelectorAll<HTMLElement>('.cc-view');
+    const show = (v: string) => {
+      views.forEach((s) => (s.hidden = s.dataset.view !== v));
+      sw.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+    };
+    sw.hidden = false;
+    sw.addEventListener('click', (ev) => {
+      const b = (ev.target as HTMLElement).closest('button');
+      if (b?.dataset.v) show(b.dataset.v);
+    });
+    show('maker');
+  }
+</script>
+
+<style>
+  .cc { margin-top: 1.5rem; }
+  .cc-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+  .cc-tiles div { border: 1px solid var(--sl-color-hairline); border-radius: 0.6rem; padding: 0.85rem 1rem; }
+  .cc-tiles b { display: block; font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--sl-color-white); }
+  .cc-tiles small { font-size: 1rem; font-weight: 600; color: var(--sl-color-gray-3); }
+  .cc-tiles span { display: block; margin-top: 0.4rem; font-size: 0.8rem; line-height: 1.35; color: var(--sl-color-gray-3); }
+
+  .cc-bars { display: grid; gap: 1.1rem; margin-top: 2rem; }
+  .cc-bar-hd { margin: 0 0 0.4rem; font-size: 0.9rem; }
+  .cc-bar-hd b { color: var(--sl-color-white); }
+  .cc-bar-hd span { font-size: 0.82rem; color: var(--sl-color-gray-3); }
+  .cc-track { display: flex; gap: 2px; height: 0.7rem; border-radius: 99px; overflow: hidden; }
+  .cc-track i { display: block; height: 100%; }
+  .cc-track i.unk, .cc-legend i.unk { background: repeating-linear-gradient(135deg, var(--cl-hatch) 0 2px, transparent 2px 6px); box-shadow: inset 0 0 0 1px var(--cl-hatch); }
+  .cc-legend { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; margin: 0.5rem 0 0; font-size: 0.8rem; color: var(--sl-color-gray-3); }
+  .cc-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .cc-legend i { display: inline-block; width: 0.65rem; height: 0.65rem; border-radius: 2px; }
+  .cc-legend b { color: var(--sl-color-white); font-weight: 600; }
+
+  .cc-switch { display: inline-flex; flex-wrap: wrap; margin: 1.75rem 0 1rem; padding: 3px; border: 1px solid var(--sl-color-hairline); border-radius: 0.5rem; background: var(--sl-color-bg-nav); }
+  .cc-switch[hidden] { display: none; }
+  .cc-switch button { font: inherit; font-size: 0.85rem; font-weight: 600; min-height: 2.5rem; padding: 0.45rem 0.95rem; border: 0; border-radius: 0.35rem; background: none; color: var(--sl-color-gray-3); cursor: pointer; }
+  .cc-switch button[aria-pressed='true'] { background: var(--sl-color-bg); color: var(--sl-color-white); box-shadow: 0 1px 2px rgb(0 0 0 / 0.08); }
+  .cc-switch button:focus-visible { outline: 2px solid var(--sl-color-accent); outline-offset: 1px; }
+  .cc-view { margin-top: 1rem; }
+  .cc-view[hidden] { display: none; }
+
+  .cc-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+  .cc-card { position: relative; overflow: hidden; min-width: 0; padding: 1rem 1.1rem 1.05rem; border: 1px solid var(--sl-color-hairline); border-radius: 0.6rem; }
+  .cc-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--kc, transparent); }
+  .cc-card.unk { border-style: dashed; }
+  .cc-card.set::before { display: none; }
+  .cc-card h3 { margin: 0 0 0.15rem; font-size: 1.15rem; color: var(--sl-color-white); }
+  .cc-kind { margin: 0 0 0.7rem; font-size: 0.75rem; color: var(--sl-color-gray-3); }
+  .cc-card ul { display: grid; gap: 0.7rem; margin: 0; padding: 0; list-style: none; }
+  .cc-card.set ul { gap: 0.55rem; }
+  .cc-card li { min-width: 0; padding-top: 0.65rem; border-top: 1px solid var(--sl-color-hairline); }
+  .cc-card li:first-child, .cc-card.set li { padding-top: 0; border-top: 0; }
+  .cc-part { font-family: var(--sl-font-mono); font-size: 0.9rem; font-weight: 600; color: var(--sl-color-white); }
+  .cc-tag { margin-left: 0.4rem; border: 1px solid var(--sl-color-hairline); border-radius: 0.25rem; padding: 0 0.3rem; }
+  .cc-uses { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.35rem; }
+  .cc-use { display: inline-flex; align-items: center; font-size: 0.74rem; line-height: 1.3; padding: 0.14rem 0.5rem; border-radius: 99px; background: var(--sl-color-bg-nav); color: var(--sl-color-text); text-decoration: none; white-space: nowrap; }
+  .cc-use.set { background: transparent; box-shadow: inset 0 0 0 1px var(--sl-color-hairline); }
+  .cc-use em { margin-left: 0.25rem; font-style: normal; color: var(--sl-color-gray-3); }
+  .cc-use:hover { color: var(--sl-color-text-accent); }
+  .cc-set-hd { display: flex; align-items: baseline; gap: 0.75rem; }
+  .cc-set-hd h3 { flex: 1; min-width: 0; }
+  .cc-set-hd a { font-size: 0.78rem; white-space: nowrap; text-decoration: none; }
+  .cc-sub { margin: 0.75rem 0 0.35rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sl-color-gray-4); }
+  .cc-sum { margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--sl-color-gray-3); }
+
+  .cc-group { margin: 1.5rem 0 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sl-color-gray-3); }
+  .cc-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .cc-table th { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--sl-color-hairline); text-align: left; font-size: 0.74rem; font-weight: 600; color: var(--sl-color-gray-3); }
+  .cc-table td { padding: 0.6rem; border-bottom: 1px solid var(--sl-color-hairline); vertical-align: top; }
+  .cc-table td:first-child { width: 26%; font-weight: 600; }
+  .cc-table td:first-child a { color: var(--sl-color-white); text-decoration: none; }
+  .cc-table td:first-child a:hover { color: var(--sl-color-text-accent); }
+  .cc-n { display: block; font-size: 0.8rem; font-weight: 400; color: var(--sl-color-gray-3); }
+  .cc-cell + .cc-cell { margin-top: 0.45rem; }
+  .cc-note { display: block; margin-top: 0.15rem; font-size: 0.76rem; color: var(--sl-color-gray-3); }
+
+  @media (max-width: 48rem) {
+    .cc-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cc-table thead { display: none; }
+    .cc-table, .cc-table tbody, .cc-table tr, .cc-table td { display: block; width: 100%; }
+    .cc-table tr { padding: 0.6rem 0; border-bottom: 1px solid var(--sl-color-hairline); }
+    .cc-table td { padding: 0.15rem 0; border: 0; }
+    .cc-table td:first-child { width: 100%; }
+    .cc-table td[data-k]::before { content: attr(data-k); display: block; margin-top: 0.35rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sl-color-gray-4); }
+  }
+</style>

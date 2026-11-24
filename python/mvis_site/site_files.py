@@ -5,6 +5,7 @@ import json
 import re
 
 from .assets import EXTRA_DARK, EXTRA_LIGHT
+from .components import labels
 from .sensor_header import HEADER_PARTS
 from .sensor_parts import PARTS, PLOTLY_LOCAL, rig_json
 
@@ -13,13 +14,14 @@ GENERATOR = "site/scripts/export_sensors.py from python/data/public_sensors.yaml
 
 
 def card_for(slug: str, p: dict) -> dict:
-    """Overview card: photo, maker, short name, type and tags. The card's own fields win over the page's full title and maker."""
+    """Overview card: photo, maker, short name, type, tags and the chip labels. The card's own fields win over the page's full title and maker."""
     h = p["header"]
     img = h["image"]
     m = h.get("maker", {})
     card = p["card"]
     return {"title": card.get("name", p["title"]), "href": f"{SENSOR_BASE}{slug}/", "image": f"/media/sensors/{slug}/{img['file']}",
-            "alt": img["alt"], "maker": card.get("maker") or (m.get("name") if m.get("url") else None), "type": h["type"], "tags": card["tags"]}
+            "alt": img["alt"], "maker": card.get("maker") or (m.get("name") if m.get("url") else None), "type": h["type"], "tags": card["tags"],
+            "components": labels(p["components"])}
 
 
 def page_description(p: dict) -> str:
