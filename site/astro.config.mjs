@@ -86,7 +86,7 @@ export default defineConfig({
       title: 'OpenMVIS',
       description:
         'Open-source multi-visual-inertial sensor calibration: the MVIS toolbox and the Calibench-VI benchmark.',
-      logo: { src: './src/assets/logo.svg', alt: '' },  // a mark beside the visible title, so no alt text (it would be read twice)
+      logo: { light: './src/assets/logo-light.svg', dark: './src/assets/logo-dark.svg', alt: '' },  // a mark beside the visible title, so no alt text (it would be read twice)
       // Header link: the toolbox repo. Edit links: this site's repo.
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/openmvis/openmvis' },

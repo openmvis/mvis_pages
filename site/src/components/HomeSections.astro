@@ -12,25 +12,15 @@ import HomeDevices from './HomeDevices.astro';
       <div>
         <h2>The whole rig in one solve</h2>
         <div class="mhs-prose">
+          <p>OpenMVIS is developed by the OpenMVIS Contributors. The method is in our paper <a href="https://doi.org/10.1177/02783649241245726"><cite>Multi-visual-inertial system: analysis, calibration, and estimation</cite></a> (Yang, Geneva and Huang, IJRR 2024). We test it on our own VI-Rig, shown here, and on recordings shared by device makers.</p>
           <p>MVIS is the calibration toolbox behind the OpenMVIS benchmark. It solves camera intrinsics and distortion, extrinsics, time offsets, rolling-shutter readout, board poses and (optionally) the board shape, camera–IMU transforms, IMU intrinsics and biases in a single GTSAM factor graph.</p>
           <p>It reads ROS1 and ROS2 bags through <code>rosbags</code>, so ROS does not need to be installed. It also reads EuRoC/ASL folders, image folders and timestamped images.</p>
         </div>
       </div>
-      <div>
-        <pre class="mhs-term" aria-label="Command-line usage"><span class="c"># install (Python 3.11 or 3.12)</span>
-<span class="p">$ </span>pip install "pymvis[apriltag,ros1]"
-
-<span class="c"># cameras only</span>
-<span class="p">$ </span>mvis cam -c camera.yaml
-
-<span class="c"># cameras + IMUs, jointly</span>
-<span class="p">$ </span>mvis cam-imu -c cam_imu.yaml
-
-<span class="c"># check the result: PASS / FAIL</span>
-<span class="p">$ </span>mvis roundtrip -c cam_imu.yaml</pre>
-        <p class="mhs-cap">One self-contained HTML report per run.</p>
-        <p class="mhs-cap">Package <code>pymvis</code> 0.1.0 on <a href="https://pypi.org/p/pymvis/">PyPI</a> · command <code>mvis</code> · <a href="/about/license/">GPL-3.0-only or commercial</a> · DOI <a href="https://doi.org/10.5281/zenodo.24239182">10.5281/zenodo.24239182</a></p>
-      </div>
+      <figure class="mhs-rig">
+        <img src="/media/hero/vi_rig.jpg" alt="The VI-Rig frame with its IMUs and cameras" width="1400" height="1050" loading="eager" />
+        <figcaption>VI-Rig, our own rig: up to 5 IMUs and 4 cameras across its recordings. They are in <a href="/datasets/">Datasets</a>.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -124,10 +114,21 @@ import HomeDevices from './HomeDevices.astro';
 
   <section class="mhs-band">
     <div class="mhs-split">
-      <figure class="mhs-rig">
-        <img src="/media/hero/vi_rig.jpg" alt="The VI-Rig frame with its IMUs and cameras" width="1400" height="1050" loading="lazy" />
-        <figcaption>VI-Rig, our own rig: up to 5 IMUs and 4 cameras across its recordings. They are in <a href="/datasets/">Datasets</a>.</figcaption>
-      </figure>
+      <div>
+        <pre class="mhs-term" aria-label="Command-line usage"><span class="c"># install (Python 3.11 or 3.12)</span>
+<span class="p">$ </span>pip install "pymvis[apriltag,ros1]"
+
+<span class="c"># cameras only</span>
+<span class="p">$ </span>mvis cam -c camera.yaml
+
+<span class="c"># cameras + IMUs, jointly</span>
+<span class="p">$ </span>mvis cam-imu -c cam_imu.yaml
+
+<span class="c"># check the result: PASS / FAIL</span>
+<span class="p">$ </span>mvis roundtrip -c cam_imu.yaml</pre>
+        <p class="mhs-cap">One self-contained HTML report per run.</p>
+        <p class="mhs-cap">Package <code>pymvis</code> 0.1.0 on <a href="https://pypi.org/p/pymvis/">PyPI</a> · command <code>mvis</code> · <a href="/about/license/">GPL-3.0-only or commercial</a> · DOI <a href="https://doi.org/10.5281/zenodo.24239182">10.5281/zenodo.24239182</a></p>
+      </div>
       <div>
         <h2>Checking a calibration</h2>
         <div class="mhs-prose">
@@ -204,7 +205,7 @@ import HomeDevices from './HomeDevices.astro';
   /* Homepage body: wider than the 72rem `wide` pages, close to the full-bleed hero above it. */
   :root:has(.mhs) { --sl-content-width: 88rem; }
   .mhs {
-      --mhs-mono: "JetBrains Mono", var(--sl-font-mono, ui-monospace), monospace;
+      --mhs-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
     color: var(--sl-color-gray-2);
     padding-inline: clamp(0px, 3.5vw - 24px, 24px);   /* with Starlight's 24px, lines up with the hero's gutter */
   }
@@ -225,9 +226,9 @@ import HomeDevices from './HomeDevices.astro';
   .mhs-prose p { margin: 16px 0 0; }
   .mhs-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
 
-  .mhs-term { background: #0f172a; color: #dbe4ee; border-radius: 10px; font: 400 14px/1.75 var(--mhs-mono); padding: 18px 20px; overflow-x: auto; margin: 0; border: 1px solid var(--sl-color-hairline); }
-  .mhs-term .p { color: #38bdf8; user-select: none; }
-  .mhs-term .c { color: #7d8ea4; }
+  .mhs-term { background: #171717; color: #e5e5e5; border-radius: 10px; font: 400 14px/1.75 var(--mhs-mono); padding: 18px 20px; overflow-x: auto; margin: 0; border: 1px solid var(--sl-color-hairline); }
+  .mhs-term .p { color: #6fa3e6; user-select: none; }
+  .mhs-term .c { color: #8f8f8f; }
   .mhs-cap { font-size: 13px; line-height: 1.45; color: var(--sl-color-gray-3); margin: 10px 2px 0; }
 
   .mhs-state { margin-top: 36px; overflow-x: auto; border-top: 2px solid var(--sl-color-white); }

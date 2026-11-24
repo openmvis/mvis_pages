@@ -172,7 +172,7 @@ def window_s(v: dict) -> float:
 
 
 def link(x: dict) -> str:
-    return f'<a href="{e(x["url"])}">{e(x["label"])} →</a>'
+    return f'<a href="{e(x["url"])}">{e(x["label"])}</a>'
 
 
 def eval_link(p: dict, have: set[str]) -> dict | None:
@@ -186,15 +186,14 @@ def eval_link(p: dict, have: set[str]) -> dict | None:
 
 
 def _btn(x: dict, primary: bool = False) -> str:
-    out = " ↗" if x["url"].startswith("http") else " →"
-    return f'<a class="sd-btn{" primary" if primary else ""}" href="{e(x["url"])}">{e(x["label"])}{out}</a>'
+    return f'<a class="sd-btn{" primary" if primary else ""}" href="{e(x["url"])}">{e(x["label"])}</a>'
 
 
 def header(slug: str, p: dict, ev: dict | None) -> str:
     """The sensor pages' datasheet header (sensor_header.css): maker, title, rig line, photo with its credit, buttons
     to the downloads, the Results and the Device wiki, and the key facts."""
     img = p["image"]
-    cap = f'<a href="{e(img["url"])}">{e(img["credit"])} ↗</a>' if img.get("url") else e(img["credit"])
+    cap = f'<a href="{e(img["url"])}">{e(img["credit"])}</a>' if img.get("url") else e(img["credit"])
     ours = "<span class=ex-ours>Our rig</span>" if p.get("ours") else ""
     btns = _btn({"url": p["dataset"]["url"], "label": f'Downloads: {p["dataset"]["label"]}'}, True) + "".join(_btn(x) for x in (ev, p.get("sensor")) if x)
     rows = "".join(f"<div class=sd-row><dt>{e(a)}</dt><dd>{e(b)}</dd></div>" for a, b in p["facts"])
@@ -429,7 +428,7 @@ def render(pub: dict, collected: dict, photos: Path, have_eval: set[str]) -> Pla
             plan.problems += [f"{slug} views: {x}" for x in public_problems(process_strings(views))]
             plan.texts[f"{out}/views0.json"] = views
         plan.copies.append((photos / p["image"]["file"], f"{out}/{p['image']['file']}"))
-        plan.texts[f"{EX_DATA}/{slug}.json"] = txt.replace("↗", "↗︎")
+        plan.texts[f"{EX_DATA}/{slug}.json"] = txt
         plan.texts[f"{EX_DOCS}/{slug}.mdx"] = m
         plan.slugs.append(slug)
     nav = json.dumps(examples_nav(pub), indent=1, ensure_ascii=False) + "\n"

@@ -112,7 +112,7 @@ const total = (xs: { count: number }[]) => xs.reduce((n, x) => n + x.count, 0);
         <div class="cc-grid">
           {s.rows.map((d) => (
             <article class="cc-card set">
-              <div class="cc-set-hd"><h3>{d.name}</h3><a href={d.href}>Results →</a></div>
+              <div class="cc-set-hd"><h3>{d.name}</h3><a href={d.href}>Results</a></div>
               <p class="cc-kind">{plural(total(d.cameras), 'cameras')}, {plural(total(d.imus), 'imus')}</p>
               {kinds.map((k) => (
                 <>
@@ -154,7 +154,7 @@ const total = (xs: { count: number }[]) => xs.reduce((n, x) => n + x.count, 0);
   .cc { margin-top: 1.5rem; }
   .cc-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
   .cc-tiles div { border: 1px solid var(--sl-color-hairline); border-radius: 0.6rem; padding: 0.85rem 1rem; }
-  .cc-tiles b { display: block; font-family: var(--mvis-display); font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--sl-color-white); }
+  .cc-tiles b { display: block; font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--sl-color-white); }
   .cc-tiles small { font-size: 1rem; font-weight: 600; color: var(--sl-color-gray-3); }
   .cc-tiles span { display: block; margin-top: 0.4rem; font-size: 0.8rem; line-height: 1.35; color: var(--sl-color-gray-3); }
 
@@ -183,7 +183,7 @@ const total = (xs: { count: number }[]) => xs.reduce((n, x) => n + x.count, 0);
   .cc-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--kc, transparent); }
   .cc-card.unk { border-style: dashed; }
   .cc-card.set::before { display: none; }
-  .cc-card h3 { margin: 0 0 0.15rem; font-family: var(--mvis-display); font-size: 1.15rem; color: var(--sl-color-white); }
+  .cc-card h3 { margin: 0 0 0.15rem; font-size: 1.15rem; color: var(--sl-color-white); }
   .cc-kind { margin: 0 0 0.7rem; font-size: 0.75rem; color: var(--sl-color-gray-3); }
   .cc-card ul { display: grid; gap: 0.7rem; margin: 0; padding: 0; list-style: none; }
   .cc-card.set ul { gap: 0.55rem; }
