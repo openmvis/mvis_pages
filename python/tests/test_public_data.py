@@ -67,7 +67,7 @@ def test_unknown_shutter_is_left_out_of_the_tags(pub):
 NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360",)   # alg-avs111c hosted since 2026-11-14; cyperstereo has a demo
 # zed2 (2026-11-17): no demo clip; the WHUVID authors' bag hosted unchanged in community (CC BY 4.0, per their paper).
 NO_DEMO = NO_DEMO_NOT_HOSTED + ("zed2",)
-# realsense-d435i (2026-11-14): a collaborator's recordings, shared with us, no licence stated; not hosted.
+# realsense-d435i (2026-11-24): three-camera recordings to be hosted after the frame review; not hosted yet.
 NOT_HOSTED = NO_DEMO_NOT_HOSTED + ("realsense-d435i",)   # robobaton-neo hosted since 2026-11-20
 # cyperstereo: results-only 2026-11-15; the maker's bag hosted unchanged since 2026-11-15 (CC BY-NC 4.0, 2026-11-17).
 RESULTS_ONLY = ()
