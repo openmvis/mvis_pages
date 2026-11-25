@@ -100,6 +100,12 @@ def test_public_config_drops_private_sections_and_cuts_paths():
     assert yaml.safe_load(X.public_config({"board": {"heights_file": None}}))["board"] == {"heights_file": None}
 
 
+def test_public_config_keeps_the_gravity_and_its_site():
+    site = {"latitude_deg": -31.42, "longitude_deg": -64.18, "altitude_m": 400, "name": "Córdoba, Argentina"}
+    c = yaml.safe_load(X.public_config({"gravity": 9.81, "site": site, "input": {"format": "euroc"}}))
+    assert c == {"gravity": 9.81, "site": site, "input": {"format": "euroc"}}
+
+
 def test_key_lines_and_marks():
     t = X.public_config(CFG)
     where = X.key_lines(t)

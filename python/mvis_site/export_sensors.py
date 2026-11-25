@@ -84,7 +84,7 @@ def collect(pub: dict, solve_cfg: dict) -> dict:
         for i, v in enumerate(vs):  # takes are labelled by device id in the private data
             v["label"] = p["run_labels"][i] if p.get("run_labels") else ("Recording 1" if v["label"].startswith("Take ") else v["label"])
         refuse_frames(slug, vs)
-        sha = sha256(expand_root(s["sha256_of"], roots)) if s.get("sha256_of") else None
+        sha = s.get("sha256") or (sha256(expand_root(s["sha256_of"], roots)) if s.get("sha256_of") else None)
         out[slug] = {"variants": vs, "series": load_all_series(s.get("series"), roots), "board": s["board"], "sha": sha,
                      "media": s.get("demo_media", {})}
     return out

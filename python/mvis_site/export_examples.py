@@ -96,7 +96,7 @@ def collect(pub: dict, cfg: dict) -> dict:
 
 # --- the config, as run ------------------------------------------------------------------------------------------
 
-CONFIG_KEYS = ("mode", "input", "board", "camera_input", "solve", "estimate", "output")
+CONFIG_KEYS = ("mode", "gravity", "site", "input", "board", "camera_input", "solve", "estimate", "output")  # gravity, site: the g the solve used
 
 
 def _short(path: str) -> str:
