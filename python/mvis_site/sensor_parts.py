@@ -182,7 +182,7 @@ def _dataset_rows(p: dict, data_url: str) -> str:
     if p.get("folder"):
         link = f"{data_url}/{p['folder']}"
         if not any("__LINK__" in b for _, b in rows):
-            rows += [["Licence", "CC BY-NC 4.0, for the data and for this page's clip and figures; commercial use by request"], ["Hosted", "__LINK__"]]
+            rows += [["Licence", "CC BY 4.0, for the data and for this page's clip and figures"], ["Hosted", "__LINK__"]]
         return "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td></tr>" for a, b in rows).replace("__LINK__", f'<a href="{e(link)}">Calibench-VI, {e(p["folder"])}</a> (access by automatic approval)')
     if p.get("data_link"):
         rows.append(["Data", "__LINK__"])

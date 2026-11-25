@@ -25,9 +25,12 @@ This repository holds two kinds of work under two licences.
 
 Exceptions, which neither licence covers:
 
-- Clips, frames and figures derived from the VI-Rig and Looper recordings
-  (the hero clips, the sensor and example pages) carry the licence of those
-  datasets, CC BY-NC 4.0; commercial use by request to contact@openmvis.com.
+- Clips, frames and figures derived from a recording we host (the hero clips,
+  the sensor and example pages) carry that recording's licence, stated on the
+  page: CC BY 4.0 for the recordings in calibench-vi/datasets (VI-Rig, Looper
+  hand-held, GiLabs examples); CC BY-NC 4.0 for the recordings in
+  calibench-vi/community unless the page says otherwise, commercial use by
+  request to contact@openmvis.com.
 - Clips, frames and figures derived from a third-party dataset (TUM-VI,
   UZH-FPV, Monado and others named on the page) carry that dataset's own
   licence, stated on the page.

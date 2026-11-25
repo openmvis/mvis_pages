@@ -34,7 +34,7 @@ def test_hub_rows_become_links_to_the_right_repo():
 
 def test_dataset_rows_on_a_plain_folder_page_are_unchanged():
     assert S.dataset_rows({"dataset": [["A", "B"]], "folder": "x/"}, "https://d") == (
-        "<tr><td>A</td><td>B</td></tr><tr><td>Licence</td><td>CC BY-NC 4.0, for the data and for this page&#x27;s clip and figures; commercial use by request</td></tr>"
+        "<tr><td>A</td><td>B</td></tr><tr><td>Licence</td><td>CC BY 4.0, for the data and for this page&#x27;s clip and figures</td></tr>"
         '<tr><td>Hosted</td><td><a href="https://d/x/">Calibench-VI, x/</a> (access by automatic approval)</td></tr>')
 
 
@@ -51,7 +51,7 @@ def test_dataset_rows_with_an_outside_link_or_none():
 
 def test_hosted_row_says_access_is_automatic_not_on_request():
     html = S.dataset_rows({"dataset": [], "folder": "x/"}, "https://h")
-    assert "automatic approval" in html and "on request" not in html.replace("commercial use by request", "")
+    assert "automatic approval" in html and "request" not in html
 
 
 def test_example_row_links_the_example_and_is_empty_without_one():

@@ -4,7 +4,7 @@
  "label": "Looper Insight 9",
  "title": "Looper Insight 9",
  "ours": false,
- "licence": "CC BY-NC 4.0",
+ "licence": "CC BY 4.0",
  "intro": "Two global-shutter cameras, one rolling-shutter camera and a MEMS IMU, from Looper Robotics.",
  "chips": [
   "2 global-shutter + 1 rolling-shutter camera",

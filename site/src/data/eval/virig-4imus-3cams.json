@@ -4,7 +4,7 @@
  "label": "VI-Rig 4 IMUs + 3 cams",
  "title": "VI-Rig: 4 IMUs + 3 cameras",
  "ours": true,
- "licence": "CC BY-NC 4.0",
+ "licence": "CC BY 4.0",
  "intro": "Our rig: a FLIR Blackfly and a RealSense T265 fisheye pair, all global shutter, with four IMUs from 100 to 500 Hz.",
  "chips": [
   "3 global-shutter cameras",

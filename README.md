@@ -198,7 +198,9 @@ Two licences, one per kind of work (details and exceptions in [`NOTICE`](NOTICE)
   figures made for the site): CC BY 4.0, see [`LICENSE-CONTENT`](LICENSE-CONTENT).
   Attribute as "OpenMVIS, https://openmvis.com".
 
-Clips and figures derived from the VI-Rig and Looper recordings are CC BY-NC
-4.0 like those datasets; material from third-party datasets keeps that
-dataset's licence; product photos belong to their makers. Contact:
+Clips and figures derived from a recording we host carry that recording's
+licence: CC BY 4.0 for `calibench-vi/datasets` (VI-Rig, Looper hand-held,
+GiLabs examples), CC BY-NC 4.0 for `calibench-vi/community` unless the page
+says otherwise; material from third-party datasets keeps that dataset's
+licence; product photos belong to their makers. Contact:
 contact@openmvis.com.

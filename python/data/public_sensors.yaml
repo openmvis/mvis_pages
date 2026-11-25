@@ -44,7 +44,7 @@ sensors:
       maker: {name: Intel RealSense, url: "https://dev.realsenseai.com/docs/tracking-camera-t265/"}
       links: {product: "https://dev.realsenseai.com/docs/tracking-camera-t265/", product_label: "RealSense T265 page"}
       image: {kind: photo, file: intel-t265.jpg, alt: "Intel RealSense T265, front view", credit: "Photo: Intel, T265 launch press release", url: "https://www.intc.com/news-events/press-releases/detail/97/intel-announces-new-class-of-realsense-stand-alone"}
-      foot: "Maker values from Intel's specification page, archived copy of 2026-10-30 (Intel has since removed the page); discontinued · 1 recording · CC BY-NC 4.0"
+      foot: "Maker values from Intel's specification page, archived copy of 2026-10-30 (Intel has since removed the page); discontinued · 1 recording · CC BY 4.0"
       key_specs:
         cameras: {v: "848 × 800 fisheye stereo", tag: maker, src: "https://web.archive.org/web/20261030190401/https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
         shutter: {v: Global, tag: catalog}
@@ -380,7 +380,7 @@ sensors:
       - [Chessboard, "4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04"]
       - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
       - [Hand-held, "10 of about 66 s, 15.0 GB in all"]
-      - [Hand-held data, "__LINK__. CC BY-NC 4.0, for the hand-held data, clip and figures; commercial use by request"]
+      - [Hand-held data, "__LINK__. CC BY 4.0, for the hand-held data, clip and figures"]
       - [Robot arm, "2 of about 58 s, same program in both"]
       - [Robot-arm data, "__HUB:community/looper-insight9/data/__. Normal frames. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
       - [Board, "Chessboard: 10×7 squares (9×6 inner corners), 43.47 mm, shown on a monitor. Hand-held and robot arm: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11"]
@@ -397,7 +397,7 @@ sensors:
       maker: {name: LooperRobotics, url: "https://looper-robotics.com/"}
       links: {product: "https://looper-robotics.com/home/product/insight-9/"}
       image: {kind: photo, file: looper-insight9.jpg, alt: "LooperRobotics Insight 9, front view", credit: "Photo: LooperRobotics, Insight 9 product page", url: "https://looper-robotics.com/home/product/insight-9/"}
-      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board · 10 hand-held recordings of about 66 s, CC BY-NC 4.0 · 2 robot-arm recordings of about 58 s, CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board · 10 hand-held recordings of about 66 s, CC BY 4.0 · 2 robot-arm recordings of about 58 s, CC BY-NC 4.0"
       key_specs:
         cameras: {v: "2 mono 544×640, 1 colour 1920×1080", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
         shutter: {v: "Mono global, colour rolling", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
@@ -683,7 +683,7 @@ sensors:
       maker: {name: General Intelligence Labs, url: "https://www.gilabs.xyz/"}
       links: {product: "https://www.gilabs.xyz/products/ego1"}
       image: {kind: photo, file: gi-ego1gs.jpg, alt: "GI headset on a mannequin head, three-quarter view", credit: "Photo: General Intelligence Labs, GI EGO1GS product page", url: "https://www.gilabs.xyz/products/ego1gs"}
-      foot: "Maker values checked 2026-11-03 · 1 recording, 30.1 s · CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-03 · 1 recording, 30.1 s · CC BY 4.0"
       key_specs:
         cameras: {v: "2× 1080p, 30 fps, colour", tag: maker, src: "https://www.gilabs.xyz/products/ego1"}
         shutter: {v: Rolling, tag: maker, src: "https://www.gilabs.xyz/products/ego1gs"}
@@ -730,7 +730,7 @@ sensors:
       maker: {name: General Intelligence Labs, url: "https://www.gilabs.xyz/"}
       links: {product: "https://www.gilabs.xyz/products/ego1gs"}
       image: {kind: photo, file: gi-ego1gs-front.jpg, alt: "GI EGO1GS on a mannequin head, front view", credit: "Photo: General Intelligence Labs, GI EGO1GS product page", url: "https://www.gilabs.xyz/products/ego1gs"}
-      foot: "Maker values checked 2026-11-03 · 2 recordings, 30.1 s each · CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-03 · 2 recordings, 30.1 s each · CC BY 4.0"
       key_specs:
         cameras: {v: "Dual 1080p, 30 fps, colour", tag: maker, src: "https://www.gilabs.xyz/blog/ego1gs-vs-project-aria-vs-ego-oscar"}
         shutter: {v: Global, tag: maker, src: "https://www.gilabs.xyz/products/ego1gs"}
