@@ -160,7 +160,7 @@ Recordings and units from
 -
 - Hampo
 - RoboBaton
-- Borme
+- Feekass
 Also calibrated, from public datasets
 
 -
@@ -17788,15 +17788,25 @@ Calibration recording of their Neo VIO module, hosted on the Hub (community/robo
 
 - Neo
 
-Borme
+Feekass
 
-### Borme
+### Feekass
 
-Shenzhen Feikasi Industrial
+Shenzhen Feekass (Feikasi Industrial), brand Borme
 Recordings of two headset units
 
 - XQ20 headset
-Thanks to Zhao Peiyu (赵培禹)
+Thanks to Peyton Zhao (Zhao Peiyu, 赵培禹), sales representative
+borme02@fkscam.com
+Name card
+Front
+
+Back
+
+WhatsApp / mobile: +86 130 5808 0347
+WeChat: zpyyy0111
+Email: borme02@fkscam.com
+Store: XQ20 on Alibaba
 
 Product photos on the device pages come from the makers’ product pages and are
 credited under each photo.
