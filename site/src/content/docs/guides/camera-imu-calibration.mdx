@@ -53,7 +53,8 @@ camera_input:
 This is the config of the [VI-Rig 4 IMUs + 4 cameras example](/benchmark/examples/virig-4imus-4cams/),
 recording 01. The highlighted lines matter for this step.
 
-```yaml title="virig_4imus_4cams_cam_imu.yaml" {2-3,9-15,23,25,35-42,44,46,48-49,51-54}
+```yaml title="virig_4imus_4cams_cam_imu.yaml" {1,3-4,10-16,24,26,36-43,45,47,49-50,52-55}
+site: {latitude_deg: 39.68, longitude_deg: -75.75, altitude_m: 40, name: "Newark, DE (Univ. of Delaware)"}
 input:
   format: ros1
   path: 4imus_4cams_01.bag
@@ -113,6 +114,7 @@ output:
 
 What the highlighted lines do:
 
+- **`site`:** where the data was recorded. MVIS computes the local gravity from latitude and altitude (WGS84 normal gravity): 9.8013 m/s² at Newark, Delaware, where VI-Rig was recorded. Without `site` (or `gravity:`) MVIS uses 9.81, and the accelerometer scale `Da` absorbs the difference. Here that is only −0.09 %, but the line shows the practice. Longitude and name are for the report only.
 - **`input`:** a ROS1 bag. The first `imu_topics` entry (`/imu/data`, the Xsens) is the **base IMU**. Every other sensor is solved relative to it.
 - **`window_mode: motion`:** MVIS uses the `segment_length` seconds (here 80 s) with the most IMU motion.
 - **`board.heights_file` + `estimate.board_points: true`:** solve the board shape too, starting from a measured shape. [`board_shape_4imus_4cams.yaml`](https://github.com/openmvis/openmvis/blob/main/examples/regression/mvis_elp/board_shape_4imus_4cams.yaml) ships with MVIS in `examples/regression/mvis_elp/`. Our board is not flat; a flat solve shifts the gyro scale and the lever arm ([why](/why/board-shape/)).
@@ -185,7 +187,7 @@ are on the [example page](/benchmark/examples/virig-4imus-4cams/#solved-rig).
 **The report.** Every run writes `cam_imu_report.html` next to `cam_imu.json`.
 It has these sections:
 
-- **Summary:** status, reprojection median and P95, χ²/dof of the camera and
+- **Summary:** status, the gravity used and the site it came from, reprojection median and P95, χ²/dof of the camera and
   IMU terms with a grade each, and the base IMU's `t_ga`. χ²/dof near 1 means
   the residuals match the noise you set; well below 1 (0.13 here) means the
   noise settings are conservative.
@@ -214,7 +216,7 @@ names are cut down to file names:
 
 <iframe class="mvis-report" src="/media/guides/virig-4imus-4cams/cam_imu_report.html" title="MVIS cam-IMU report, VI-Rig 4 IMUs + 4 cams, recording 01" loading="lazy" style="width:100%;height:80vh;border:1px solid var(--sl-color-gray-5);border-radius:0.4rem"></iframe>
 
-[Open the report full screen](/media/guides/virig-4imus-4cams/cam_imu_report.html) (HTML, 13.3 MB).
+[Open the report full screen](/media/guides/virig-4imus-4cams/cam_imu_report.html) (HTML, 13.4 MB).
 
 **Fit and geometry:**
 
@@ -222,8 +224,8 @@ names are cut down to file names:
 |---|---|
 | Reprojection median, all cameras | 0.24 px (rms 0.51, p95 0.68) |
 | cam0–cam1 baseline (T265 pair) | 63.7 mm |
-| cam0 `td` | −5.40 ms |
-| cam0 lever arm | 130.9 mm |
+| cam0 `td` | −5.39 ms |
+| cam0 lever arm | 131.0 mm |
 | Board shape | 9.2 mm peak to peak, 2.2 mm RMS (144 of 144 corners seen) |
 
 - **cam0:** T265 left. cam1 is T265 right, cam2 and cam3 are ELP left and right.
@@ -238,8 +240,8 @@ names are cut down to file names:
 
 | | x | y | z |
 |---|---|---|---|
-| `Dw` (gyro) | 0.99825 | 0.99781 | 1.00051 |
-| `Da` (accel) | 1.00003 | 0.99665 | 1.00124 |
+| `Dw` (gyro) | 0.99849 | 0.99786 | 1.00076 |
+| `Da` (accel) | 0.99917 | 0.99609 | 1.00053 |
 
 **`t_ga` per IMU:**
 
