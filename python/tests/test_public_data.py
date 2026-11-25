@@ -148,13 +148,12 @@ def test_looper_licence_is_scoped_to_hand_held(pub):
 
 
 def test_pages_whose_recording_is_in_the_main_datasets_repo_say_cc_by(pub):
-    """`folder` is a folder of calibench-vi/datasets, CC BY 4.0 since 2026-11-25; a community copy keeps CC BY-NC 4.0 and says so in its own row."""
+    """`folder` is a folder of calibench-vi/datasets, CC BY 4.0 since 2026-11-25. The converted GiLabs bags in the community folders are CC BY 4.0 too (user, 2026-11-25), so those pages carry one licence."""
     for slug in ("intel-t265", "gi-ego1", "gi-ego1gs"):
         p = pub["sensors"][slug]
         assert p["folder"] and p["header"]["foot"].endswith("· CC BY 4.0"), slug
         assert "<td>Licence</td><td>CC BY 4.0," in dataset_rows(p, "https://x"), slug
-    for slug in ("gi-ego1", "gi-ego1gs"):
-        assert "CC BY-NC 4.0" in dict(pub["sensors"][slug]["dataset"])["Bags, configs and results"], slug
+        assert "NC" not in dataset_rows(p, "https://x") and "request" not in dataset_rows(p, "https://x"), slug
 
 
 def test_looper_limits_keep_the_two_sets_apart_and_clips_follow_the_tabs(pub):

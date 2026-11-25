@@ -30,6 +30,19 @@ def test_every_rig_has_its_readouts_timing_tiles_and_credit():
         assert c.get("holder") and c.get("dataset") and (c.get("licence") or c.get("terms")), r["key"]
 
 
+def test_each_credit_carries_the_licence_of_where_its_recording_is_hosted():
+    """Recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25. The EGO1GS clip is from a take that is not in the hosted
+    GiLabs folders, so its credit stays as it was; a re-rendered rigs.json with an old credit fails here."""
+    by, nc = ("CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/"), ("CC BY-NC 4.0", "https://creativecommons.org/licenses/by-nc/4.0/")
+    want = {"virig4": by, "virig3": by, "looper": by, "mic": by, "alg_rs2": nc, "gilabs": nc}
+    got = {r["key"]: (r["credit"].get("licence"), r["credit"].get("licence_url")) for r in RIGS}
+    assert {k: got[k] for k in want} == want
+    assert {k for k, v in got.items() if v == (None, None)} == {"dibuli", "cyperstereo"}   # their own terms, in `terms`
+    for r in RIGS:
+        if "calibench-vi/datasets/" in r["credit"].get("url", ""):
+            assert got[r["key"]] == by, r["key"]
+
+
 def test_reprojection_median_is_a_px_value_or_a_dash():
     for r in RIGS:
         assert PX.match(r["rms"]) or r["rms"] == "—", (r["key"], r["rms"])

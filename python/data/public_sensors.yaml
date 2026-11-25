@@ -672,7 +672,7 @@ sensors:
       - [Frames, "Everything except the board is blurred"]
       - [Frames kept at decode, "cam0 889 of 900, cam1 about 859"]
       - [Board, "AprilGrid 6×6, tag 35.2 mm, spacing 0.3"]
-      - ["Bags, configs and results", "__HUB:community/gi-ego1/__. The converted bag there is CC BY-NC 4.0; commercial use by request"]
+      - ["Bags, configs and results", "__HUB:community/gi-ego1/__"]
     folder: gilabs-examples/
     method: "Recording converted to EuRoC layout, camera-only solve per camera, then camera + IMU with camera intrinsics free, t_ga and the rolling-shutter readout both estimated. Batch of 2026-11-03."
     limits:
@@ -718,7 +718,7 @@ sensors:
       - [Frames, "Everything except the board is blurred"]
       - [Format, "MCAP, H.265, 61 MB"]
       - [Board, "AprilGrid 6×6, tag 35.2 mm, spacing 0.3"]
-      - ["Bags, configs and results", "__HUB:community/gi-ego1gs/__. The converted bags there are CC BY-NC 4.0; commercial use by request"]
+      - ["Bags, configs and results", "__HUB:community/gi-ego1gs/__"]
     folder: gilabs-examples/
     method: "Recording converted to EuRoC layout, camera-only solve per camera, then camera + IMU with camera intrinsics free and t_ga estimated. Batch of 2026-11-03."
     limits:
