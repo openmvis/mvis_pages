@@ -1780,8 +1780,8 @@ The models in equations are on Camera model.
 
 ## 4. Result on the running example
 
-Recording 01, the two configs on this page (mvis cam, MVIS 0.2.0, run
-2026-11-19):
+Recording 01, the two configs on this page (mvis cam, MVIS 0.4.0, run
+2026-11-24):
 
 | T265 left | T265 right | ELP left | ELP right |
 Model | kb4 | kb4 | equidistant | equidistant |
@@ -1800,10 +1800,10 @@ the solved model puts them.
 - Board shape: both runs find a similar board, all 144 corners: 8.7 mm (T265)
 and 9.5 mm (ELP) peak to peak, 2.1 mm RMS in both.
 
-- Run time: 29 min (T265) and 27 min (ELP) in our run. Each run had 4 CPU
+- Run time: 30 min (T265) and 28 min (ELP) in our run. Each run had 4 CPU
 cores and one thread for the linear-algebra libraries; four guide jobs ran side
-by side on one machine. AprilTag detection took 12 min of the T265 run and the
-solve 15 min; the ELP solve took 22 min. With the default two_anti the
+by side on one machine. AprilTag detection took 14 min of the T265 run and the
+solve 16 min; the ELP solve took 24 min. With the default two_anti the
 solve takes about half as long (Speed).
 
 - The reports of both runs are in Read the report.
@@ -2090,6 +2090,8 @@ This is the config of the VI-Rig 4 IMUs + 4 cameras example,
 recording 01. The highlighted lines matter for this step.
 
 virig_4imus_4cams_cam_imu.yaml
+site : { latitude_deg : 39.68 , longitude_deg : -75.75 , altitude_m : 40 , name : " Newark, DE (Univ. of Delaware) " }
+
 input :
 
 format : ros1
@@ -2202,6 +2204,8 @@ path : cam_imu.json
 
 What the highlighted lines do:
 
+- site: set it to where you recorded. MVIS turns latitude and altitude into the local gravity (WGS84 normal gravity). For your own data, replace the values: site: {latitude_deg: 22.54, altitude_m: 20, name: Shenzhen} (south of the equator the latitude is negative; longitude_deg and name only label the report). If you know the value, give it instead: gravity: 9.7879 (m/s²). With neither, MVIS uses 9.81 and warns in the run log, and the accelerometer scale Da takes up the difference: up to 0.3 % near the equator. VI-Rig was recorded in Newark, Delaware: 9.8013 m/s², only −0.09 % from 9.81. The local gravity notes have a table of cities.
+
 - input: a ROS1 bag. The first imu_topics entry (/imu/data, the Xsens) is the base IMU. Every other sensor is solved relative to it.
 
 - window_mode: motion: MVIS uses the segment_length seconds (here 80 s) with the most IMU motion.
@@ -2266,9 +2270,9 @@ mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 
 - Other bag: --bag <file> replaces the config’s source with that ROS1 bag.
 
-- Time: 24 min in our run (MVIS 0.2.0, 2026-11-19), on 16 CPU cores with
+- Time: 29 min in our run (MVIS 0.4.0, 2026-11-24), on 16 CPU cores with
 one thread for the linear-algebra libraries, with other jobs on the machine.
-About 11 min of that is AprilTag detection on the four cameras; the solve
+About 16 min of that is AprilTag detection on the four cameras; the solve
 stages take about 13 min, of which the 6 iterations take about 9 min
 (solve_s in the report’s Appendix, Timing).
 
@@ -2294,7 +2298,7 @@ are on the example page.
 The report. Every run writes cam_imu_report.html next to cam_imu.json.
 It has these sections:
 
-- Summary: status, reprojection median and P95, χ²/dof of the camera and
+- Summary: status, the gravity used and the site it came from, reprojection median and P95, χ²/dof of the camera and
 IMU terms with a grade each, and the base IMU’s t_ga. χ²/dof near 1 means
 the residuals match the noise you set; well below 1 (0.13 here) means the
 noise settings are conservative.
@@ -2328,15 +2332,15 @@ state block (rotation, position, velocity, bias steps).
 This is the report of the recording 01 run, unchanged except that local folder
 names are cut down to file names:
 
-Open the report full screen (HTML, 13.3 MB).
+Open the report full screen (HTML, 13.4 MB).
 
 Fit and geometry:
 
 Value | Recording 01 |
 Reprojection median, all cameras | 0.24 px (rms 0.51, p95 0.68) |
 cam0–cam1 baseline (T265 pair) | 63.7 mm |
-cam0 td | −5.40 ms |
-cam0 lever arm | 130.9 mm |
+cam0 td | −5.39 ms |
+cam0 lever arm | 131.0 mm |
 Board shape | 9.2 mm peak to peak, 2.2 mm RMS (144 of 144 corners seen) |
 
 - cam0: T265 left. cam1 is T265 right, cam2 and cam3 are ELP left and right.
@@ -2352,8 +2356,8 @@ Base IMU (Xsens) intrinsics, the diagonal of the full Dw and Da matrices
 (the report’s “IMU intrinsics (full)”; Dw_diag and Da_diag in cam_imu.json):
 
 | x | y | z |
-Dw (gyro) | 0.99825 | 0.99781 | 1.00051 |
-Da (accel) | 1.00003 | 0.99665 | 1.00124 |
+Dw (gyro) | 0.99849 | 0.99786 | 1.00076 |
+Da (accel) | 0.99917 | 0.99609 | 1.00053 |
 
 t_ga per IMU:
 
@@ -3293,18 +3297,18 @@ digital-twin check.
 
 ## 4. Results on the running example
 
-The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-19 with MVIS 0.2.0.
+The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-24 with MVIS 0.4.0, local gravity at Newark (9.8013 m/s²).
 Result: PASS. All 16 IMU checks (4 per IMU) and all 5 geometry checks (4 levers, 1 baseline) pass.
 
 IMUs: what calibration A measured collapses. A ran on the raw bag, B on the corrected bag. A right
 calibration leaves nothing for B to find.
 
 Check | Calibration | Xsens (base) | GX3-25 | GX3-35 | T265 IMU | Pass if |
-Gyroscope scale Dw: worst axis off 1 | A | 0.22 % | 0.23 % | 0.13 % | 0.33 % | |
+Gyroscope scale Dw: worst axis off 1 | A | 0.21 % | 0.26 % | 0.10 % | 0.35 % | |
 | B | 0.00 % | 0.00 % | 0.00 % | 0.00 % | < 1 % |
-Accelerometer scale Da: worst axis off 1 | A | 0.33 % | 0.44 % | 0.49 % | 2.06 % | |
+Accelerometer scale Da: worst axis off 1 | A | 0.39 % | 0.50 % | 0.55 % | 1.97 % | |
 | B | 0.01 % | 0.00 % | 0.00 % | 0.00 % | < 1 % |
-Largest bias (m/s²) | A | 0.032 | 0.089 | 0.065 | 0.164 | |
+Largest bias (m/s²) | A | 0.029 | 0.086 | 0.064 | 0.168 | |
 | B | 0.002 | 0.0003 | 0.0004 | 0.002 | < 0.02 |
 t_ga (ms) | A | −0.82 | +0.10 | +0.01 | −6.74 | |
 | B | +0.30 | 0.00 | 0.01 | 0.00 | warn-only, near 0 |
@@ -3317,30 +3321,30 @@ gone in B. The base Xsens keeps +0.30 ms of t_ga, well under 2 ms.
 Full scale diagonals (x, y, z)
 
 IMU | Dw, A | Dw, B | Da, A | Da, B |
-Xsens (base) | 0.9982, 0.9978, 1.0005 | 1.0000, 1.0000, 1.0000 | 1.0000, 0.9966, 1.0012 | 0.9999, 1.0001, 1.0000 |
-GX3-25 | 1.0001, 0.9999, 1.0023 | 1.0000, 1.0000, 1.0000 | 0.9956, 1.0012, 1.0008 | 1.0000, 1.0000, 1.0000 |
-GX3-35 | 0.9991, 0.9987, 1.0005 | 1.0000, 1.0000, 1.0000 | 0.9951, 1.0005, 1.0006 | 1.0000, 1.0000, 1.0000 |
-T265 IMU | 0.9968, 1.0033, 1.0029 | 1.0000, 1.0000, 1.0000 | 1.0206, 1.0204, 1.0125 | 1.0000, 1.0000, 1.0000 |
+Xsens (base) | 0.9985, 0.9979, 1.0008 | 1.0000, 1.0000, 1.0000 | 0.9992, 0.9961, 1.0005 | 0.9999, 1.0001, 1.0000 |
+GX3-25 | 1.0001, 1.0002, 1.0026 | 1.0000, 1.0000, 1.0000 | 0.9950, 1.0004, 1.0002 | 1.0000, 1.0000, 1.0000 |
+GX3-35 | 0.9992, 0.9990, 1.0007 | 1.0000, 1.0000, 1.0000 | 0.9945, 0.9996, 0.9999 | 1.0000, 1.0000, 1.0000 |
+T265 IMU | 0.9970, 1.0035, 1.0030 | 1.0000, 1.0000, 1.0000 | 1.0198, 1.0196, 1.0119 | 1.0000, 1.0000, 1.0000 |
 
 Cameras: the geometry stays. apply-calib does not touch the lever arms, rotations and intrinsics that A
 found, so B should find them again. Only the lever rows and the T265 baseline are graded; the other rows are
 shown for reference.
 
 Check | Calibration | T265 left | T265 right | ELP left | ELP right | Pass if |
-Lever arm to base (mm) | A | 130.85 | 112.17 | 144.96 | 185.79 | |
-| B | 130.94 | 112.24 | 145.02 | 185.81 | |
-Lever change (mm) | A → B | 0.09 | 0.08 | 0.08 | 0.06 | ≤ 2 mm |
-Rotation change (mrad) | A → B | 0.06 | 0.09 | 0.11 | 0.11 | |
-td (ms) | A | −5.40 | −7.46 | −123.25 | −123.31 | |
+Lever arm to base (mm) | A | 130.95 | 112.26 | 145.04 | 185.84 | |
+| B | 131.03 | 112.33 | 145.08 | 185.86 | |
+Lever change (mm) | A → B | 0.08 | 0.08 | 0.07 | 0.06 | ≤ 2 mm |
+Rotation change (mrad) | A → B | 0.06 | 0.10 | 0.11 | 0.11 | |
+td (ms) | A | −5.39 | −7.45 | −123.24 | −123.30 | |
 | B | 0.00 | 0.00 | 0.00 | 0.00 | warn-only, near 0 |
-fx (px) | A | 286.61 | 286.61 | 426.98 | 423.69 | |
-| B | 286.61 | 286.60 | 426.98 | 423.69 | |
-fy (px) | A | 286.38 | 286.14 | 426.49 | 423.17 | |
-| B | 286.37 | 286.13 | 426.49 | 423.18 | |
+fx (px) | A | 286.53 | 286.52 | 426.84 | 423.55 | |
+| B | 286.52 | 286.51 | 426.84 | 423.56 | |
+fy (px) | A | 286.29 | 286.05 | 426.36 | 423.04 | |
+| B | 286.29 | 286.05 | 426.36 | 423.05 | |
 
 Stereo baseline | A | B | Pass if |
 T265 pair (cam0–cam1, graded) | 63.69 mm | 63.69 mm | moves ≤ 2 mm |
-ELP pair (shown only) | 59.40 mm | 59.39 mm | |
+ELP pair (shown only) | 59.40 mm | 59.40 mm | |
 
 - Geometry: every camera moves by under 0.1 mm and turns by under 0.12 mrad; fx and fy move by under
 0.01 px. The reprojection error stays at 0.51 px RMS.
@@ -3353,7 +3357,7 @@ removed.
 The check list as mvis roundtrip prints it: report.txt.
 The report of calibration B, as MVIS wrote it except for local folder names:
 
-Open full screen (HTML, 16.2 MB). The report
+Open full screen (HTML, 16.4 MB). The report
 of calibration A is the one in step 4.
 
 ## Export a corrected dataset
