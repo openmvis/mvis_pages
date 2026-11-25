@@ -101,7 +101,7 @@ def test_public_config_drops_private_sections_and_cuts_paths():
 
 
 def test_public_config_keeps_the_gravity_and_its_site():
-    site = {"latitude_deg": -31.42, "longitude_deg": -64.18, "altitude_m": 400, "name": "Córdoba, Argentina"}
+    site = {"latitude_deg": 39.68, "longitude_deg": -75.75, "altitude_m": 40, "name": "Newark, Delaware"}  # 9.8013, within 0.01
     c = yaml.safe_load(X.public_config({"gravity": 9.81, "site": site, "input": {"format": "euroc"}}))
     assert c == {"gravity": 9.81, "site": site, "input": {"format": "euroc"}}
 
@@ -116,13 +116,28 @@ def test_public_config_leads_with_the_gravity_and_the_city():
     assert yaml.safe_load(t) == {"gravity": 9.7931, "site": cordoba, "mode": "cam-imu", "input": {"format": "euroc"}}
     # kept at 9.81 under 0.1 % from the site: say the local value too
     t = X.public_config({"mode": "cam-imu", "gravity": 9.81, "site": newark}, 9.81)
-    assert t.splitlines()[0] == "gravity: 9.81   # m/s², Newark, Delaware (local 9.8013, under 0.1 %)"
+    assert t.splitlines()[0] == "gravity: 9.81   # m/s², Newark, Delaware; local 9.8013, under 0.1 %"
     # no run value: the config's own; solve.gravity moves to the top; no site, no city
     t = X.public_config({"solve": {"gravity": 9.8013, "max_iterations": 3}})
     assert t.splitlines()[0] == "gravity: 9.8013   # m/s²"
     assert yaml.safe_load(t) == {"gravity": 9.8013, "solve": {"max_iterations": 3}}
     # neither key: the config stays as it was
     assert X.public_config({"input": {"format": "euroc"}}, 9.81) == "input:\n  format: euroc\n"
+    # solve.gravity alone: no empty solve: left behind
+    assert X.public_config({"solve": {"gravity": 9.8013}}) == "gravity: 9.8013   # m/s²\n"
+    # what MVIS rejects stops the export: two gravities that disagree, a gravity 0.01 m/s² or more from the site
+    with pytest.raises(ValueError, match="solve.gravity"):
+        X.public_config({"gravity": 9.81, "solve": {"gravity": 9.8013}})
+    with pytest.raises(ValueError, match="0.01"):
+        X.public_config({"gravity": 9.81, "site": cordoba})
+
+
+def test_config_notes_link_the_local_gravity_page():
+    run = {"config": {"gravity": 9.81, "site": {"latitude_deg": 39.68, "altitude_m": 40, "name": "Newark, Delaware"}}, "run": {"gravity_mps2": 9.81}}
+    _, notes, problems = X.config_block({"name": "c.yaml", "why": {}}, run)
+    assert not problems and 'href="/reference/local-gravity/"' in notes and "the gravity line gives the g the run used" in notes
+    _, notes, _ = X.config_block({"name": "c.yaml", "why": {}}, {"config": {"input": {"format": "euroc"}}, "run": {}})
+    assert "local-gravity" not in notes
 
 
 def test_key_lines_and_marks():

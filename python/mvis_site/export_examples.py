@@ -112,12 +112,12 @@ def normal_gravity(latitude_deg: float, altitude_m: float = 0.0) -> float:
 
 def gravity_line(g: float, site: dict | None) -> str:
     """`gravity: <g>   # m/s², <city>`: the g the run used, 4 decimals, the site's name as the comment. A run that kept
-    9.81 at a site under 0.1 % from it also gives the local value."""
+    9.81 at a site under 0.1 % from it also gives the local value: `# m/s², <city>; local 9.8013, under 0.1 %`."""
     val = "9.81" if round(g, 4) == 9.81 else f"{g:.4f}"
     note = ", " + site["name"] if site and site.get("name") else ""
     if site and round(g, 4) == 9.81:
         gs = normal_gravity(site["latitude_deg"], site.get("altitude_m", 0.0))
-        note += f" (local {gs:.4f}{', under 0.1 %' if abs(9.81 / gs - 1) < 1e-3 else ''})"
+        note += f"; local {gs:.4f}{', under 0.1 %' if abs(9.81 / gs - 1) < 1e-3 else ''}"
     return f"gravity: {val}   # m/s²{note}\n"
 
 
@@ -139,8 +139,15 @@ def public_config(cfg: dict, g_used: float | None = None) -> str:
         c["output"] = {"path": "cam_imu.json"}
     dump = lambda d: yaml.safe_dump(d, sort_keys=False, allow_unicode=True, default_flow_style=False, width=110) if d else ""
     g = c.pop("gravity", None)
-    g = (c.get("solve") or {}).pop("gravity", g)
+    gs = (c.get("solve") or {}).pop("gravity", None)
+    if "solve" in c and not c["solve"]:
+        del c["solve"]
+    if g is not None and gs is not None and abs(g - gs) > 1e-9:  # MVIS rejects both too
+        raise ValueError(f"gravity {g} and solve.gravity {gs} disagree")
+    g = gs if gs is not None else g
     site = c.pop("site", None)
+    if g is not None and site and abs(g - normal_gravity(site["latitude_deg"], site.get("altitude_m", 0.0))) > 0.01:
+        raise ValueError(f"gravity {g} and site {site.get('name', '')} differ by more than 0.01 m/s²")  # as MVIS _resolve_gravity
     if g_used is None:
         g_used = g if g is not None else normal_gravity(site["latitude_deg"], site.get("altitude_m", 0.0)) if site else None
     head = gravity_line(g_used, site) if g is not None or site else ""
@@ -187,7 +194,10 @@ def config_block(c: dict, v: dict | None) -> tuple[str, str, list[str]]:
     fence = f'```yaml title="{c["name"]}" {marks(hl)}\n{text}```\n\n'
     notes = "".join(f"<li><code>{e(k)}</code>: {e(t)}</li>" for k, t in c["why"].items())
     notes = (f"<p>The marked lines are the choices that matter for this rig:</p><ul class=list>{notes}</ul>" if notes else "") + \
-        "<p class=note>This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.</p>"
+        ("<p class=note>This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. "
+         'Point the paths at your copy, and take the gravity for your site from the <a href="/reference/local-gravity/">Local gravity</a> page.</p>'
+         if text.startswith("gravity:") else
+         "<p class=note>This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.</p>")
     return fence, notes, [f"config note on {k}, which the config lacks" for k in missing]
 
 

@@ -40,7 +40,7 @@ examples:
     config:
       name: virig_4imus_3cams_cam_imu.yaml
       why:
-        gravity: "Kept at 9.81 m/s² for Newark, Delaware: the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value."
+        gravity: "Kept at 9.81 m/s² for Newark, DE (Univ. of Delaware): the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value."
         site: "The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report."
         input.imu_topics: Four IMU topics. The first is the base IMU; the other three are solved against it.
         input.window_mode: MVIS picks the 80 s window with the most motion.
@@ -84,7 +84,7 @@ examples:
     config:
       name: virig_4imus_4cams_cam_imu.yaml
       why:
-        gravity: "Kept at 9.81 m/s² for Newark, Delaware: the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value."
+        gravity: "Kept at 9.81 m/s² for Newark, DE (Univ. of Delaware): the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value."
         site: "The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report."
         input.imu_topics: Four IMU topics. The first is the base IMU; the other three are solved against it.
         input.window_mode: MVIS picks the 80 s window with the most motion.
@@ -128,7 +128,7 @@ examples:
     config:
       name: virig_5imus_4cams_cam_imu.yaml
       why:
-        gravity: "Kept at 9.81 m/s² for Newark, Delaware: the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value."
+        gravity: "Kept at 9.81 m/s² for Newark, DE (Univ. of Delaware): the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value."
         site: "The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report."
         input.imu_topics: Five IMU topics. The first is the base IMU; the other four are solved against it.
         input.window_mode: MVIS picks the 80 s window with the most motion; this recording is shorter, so all of it is used.
@@ -171,7 +171,7 @@ examples:
     config:
       name: tum_vi_imu1_cam_imu.yaml
       why:
-        gravity: "Kept at 9.81 m/s² for Garching: the local gravity there, 9.8077 m/s², differs from it by under 0.1 %. Set your own local value."
+        gravity: "Kept at 9.81 m/s² for TUM Garching, Germany: the local gravity there, 9.8077 m/s², differs from it by under 0.1 %. Set your own local value."
         site: "The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report."
         input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
         camera_input.path: "Seed intrinsics: kb4 values from MVIS camera-only solves of TUM's eight camera recordings."
@@ -228,7 +228,7 @@ examples:
     config:
       name: monado_mgc_imucalib01_cam_imu.yaml
       why:
-        gravity: "The local gravity in Córdoba, Argentina, where it was recorded: 9.7931 m/s², −0.17 % from 9.81."
+        gravity: "The local gravity in Córdoba, Argentina, where it was recorded: 9.7931 m/s², 0.17 % below 9.81. With 9.81 the accel scale would read 0.17 % high."
         site: "The alternative to gravity: the recording site. MVIS computes the same 9.7931 m/s² from it, and the report names the city."
         board.tag_size: "The 30 mm tag. A wrong tag size gives a calibration that converges cleanly and is uniformly wrong in scale."
         input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
@@ -291,7 +291,7 @@ examples:
     config:
       name: looper_insight9_bag1_cam_imu.yaml
       why:
-        gravity: "The local gravity in Shenzhen, China, where it was recorded: 9.7879 m/s², −0.23 % from 9.81."
+        gravity: "The local gravity in Shenzhen, China, where it was recorded: 9.7879 m/s², 0.23 % below 9.81. With 9.81 the accel scale would read 0.23 % high."
         site: "The alternative to gravity: the recording site. MVIS computes the same 9.7879 m/s² from it, and the report names the city."
         camera_input.free_intrinsics: Camera intrinsics stay free in the camera + IMU solve.
         camera_input.cameras: The colour camera (cam2) has a rolling shutter, so its readout time is estimated.
@@ -338,7 +338,7 @@ examples:
     config:
       name: uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
       why:
-        gravity: "Kept at 9.81 m/s² for Dübendorf: the local gravity there, 9.8070 m/s², differs from it by under 0.1 %. Set your own local value."
+        gravity: "Kept at 9.81 m/s² for Innovation Park Zürich, Dübendorf, Switzerland: the local gravity there, 9.8070 m/s², differs from it by under 0.1 %. Set your own local value."
         site: "The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report."
         board: "The UZH board: AprilGrid 5×4, tag 75 mm, spacing 0.2."
         camera_input.path: "Seed intrinsics: UZH's own camera-only Kalibr calibration, equidistant lens. MVIS refines them in this solve."

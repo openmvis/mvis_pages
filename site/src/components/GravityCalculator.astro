@@ -49,7 +49,7 @@ const fmtLat = (x: number) => (x < 0 ? `−${Math.abs(x).toFixed(2)}` : x.toFixe
 </div>
 
 <script>
-  import { normalGravity, biasPercent, fmtPercent, gravityLine, siteLine } from '../scripts/gravity.js';
+  import { normalGravity, biasPercent, fmtPercent, copyText } from '../scripts/gravity.js';
   import data from '../data/gravity-places.json';
 
   for (const form of document.querySelectorAll<HTMLFormElement>('.gc-form')) {
@@ -63,7 +63,7 @@ const fmtLat = (x: number) => (x < 0 ? `−${Math.abs(x).toFixed(2)}` : x.toFixe
       const typed = el('lat').value.trim() !== '';
       out('g').textContent = ok ? g.toFixed(4) : '–';
       out('bias').textContent = ok ? fmtPercent(biasPercent(g)) : typed ? '– (latitude must be between −90 and 90)' : '–';
-      out('yaml').textContent = ok ? `${gravityLine(g, place)}\n${siteLine(lat, alt, place)}` : '';
+      out('yaml').textContent = copyText(lat, alt, place);
     };
     el('place').addEventListener('change', () => {
       const p = data.places[+el('place').value];

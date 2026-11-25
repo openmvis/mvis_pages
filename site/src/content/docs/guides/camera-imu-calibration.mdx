@@ -51,8 +51,8 @@ camera_input:
 ## 2. Write the config
 
 This is the config of the [VI-Rig 4 IMUs + 4 cameras example](/benchmark/examples/virig-4imus-4cams/),
-recording 01, with two changes: `gravity:` sets the local gravity (the example keeps 9.81), and every corner enters
-the solve (the example uses `two_anti`). The highlighted lines matter for this step.
+recording 01, with two changes: `gravity: 9.8013` in place of the example's `gravity: 9.81` and its `site:` block,
+and every corner enters the solve in place of `two_anti`. The highlighted lines matter for this step.
 
 ```yaml title="virig_4imus_4cams_cam_imu.yaml" {1,3-4,10-16,24,26,36-43,45,47,49-50,52-55}
 gravity: 9.8013   # m/s², Newark, Delaware
@@ -118,12 +118,12 @@ What the highlighted lines do:
 - **`gravity`: the local gravity, in m/s².** MVIS holds the gravity magnitude fixed in the solve, so the
   accelerometer scale `Da` takes up any error in it. Set the value where you recorded: the
   [Local gravity](/reference/local-gravity/) page has a calculator and a table of cities from Singapore to London.
-  The report then says the value was set in the config.
+  The report then says the value was set in the config; from MVIS 0.4.1 it also names the place in the comment.
 
   Or give the place with `site:`, for example
   `site: {latitude_deg: 39.68, altitude_m: 40, name: "Newark, Delaware"}`. MVIS computes the WGS84 normal gravity
-  from `latitude_deg` (negative south of the equator) and `altitude_m`, and the report names the city. You can give
-  both keys if they agree within 0.01 m/s²; add `site:` to `gravity:` if you want the city in the report.
+  from `latitude_deg` (negative south of the equator) and `altitude_m`, and the report names the site. You can give
+  both keys if they agree within 0.01 m/s².
 
   With neither, MVIS uses 9.81 m/s² and warns in the run log; near the equator `Da` then reads up to 0.3 % high.
   At Newark the difference is only −0.09 %.

@@ -134,6 +134,12 @@
    "g": 9.807076
   },
   {
+   "name": "Dübendorf (UZH-FPV)",
+   "latitude_deg": 47.4,
+   "altitude_m": 440,
+   "g": 9.80701
+  },
+  {
    "name": "Seattle",
    "latitude_deg": 47.61,
    "altitude_m": 50,

@@ -232,6 +232,7 @@ datasets:
       - "<b>One Basalt solve is left out.</b> On davis_indoor_forward with these weights, Basalt gives a 120 mm lever and an accel scale (accelerometer scale factor) of 0.84. So its Davis column has 3 of 4 bags. At Basalt's default noise that bag is plausible, but snapdragon_indoor_45 then fails with a broken spline."
       - "<b>Basalt's Davis distance stands out.</b> Its camera-to-IMU distance is 33.6 mm. Kalibr gives 23.2 mm and MVIS 22.8 mm on the same 3 bags. We haven't established why. At default noise Basalt's lever z is 14–25 mm."
       - "<b>Each device's 4 bags form one family</b>, because the camera and IMU are on the same device. That assumes the camera–IMU geometry stayed the same across recordings, which we can't confirm."
+      - "<b>Gravity.</b> These solves used 9.81 m/s², before 2026-11-25. The example config now sets 9.8070 (Dübendorf); with it the accel scale moves by about −0.03 %."
       - "<b>Snapdragon's time offset really does differ between bags</b>, with an sd (standard deviation) near 4.7 ms in every tool. So a small difference between tools on that row says little about each bag."
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:

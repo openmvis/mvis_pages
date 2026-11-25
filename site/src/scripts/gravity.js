@@ -26,3 +26,12 @@ export function siteLine(latitudeDeg, altitudeM, name = '') {
 }
 
 export const fmtPercent = (p) => `${p >= 0.005 ? '+' : p <= -0.005 ? '−' : ''}${Math.abs(p).toFixed(2)} %`;
+
+export const PLACE_PLACEHOLDER = 'your place';
+
+// The copy box: the gravity line, then the site line. Without a picked place the site name is a placeholder to replace.
+export function copyText(latitudeDeg, altitudeM, place = '') {
+  const g = normalGravity(latitudeDeg, altitudeM);
+  if (!Number.isFinite(g)) return '';
+  return `${gravityLine(g, place)}\n${siteLine(latitudeDeg, altitudeM, place || PLACE_PLACEHOLDER)}`;
+}
