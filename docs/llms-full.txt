@@ -19199,8 +19199,8 @@ at the equator 0.30 % high; in central Europe close to zero.
 
 - A measured value from a gravity survey also goes in gravity:.
 
-- Coordinates, not a city name: names repeat (Córdoba, Spain and Córdoba, Argentina),
-and a site outside any city still has coordinates from a phone or a map.
+- site: takes coordinates, not a city name: names repeat (Córdoba, Spain and Córdoba, Argentina),
+and a site outside any city still has coordinates. The calculator below finds them from a city name.
 
 - Precision: anywhere in the right city is enough. One degree of latitude moves g by
 at most 0.01 %, 100 m of altitude by 0.003 %. Altitude matters only for high places
@@ -19211,14 +19211,23 @@ Configuration.
 
 ## Calculator
 
-Pick a place or type the coordinates. The calculator uses the same formula as MVIS
-(WGS84 normal gravity with the free-air correction) and runs in your browser:
-nothing you type is sent anywhere. It gives the gravity: line to copy, and the
-site: line under it if you prefer to give the place. With your own coordinates, put
-your label in place of “your place”.
+Type your city and pick it from the list: about 34,000 places, every one with more than
+15,000 people, with their latitude and altitude. You don’t need the longitude, and the altitude
+only matters above about 300 m. Or press Use my location: your browser asks first, and the
+location stays on this page. You can also type the latitude and altitude yourself.
 
-Place
-Your own coordinates SingaporeBangaloreMexico CityHong KongShenzhenSão PauloAbu DhabiKunmingLhasaWuhanShanghaiCórdoba, ArgentinaSydneyTokyoSeoulSan FranciscoWashington, DCNewark, DelawareDenverBeijingBostonZurichDübendorf (UZH-FPV)SeattleMunichParisLondon Latitude [°]
+The calculator uses the same formula as MVIS (WGS84 normal gravity with the free-air
+correction) and runs in your browser: nothing you type is sent anywhere. It gives the
+gravity: line to copy, and the site: line under it if you prefer to give the place.
+With your own coordinates, put your label in place of “your place”.
+
+The city list is from GeoNames (CC BY 4.0). The table under
+the calculator lists common recording places.
+
+City
+
+Longitude is not needed. Altitude only matters above about 300 m.
+Latitude [°]
 north +, south − Altitude [m]
 above sea level – m/s² At the 9.81 default the accelerometer scale would be off by – Place | latitude_deg | altitude_m | g [m/s²] | Bias at 9.81 |
 Singapore | 1.35 | 15 | 9.7803 | +0.30 % |
