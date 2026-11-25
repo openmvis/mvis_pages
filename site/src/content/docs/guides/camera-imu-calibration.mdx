@@ -178,10 +178,10 @@ mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 ```
 
 - **Other bag:** `--bag <file>` replaces the config's source with that ROS1 bag.
-- **Time:** 29 min in our run (MVIS 0.4.0, 2026-11-24), on 16 CPU cores with
+- **Time:** 31 min in our run (MVIS 0.4.1, 2026-11-25), on 16 CPU cores with
   one thread for the linear-algebra libraries, with other jobs on the machine.
-  About 16 min of that is AprilTag detection on the four cameras; the solve
-  stages take about 13 min, of which the 6 iterations take about 9 min
+  About 12 min of that is AprilTag detection on the four cameras; the solve
+  stages take about 19 min, of which the 6 iterations take about 16 min
   (`solve_s` in the report's Appendix, Timing).
 - **Output:** in the folder of `output.path`:
   - `cam_imu.json`: a summary of the solve.
