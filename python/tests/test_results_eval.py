@@ -454,6 +454,10 @@ def test_study_rows_write_the_study_board_with_its_own_texts(tmp_path):
     assert fams["batch"] == "b9" and fams["datasets"] == [{"id": "v5id", "title": "V5 rig", "families": ["V5", "V5c"]}]
     assert set(out["families"]) == {"V5", "V5c"} and out["families"]["V5"]["read_first"] == "MVIS only."
     assert ["Like for like", "One config."] in out["families"]["V5"]["notes"]
+    out = S.study_rows(lb, stats, tmp_path / "rec2", "b9", ("v5id", "v5", "V5 rig"),
+                       {"V5": "Camera + IMU.", "V5c": "Cameras only."}, {"V5": "One config.", "V5c": "Two configs."})
+    assert out["families"]["V5"]["read_first"] == "Camera + IMU." and out["families"]["V5c"]["read_first"] == "Cameras only."
+    assert ["Like for like", "Two configs."] in out["families"]["V5c"]["notes"]
 
 
 def test_read_first_drops_the_notes_reference():
