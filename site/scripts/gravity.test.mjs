@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
-import { normalGravity, biasPercent, siteLine, fmtPercent } from '../src/scripts/gravity.js';
+import { normalGravity, biasPercent, gravityLine, siteLine, fmtPercent } from '../src/scripts/gravity.js';
 
 const read = (p) => readFileSync(new URL(p, import.meta.url), 'utf8');
 const { places } = JSON.parse(read('../src/data/gravity-places.json'));
@@ -21,7 +21,20 @@ test('known values: equator, pole, Shenzhen bias', () => {
   assert.equal(fmtPercent(biasPercent(normalGravity(51.51, 15))), '−0.02 %');
 });
 
-test('the config line is what MVIS reads', () => {
+test('the gravity line comes first: 4 decimals, the place as a comment', () => {
+  assert.equal(gravityLine(normalGravity(39.68, 40), 'Newark, Delaware'), 'gravity: 9.8013   # m/s², Newark, Delaware');
+  assert.equal(gravityLine(normalGravity(22.54, 20), 'Shenzhen'), 'gravity: 9.7879   # m/s², Shenzhen');
+  assert.equal(gravityLine(9.80845), 'gravity: 9.8085   # m/s²');
+});
+
+test('the page leads with the gravity line and the calculator copies gravity, then site', () => {
+  const page = read('../src/content/docs/reference/local-gravity.mdx');
+  assert.match(page, /```yaml[^\n]*\ngravity: 9\.8013   # m\/s², Newark, Delaware\n```/);
+  assert.ok(page.indexOf('gravity: 9.8013') < page.indexOf('site: {'));
+  assert.match(read('../src/components/GravityCalculator.astro'), /\$\{gravityLine\(g, place\)\}\\n\$\{siteLine\(lat, alt, place\)\}/);
+});
+
+test('the site line is what MVIS reads', () => {
   assert.equal(siteLine(-31.4167, 400.4, 'Córdoba, Argentina'),
     'site: {latitude_deg: -31.42, altitude_m: 400, name: "Córdoba, Argentina"}');
   assert.equal(siteLine(47.6, 50), 'site: {latitude_deg: 47.60, altitude_m: 50}');

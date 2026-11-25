@@ -1,6 +1,6 @@
 ---
 title: Local gravity
-description: Look up the gravity where your data was recorded, and the site line to put in a camera + IMU config.
+description: Look up the gravity where your data was recorded, and the gravity line to put in a camera + IMU config.
 pageType: reference
 ---
 
@@ -8,16 +8,23 @@ import GravityCalculator from '../../../components/GravityCalculator.astro';
 
 A camera + IMU solve holds the gravity magnitude fixed. Gravity is most of what an
 accelerometer measures, so the accelerometer scale (`Da`) takes up any error in it.
-Give MVIS the place where the data was recorded:
+Set the gravity where the data was recorded:
 
 ```yaml title="cam_imu.yaml"
-site: {latitude_deg: 22.54, altitude_m: 20, name: "Shenzhen"}   # name is only a label
+gravity: 9.8013   # m/s², Newark, Delaware
 ```
 
-- **Without it:** MVIS uses 9.81 m/s² and the run log warns. The accelerometer scale
+Or give the place instead, with `site:`. MVIS takes the latitude and altitude and computes
+WGS84 normal gravity from them, and the report then names the city:
+`site: {latitude_deg: 39.68, altitude_m: 40, name: "Newark, Delaware"}` (`name` is only a
+label). You may give both keys if they agree within 0.01 m/s². With `gravity:` alone the
+report says "set in config" and names no city, so add `site:` as well if you want the city
+in the report.
+
+- **Without either key:** MVIS uses 9.81 m/s² and the run log warns. The accelerometer scale
   then reads off by the ratio g / 9.81: +0.23 % in Shenzhen, +0.30 % at the equator,
   close to zero in central Europe.
-- **A measured value** from a gravity survey goes in `gravity:` (m/s²) instead.
+- **A measured value** from a gravity survey also goes in `gravity:`.
 - **Coordinates, not a city name:** names repeat (Córdoba, Spain and Córdoba, Argentina),
   and a site outside any city still has coordinates from a phone or a map.
 - **Precision:** anywhere in the right city is enough. One degree of latitude moves g by
@@ -31,6 +38,7 @@ Requires MVIS 0.4.0 or later. The keys and their checks are in
 
 Pick a place or type the coordinates. The calculator uses the same formula as MVIS
 (WGS84 normal gravity with the free-air correction) and runs in your browser:
-nothing you type is sent anywhere.
+nothing you type is sent anywhere. It gives the `gravity:` line to copy, and the
+`site:` line under it if you want the city in the report.
 
 <GravityCalculator />

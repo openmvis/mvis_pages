@@ -14,7 +14,12 @@ export function normalGravity(latitudeDeg, altitudeM = 0) {
 // How far the accelerometer scale reads off if the run keeps 9.81, in percent (+ = reads high).
 export const biasPercent = (g) => 100 * (STANDARD_MVIS / g - 1);
 
-// The config line to copy. Coordinates to 2 decimals (about 1 km), altitude to the metre.
+// The gravity line to copy: the value to 4 decimals, the place as a comment.
+export function gravityLine(g, place = '') {
+  return `gravity: ${(+g).toFixed(4)}   # m/s²${place ? `, ${place}` : ''}`;
+}
+
+// The optional site line under it (the report then names the place). Coordinates to 2 decimals (about 1 km), altitude to the metre.
 export function siteLine(latitudeDeg, altitudeM, name = '') {
   const label = name ? `, name: "${name.replace(/"/g, "'")}"` : '';
   return `site: {latitude_deg: ${(+latitudeDeg).toFixed(2)}, altitude_m: ${Math.round(+altitudeM)}${label}}`;

@@ -28,7 +28,7 @@ import ExamplePart from '../../../../components/ExamplePart.astro';
 ## Config and run
 
 ```yaml title="uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml" {1-6,12-18,20,24-25}
-gravity: 9.81
+gravity: 9.81   # m/s², Innovation Park Zürich, Dübendorf, Switzerland (local 9.8070, under 0.1 %)
 site:
   latitude_deg: 47.4
   longitude_deg: 8.62
@@ -73,7 +73,7 @@ mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
 ## The other device, mDAVIS346
 
 ```yaml title="uzh_fpv_davis_outdoor_forward_cam_imu.yaml" {25}
-gravity: 9.81
+gravity: 9.81   # m/s², Innovation Park Zürich, Dübendorf, Switzerland (local 9.8070, under 0.1 %)
 site:
   latitude_deg: 47.4
   longitude_deg: 8.62

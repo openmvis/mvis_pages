@@ -106,6 +106,25 @@ def test_public_config_keeps_the_gravity_and_its_site():
     assert c == {"gravity": 9.81, "site": site, "input": {"format": "euroc"}}
 
 
+def test_public_config_leads_with_the_gravity_and_the_city():
+    newark = {"latitude_deg": 39.68, "longitude_deg": -75.75, "altitude_m": 40, "name": "Newark, Delaware"}
+    cordoba = {"latitude_deg": -31.42, "altitude_m": 400, "name": "Córdoba, Argentina"}
+    assert round(X.normal_gravity(39.68, 40), 4) == 9.8013 and round(X.normal_gravity(-31.42, 400), 4) == 9.7931
+    # site only: the g the run used (cam_imu.json), then site: on the next line
+    t = X.public_config({"mode": "cam-imu", "site": cordoba, "input": {"format": "euroc"}}, 9.793139)
+    assert t.splitlines()[:2] == ["gravity: 9.7931   # m/s², Córdoba, Argentina", "site:"]
+    assert yaml.safe_load(t) == {"gravity": 9.7931, "site": cordoba, "mode": "cam-imu", "input": {"format": "euroc"}}
+    # kept at 9.81 under 0.1 % from the site: say the local value too
+    t = X.public_config({"mode": "cam-imu", "gravity": 9.81, "site": newark}, 9.81)
+    assert t.splitlines()[0] == "gravity: 9.81   # m/s², Newark, Delaware (local 9.8013, under 0.1 %)"
+    # no run value: the config's own; solve.gravity moves to the top; no site, no city
+    t = X.public_config({"solve": {"gravity": 9.8013, "max_iterations": 3}})
+    assert t.splitlines()[0] == "gravity: 9.8013   # m/s²"
+    assert yaml.safe_load(t) == {"gravity": 9.8013, "solve": {"max_iterations": 3}}
+    # neither key: the config stays as it was
+    assert X.public_config({"input": {"format": "euroc"}}, 9.81) == "input:\n  format: euroc\n"
+
+
 def test_key_lines_and_marks():
     t = X.public_config(CFG)
     where = X.key_lines(t)
