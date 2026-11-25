@@ -139,10 +139,22 @@ def test_looper_licence_is_scoped_to_hand_held(pub):
     assert rows["Robot-arm data"].startswith("__HUB:community/looper-insight9/data/__")
     # arm bags on the Hub were replaced with the unblurred frames (Hub a2a09ebc, 2026-11-07)
     assert "Normal frames" in rows["Robot-arm data"] and "blurred" not in rows["Robot-arm data"] and "CC BY-NC 4.0" in rows["Robot-arm data"]
-    assert "__LINK__" in rows["Hand-held data"] and "CC BY-NC 4.0" in rows["Hand-held data"] and p["folder"] == "looper-insight9/"
+    # recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25; the community folder (chessboard, robot arm) stays CC BY-NC 4.0
+    assert "__LINK__" in rows["Hand-held data"] and "CC BY 4.0" in rows["Hand-held data"] and "NC" not in rows["Hand-held data"] and p["folder"] == "looper-insight9/"
+    assert "hand-held recordings of about 66 s, CC BY 4.0" in p["header"]["foot"] and "robot-arm recordings of about 58 s, CC BY-NC 4.0" in p["header"]["foot"]
     html = dataset_rows(p, "https://x")
     assert html.count("<a href") == 4 and "<td>Licence</td>" not in html and "<td>Hosted</td>" not in html
     assert "for the hand-held data, clip and figures" in html
+
+
+def test_pages_whose_recording_is_in_the_main_datasets_repo_say_cc_by(pub):
+    """`folder` is a folder of calibench-vi/datasets, CC BY 4.0 since 2026-11-25; a community copy keeps CC BY-NC 4.0 and says so in its own row."""
+    for slug in ("intel-t265", "gi-ego1", "gi-ego1gs"):
+        p = pub["sensors"][slug]
+        assert p["folder"] and p["header"]["foot"].endswith("· CC BY 4.0"), slug
+        assert "<td>Licence</td><td>CC BY 4.0," in dataset_rows(p, "https://x"), slug
+    for slug in ("gi-ego1", "gi-ego1gs"):
+        assert "CC BY-NC 4.0" in dict(pub["sensors"][slug]["dataset"])["Bags, configs and results"], slug
 
 
 def test_looper_limits_keep_the_two_sets_apart_and_clips_follow_the_tabs(pub):

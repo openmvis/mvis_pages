@@ -4,7 +4,7 @@
  "label": "VI-Rig 4 IMUs + 4 cams",
  "title": "VI-Rig: 4 IMUs + 4 cameras",
  "ours": true,
- "licence": "CC BY-NC 4.0",
+ "licence": "CC BY 4.0",
  "intro": "Our rig with a RealSense T265 fisheye pair (global shutter) and an ELP stereo pair (rolling shutter).",
  "chips": [
   "2 global-shutter + 2 rolling-shutter cameras"

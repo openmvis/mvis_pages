@@ -21,7 +21,7 @@ datasets:
     label: VI-Rig 4 IMUs + 3 cams
     title: "VI-Rig: 4 IMUs + 3 cameras"
     ours: true
-    licence: CC BY-NC 4.0
+    licence: CC BY 4.0
     intro: "Our rig: a FLIR Blackfly and a RealSense T265 fisheye pair, all global shutter, with four IMUs from 100 to 500 Hz."
     chips: ["3 global-shutter cameras", "4 IMUs, 100–500 Hz"]
     image: {src: /media/hero/vi_rig.jpg, alt: "The VI-Rig: a Blackfly camera, a RealSense T265 and four IMUs on one plate", credit: "Photo: OpenMVIS"}
@@ -54,7 +54,7 @@ datasets:
     label: VI-Rig 4 IMUs + 4 cams
     title: "VI-Rig: 4 IMUs + 4 cameras"
     ours: true
-    licence: CC BY-NC 4.0
+    licence: CC BY 4.0
     intro: "Our rig with a RealSense T265 fisheye pair (global shutter) and an ELP stereo pair (rolling shutter)."
     chips: ["2 global-shutter + 2 rolling-shutter cameras"]
     image: {src: /media/hero/hero_virig4_960.jpg, alt: "MVIS solving a VI-Rig 4-camera recording: board, camera path and one T265 fisheye frame", credit: "MVIS solve view, from the homepage"}
@@ -94,7 +94,7 @@ datasets:
     batch: "2026-11-02"
     not_run: "not run on this set"
     study_note: "Separate study (batch 2026-11-02), MVIS only: Kalibr and Basalt were not run on this set, so it has no row here."
-    licence: CC BY-NC 4.0 (gated)
+    licence: CC BY 4.0 (gated)
     intro: "Our rig with two RealSense T265 units (two global-shutter fisheye pairs) and five IMUs: an Xsens MTi as base, a GX3-25, a GX3-35 and the two T265 IMUs. A one-off MVIS study of 7 recordings, not part of the leaderboard batch or the regression suite. Kalibr and Basalt were not run on it."
     chips: ["4 global-shutter fisheye cameras", "5 IMUs, 100–500 Hz", "7 recordings", "MVIS only"]
     links:
@@ -162,7 +162,7 @@ datasets:
     label: Looper Insight 9
     title: Looper Insight 9
     ours: false
-    licence: CC BY-NC 4.0
+    licence: CC BY 4.0
     intro: "Two global-shutter cameras, one rolling-shutter camera and a MEMS IMU, from Looper Robotics."
     chips: ["2 global-shutter + 1 rolling-shutter camera", "MEMS IMU, 400 Hz", "AprilGrid 6×6, 55 mm"]
     image: {src: /media/sensors/looper-insight9/looper-insight9.jpg, alt: "LooperRobotics Insight 9, front view", credit: "Photo: LooperRobotics, Insight 9 product page"}

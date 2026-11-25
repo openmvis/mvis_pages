@@ -12,8 +12,8 @@ datasets. Each part has its own licence.
 | MVIS toolbox | GPL-3.0-only, or a commercial licence |
 | Calibration results | yours on your own recordings; CC BY 4.0 on our datasets, commercial use included |
 | This site | code GPL-3.0-only; text and figures CC BY 4.0, except third-party clips, product photos and the replay pack |
-| VI-Rig datasets (ours) | CC BY-NC 4.0, gated; commercial licence on request |
-| Converted third-party datasets | CC BY 4.0 |
+| Recordings in `calibench-vi/datasets` (VI-Rig, Looper, GiLabs, converted third-party sets) | CC BY 4.0, commercial use included; gated |
+| Device recordings in `calibench-vi/community` | each folder's own licence: CC BY-NC 4.0 unless the folder says otherwise |
 | Third-party software | its own licence |
 
 ## MVIS toolbox
@@ -38,9 +38,9 @@ The GPL covers the MVIS code, not what it computes.
   (intrinsics, extrinsics, time offsets, residuals, plots, reports) are yours.
   You may publish them anywhere, including on commercial product pages, without
   a commercial licence.
-- **Our datasets:** results computed on the VI-Rig, Looper and GiLabs recordings
-  (parameters, metrics, plots, reports) are CC BY 4.0, commercial use included.
-  Only the recordings stay non-commercial. Our published results are in
+- **Our datasets:** results computed on the recordings we host (parameters,
+  metrics, plots, reports) are CC BY 4.0, commercial use included, also where
+  the recording itself is CC BY-NC 4.0. Our published results are in
   [`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results).
 - **Third-party datasets:** results you compute are yours; results that the
   owner publishes, such as UZH-FPV's own Kalibr files, keep the owner's licence.
@@ -70,9 +70,11 @@ Exceptions, which keep their own terms:
   [TUM-VI](/benchmark/examples/tum-vi/) CC BY 4.0,
   [Monado MSD](/benchmark/examples/monado/) CC BY 4.0,
   [UZH-FPV](/benchmark/examples/uzh-fpv/) CC BY-NC-SA 3.0,
-  GiLabs, [Looper](/benchmark/examples/looper-insight9/) and
-  [VI-Rig](/datasets/) CC BY-NC 4.0, and the Dibuli maker example
-  data under Dibuli's terms.
+  [VI-Rig](/datasets/), the hand-held
+  [Looper](/benchmark/examples/looper-insight9/) recordings and the GiLabs
+  examples CC BY 4.0, recordings from a community folder CC BY-NC 4.0 unless the
+  device page says otherwise, and the Dibuli maker example data under Dibuli's
+  terms.
 - **Product photos** on the device pages belong to their makers. Each is
   credited with a link to its source and is not covered by this licence.
 - **The replay pack** on [Record the dataset](/guides/calibration-motion/#replay-it-yourself)
@@ -89,16 +91,19 @@ organisation on Hugging Face. The licence is set per dataset; see
 [Datasets](/datasets/) and the
 [dataset card](https://huggingface.co/datasets/calibench-vi/datasets).
 
-- **VI-Rig recordings (ours):** `virig-4imus-3cams`, `virig-4imus-3cams-aruco`,
-  `virig-4imus-4cams` and `virig-5imus-4cams` are
-  [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Access is
-  gated: accept the terms on the Hub once, then download. Free for research,
-  teaching and other non-commercial use with attribution. Commercial use needs a
-  separate licence: write to licensing@openmvis.com.
-- **Partner recordings:** `looper-insight9` and `gilabs-examples` have the same
-  CC BY-NC 4.0 terms, with the partner's approval. Anyone, a company included,
-  may run a calibration tool on the non-commercial datasets to produce results
-  for the benchmark. The results are CC BY 4.0 (see Calibration results above).
+- **Recordings in `calibench-vi/datasets`:** everything hosted in this
+  repository is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
+  commercial use included. That covers our own VI-Rig captures
+  (`virig-4imus-3cams`, `virig-4imus-3cams-aruco`, `virig-4imus-4cams`,
+  `virig-5imus-4cams`), the partner sets `looper-insight9` and
+  `gilabs-examples`, and the sets under `converted/`. Use, share and adapt them
+  for any purpose with attribution: cite Calibench-VI and the sources, and
+  please acknowledge Looper Robotics and GiLabs for their recordings.
+- **Access is gated:** accept the terms on the Hub once, then download. The gate
+  adds no restriction.
+- **Since 2026-11-25:** from 2026-09-11 to 2026-11-25 the VI-Rig captures, and
+  from 2026-11-03 `looper-insight9` and `gilabs-examples`, were CC BY-NC 4.0. A
+  copy downloaded then may now be used under CC BY 4.0 as well.
 - **Converted third-party sets:** the calibration recordings under `converted/`
   (Monado SLAM datasets MIC, MGC and MOC, and the TUM-VIE frame cameras) stay
   under their original [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
@@ -107,9 +112,14 @@ organisation on Hugging Face. The licence is set per dataset; see
 - **Other third-party datasets:** we do not re-host them. `mvis datasets` and the
   recipes on the dataset card download them from their owners, under the owners'
   terms. TUM-VI, for example, is CC BY 4.0.
-- **Contributed recordings:** recordings in
+- **Community device recordings:** recordings in
   [`calibench-vi/community`](https://huggingface.co/datasets/calibench-vi/community)
-  are CC BY-NC 4.0. See [Submit a dataset](/contribute/submit-dataset/).
+  keep each folder's own licence: CC BY-NC 4.0 unless the folder says otherwise.
+  Anyone, a company included, may run a calibration tool on the CC BY-NC 4.0
+  recordings to produce results for the benchmark; the results are CC BY 4.0
+  (see Calibration results above). Other commercial use of those recordings
+  needs a separate licence: write to licensing@openmvis.com. See
+  [Submit a dataset](/contribute/submit-dataset/).
 
 ## Third-party software
 

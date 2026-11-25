@@ -22,13 +22,13 @@ examples:
       rig: 3 global-shutter cameras + 4 IMUs (100–500 Hz) on one frame
       format: ROS1 bag
       shows: Every camera and IMU solved together in one run, the multi-IMU case
-      tags: [Global shutter, 3 cameras, 4 IMUs, CC BY-NC 4.0]
+      tags: [Global shutter, 3 cameras, 4 IMUs, CC BY 4.0]
     facts:
       - [Cameras, "3 global shutter: Blackfly S + T265 fisheye pair"]
       - [IMUs, "4: Xsens MTi (base), 2 MicroStrain, T265"]
       - [Board, "AprilGrid 6×6, tag 88 mm"]
       - [Format, "ROS1 bag"]
-      - [Licence, "CC BY-NC 4.0"]
+      - [Licence, "CC BY 4.0"]
     lead: "One MVIS camera + IMU run on recording april_01: every camera and all four IMUs solved together."
     dataset: {url: /datasets/virig-4imus-3cams/, label: VI-Rig 4 IMUs + 3 cams dataset page}
     eval: {slug: virig-4imus-3cams, label: All 10 recordings and three tools}
@@ -66,13 +66,13 @@ examples:
       rig: T265 fisheye pair (global) + ELP stereo (rolling) + 4 IMUs (100–500 Hz) on one frame
       format: ROS1 bag
       shows: Global and rolling shutter cameras with four IMUs in one run, readout included
-      tags: [Global + rolling shutter, 4 cameras, 4 IMUs, CC BY-NC 4.0]
+      tags: [Global + rolling shutter, 4 cameras, 4 IMUs, CC BY 4.0]
     facts:
       - [Cameras, "4: T265 fisheye pair (global shutter) + ELP stereo pair (rolling shutter)"]
       - [IMUs, "4: Xsens MTi (base), 2 MicroStrain, T265"]
       - [Board, "AprilGrid 6×6, tag 88 mm"]
       - [Format, "ROS1 bag"]
-      - [Licence, "CC BY-NC 4.0"]
+      - [Licence, "CC BY 4.0"]
     lead: "One MVIS camera + IMU run on recording 4imus_4cams_01: all four cameras and all four IMUs solved together."
     dataset: {url: /datasets/virig-4imus-4cams/, label: VI-Rig 4 IMUs + 4 cams dataset page}
     eval: {slug: virig-4imus-4cams, label: All 15 recordings and tools}
@@ -110,13 +110,13 @@ examples:
       rig: Two T265 fisheye pairs (global) + 5 IMUs (100–500 Hz) on one frame
       format: ROS1 bag
       shows: Two T265 units that are not synced to each other, tied through five IMUs in one run
-      tags: [Global shutter, 4 cameras, 5 IMUs, CC BY-NC 4.0]
+      tags: [Global shutter, 4 cameras, 5 IMUs, CC BY 4.0]
     facts:
       - [Cameras, "4 global shutter: two T265 fisheye pairs"]
       - [IMUs, "5: Xsens MTi (base), 2 MicroStrain, 2 T265"]
       - [Board, "AprilGrid 6×6, tag 88 mm"]
       - [Format, "ROS1 bag"]
-      - [Licence, "CC BY-NC 4.0"]
+      - [Licence, "CC BY 4.0"]
     lead: "One MVIS camera + IMU run on recording 5imus_4cams_01: all four cameras and all five IMUs solved together."
     dataset: {url: /datasets/virig-5imus-4cams/, label: VI-Rig 5 IMUs + 4 cams dataset page}
     eval: {slug: virig-5imus-4cams, label: All 7 recordings}
@@ -272,13 +272,13 @@ examples:
       rig: 2 mono + 1 rolling-shutter colour camera + IMU @ 400 Hz
       format: ROS1 bag (run on EuRoC mav0)
       shows: The rolling-shutter readout solved alongside the global-shutter cameras
-      tags: [Global + rolling shutter, 3 cameras, 400 Hz IMU, CC BY-NC 4.0]
+      tags: [Global + rolling shutter, 3 cameras, 400 Hz IMU, CC BY 4.0]
     facts:
       - [Cameras, "2 × 544×640 mono global shutter + 1920×1088 colour rolling shutter"]
       - [IMU, "400 Hz"]
       - [Board, "AprilGrid 6×6, tag 55 mm"]
       - [Format, "ROS1 bag (this run reads the same recording as EuRoC mav0)"]
-      - [Licence, "CC BY-NC 4.0"]
+      - [Licence, "CC BY 4.0"]
     lead: "One MVIS camera + IMU run on hand-held recording 1: the two mono cameras, the rolling-shutter colour camera and its readout time, solved together."
     dataset: {url: "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/looper-insight9", label: "Calibench-VI, looper-insight9/"}
     sensor: {url: /devices/looper-insight9/, label: Looper Insight 9 in the Device wiki}
@@ -287,7 +287,7 @@ examples:
       - "Hand-held recording 1 of 10, about 66 s. The run uses the whole recording."
       - "Cameras: two 544 × 640 global-shutter mono cameras at 20 Hz and a 1920 × 1088 rolling-shutter colour camera at about 4.3 Hz, all fitted with the equidistant lens model. IMU at 400 Hz."
       - "Board: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11."
-      - "Access is by automatic approval on the Hub; the data is CC BY-NC 4.0, commercial use by request."
+      - "Access is by automatic approval on the Hub; the data is CC BY 4.0, commercial use included."
     config:
       name: looper_insight9_bag1_cam_imu.yaml
       why:
