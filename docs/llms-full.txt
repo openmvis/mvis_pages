@@ -1441,6 +1441,8 @@ one frame off. Give Kalibr a trimmed copy of the bag.
 ## 5. Record and check
 
 - Record the 60 s motion with your rig. For 50 s, drop one in–out and one loop.
+Note where you record (the city, or latitude and altitude): step 4 sets the local gravity from it,
+with the Local gravity calculator.
 
 - Calibrate the cameras with the board block from step 1:
 step 3: camera-only calibration.
