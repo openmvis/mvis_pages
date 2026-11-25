@@ -23,13 +23,25 @@ import { partners } from '../data/partners';
         {p.contact && (
           <p class="pc-contact">{p.contact.map((c) => <a href={c.href}>{c.label}</a>)}</p>
         )}
+        {p.card && (
+          <details class="pc-fold">
+            <summary>Name card</summary>
+            <div class="pc-cardimgs">
+              <figure><a href={p.card.front.src}><img src={p.card.front.src} width="720" height="900" loading="lazy" alt={`${p.name} name card, front`} /></a><figcaption>Front</figcaption></figure>
+              <figure><a href={p.card.back.src}><img src={p.card.back.src} width="720" height="900" loading="lazy" alt={`${p.name} name card, back: the contact details listed below`} /></a><figcaption>Back</figcaption></figure>
+            </div>
+            <dl class="pc-dl">
+              {p.card.lines.map((l) => <Fragment><dt>{l.label}</dt><dd>{l.href ? <a href={l.href}>{l.text}</a> : l.text}</dd></Fragment>)}
+            </dl>
+          </details>
+        )}
       </div>
     </article>
   ))}
 </div>
 
 <style>
-  .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1rem; margin-top: 1.25rem; }
+  .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1rem; margin-top: 1.25rem; align-items: start; }
   .pc-card { display: flex; flex-direction: column; border: 1px solid var(--sl-color-hairline-light); border-radius: 0.75rem; overflow: hidden; background: var(--sl-color-bg); transition: border-color .15s, transform .15s; }
   .pc-card:hover { border-color: var(--sl-color-accent); transform: translateY(-2px); }
   /* Logos are drawn for light backgrounds, so the plate stays white in both themes. */
@@ -49,4 +61,15 @@ import { partners } from '../data/partners';
   .pc-people, .pc-contact { margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--sl-color-gray-2); }
   .pc-label { font-weight: 600; color: var(--sl-color-white); }
   .pc-contact a { font-size: 0.8rem; }
+  /* Name card fold: closed by default; the text list repeats the card for screen readers, search and copying. */
+  .pc-fold { margin-top: 0.45rem; padding-top: 0.45rem; border-top: 1px solid var(--sl-color-hairline-light); }
+  .pc-fold summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--sl-color-accent-high); }
+  .pc-cardimgs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.6rem 0 0.5rem; }
+  .pc-cardimgs figure { margin: 0; }
+  .pc-cardimgs a { display: block; border: 1px solid var(--sl-color-hairline-light); border-radius: 0.4rem; overflow: hidden; }
+  .pc-cardimgs img { display: block; width: 100%; height: auto; }
+  .pc-cardimgs figcaption { margin-top: 0.15rem; font-size: 0.7rem; text-align: center; color: var(--sl-color-gray-3); }
+  .pc-dl { display: grid; grid-template-columns: auto 1fr; gap: 0.1rem 0.7rem; margin: 0; font-size: 0.82rem; }
+  .pc-dl dt { margin: 0; color: var(--sl-color-gray-3); }
+  .pc-dl dd { margin: 0; overflow-wrap: anywhere; }
 </style>
