@@ -231,7 +231,7 @@ estimate:
 ## Camera–IMU config
 
 Top-level sections: `input`, `board`, `camera_input`, `solve`, `estimate`, `output` and
-the optional `reference`.
+the optional `reference`, plus the [gravity keys](#gravity-gravity-and-site).
 Camera–IMU calibration is two steps:
 
 1. Calibrate the cameras ([camera-only config](#camera-only-config)).
@@ -328,6 +328,28 @@ Multi-IMU and expert keys:
 | `max_interp_dt` | `0.3` | Frames between states further apart than this (s) are dropped |
 | `lm_lambda_lower`, `lm_lambda_upper` | `0`, `100` | LM damping bounds |
 
+### Gravity: `gravity` and `site`
+
+Top-level keys, from MVIS 0.4.0. Set the gravity where the data was recorded: the
+accelerometer scale takes up any error in the gravity magnitude
+([Local gravity](/reference/local-gravity/) has the calculator).
+
+```yaml
+gravity: 9.8013   # m/s², Newark, Delaware
+```
+
+| Key | Default | Meaning |
+|---|---|---|
+| `gravity` | none | Gravity in m/s², local or measured. Also accepted as `solve.gravity`. Must be between 9.70 and 9.90 |
+| `site` | none | `{latitude_deg, longitude_deg, altitude_m, name}`: where the data was recorded. MVIS computes WGS84 normal gravity from it, and the report names the place. `altitude_m` defaults to 0; `longitude_deg` and `name` are for display only |
+
+- **Neither:** 9.81 m/s², and the run log warns.
+- **Both:** they must agree to 0.01 m/s², else the config is rejected.
+- **The place in the report:** from MVIS 0.4.1 the comment after the `gravity:` value names it;
+  with `site:` the report names the site.
+- The value used and its source (`default`, `config` or `site`) are in `cam_imu.json`
+  (`gravity_mps2`, `gravity_source`), the calibration YAML and the report.
+
 ### `output`
 
 | Key | Default | Meaning |
@@ -358,6 +380,7 @@ All three cameras and four IMUs of the
 example above as the prior.
 
 ```yaml title="virig_3cams_cam_imu.yaml"
+gravity: 9.8013   # m/s², Newark, Delaware
 mode: cam-imu
 input:
   format: ros1

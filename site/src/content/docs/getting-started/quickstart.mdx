@@ -131,6 +131,9 @@ mvis cam-imu -c examples/configs/tga_mvis/tga_mti_01.yaml
   and time offsets, the IMU intrinsics `Dw` and `Da` in the `calyx`
   convention, the biases, and each IMU's gyro–accel offset `t_ga`.
 - **Window:** `window_mode: motion` picks the 80 s with the most motion.
+- **Gravity:** for your own data, set the local gravity where you recorded as the first
+  line of the config, for example `gravity: 9.8013   # m/s², Newark, Delaware`; the
+  [Local gravity](/reference/local-gravity/) page has a calculator.
 - **Time:** about 13 minutes on our Linux test machine.
 
 It writes next to `output.path` (`results/tga_mvis/mti_01/`):

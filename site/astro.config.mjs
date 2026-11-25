@@ -210,6 +210,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: 'Configuration', link: '/reference/configuration/' },
+            { label: 'Local gravity', link: '/reference/local-gravity/' },
             { label: 'CLI', link: '/reference/cli/' },
             { label: 'Result formats', link: '/reference/result-formats/' },
             { label: 'Capture database', link: '/reference/database/' },

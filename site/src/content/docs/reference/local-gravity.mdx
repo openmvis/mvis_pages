@@ -1,0 +1,44 @@
+---
+title: Local gravity
+description: Look up the gravity where your data was recorded, and the gravity line to put in a camera + IMU config.
+pageType: reference
+---
+
+import GravityCalculator from '../../../components/GravityCalculator.astro';
+
+A camera + IMU solve holds the gravity magnitude fixed. Gravity is most of what an
+accelerometer measures, so the accelerometer scale (`Da`) takes up any error in it.
+Set the gravity where the data was recorded:
+
+```yaml title="cam_imu.yaml"
+gravity: 9.8013   # m/s², Newark, Delaware
+```
+
+Or give the place instead, with `site:`. MVIS takes the latitude and altitude and computes
+WGS84 normal gravity from them, and the report then names the city:
+`site: {latitude_deg: 39.68, altitude_m: 40, name: "Newark, Delaware"}` (`name` is only a
+label). You may give both keys if they agree within 0.01 m/s². From MVIS 0.4.1 the report
+names the place in the comment after the `gravity:` value; with `site:` it names the site.
+
+- **Without either key:** MVIS uses 9.81 m/s² and the run log warns. The accelerometer scale
+  then reads high by 9.81 / g. In Shenzhen g is 0.23 % below 9.81, so the scale reads 0.23 % high;
+  at the equator 0.30 % high; in central Europe close to zero.
+- **A measured value** from a gravity survey also goes in `gravity:`.
+- **Coordinates, not a city name:** names repeat (Córdoba, Spain and Córdoba, Argentina),
+  and a site outside any city still has coordinates from a phone or a map.
+- **Precision:** anywhere in the right city is enough. One degree of latitude moves g by
+  at most 0.01 %, 100 m of altitude by 0.003 %. Altitude matters only for high places
+  (Kunming −0.06 %, Lhasa −0.11 %).
+
+Requires MVIS 0.4.0 or later. The keys and their checks are in
+[Configuration](/reference/configuration/).
+
+## Calculator
+
+Pick a place or type the coordinates. The calculator uses the same formula as MVIS
+(WGS84 normal gravity with the free-air correction) and runs in your browser:
+nothing you type is sent anywhere. It gives the `gravity:` line to copy, and the
+`site:` line under it if you prefer to give the place. With your own coordinates, put
+your label in place of "your place".
+
+<GravityCalculator />

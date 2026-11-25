@@ -331,6 +331,7 @@ sensors:
       - "The time offset is given at the first image row. At mid-image, the time a global-shutter model reports, it is about 7 ms later (+4.5 ms)."
       - "The board is small (about 15 cm), so the image edges are covered less well and the principal point trades with the lens distortion: a Kannala–Brandt model moves it by about 10 px with no change in fit."
       - "The recording runs at 19.7 Hz and the IMU at 381 Hz, below the 30 fps and 400 Hz on the sheet, probably from drops while recording."
+      - "Solved at gravity 9.81 m/s². The local value in Wuhan is 9.7936 m/s²; with it the accel scale moves by about −0.17 %. A re-solve is pending."
     header:
       type: "Stereo depth camera: two rolling-shutter cameras with a 400 Hz IMU"
       maker: {name: Stereolabs, url: "https://www.stereolabs.com/"}

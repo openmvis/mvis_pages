@@ -9,7 +9,7 @@
     "start": "astro dev",
     "build": "astro build && node scripts/post-build.mjs",
     "preview": "astro preview",
-    "test": "node --test scripts/rename-assets.test.mjs scripts/moved-pages.test.mjs scripts/calib-motion.test.mjs scripts/home-hero.test.mjs scripts/llms.test.mjs scripts/components.test.mjs scripts/partners.test.mjs",
+    "test": "node --test scripts/rename-assets.test.mjs scripts/moved-pages.test.mjs scripts/calib-motion.test.mjs scripts/home-hero.test.mjs scripts/llms.test.mjs scripts/components.test.mjs scripts/partners.test.mjs scripts/gravity.test.mjs",
     "astro": "astro"
   },
   "dependencies": {
