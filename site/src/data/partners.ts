@@ -6,6 +6,8 @@ import gilabs from '../assets/partners/gilabs.svg';
 import alg from '../assets/partners/alg.png';
 import tujian from '../assets/partners/tujian.png';
 import dibuli from '../assets/partners/dibuli.svg';
+import feekassFront from '../assets/partners/feekass-card-front.webp';
+import feekassBack from '../assets/partners/feekass-card-back.webp';
 
 export type Link = { label: string; href: string };
 export type Partner = {
@@ -17,6 +19,9 @@ export type Partner = {
   devices: Link[];
   people?: string[];
   contact?: Link[];
+  // Name card the contact sent for this page: both sides, plus the same details as text (images are not readable
+  // by screen readers or search). Rendered as a closed fold on the Acknowledgements card.
+  card?: { front: { src: string }; back: { src: string }; lines: { label: string; text: string; href?: string }[] };
 };
 
 export const partners: Partner[] = [
@@ -64,10 +69,20 @@ export const partners: Partner[] = [
     // people: pending the contact's OK to be named (2026-11-19)
   },
   {
-    name: 'Borme', full: 'Shenzhen Feikasi Industrial',
+    name: 'Feekass', full: 'Shenzhen Feekass (Feikasi Industrial), brand Borme',
     site: 'https://www.alibaba.com/product-detail/1080P-Global-Shutter-Binocular-IMU-Camera_1601882874490.html',
     shared: 'Recordings of two headset units',
     devices: [{ label: 'XQ20 headset', href: '/devices/xq20/' }],
-    people: ['Zhao Peiyu (赵培禹)'],
+    people: ['Peyton Zhao (Zhao Peiyu, 赵培禹), sales representative'],
+    contact: [{ label: 'borme02@fkscam.com', href: 'mailto:borme02@fkscam.com' }],
+    card: {
+      front: feekassFront, back: feekassBack,
+      lines: [
+        { label: 'WhatsApp / mobile', text: '+86 130 5808 0347', href: 'https://wa.me/8613058080347' },
+        { label: 'WeChat', text: 'zpyyy0111' },
+        { label: 'Email', text: 'borme02@fkscam.com', href: 'mailto:borme02@fkscam.com' },
+        { label: 'Store', text: 'XQ20 on Alibaba', href: 'https://www.alibaba.com/product-detail/1080P-Global-Shutter-Binocular-IMU-Camera_1601882874490.html' },
+      ],
+    },
   },
 ];
