@@ -76,6 +76,9 @@ With `output.path: results/run/cam_imu.json`:
 | `Dw_diag`, `Da_diag` | Diagonals of the base IMU's gyroscope and accelerometer matrices |
 | `Dw_scale`, `Dw_shear`, `gyro_misalign_rotvec` | `calyx` only: `Dw` split into a rotation (log(R), rad) and an upper-triangular part with the scales on its diagonal |
 | `t_ga_ms`, `t_ga_sigma_ms` | Base IMU gyro-to-accelerometer time offset and its 1σ (ms) |
+| `gravity_mps2`, `gravity_source` | The gravity the solve used (m/s²) and where it came from: `default` (9.81, neither `gravity:` nor `site:` in the config), `config` (`gravity:`) or `site` (WGS84 normal gravity at `site:`) |
+| `gravity_site` | With `site:` in the config: `name`, `latitude_deg`, `longitude_deg`, `altitude_m` and `g_site`, the normal gravity there (m/s²). The report names it |
+| `init_gates` | Checks on the initial guess, not on the solve: `g_norm_ls` (the gravity norm the unconstrained initial fit found, m/s²), `g_norm_ok`, `scale` (the board-to-motion scale of that fit), `scale_ok` (within 3 % of 1). A failed gate is a warning; `ok` does not use them |
 | `imus[]` | Per auxiliary IMU: `td_ms`, `t_ga_ms`, `chi2_dof`, `p_IsinI_mm` (position in the base IMU frame), `rotvec`, `Dw_diag`, `Da_diag` |
 | `board` | Board pose against gravity: `T_BinW`, `g_inB`, `normal_tilt_deg`, `g_inplane_deg`; `shape` with `estimate.board_points: true` |
 

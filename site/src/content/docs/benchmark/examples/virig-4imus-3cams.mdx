@@ -27,7 +27,13 @@ import ExamplePart from '../../../../components/ExamplePart.astro';
 
 ## Config and run
 
-```yaml title="virig_4imus_3cams_cam_imu.yaml" {8-13,24-27,31,36,38}
+```yaml title="virig_4imus_3cams_cam_imu.yaml" {1-6,14-19,31-34,40,46,48}
+gravity: 9.81
+site:
+  latitude_deg: 39.68
+  longitude_deg: -75.75
+  altitude_m: 40
+  name: Newark, DE (Univ. of Delaware)
 input:
   format: ros1
   path: virig_4imus_3cams_april_01.bag
@@ -49,6 +55,7 @@ board:
   tag_size: 0.088
   tag_spacing: 0.3
   tag_family: t36h11
+  heights_file: null
 camera_input:
   path: mvis_4imus_3cams_calib.yaml
   cameras:
@@ -58,10 +65,13 @@ camera_input:
 solve:
   max_iterations: 40
   corner_subsample: two_anti
+  estimate_t_ga: true
+  sigma_t_ga: 0.01
   sigma_g: 0.00065
   sigma_a: 0.0026
   sigma_bg: 0.001
   sigma_ba: 0.002
+  vision_pose: imu
 estimate:
   board_points: true
   camera:

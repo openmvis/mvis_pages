@@ -38,6 +38,12 @@ def test_collect_labels_takes_and_hashes_the_recording(world):
     assert len(c["rig-photo"]["series"][0]["runs"]) == 3 and c["rig-photo"]["variants"][0]["ref"] is None
 
 
+def test_collect_takes_a_given_sha256_when_the_recording_is_gone(world):
+    cfg = {**world["cfg"], "sensors": {**world["cfg"]["sensors"]}}
+    cfg["sensors"]["rig-photo"] = {**cfg["sensors"]["rig-photo"], "sha256_of": "{Y}/gone.bin", "sha256": "ab" * 32}
+    assert X.collect(world["pub"], cfg)["rig-photo"]["sha"] == "ab" * 32
+
+
 def test_collect_drops_reference_columns_even_from_a_full_config(world):
     full = yaml.safe_load(world["cfg_path"].read_text())
     assert X.collect(world["pub"], full)["rig-photo"]["variants"][0]["ref"] is None

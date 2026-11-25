@@ -27,7 +27,13 @@ import ExamplePart from '../../../../components/ExamplePart.astro';
 
 ## Config and run
 
-```yaml title="virig_4imus_4cams_cam_imu.yaml" {9-14,26-32,39,44,46}
+```yaml title="virig_4imus_4cams_cam_imu.yaml" {1-6,15-20,32-38,45,50,52}
+gravity: 9.81
+site:
+  latitude_deg: 39.68
+  longitude_deg: -75.75
+  altitude_m: 40
+  name: Newark, DE (Univ. of Delaware)
 input:
   format: ros1
   path: 4imus_4cams_01.bag

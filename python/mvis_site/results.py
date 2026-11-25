@@ -243,7 +243,7 @@ def load_sensor(key: str, s: dict, cfg: dict) -> dict:
 
 
 
-SOLVE_KEYS = ("variants", "board", "series", "sha256_of", "demo_media")
+SOLVE_KEYS = ("variants", "board", "series", "sha256_of", "sha256", "demo_media")  # sha256: the hash, when the file is gone
 
 
 def solve_config(cfg: dict) -> dict:

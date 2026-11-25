@@ -40,6 +40,8 @@ examples:
     config:
       name: virig_4imus_3cams_cam_imu.yaml
       why:
+        gravity: "Kept at 9.81 m/s²: the normal gravity at Newark, DE differs from it by under 0.1 %."
+        site: Names the recording site in the report; with gravity set, it does not change g.
         input.imu_topics: Four IMU topics. The first is the base IMU; the other three are solved against it.
         input.window_mode: MVIS picks the 80 s window with the most motion.
         camera_input.cameras: The two T265 cameras are added to the graph at 4 Hz, which keeps the solve small.
@@ -51,7 +53,7 @@ examples:
         No published calibration exists for this rig, so this page has nothing to compare against. What we can show is
         how much each value moves from one recording to the next.
     reproduce:
-      batch: MVIS main, measured-noise batch of 2026-11-08
+      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
   virig-4imus-4cams:
     title: "VI-Rig: 4 IMUs + 4 cameras"
     nav: VI-Rig 4 IMUs + 4 cams
@@ -82,6 +84,8 @@ examples:
     config:
       name: virig_4imus_4cams_cam_imu.yaml
       why:
+        gravity: "Kept at 9.81 m/s²: the normal gravity at Newark, DE differs from it by under 0.1 %."
+        site: Names the recording site in the report; with gravity set, it does not change g.
         input.imu_topics: Four IMU topics. The first is the base IMU; the other three are solved against it.
         input.window_mode: MVIS picks the 80 s window with the most motion.
         camera_input.cameras: The ELP cameras are rolling shutter, so their readout time is estimated. The three cameras after the first are added to the graph at 4 Hz, which keeps the solve small.
@@ -93,7 +97,7 @@ examples:
         No published calibration exists for this rig, so this page has nothing to compare against. What we can show is
         how much each value moves from one recording to the next.
     reproduce:
-      batch: "MVIS main, 2026-11-10"
+      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
   virig-5imus-4cams:
     title: "VI-Rig: 5 IMUs + 4 cameras"
     nav: VI-Rig 5 IMUs + 4 cams
@@ -124,6 +128,8 @@ examples:
     config:
       name: virig_5imus_4cams_cam_imu.yaml
       why:
+        gravity: "Kept at 9.81 m/s²: the normal gravity at Newark, DE differs from it by under 0.1 %."
+        site: Names the recording site in the report; with gravity set, it does not change g.
         input.imu_topics: Five IMU topics. The first is the base IMU; the other four are solved against it.
         input.window_mode: MVIS picks the 80 s window with the most motion; this recording is shorter, so all of it is used.
         camera_input.cameras: The three cameras after the first are added to the graph at 4 Hz, which keeps the solve small.
@@ -136,7 +142,7 @@ examples:
         No published calibration exists for this rig, so this page has nothing to compare against. What we can show is
         how much each value moves from one recording to the next.
     reproduce:
-      batch: "MVIS main, 2026-11-10"
+      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
   tum-vi:
     title: TUM-VI
     nav: TUM-VI
@@ -165,6 +171,8 @@ examples:
     config:
       name: tum_vi_imu1_cam_imu.yaml
       why:
+        gravity: "Kept at 9.81 m/s²: the normal gravity at Garching differs from it by under 0.1 %."
+        site: Names the recording site in the report; with gravity set, it does not change g.
         input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
         camera_input.path: "Seed intrinsics: kb4 values from MVIS camera-only solves of TUM's eight camera recordings."
         camera_input.cameras: cam1 is added to the graph at 8 Hz, which keeps the solve small.
@@ -183,7 +191,7 @@ examples:
         - "The rotation differs by about 9.4 mrad on both cameras. That offset is systematic: MVIS gives the same rotation on all four TUM calibration recordings. It is not explained yet. One possible cause, not verified: this run uses the raw IMU, while TUM's Kalibr run used an IMU model it had already calibrated, so the two IMU frames may differ by a small rotation."
         - "Lens model note: on these lenses the kb4 polynomial folds back inside the image, past about 114° (682 px from the centre) on cam0 and 119° (705 px) on cam1. The model gives no ray beyond that radius."
     reproduce:
-      batch: MVIS main, example solves of 2026-11-10
+      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
     folds:
       - title: Other lens models
         key: kb4 is shown here
@@ -220,6 +228,7 @@ examples:
     config:
       name: monado_mgc_imucalib01_cam_imu.yaml
       why:
+        site: "Recorded in Córdoba, Argentina. MVIS uses the WGS84 normal gravity there, 9.7931 m/s² (−0.17 % from 9.81), and the report names it."
         board.tag_size: "The 30 mm tag. A wrong tag size gives a calibration that converges cleanly and is uniformly wrong in scale."
         input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
         camera_input.cameras: cam1 is added to the graph at 8 Hz, which keeps the solve small.
@@ -237,7 +246,7 @@ examples:
       notes:
         - "Monado ships a second, equidistant calibration of the same headset. Its rotations differ from this file's by about 4.5 mrad, so a few mrad is within how much the references themselves disagree."
     reproduce:
-      batch: MVIS main, example solves of 2026-11-10
+      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
     folds:
       - title: The other two camera pairs
         key: Device wiki
@@ -281,6 +290,7 @@ examples:
     config:
       name: looper_insight9_bag1_cam_imu.yaml
       why:
+        site: "Recorded in Shenzhen, China. MVIS uses the WGS84 normal gravity there, 9.7879 m/s² (−0.23 % from 9.81), and the report names it."
         camera_input.free_intrinsics: Camera intrinsics stay free in the camera + IMU solve.
         camera_input.cameras: The colour camera (cam2) has a rolling shutter, so its readout time is estimated.
         solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
@@ -290,7 +300,7 @@ examples:
         No published calibration exists for this device, so this page has nothing to compare against. What we can show
         is how much each value moves over the 10 hand-held recordings.
     reproduce:
-      batch: MVIS main, measured-noise batch of 2026-11-08
+      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
     folds:
       - title: Chessboard and robot-arm recordings
         key: Device wiki
@@ -326,6 +336,8 @@ examples:
     config:
       name: uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
       why:
+        gravity: "Kept at 9.81 m/s²: the normal gravity at Dübendorf differs from it by under 0.1 %."
+        site: Names the recording site in the report; with gravity set, it does not change g.
         board: "The UZH board: AprilGrid 5×4, tag 75 mm, spacing 0.2."
         camera_input.path: "Seed intrinsics: UZH's own camera-only Kalibr calibration, equidistant lens. MVIS refines them in this solve."
         solve.sigma_g: IMU noise from the residuals of UZH's own Kalibr results, as UZH publishes no measured density. The other three sigmas are set the same way.
@@ -340,7 +352,7 @@ examples:
       notes:
         - "Kalibr held the intrinsics fixed at UZH's camera-only calibration; MVIS refines them, which explains most of the Δfx."
     reproduce:
-      batch: MVIS main, example solves of 2026-11-10
+      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
     other:
       title: The other device, mDAVIS346
       lead: "Recording outdoor_forward_calib_davis: one 346 × 260 camera and the sensor's integrated IMU at about 1 kHz, same board. Its result is a table only; this page has one map."
