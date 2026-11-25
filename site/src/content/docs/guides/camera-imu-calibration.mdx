@@ -51,10 +51,11 @@ camera_input:
 ## 2. Write the config
 
 This is the config of the [VI-Rig 4 IMUs + 4 cameras example](/benchmark/examples/virig-4imus-4cams/),
-recording 01. The highlighted lines matter for this step.
+recording 01, with two changes: `site:` sets the local gravity (the example keeps 9.81), and every corner enters the
+solve (the example uses `two_anti`). The highlighted lines matter for this step.
 
 ```yaml title="virig_4imus_4cams_cam_imu.yaml" {1,3-4,10-16,24,26,36-43,45,47,49-50,52-55}
-site: {latitude_deg: 39.68, longitude_deg: -75.75, altitude_m: 40, name: "Newark, DE (Univ. of Delaware)"}
+site: {latitude_deg: 39.68, longitude_deg: -75.75, altitude_m: 40, name: "Newark, DE (Univ. of Delaware)"}  # sets gravity: 9.8013 m/s²
 input:
   format: ros1
   path: 4imus_4cams_01.bag
@@ -114,7 +115,20 @@ output:
 
 What the highlighted lines do:
 
-- **`site`: set it to where you recorded.** MVIS turns latitude and altitude into the local gravity (WGS84 normal gravity). For your own data, replace the values: `site: {latitude_deg: 22.54, altitude_m: 20, name: Shenzhen}` (south of the equator the latitude is negative; `longitude_deg` and `name` only label the report). If you know the value, give it instead: `gravity: 9.7879` (m/s²). With neither, MVIS uses 9.81 and warns in the run log, and the accelerometer scale `Da` takes up the difference: up to 0.3 % near the equator. VI-Rig was recorded in Newark, Delaware: 9.8013 m/s², only −0.09 % from 9.81. The [local gravity notes](https://github.com/openmvis/openmvis/blob/main/doc/local_gravity.md) have a table of cities.
+- **`site`: the gravity.** MVIS holds the gravity magnitude fixed in the solve, so the accelerometer scale `Da`
+  takes up any error in it. Set it for your own recording in one of two ways:
+  - **The value, if you know it:** replace the `site:` line with one line.
+    ```yaml
+    gravity: 9.8013   # m/s², Newark, Delaware
+    ```
+    The [table of common places](https://github.com/openmvis/openmvis/blob/main/doc/local_gravity.md#common-recording-places)
+    gives g for cities from Singapore to London. The report then says the value was set in the config.
+  - **The place:** `site:` as in this config. MVIS computes the WGS84 normal gravity from `latitude_deg`
+    (negative south of the equator) and `altitude_m`; `longitude_deg` and `name` only label the report, which then
+    names the city.
+
+  With neither, MVIS uses 9.81 m/s² and warns in the run log; near the equator `Da` then reads up to 0.3 % high.
+  At Newark the difference is only −0.09 %.
 - **`input`:** a ROS1 bag. The first `imu_topics` entry (`/imu/data`, the Xsens) is the **base IMU**. Every other sensor is solved relative to it.
 - **`window_mode: motion`:** MVIS uses the `segment_length` seconds (here 80 s) with the most IMU motion.
 - **`board.heights_file` + `estimate.board_points: true`:** solve the board shape too, starting from a measured shape. [`board_shape_4imus_4cams.yaml`](https://github.com/openmvis/openmvis/blob/main/examples/regression/mvis_elp/board_shape_4imus_4cams.yaml) ships with MVIS in `examples/regression/mvis_elp/`. Our board is not flat; a flat solve shifts the gyro scale and the lever arm ([why](/why/board-shape/)).
