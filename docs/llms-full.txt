@@ -1113,6 +1113,10 @@ convention, the biases, and each IMU’s gyro–accel offset t_ga.
 
 - Window: window_mode: motion picks the 80 s with the most motion.
 
+- Gravity: for your own data, set the local gravity where you recorded as the first
+line of the config, for example gravity: 9.8013 # m/s², Newark, Delaware; the
+Local gravity page has a calculator.
+
 - Time: about 13 minutes on our Linux test machine.
 
 It writes next to output.path (results/tga_mvis/mti_01/):
@@ -2087,11 +2091,11 @@ So the report lists the T265 cameras as equidistant.
 ## 2. Write the config
 
 This is the config of the VI-Rig 4 IMUs + 4 cameras example,
-recording 01, with two changes: site: sets the local gravity (the example keeps 9.81), and every corner enters the
-solve (the example uses two_anti). The highlighted lines matter for this step.
+recording 01, with two changes: gravity: 9.8013 in place of the example’s gravity: 9.81 and its site: block,
+and every corner enters the solve in place of two_anti. The highlighted lines matter for this step.
 
 virig_4imus_4cams_cam_imu.yaml
-site : { latitude_deg : 39.68 , longitude_deg : -75.75 , altitude_m : 40 , name : " Newark, DE (Univ. of Delaware) " } # sets gravity: 9.8013 m/s²
+gravity : 9.8013 # m/s², Newark, Delaware
 
 input :
 
@@ -2206,19 +2210,15 @@ path : cam_imu.json
 What the highlighted lines do:
 
 -
-site: the gravity. MVIS holds the gravity magnitude fixed in the solve, so the accelerometer scale Da
-takes up any error in it. Set it for your own recording in one of two ways:
+gravity: the local gravity, in m/s². MVIS holds the gravity magnitude fixed in the solve, so the
+accelerometer scale Da takes up any error in it. Set the value where you recorded: the
+Local gravity page has a calculator and a table of cities from Singapore to London.
+The report then says the value was set in the config; from MVIS 0.4.1 it also names the place in the comment.
 
-- The value, if you know it: replace the site: line with one line.
-
-gravity : 9.8013 # m/s², Newark, Delaware
-
-The table of common places
-gives g for cities from Singapore to London. The report then says the value was set in the config.
-
-- The place: site: as in this config. MVIS computes the WGS84 normal gravity from latitude_deg
-(negative south of the equator) and altitude_m; longitude_deg and name only label the report, which then
-names the city.
+Or give the place with site:, for example
+site: {latitude_deg: 39.68, altitude_m: 40, name: "Newark, Delaware"}. MVIS computes the WGS84 normal gravity
+from latitude_deg (negative south of the equator) and altitude_m, and the report names the site. You can give
+both keys if they agree within 0.01 m/s².
 
 With neither, MVIS uses 9.81 m/s² and warns in the run log; near the equator Da then reads up to 0.3 % high.
 At Newark the difference is only −0.09 %.
@@ -2296,10 +2296,10 @@ mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 
 - Other bag: --bag <file> replaces the config’s source with that ROS1 bag.
 
-- Time: 29 min in our run (MVIS 0.4.0, 2026-11-24), on 16 CPU cores with
+- Time: 31 min in our run (MVIS 0.4.1, 2026-11-25), on 16 CPU cores with
 one thread for the linear-algebra libraries, with other jobs on the machine.
-About 16 min of that is AprilTag detection on the four cameras; the solve
-stages take about 13 min, of which the 6 iterations take about 9 min
+About 12 min of that is AprilTag detection on the four cameras; the solve
+stages take about 19 min, of which the 6 iterations take about 16 min
 (solve_s in the report’s Appendix, Timing).
 
 - Output: in the folder of output.path:
@@ -2324,7 +2324,7 @@ are on the example page.
 The report. Every run writes cam_imu_report.html next to cam_imu.json.
 It has these sections:
 
-- Summary: status, the gravity used and the site it came from, reprojection median and P95, χ²/dof of the camera and
+- Summary: status, the gravity used and where it came from (the config value, or the site and its city), reprojection median and P95, χ²/dof of the camera and
 IMU terms with a grade each, and the base IMU’s t_ga. χ²/dof near 1 means
 the residuals match the noise you set; well below 1 (0.13 here) means the
 noise settings are conservative.
@@ -3323,7 +3323,7 @@ digital-twin check.
 
 ## 4. Results on the running example
 
-The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-24 with MVIS 0.4.0, local gravity at Newark (9.8013 m/s²).
+The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-25 with MVIS 0.4.1, local gravity at Newark (gravity: 9.8013 # m/s², Newark, Delaware).
 Result: PASS. All 16 IMU checks (4 per IMU) and all 5 geometry checks (4 levers, 1 baseline) pass.
 
 IMUs: what calibration A measured collapses. A ran on the raw bag, B on the corrected bag. A right
@@ -3774,6 +3774,9 @@ Corrected bag, no injected delay. Scale error is the largest |scale − 1| over 
 everything else unchanged. That is 11 recordings per device; the true t_ga of each is $\tau$.
 
 - Run: all three tools on every recording, with the settings above.
+
+- Gravity: the T265 sweep was solved at 9.81 m/s², before 2026-11-25. The example config now sets
+9.8013 (Newark); with it the accel scale moves by about −0.09 %.
 
 Accel delayed by τ. MVIS puts it in t_ga (solid blue) and keeps td flat (dashed); Kalibr and Basalt have
 no t_ga, so their td takes a steady share of τ.
@@ -8696,7 +8699,7 @@ No published reference. No published calibration exists for this rig, so this pa
 ## Config and run
 
 virig_4imus_3cams_cam_imu.yaml
-gravity : 9.81
+gravity : 9.81 # m/s², Newark, DE (Univ. of Delaware); local 9.8013, under 0.1 %
 
 site :
 
@@ -8817,15 +8820,15 @@ mvis cam-imu -c virig_4imus_3cams_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- gravity: Kept at 9.81 m/s²: the normal gravity at Newark, DE differs from it by under 0.1 %.
-- site: Names the recording site in the report; with gravity set, it does not change g.
+- gravity: Kept at 9.81 m/s² for Newark, DE (Univ. of Delaware): the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value.
+- site: The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report.
 - input.imu_topics: Four IMU topics. The first is the base IMU; the other three are solved against it.
 - input.window_mode: MVIS picks the 80 s window with the most motion.
 - camera_input.cameras: The two T265 cameras are added to the graph at 4 Hz, which keeps the solve small.
 - solve.sigma_g: IMU noise from a still recording of this rig, measured density × 2.5. The other three sigmas are set the same way.
 - estimate.board_points: The printed board is not quite flat, so its shape is estimated too.
 - estimate.camera.intrinsics: Camera intrinsics stay free in the camera + IMU solve.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 The solve took about 20 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS 0.4.0, re-solve of 2026-11-24
 Run date: 2026-11-24
@@ -8895,7 +8898,7 @@ No published reference. No published calibration exists for this rig, so this pa
 ## Config and run
 
 virig_4imus_4cams_cam_imu.yaml
-gravity : 9.81
+gravity : 9.81 # m/s², Newark, DE (Univ. of Delaware); local 9.8013, under 0.1 %
 
 site :
 
@@ -9024,15 +9027,15 @@ mvis cam-imu -c virig_4imus_4cams_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- gravity: Kept at 9.81 m/s²: the normal gravity at Newark, DE differs from it by under 0.1 %.
-- site: Names the recording site in the report; with gravity set, it does not change g.
+- gravity: Kept at 9.81 m/s² for Newark, DE (Univ. of Delaware): the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value.
+- site: The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report.
 - input.imu_topics: Four IMU topics. The first is the base IMU; the other three are solved against it.
 - input.window_mode: MVIS picks the 80 s window with the most motion.
 - camera_input.cameras: The ELP cameras are rolling shutter, so their readout time is estimated. The three cameras after the first are added to the graph at 4 Hz, which keeps the solve small.
 - solve.sigma_g: The same IMU noise values as the 3-camera example, which has the same Xsens base IMU.
 - estimate.board_points: The printed board is not quite flat, so its shape is estimated too.
 - estimate.camera.intrinsics: Camera intrinsics stay free in the camera + IMU solve.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 The solve took about 21 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS 0.4.0, re-solve of 2026-11-24
 Run date: 2026-11-24
@@ -9103,7 +9106,7 @@ No published reference. No published calibration exists for this rig, so this pa
 ## Config and run
 
 virig_5imus_4cams_cam_imu.yaml
-gravity : 9.81
+gravity : 9.81 # m/s², Newark, DE (Univ. of Delaware); local 9.8013, under 0.1 %
 
 site :
 
@@ -9216,8 +9219,8 @@ mvis cam-imu -c virig_5imus_4cams_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- gravity: Kept at 9.81 m/s²: the normal gravity at Newark, DE differs from it by under 0.1 %.
-- site: Names the recording site in the report; with gravity set, it does not change g.
+- gravity: Kept at 9.81 m/s² for Newark, DE (Univ. of Delaware): the local gravity there, 9.8013 m/s², differs from it by under 0.1 %. Set your own local value.
+- site: The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report.
 - input.imu_topics: Five IMU topics. The first is the base IMU; the other four are solved against it.
 - input.window_mode: MVIS picks the 80 s window with the most motion; this recording is shorter, so all of it is used.
 - camera_input.cameras: The three cameras after the first are added to the graph at 4 Hz, which keeps the solve small.
@@ -9225,7 +9228,7 @@ The marked lines are the choices that matter for this rig:
 - solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer. The T265 IMUs need it most.
 - estimate.board_points: The printed board is not quite flat, so its shape is estimated too.
 - estimate.camera.intrinsics: Camera intrinsics stay free in the camera + IMU solve.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 The solve took about 15 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS 0.4.0, re-solve of 2026-11-24
 Run date: 2026-11-24
@@ -9305,7 +9308,7 @@ Lens model note: on these lenses the kb4 polynomial folds back inside the image,
 ## Config and run
 
 tum_vi_imu1_cam_imu.yaml
-gravity : 9.81
+gravity : 9.81 # m/s², TUM Garching, Germany; local 9.8077, under 0.1 %
 
 site :
 
@@ -9404,15 +9407,15 @@ mvis cam-imu -c tum_vi_imu1_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- gravity: Kept at 9.81 m/s²: the normal gravity at Garching differs from it by under 0.1 %.
-- site: Names the recording site in the report; with gravity set, it does not change g.
+- gravity: Kept at 9.81 m/s² for TUM Garching, Germany: the local gravity there, 9.8077 m/s², differs from it by under 0.1 %. Set your own local value.
+- site: The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report.
 - input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
 - camera_input.path: Seed intrinsics: kb4 values from MVIS camera-only solves of TUM's eight camera recordings.
 - camera_input.cameras: cam1 is added to the graph at 8 Hz, which keeps the solve small.
 - solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
 - estimate.camera.intrinsics: Camera intrinsics stay free in the camera + IMU solve.
 - estimate.imu: The gyro and accelerometer scale and misalignment (dw_da) are estimated too. IMU noise is left at the MVIS defaults.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 The solve took about 10 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS 0.4.0, re-solve of 2026-11-24
 Run date: 2026-11-24
@@ -9492,6 +9495,8 @@ Monado ships a second, equidistant calibration of the same headset. Its rotation
 ## Config and run
 
 monado_mgc_imucalib01_cam_imu.yaml
+gravity : 9.7931 # m/s², Córdoba, Argentina
+
 site :
 
 latitude_deg : -31.42
@@ -9591,13 +9596,14 @@ mvis cam-imu -c monado_mgc_imucalib01_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- site: Recorded in Córdoba, Argentina. MVIS uses the WGS84 normal gravity there, 9.7931 m/s² (−0.17 % from 9.81), and the report names it.
+- gravity: The local gravity in Córdoba, Argentina, where it was recorded: 9.7931 m/s², 0.17 % below 9.81. With 9.81 the accel scale would read 0.17 % high.
+- site: The alternative to gravity: the recording site. MVIS computes the same 9.7931 m/s² from it, and the report names the city.
 - board.tag_size: The 30 mm tag. A wrong tag size gives a calibration that converges cleanly and is uniformly wrong in scale.
 - input.window_mode: MVIS picks the 80 s window with the most motion; a shorter recording is used whole.
 - camera_input.cameras: cam1 is added to the graph at 8 Hz, which keeps the solve small.
 - solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
 - estimate.camera.intrinsics: Camera intrinsics stay free in the camera + IMU solve.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 The solve took about 7 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS 0.4.0, re-solve of 2026-11-24
 Run date: 2026-11-24
@@ -9668,6 +9674,8 @@ No published reference. No published calibration exists for this device, so this
 ## Config and run
 
 looper_insight9_bag1_cam_imu.yaml
+gravity : 9.7879 # m/s², Shenzhen, China
+
 site :
 
 latitude_deg : 22.54
@@ -9785,12 +9793,13 @@ mvis cam-imu -c looper_insight9_bag1_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- site: Recorded in Shenzhen, China. MVIS uses the WGS84 normal gravity there, 9.7879 m/s² (−0.23 % from 9.81), and the report names it.
+- gravity: The local gravity in Shenzhen, China, where it was recorded: 9.7879 m/s², 0.23 % below 9.81. With 9.81 the accel scale would read 0.23 % high.
+- site: The alternative to gravity: the recording site. MVIS computes the same 9.7879 m/s² from it, and the report names the city.
 - camera_input.free_intrinsics: Camera intrinsics stay free in the camera + IMU solve.
 - camera_input.cameras: The colour camera (cam2) has a rolling shutter, so its readout time is estimated.
 - solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
 - solve.sigma_g: IMU noise from a still recording of this unit, measured density × 2.5. The other three sigmas are set the same way.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 The solve took about 7 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS 0.4.0, re-solve of 2026-11-24
 Run date: 2026-11-24
@@ -9872,7 +9881,7 @@ Kalibr held the intrinsics fixed at UZH's camera-only calibration; MVIS refines 
 ## Config and run
 
 uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
-gravity : 9.81
+gravity : 9.81 # m/s², Innovation Park Zürich, Dübendorf, Switzerland; local 9.8070, under 0.1 %
 
 site :
 
@@ -9937,13 +9946,13 @@ mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- gravity: Kept at 9.81 m/s²: the normal gravity at Dübendorf differs from it by under 0.1 %.
-- site: Names the recording site in the report; with gravity set, it does not change g.
+- gravity: Kept at 9.81 m/s² for Innovation Park Zürich, Dübendorf, Switzerland: the local gravity there, 9.8070 m/s², differs from it by under 0.1 %. Set your own local value.
+- site: The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report.
 - board: The UZH board: AprilGrid 5×4, tag 75 mm, spacing 0.2.
 - camera_input.path: Seed intrinsics: UZH's own camera-only Kalibr calibration, equidistant lens. MVIS refines them in this solve.
 - solve.sigma_g: IMU noise from the residuals of UZH's own Kalibr results, as UZH publishes no measured density. The other three sigmas are set the same way.
 - solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 The solve took about 5 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
 MVIS: MVIS 0.4.0, re-solve of 2026-11-24
 Run date: 2026-11-24
@@ -9965,7 +9974,7 @@ AprilGrid 4 × 5, 435 × 345 mm. Standard pattern, to scale
 ## The other device, mDAVIS346
 
 uzh_fpv_davis_outdoor_forward_cam_imu.yaml
-gravity : 9.81
+gravity : 9.81 # m/s², Innovation Park Zürich, Dübendorf, Switzerland; local 9.8070, under 0.1 %
 
 site :
 
@@ -10044,7 +10053,7 @@ Kalibr held the intrinsics fixed at UZH's camera-only calibration; MVIS refines 
 The marked lines are the choices that matter for this rig:
 
 - solve.sigma_g: IMU noise from the residuals of UZH's own Kalibr results for this recording. The other three sigmas are set the same way.
-This is the config of the run on this page, with every path cut to its file name. Point the paths at your copy.
+This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 
 ## More on this data
 
@@ -15886,7 +15895,7 @@ board_points : true
 ## Camera–IMU config
 
 Top-level sections: input, board, camera_input, solve, estimate, output and
-the optional reference.
+the optional reference, plus the gravity keys.
 Camera–IMU calibration is two steps:
 
 - Calibrate the cameras (camera-only config).
@@ -15981,6 +15990,28 @@ tga_relin_threshold_s | 0.003 | Integrate an IMU’s factors again when its t_ga
 max_interp_dt | 0.3 | Frames between states further apart than this (s) are dropped |
 lm_lambda_lower, lm_lambda_upper | 0, 100 | LM damping bounds |
 
+### Gravity: gravity and site
+
+Top-level keys, from MVIS 0.4.0. Set the gravity where the data was recorded: the
+accelerometer scale takes up any error in the gravity magnitude
+(Local gravity has the calculator).
+
+gravity : 9.8013 # m/s², Newark, Delaware
+
+Key | Default | Meaning |
+gravity | none | Gravity in m/s², local or measured. Also accepted as solve.gravity. Must be between 9.70 and 9.90 |
+site | none | {latitude_deg, longitude_deg, altitude_m, name}: where the data was recorded. MVIS computes WGS84 normal gravity from it, and the report names the place. altitude_m defaults to 0; longitude_deg and name are for display only |
+
+- Neither: 9.81 m/s², and the run log warns.
+
+- Both: they must agree to 0.01 m/s², else the config is rejected.
+
+- The place in the report: from MVIS 0.4.1 the comment after the gravity: value names it;
+with site: the report names the site.
+
+- The value used and its source (default, config or site) are in cam_imu.json
+(gravity_mps2, gravity_source), the calibration YAML and the report.
+
 ### output
 
 Key | Default | Meaning |
@@ -16009,6 +16040,8 @@ VI-Rig 4 IMUs + 3 cams set, with the camera result of the
 example above as the prior.
 
 virig_3cams_cam_imu.yaml
+gravity : 9.8013 # m/s², Newark, Delaware
+
 mode : cam-imu
 
 input :
@@ -19137,3 +19170,79 @@ IMUs
 
 - TDK InvenSense MPU-6500 iniVation mDAVIS346
 - TDK InvenSense MPU-9250 Snapdragon Flight
+
+
+---
+
+# Local gravity | OpenMVIS
+
+URL: https://openmvis.com/reference/local-gravity/
+
+A camera + IMU solve holds the gravity magnitude fixed. Gravity is most of what an
+accelerometer measures, so the accelerometer scale (Da) takes up any error in it.
+Set the gravity where the data was recorded:
+
+cam_imu.yaml
+gravity : 9.8013 # m/s², Newark, Delaware
+
+Or give the place instead, with site:. MVIS takes the latitude and altitude and computes
+WGS84 normal gravity from them, and the report then names the city:
+site: {latitude_deg: 39.68, altitude_m: 40, name: "Newark, Delaware"} (name is only a
+label). You may give both keys if they agree within 0.01 m/s². From MVIS 0.4.1 the report
+names the place in the comment after the gravity: value; with site: it names the site.
+
+- Without either key: MVIS uses 9.81 m/s² and the run log warns. The accelerometer scale
+then reads high by 9.81 / g. In Shenzhen g is 0.23 % below 9.81, so the scale reads 0.23 % high;
+at the equator 0.30 % high; in central Europe close to zero.
+
+- A measured value from a gravity survey also goes in gravity:.
+
+- Coordinates, not a city name: names repeat (Córdoba, Spain and Córdoba, Argentina),
+and a site outside any city still has coordinates from a phone or a map.
+
+- Precision: anywhere in the right city is enough. One degree of latitude moves g by
+at most 0.01 %, 100 m of altitude by 0.003 %. Altitude matters only for high places
+(Kunming −0.06 %, Lhasa −0.11 %).
+
+Requires MVIS 0.4.0 or later. The keys and their checks are in
+Configuration.
+
+## Calculator
+
+Pick a place or type the coordinates. The calculator uses the same formula as MVIS
+(WGS84 normal gravity with the free-air correction) and runs in your browser:
+nothing you type is sent anywhere. It gives the gravity: line to copy, and the
+site: line under it if you prefer to give the place. With your own coordinates, put
+your label in place of “your place”.
+
+Place
+Your own coordinates SingaporeBangaloreMexico CityHong KongShenzhenSão PauloAbu DhabiKunmingLhasaWuhanShanghaiCórdoba, ArgentinaSydneyTokyoSeoulSan FranciscoWashington, DCNewark, DelawareDenverBeijingBostonZurichDübendorf (UZH-FPV)SeattleMunichParisLondon Latitude [°]
+north +, south − Altitude [m]
+above sea level – m/s² At the 9.81 default the accelerometer scale would be off by – Place | latitude_deg | altitude_m | g [m/s²] | Bias at 9.81 |
+Singapore | 1.35 | 15 | 9.7803 | +0.30 % |
+Bangalore | 12.97 | 920 | 9.7801 | +0.31 % |
+Mexico City | 19.43 | 2240 | 9.7791 | +0.32 % |
+Hong Kong | 22.32 | 10 | 9.7877 | +0.23 % |
+Shenzhen | 22.54 | 20 | 9.7879 | +0.23 % |
+São Paulo | −23.55 | 760 | 9.7862 | +0.24 % |
+Abu Dhabi | 24.45 | 5 | 9.7892 | +0.21 % |
+Kunming | 25.04 | 1890 | 9.7837 | +0.27 % |
+Lhasa | 29.65 | 3650 | 9.7817 | +0.29 % |
+Wuhan | 30.59 | 25 | 9.7936 | +0.17 % |
+Shanghai | 31.23 | 5 | 9.7942 | +0.16 % |
+Córdoba, Argentina | −31.42 | 400 | 9.7931 | +0.17 % |
+Sydney | −33.87 | 20 | 9.7963 | +0.14 % |
+Tokyo | 35.68 | 40 | 9.7978 | +0.12 % |
+Seoul | 37.57 | 40 | 9.7994 | +0.11 % |
+San Francisco | 37.77 | 15 | 9.7997 | +0.11 % |
+Washington, DC | 38.90 | 20 | 9.8007 | +0.10 % |
+Newark, Delaware | 39.68 | 40 | 9.8013 | +0.09 % |
+Denver | 39.74 | 1610 | 9.7965 | +0.14 % |
+Beijing | 39.90 | 45 | 9.8015 | +0.09 % |
+Boston | 42.36 | 10 | 9.8038 | +0.06 % |
+Zurich | 47.37 | 410 | 9.8071 | +0.03 % |
+Dübendorf (UZH-FPV) | 47.40 | 440 | 9.8070 | +0.03 % |
+Seattle | 47.61 | 50 | 9.8084 | +0.02 % |
+Munich | 48.14 | 520 | 9.8074 | +0.03 % |
+Paris | 48.86 | 35 | 9.8096 | 0.00 % |
+London | 51.51 | 15 | 9.8120 | −0.02 % |
