@@ -1,6 +1,6 @@
 {
- "batch": "2026-11-10a",
- "results_commit": "ac779876bfe5a15fd8fd337846ec01bd06f10b2d",
+ "batch": "2026-11-24a",
+ "results_commit": "41ec486781d3dc79577a53bd78b1a884375d238b",
  "honest": [
   "<b>Repeatability, not accuracy.</b> These datasets have no ground truth, so no tool is the reference. A cell shows whose estimates scatter least over the recordings every compared tool ran, not who is right.",
   "<b>Who ran it:</b> we ran every tool ourselves, including Kalibr and Basalt, with its documented defaults unless a family's notes say otherwise.",
@@ -267,7 +267,7 @@
      "diffs": {
       "mk": {
        "label": "MVIS − Kalibr",
-       "marked": 3,
+       "marked": 0,
        "compared": 17
       },
       "bk": {
@@ -277,7 +277,7 @@
       },
       "bm": {
        "label": "Basalt − MVIS",
-       "marked": 4,
+       "marked": 1,
        "compared": 17
       }
      }
@@ -318,7 +318,7 @@
       },
       "bm": {
        "label": "Basalt − MVIS (K-IMU)",
-       "marked": 10,
+       "marked": 9,
        "compared": 30
       }
      }
@@ -440,7 +440,7 @@
      "diffs": {
       "mk": {
        "label": "MVIS (K-IMU) − Kalibr",
-       "marked": 7,
+       "marked": 9,
        "compared": 13
       },
       "bk": {
@@ -450,7 +450,7 @@
       },
       "bm": {
        "label": "Basalt − MVIS (K-IMU)",
-       "marked": 15,
+       "marked": 18,
        "compared": 30
       }
      }
@@ -541,7 +541,7 @@
       },
       "bm": {
        "label": "Basalt − MVIS (K-IMU)",
-       "marked": 16,
+       "marked": 15,
        "compared": 30
       }
      }
