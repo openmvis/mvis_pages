@@ -212,8 +212,8 @@ The models in equations are on [Camera model](/concepts/camera-model/).
 
 ## 4. Result on the running example
 
-**Recording 01, the two configs on this page** (`mvis cam`, MVIS 0.2.0, run
-2026-11-19):
+**Recording 01, the two configs on this page** (`mvis cam`, MVIS 0.4.0, run
+2026-11-24):
 
 | | T265 left | T265 right | ELP left | ELP right |
 |---|---|---|---|---|
@@ -232,10 +232,10 @@ The models in equations are on [Camera model](/concepts/camera-model/).
   the solved model puts them.
 - **Board shape:** both runs find a similar board, all 144 corners: 8.7 mm (T265)
   and 9.5 mm (ELP) peak to peak, 2.1 mm RMS in both.
-- **Run time:** 29 min (T265) and 27 min (ELP) in our run. Each run had 4 CPU
+- **Run time:** 30 min (T265) and 28 min (ELP) in our run. Each run had 4 CPU
   cores and one thread for the linear-algebra libraries; four guide jobs ran side
-  by side on one machine. AprilTag detection took 12 min of the T265 run and the
-  solve 15 min; the ELP solve took 22 min. With the default `two_anti` the
+  by side on one machine. AprilTag detection took 14 min of the T265 run and the
+  solve 16 min; the ELP solve took 24 min. With the default `two_anti` the
   solve takes about half as long ([Speed](#6-speed)).
 - **The reports** of both runs are in [Read the report](#7-read-the-report).
 

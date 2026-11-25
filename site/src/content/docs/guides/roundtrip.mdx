@@ -87,7 +87,7 @@ observes them. The aux IMUs' `td` is not checked.
 
 ## 4. Results on the running example
 
-The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-19 with MVIS 0.2.0.
+The full rig: VI-Rig recording 01, all 4 cameras and all 4 IMUs, the step-4 config, run on 2026-11-24 with MVIS 0.4.0, local gravity at Newark (9.8013 m/s²).
 **Result: PASS.** All 16 IMU checks (4 per IMU) and all 5 geometry checks (4 levers, 1 baseline) pass.
 
 **IMUs: what calibration A measured collapses.** A ran on the raw bag, B on the corrected bag. A right
@@ -95,11 +95,11 @@ calibration leaves nothing for B to find.
 
 | Check | Calibration | Xsens (base) | GX3-25 | GX3-35 | T265 IMU | Pass if |
 |---|---|--:|--:|--:|--:|---|
-| Gyroscope scale `Dw`: worst axis off 1 | A | 0.22 % | 0.23 % | 0.13 % | 0.33 % | |
+| Gyroscope scale `Dw`: worst axis off 1 | A | 0.21 % | 0.26 % | 0.10 % | 0.35 % | |
 | | B | **0.00 %** | **0.00 %** | **0.00 %** | **0.00 %** | < 1 % |
-| Accelerometer scale `Da`: worst axis off 1 | A | 0.33 % | 0.44 % | 0.49 % | 2.06 % | |
+| Accelerometer scale `Da`: worst axis off 1 | A | 0.39 % | 0.50 % | 0.55 % | 1.97 % | |
 | | B | **0.01 %** | **0.00 %** | **0.00 %** | **0.00 %** | < 1 % |
-| Largest bias (m/s²) | A | 0.032 | 0.089 | 0.065 | 0.164 | |
+| Largest bias (m/s²) | A | 0.029 | 0.086 | 0.064 | 0.168 | |
 | | B | **0.002** | **0.0003** | **0.0004** | **0.002** | < 0.02 |
 | `t_ga` (ms) | A | −0.82 | +0.10 | +0.01 | −6.74 | |
 | | B | **+0.30** | **0.00** | **0.01** | **0.00** | warn-only, near 0 |
@@ -114,10 +114,10 @@ gone in B. The base Xsens keeps +0.30 ms of `t_ga`, well under 2 ms.
 
 | IMU | `Dw`, A | `Dw`, B | `Da`, A | `Da`, B |
 |---|---|---|---|---|
-| Xsens (base) | 0.9982, 0.9978, 1.0005 | 1.0000, 1.0000, 1.0000 | 1.0000, 0.9966, 1.0012 | 0.9999, 1.0001, 1.0000 |
-| GX3-25 | 1.0001, 0.9999, 1.0023 | 1.0000, 1.0000, 1.0000 | 0.9956, 1.0012, 1.0008 | 1.0000, 1.0000, 1.0000 |
-| GX3-35 | 0.9991, 0.9987, 1.0005 | 1.0000, 1.0000, 1.0000 | 0.9951, 1.0005, 1.0006 | 1.0000, 1.0000, 1.0000 |
-| T265 IMU | 0.9968, 1.0033, 1.0029 | 1.0000, 1.0000, 1.0000 | 1.0206, 1.0204, 1.0125 | 1.0000, 1.0000, 1.0000 |
+| Xsens (base) | 0.9985, 0.9979, 1.0008 | 1.0000, 1.0000, 1.0000 | 0.9992, 0.9961, 1.0005 | 0.9999, 1.0001, 1.0000 |
+| GX3-25 | 1.0001, 1.0002, 1.0026 | 1.0000, 1.0000, 1.0000 | 0.9950, 1.0004, 1.0002 | 1.0000, 1.0000, 1.0000 |
+| GX3-35 | 0.9992, 0.9990, 1.0007 | 1.0000, 1.0000, 1.0000 | 0.9945, 0.9996, 0.9999 | 1.0000, 1.0000, 1.0000 |
+| T265 IMU | 0.9970, 1.0035, 1.0030 | 1.0000, 1.0000, 1.0000 | 1.0198, 1.0196, 1.0119 | 1.0000, 1.0000, 1.0000 |
 
 </details>
 
@@ -127,21 +127,21 @@ shown for reference.
 
 | Check | Calibration | T265 left | T265 right | ELP left | ELP right | Pass if |
 |---|---|--:|--:|--:|--:|---|
-| Lever arm to base (mm) | A | 130.85 | 112.17 | 144.96 | 185.79 | |
-| | B | 130.94 | 112.24 | 145.02 | 185.81 | |
-| Lever change (mm) | A → B | **0.09** | **0.08** | **0.08** | **0.06** | ≤ 2 mm |
-| Rotation change (mrad) | A → B | 0.06 | 0.09 | 0.11 | 0.11 | |
-| `td` (ms) | A | −5.40 | −7.46 | −123.25 | −123.31 | |
+| Lever arm to base (mm) | A | 130.95 | 112.26 | 145.04 | 185.84 | |
+| | B | 131.03 | 112.33 | 145.08 | 185.86 | |
+| Lever change (mm) | A → B | **0.08** | **0.08** | **0.07** | **0.06** | ≤ 2 mm |
+| Rotation change (mrad) | A → B | 0.06 | 0.10 | 0.11 | 0.11 | |
+| `td` (ms) | A | −5.39 | −7.45 | −123.24 | −123.30 | |
 | | B | **0.00** | **0.00** | **0.00** | **0.00** | warn-only, near 0 |
-| fx (px) | A | 286.61 | 286.61 | 426.98 | 423.69 | |
-| | B | 286.61 | 286.60 | 426.98 | 423.69 | |
-| fy (px) | A | 286.38 | 286.14 | 426.49 | 423.17 | |
-| | B | 286.37 | 286.13 | 426.49 | 423.18 | |
+| fx (px) | A | 286.53 | 286.52 | 426.84 | 423.55 | |
+| | B | 286.52 | 286.51 | 426.84 | 423.56 | |
+| fy (px) | A | 286.29 | 286.05 | 426.36 | 423.04 | |
+| | B | 286.29 | 286.05 | 426.36 | 423.05 | |
 
 | Stereo baseline | A | B | Pass if |
 |---|--:|--:|---|
 | T265 pair (cam0–cam1, graded) | 63.69 mm | 63.69 mm | moves ≤ 2 mm |
-| ELP pair (shown only) | 59.40 mm | 59.39 mm | |
+| ELP pair (shown only) | 59.40 mm | 59.40 mm | |
 
 - **Geometry:** every camera moves by under 0.1 mm and turns by under 0.12 mrad; fx and fy move by under
   0.01 px. The reprojection error stays at 0.51 px RMS.
@@ -154,7 +154,7 @@ The report of calibration B, as MVIS wrote it except for local folder names:
 
 <iframe src="/media/guides/virig-4imus-4cams/roundtrip_recal_report.html" title="MVIS cam-IMU report of the round-trip recalibration, VI-Rig recording 01" loading="lazy" style="width:100%;height:80vh;border:1px solid var(--sl-color-gray-5);border-radius:0.4rem"></iframe>
 
-[Open full screen](/media/guides/virig-4imus-4cams/roundtrip_recal_report.html) (HTML, 16.2 MB). The report
+[Open full screen](/media/guides/virig-4imus-4cams/roundtrip_recal_report.html) (HTML, 16.4 MB). The report
 of calibration A is the one in [step 4](/guides/camera-imu-calibration/#5-read-the-result).
 
 ## Export a corrected dataset
