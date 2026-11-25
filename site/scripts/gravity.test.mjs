@@ -36,7 +36,7 @@ test('the page leads with the gravity line and the calculator copies gravity, th
 test('the copy box gives the gravity line, then the site line; no place picked gives a name placeholder', () => {
   assert.equal(copyText(39.68, 40, 'Newark, Delaware'),
     'gravity: 9.8013   # m/s², Newark, Delaware\nsite: {latitude_deg: 39.68, altitude_m: 40, name: "Newark, Delaware"}');
-  assert.equal(copyText(47.61, 50), 'gravity: 9.8084   # m/s²\nsite: {latitude_deg: 47.61, altitude_m: 50, name: "your place"}');
+  assert.equal(copyText(47.61, 50), 'gravity: 9.8084   # m/s², your place\nsite: {latitude_deg: 47.61, altitude_m: 50, name: "your place"}');
   assert.equal(copyText(91, 0), '');
   assert.match(read('../src/components/GravityCalculator.astro'), /copyText\(lat, alt, place\)/);
 });

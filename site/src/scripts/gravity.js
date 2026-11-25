@@ -29,9 +29,10 @@ export const fmtPercent = (p) => `${p >= 0.005 ? '+' : p <= -0.005 ? '−' : ''}
 
 export const PLACE_PLACEHOLDER = 'your place';
 
-// The copy box: the gravity line, then the site line. Without a picked place the site name is a placeholder to replace.
+// The copy box: the gravity line, then the site line. Without a picked place both name a placeholder to replace.
 export function copyText(latitudeDeg, altitudeM, place = '') {
   const g = normalGravity(latitudeDeg, altitudeM);
   if (!Number.isFinite(g)) return '';
-  return `${gravityLine(g, place)}\n${siteLine(latitudeDeg, altitudeM, place || PLACE_PLACEHOLDER)}`;
+  const name = place || PLACE_PLACEHOLDER;
+  return `${gravityLine(g, name)}\n${siteLine(latitudeDeg, altitudeM, name)}`;
 }
