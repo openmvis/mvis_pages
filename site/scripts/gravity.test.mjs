@@ -57,3 +57,65 @@ test('the page exists and the sidebar links it after Configuration', () => {
   assert.match(read('../astro.config.mjs'),
     /\{ label: 'Configuration', link: '\/reference\/configuration\/' \},\s*\{ label: 'Local gravity', link: '\/reference\/local-gravity\/' \}/);
 });
+
+// --- City search (public/data/gravity-cities.json, GeoNames) ---
+import { fold, cityLabel, searchPlaces } from '../src/scripts/gravity.js';
+import { statSync } from 'node:fs';
+
+const CITIES_PATH = new URL('../public/data/gravity-cities.json', import.meta.url);
+const cities = JSON.parse(readFileSync(CITIES_PATH, 'utf8'));
+const labels = (q, n = 8) => searchPlaces(q, places, cities, n).map((m) => m.label);
+
+test('fold drops case, accents and apostrophes', () => {
+  assert.equal(fold('Zürich'), 'zurich');
+  assert.equal(fold('São Paulo'), 'sao paulo');
+  assert.equal(fold('Xi’an'), 'xian');
+  assert.equal(fold('Diyarbakır'), 'diyarbakir');
+  assert.equal(fold('  Köln  '), 'koln');
+});
+
+test('the shipped city list: GeoNames, sorted rows of valid numbers, small enough to fetch', () => {
+  assert.match(cities.source, /GeoNames/);
+  assert.ok(cities.cities.length > 30000, String(cities.cities.length));
+  assert.ok(statSync(CITIES_PATH).size < 1.6e6);
+  for (const [name, cc, region, lat, alt] of cities.cities) {
+    assert.ok(name && cc in cities.countries && (!region || region in cities.regions), name);
+    assert.ok(lat >= -90 && lat <= 90 && Number.isInteger(alt) && alt > -500 && alt < 6000, name);
+  }
+});
+
+test('search: curated places first, then the biggest cities; a country after the comma narrows it', () => {
+  assert.deepEqual(labels('cordoba', 3), ['Córdoba, Argentina', 'Córdoba, Andalusia, Spain', 'Córdoba, Veracruz, Mexico']);
+  assert.equal(labels('Cordoba, spain', 1)[0], 'Córdoba, Andalusia, Spain');
+  assert.equal(labels('newark', 2)[1], 'Newark, New Jersey, United States');
+  assert.equal(labels('koln')[0], 'Köln, North Rhine-Westphalia, Germany');
+  assert.equal(labels('sao paulo')[0], 'São Paulo');
+  assert.deepEqual(labels(''), []);
+});
+
+test('search: one entry per place (no curated twin, no city districts)', () => {
+  assert.deepEqual(labels('seattle'), ['Seattle']);
+  assert.ok(!labels('zurich').some((l) => /Kreis/.test(l)), labels('zurich').join(' | '));
+});
+
+test('a picked city gives the copy line with its name and the same g as MVIS', () => {
+  const [denver] = searchPlaces('denver, united states', places, cities, 1);
+  assert.equal(denver.label, 'Denver, Colorado, United States');
+  assert.ok(Math.abs(normalGravity(denver.latitude_deg, denver.altitude_m) - 9.7965) < 2e-4);
+  assert.match(copyText(denver.latitude_deg, denver.altitude_m, denver.label),
+    /^gravity: 9\.79\d\d   # m\/s², Denver, Colorado, United States\nsite: \{latitude_deg: 39\.74, altitude_m: \d+, name: "Denver, Colorado, United States"\}$/);
+});
+
+test('cityLabel leaves out a region that repeats the name', () => {
+  const list = { countries: { SG: 'Singapore', DE: 'Germany' }, regions: { 'SG.01': 'Singapore', 'DE.16': 'Berlin' } };
+  assert.equal(cityLabel(['Singapore', 'SG', 'SG.01', 1.29, 15], list), 'Singapore');
+  assert.equal(cityLabel(['Berlin', 'DE', 'DE.16', 52.52, 74], list), 'Berlin, Germany');
+});
+
+test('the calculator searches, fetches the list on first use, and offers the location button', () => {
+  const c = read('../src/components/GravityCalculator.astro');
+  assert.match(c, /searchPlaces\(typed, data\.places, all\)/);
+  assert.match(c, /fetch\(CITIES\)/);
+  assert.match(c, /getCurrentPosition/);
+  assert.match(read('../src/content/docs/reference/local-gravity.mdx'), /\[GeoNames\]\(https:\/\/www\.geonames\.org\/\) \(CC BY 4\.0\)/);
+});

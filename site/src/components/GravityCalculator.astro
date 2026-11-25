@@ -1,7 +1,9 @@
 ---
 // Local gravity calculator (/reference/local-gravity/): latitude + altitude → g, the accel-scale bias at the 9.81
-// default, and the `gravity:` line (then the optional `site:` line) to copy. The formula is src/scripts/gravity.js (same as MVIS); the place list and
-// its g values come from MVIS (src/data/gravity-places.json). Runs in the browser only: nothing is sent anywhere.
+// default, and the `gravity:` line (then the optional `site:` line) to copy. The formula is src/scripts/gravity.js (same as MVIS); the curated
+// places and their g values come from MVIS (src/data/gravity-places.json). The search box also looks up about 34,000
+// cities (public/data/gravity-cities.json, GeoNames), fetched from this site on first use; "Use my location" asks the
+// browser for the latitude. Runs in the browser only: nothing is sent anywhere.
 // Without JS the calculator stays hidden and the table below still shows every place.
 import data from '../data/gravity-places.json';
 import { biasPercent, fmtPercent } from '../scripts/gravity.js';
@@ -11,12 +13,18 @@ const fmtLat = (x: number) => (x < 0 ? `−${Math.abs(x).toFixed(2)}` : x.toFixe
 
 <div class="not-content gc">
   <form class="gc-form" hidden autocomplete="off" onsubmit="return false">
-    <label class="gc-wide">Place
-      <select name="place">
-        <option value="">Your own coordinates</option>
-        {data.places.map((p, i) => <option value={String(i)}>{p.name}</option>)}
-      </select>
-    </label>
+    <div class="gc-wide gc-find">
+      <label for="gc-place">City</label>
+      <div class="gc-row">
+        <div class="gc-in">
+          <input id="gc-place" name="place" type="search" placeholder="Type a city, e.g. Seattle or Cordoba, Spain"
+            role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="gc-list" spellcheck="false" />
+          <ul id="gc-list" role="listbox" hidden></ul>
+        </div>
+        <button type="button" data-locate>Use my location</button>
+      </div>
+      <small data-out="note">Longitude is not needed. Altitude only matters above about 300 m.</small>
+    </div>
     <label>Latitude [°]
       <input name="lat" type="number" step="0.01" min="-90" max="90" value="47.61" inputmode="decimal" />
       <small>north +, south −</small>
@@ -49,28 +57,90 @@ const fmtLat = (x: number) => (x < 0 ? `−${Math.abs(x).toFixed(2)}` : x.toFixe
 </div>
 
 <script>
-  import { normalGravity, biasPercent, fmtPercent, copyText } from '../scripts/gravity.js';
+  import { normalGravity, biasPercent, fmtPercent, copyText, searchPlaces } from '../scripts/gravity.js';
   import data from '../data/gravity-places.json';
+
+  const CITIES = '/data/gravity-cities.json';
+  let cities: Promise<any> | null = null;   // fetched once, on first use; a failed fetch is tried again next time
+  const loadCities = () => (cities ??= fetch(CITIES).then((r) => (r.ok ? r.json() : Promise.reject()))
+    .catch(() => { cities = null; return null; }));
 
   for (const form of document.querySelectorAll<HTMLFormElement>('.gc-form')) {
     const el = (n: string) => form.elements.namedItem(n) as HTMLInputElement & HTMLSelectElement;
     const out = (k: string) => form.querySelector<HTMLElement>(`[data-out="${k}"]`)!;
+    let place = '';   // the label of the picked city; '' after the coordinates are edited by hand
     const update = () => {
       const lat = parseFloat(el('lat').value), alt = parseFloat(el('alt').value) || 0;
       const g = normalGravity(lat, alt);
       const ok = Number.isFinite(g);
-      const place = el('place').value === '' ? '' : data.places[+el('place').value].name;
       const typed = el('lat').value.trim() !== '';
       out('g').textContent = ok ? g.toFixed(4) : '–';
       out('bias').textContent = ok ? fmtPercent(biasPercent(g)) : typed ? '– (latitude must be between −90 and 90)' : '–';
       out('yaml').textContent = copyText(lat, alt, place);
     };
-    el('place').addEventListener('change', () => {
-      const p = data.places[+el('place').value];
-      if (el('place').value !== '' && p) { el('lat').value = String(p.latitude_deg); el('alt').value = String(p.altitude_m); }
-      update();
+    const box = el('place'), list = form.querySelector<HTMLUListElement>('[role="listbox"]')!;
+    const note = form.querySelector<HTMLElement>('[data-out="note"]')!;
+    const NOTE = note.textContent;
+    let matches: { label: string; latitude_deg: number; altitude_m: number }[] = [], active = -1;
+    const show = (open: boolean) => { list.hidden = !open; box.setAttribute('aria-expanded', String(open)); };
+    const mark = (i: number) => {
+      active = i;
+      list.querySelectorAll('li').forEach((li, k) => li.setAttribute('aria-selected', String(k === i)));
+      if (i >= 0) box.setAttribute('aria-activedescendant', `gc-opt-${i}`); else box.removeAttribute('aria-activedescendant');
+    };
+    const pick = (m: (typeof matches)[number]) => {
+      place = m.label; box.value = m.label;
+      el('lat').value = String(m.latitude_deg); el('alt').value = String(m.altitude_m);
+      note.textContent = NOTE; show(false); update();
+    };
+    const render = () => {
+      list.replaceChildren(...matches.map((m, i) => {
+        const li = document.createElement('li');
+        li.id = `gc-opt-${i}`; li.setAttribute('role', 'option'); li.textContent = m.label;
+        li.addEventListener('mousedown', (e) => { e.preventDefault(); pick(m); });
+        return li;
+      }));
+      mark(-1); show(matches.length > 0);
+    };
+    box.addEventListener('focus', () => { loadCities(); }, { once: true });
+    box.addEventListener('input', async () => {
+      const typed = box.value;
+      matches = searchPlaces(typed, data.places, null);
+      render();
+      const all = await loadCities();
+      if (box.value !== typed) return;   // a later keystroke already searched
+      matches = searchPlaces(typed, data.places, all);
+      if (!all && typed.trim()) note.textContent = 'The city list did not load; type the latitude and altitude instead.';
+      render();
     });
-    for (const n of ['lat', 'alt']) el(n).addEventListener('input', () => { el('place').value = ''; update(); });
+    box.addEventListener('keydown', (e) => {
+      if (list.hidden) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const n = matches.length;
+        mark(e.key === 'ArrowDown' ? (active + 1) % n : (active - 1 + n) % n);
+      } else if (e.key === 'Enter' && matches.length) {
+        e.preventDefault(); pick(matches[Math.max(active, 0)]);
+      } else if (e.key === 'Escape') show(false);
+    });
+    box.addEventListener('blur', () => show(false));
+    for (const n of ['lat', 'alt']) el(n).addEventListener('input', () => { place = ''; box.value = ''; update(); });
+    const locate = form.querySelector<HTMLButtonElement>('[data-locate]')!;
+    if (!('geolocation' in navigator)) locate.hidden = true;
+    locate.addEventListener('click', () => {
+      note.textContent = 'Waiting for the browser (it asks you first; the location never leaves this page)…';
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude, altitude } = pos.coords;
+        place = ''; box.value = '';
+        el('lat').value = latitude.toFixed(2);
+        el('alt').value = altitude == null ? '0' : String(Math.round(altitude));
+        note.textContent = altitude == null
+          ? 'Latitude from your device. It gave no altitude, so 0 m is used: fine below about 300 m, else type it.'
+          : 'Latitude and altitude from your device. Put the place name in the comment.';
+        update();
+      }, () => { note.textContent = 'No location: the browser blocked it or could not find it. Type a city instead.'; },
+      { enableHighAccuracy: false, timeout: 15000, maximumAge: 600000 });
+    });
     const copy = form.querySelector<HTMLButtonElement>('[data-copy]')!;
     copy.addEventListener('click', async () => {
       try { await navigator.clipboard.writeText(out('yaml').textContent || ''); copy.textContent = 'Copied'; }
@@ -89,6 +159,18 @@ const fmtLat = (x: number) => (x < 0 ? `−${Math.abs(x).toFixed(2)}` : x.toFixe
     border: 1px solid var(--sl-color-hairline); border-radius: 0.6rem; }
   .gc-form label { display: grid; gap: 0.3rem; font-size: 0.85rem; color: var(--sl-color-gray-2); }
   .gc-form small { font-size: 0.75rem; color: var(--sl-color-gray-3); }
+  .gc-find { position: relative; display: grid; gap: 0.3rem; font-size: 0.85rem; color: var(--sl-color-gray-2); }
+  .gc-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .gc-in { position: relative; display: grid; flex: 1 1 14rem; min-width: 0; }
+  .gc-find button { font: inherit; font-size: 0.85rem; padding: 0.4rem 0.7rem; border-radius: 0.4rem; cursor: pointer;
+    border: 1px solid var(--sl-color-gray-5); background: transparent; color: var(--sl-color-white); }
+  .gc-find button[hidden] { display: none; }
+  .gc-find [role='listbox'] { position: absolute; z-index: 5; top: calc(100% + 2px); left: 0; right: 0; margin: 0; padding: 0.2rem 0;
+    list-style: none; max-height: 18rem; overflow-y: auto; border: 1px solid var(--sl-color-gray-5); border-radius: 0.4rem;
+    background: var(--sl-color-black); box-shadow: 0 6px 18px rgb(0 0 0 / 0.25); }
+  .gc-find [role='listbox'][hidden] { display: none; }
+  .gc-find [role='option'] { padding: 0.4rem 0.6rem; cursor: pointer; font-size: 0.95rem; color: var(--sl-color-white); }
+  .gc-find [role='option'][aria-selected='true'], .gc-find [role='option']:hover { background: var(--sl-color-gray-6); }
   .gc-form input, .gc-form select { font: inherit; font-size: 1rem; padding: 0.4rem 0.5rem; border-radius: 0.4rem;
     border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-black); color: var(--sl-color-white); }
   .gc-wide { grid-column: 1 / -1; }
