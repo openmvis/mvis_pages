@@ -153,49 +153,50 @@ sensors:
     group: cameras
     key: realsense-d435i
     title: RealSense D435i
-    description: Depth camera with a global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU, calibrated with MVIS as RGB + IMU on three AprilGrid recordings.
-    lead: Depth camera from RealSense with a 50 mm global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU. Three hand-held recordings in front of an AprilGrid, each solved as RGB + IMU with the rolling-shutter readout estimated.
-    demo: {from: "realsense-d435i_small", note: "The 3D scene MVIS recovered from the first recording."}
-    run_labels: [Recording 1, Recording 2, Recording 3]
-    card: {name: "D435i", maker: RealSense, tags: [Rolling shutter, 1 camera, 200 Hz IMU]}
+    description: Depth camera with a global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU, calibrated with MVIS as three cameras + IMU on an AprilGrid recording.
+    lead: Depth camera from RealSense with a 50 mm global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU. Four hand-held recordings in front of an AprilGrid; the first, 95 s long, is shown here, solved as RGB + left infrared + right infrared + IMU with the RGB rolling-shutter readout estimated.
+    demo: {from: "realsense-d435i_small", note: "The 3D scene MVIS recovered from an earlier RGB-only recording of the same camera (2026-11-13)."}
+    run_labels: [Recording 1]
+    card: {name: "D435i", maker: RealSense, tags: [Global + rolling shutter, 3 cameras, 200 Hz IMU]}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
         - {maker: OmniVision, part: OV2740, src: maker, via: "D400 datasheet, Mar 2026", url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: "RGB, rolling shutter"}
+        - {maker: OmniVision, part: OV9282, count: 2, src: maker, via: "D400 datasheet, Mar 2026", url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: "IR pair, global shutter"}
       imus:
         - {maker: Bosch, part: BMI055 / BMI085, src: maker, via: D400 datasheet, url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: by production revision}
-      uncalibrated:
-        - {maker: OmniVision, part: OV9282, count: 2, src: maker, via: "D400 datasheet, Mar 2026", url: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf", note: "IR pair, not yet calibrated"}
     hardware:
       - [Maker, "RealSense (formerly Intel RealSense)", Maker]
       - [Shutter, "Global on the infrared pair, rolling on the RGB camera", Maker]
-      - [Infrared pair, "87° × 58° depth field of view; not used here", Maker]
+      - [Infrared pair, "87° × 58° depth field of view, 50 mm baseline; recorded here at 640×480, 30 Hz, exposure 1.725 ms, emitter off", Maker]
       - [RGB camera, "2 MP, 69° × 42°, up to 1920×1080 at 30 fps; recorded here at 640×480, 30 Hz, exposure fixed at 3 ms", Maker]
       - [IMU, "gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps", Measured]
       - [IMU chip, "Bosch BMI055 or BMI085, by production revision", Maker]
       - [Link, "USB-C 3.1 Gen 1; 90 × 25 × 25 mm", Maker]
     dataset:
-      - [Recordings, "3 recordings, 80, 67.7 and 77 s, hand-held. About 2,000 to 2,400 RGB frames each, IMU at 200 Hz"]
-      - [Format, "EuRoC mav0: RGB PNG and IMU CSV"]
+      - [Recordings, "4 recordings, 95, 73, 50 and 65 s, hand-held. RGB, left and right infrared at 640×480, 30 Hz, IMU at 200 Hz; recording 1 has 2,847 frames per camera and 19,038 IMU samples"]
+      - [Format, "EuRoC mav0: PNG per camera and IMU CSV"]
       - [Board, "AprilGrid, 6×6 tags of 88 mm, spacing 0.3"]
-      - [Exposure, "Fixed, 3 ms; gain fixed after a short warm-up; white balance fixed"]
-      - [Data, "Not hosted"]
-    method: "RGB camera with the IMU in one solve per recording, as a rolling-shutter camera with the readout time estimated. Pinhole camera with radial-tangential distortion, seeded from a single-camera solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-14."
+      - [Exposure, "Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed"]
+      - [Data, "__HUB:community/realsense-d435i/data/__. The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY-NC 4.0, for the data, clip and figures; commercial use by request. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs"]
+      - [Configs and results, "__HUB:community/realsense-d435i/__"]
+    method: "Each camera first solved on its own, then the RGB and both infrared cameras with the IMU in one solve. The RGB camera is a rolling-shutter camera with the readout time estimated; the infrared pair is global shutter. Pinhole cameras with radial-tangential distortion, seeded from the single-camera solves and left free; the camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Gravity is the local value at the recording site, 9.7892 m/s² (UAE). Solved 2026-11-24."
     limits:
-      - "The three recordings agree on the time offset (6.00 to 6.12 ms), the readout time (32.5 ms) and the lever arm across the image (within 0.4 and 1.4 mm), but not along the optical axis: z is 14.7 to 20.4 mm, against 11.3 mm in the RealSense SDK's design values. All three recordings turn the camera little about the two axes across the image, which is what makes that distance observable. Holding z at the SDK value fits nearly as well (within about 2 σ), so the SDK value is the safer choice for now."
-      - "The tag size, 88 mm, is the stated size of the printed board, and it scales every lever arm."
-      - "The board is not flat: its corners lie up to about 6 mm out of plane, the same shape in every recording."
-      - "The camera stores no IMU correction, so the IMU scale and bias values are those of the raw sensor."
+      - "We ran the same solve on all four recordings. They agree on the RGB lever arm across the image (x within 0.3 mm), the time offset (within 0.08 ms), the readout time (32.33 to 32.42 ms), the focal length (within 1.2 px) and the infrared baseline (49.98 to 50.08 mm, against the 50.05 mm stored in the camera). They do not agree along the optical axis: the RGB lever z is 17.7 to 21.8 mm, a 4.1 mm spread, and every camera sits 6 to 10 mm above the RealSense SDK's design values. The infrared cameras spread as much as the RGB camera, so the rolling shutter is not the cause. All four recordings turn the camera little about the axes across the image, which is what makes that distance observable, so z is not settled."
+      - "The tag size, 88 mm, is the stated size of the printed board, and it scales every lever arm and baseline."
+      - "The board is not flat: its corners lie 6.4 to 7.1 mm peak to peak out of plane over the four recordings."
+      - "The camera stores no IMU correction, so the IMU scale and bias values are those of the raw sensor. IMU noise is the MVIS default, and the gyro's sensitivity to acceleration is not estimated."
+      - "The infrared distortion comes out close to zero, as expected if the camera delivers rectified infrared images, so those values describe that output, not the bare lens."
     header:
       type: "Depth camera: global-shutter infrared stereo, rolling-shutter RGB and a 6-axis IMU"
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
       links: {product: "https://www.realsenseai.com/products/depth-camera-d435i/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d435i.jpg, alt: "RealSense D435i depth camera, front view", credit: "Photo: RealSense, D435i product page", url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
-      foot: "Maker values checked 2026-11-14 · 3 recordings, 67.7 to 80 s"
+      foot: "Maker values checked 2026-11-14 · 4 recordings, 50 to 95 s · CC BY-NC 4.0"
       key_specs:
-        cameras: {v: "640 × 480 here: RGB", tag: measured}
-        shutter: {v: "Rolling (RGB)", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
-        fov: {auto: fov, also: {v: "69° × 42° RGB, 87° × 58° depth", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}}
-        baseline: {v: "50 mm, infrared pair (not used here)", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}
+        cameras: {v: "640 × 480 here: RGB + IR stereo", tag: measured}
+        shutter: {v: "Rolling (RGB), global (IR pair)", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
+        fov: {auto: fov, cams: {RGB: 0, IR: 1}, also: {v: "69° × 42° RGB, 87° × 58° depth", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}}
+        baseline: {v: "50.1 mm, infrared pair", tag: measured, also: {v: "50 mm", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}}
         imu: {v: "200 Hz", tag: measured, also: {v: "Bosch BMI055 or BMI085, by production revision", tag: maker, src: "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf"}}
         output: {v: "USB-C, EuRoC mav0", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
   robobaton-neo:

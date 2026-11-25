@@ -9932,7 +9932,7 @@ Tracking modules · Head-worn cameras · VR headsets · 360° cameras
 
 - RealSense D456 Depth camera: global-shutter infrared stereo and RGB with a 6-axis IMU OmniVision OV9782 ×3 Bosch BMI085 Global shutter 3 cameras 400 Hz IMU
 
-- RealSense D435i Depth camera: global-shutter infrared stereo, rolling-shutter RGB and a 6-axis IMU OmniVision OV2740 Bosch BMI055 / BMI085 Rolling shutter 1 camera 200 Hz IMU
+- RealSense D435i Depth camera: global-shutter infrared stereo, rolling-shutter RGB and a 6-axis IMU OmniVision OV2740 OmniVision OV9282 ×2 Bosch BMI055 / BMI085 Global + rolling shutter 3 cameras 200 Hz IMU
 
 - RoboBaton Neo VIO module: global-shutter fisheye camera with a TDK ICM-42670-P IMU SmartSens SC132GS TDK InvenSense ICM-42670-P Global shutter 1 camera 200 Hz IMU
 
@@ -10430,26 +10430,16 @@ URL: https://openmvis.com/devices/realsense-d435i/
 
 ## Demo and values
 
-Depth camera from RealSense with a 50 mm global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU. Three hand-held recordings in front of an AprilGrid, each solved as RGB + IMU with the rolling-shutter readout estimated.
-The 3D scene MVIS recovered from the first recording.
+Depth camera from RealSense with a 50 mm global-shutter infrared stereo pair, a rolling-shutter RGB camera and a 6-axis IMU. Four hand-held recordings in front of an AprilGrid; the first, 95 s long, is shown here, solved as RGB + left infrared + right infrared + IMU with the RGB rolling-shutter readout estimated.
+The 3D scene MVIS recovered from an earlier RGB-only recording of the same camera (2026-11-13).
 
-Reprojection median 0.10 px
-Readout time 32.6 ms
-cam0 td, first row +6.00 ms +22.28 ms at mid-frame
-cam0 lever arm 30.2 mm
-
-Reprojection median 0.11 px
-Readout time 32.6 ms
-cam0 td, first row +6.03 ms +22.31 ms at mid-frame
-cam0 lever arm 29.2 mm
-
-Reprojection median 0.11 px
-Readout time 32.5 ms
-cam0 td, first row +6.12 ms +22.39 ms at mid-frame
-cam0 lever arm 26.5 mm
+Reprojection median 0.08 px
+cam0–cam1 baseline 14.6 mm
+cam0 td, first row +6.26 ms +22.46 ms at mid-frame
+cam0 lever arm 30.4 mm
 
 Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
-The three recordings agree on the time offset (6.00 to 6.12 ms), the readout time (32.5 ms) and the lever arm across the image (within 0.4 and 1.4 mm), but not along the optical axis: z is 14.7 to 20.4 mm, against 11.3 mm in the RealSense SDK's design values. All three recordings turn the camera little about the two axes across the image, which is what makes that distance observable. Holding z at the SDK value fits nearly as well (within about 2 σ), so the SDK value is the safer choice for now.
+We ran the same solve on all four recordings. They agree on the RGB lever arm across the image (x within 0.3 mm), the time offset (within 0.08 ms), the readout time (32.33 to 32.42 ms), the focal length (within 1.2 px) and the infrared baseline (49.98 to 50.08 mm, against the 50.05 mm stored in the camera). They do not agree along the optical axis: the RGB lever z is 17.7 to 21.8 mm, a 4.1 mm spread, and every camera sits 6 to 10 mm above the RealSense SDK's design values. The infrared cameras spread as much as the RGB camera, so the rolling shutter is not the cause. All four recordings turn the camera little about the axes across the image, which is what makes that distance observable, so z is not settled.
 
 ## Calibration process
 
@@ -10471,21 +10461,9 @@ From above
 From the front
 
 Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
-cam0 | −20.8, +8.0, +20.4 | 30.2 | [+0.003, −0.005, −0.001] | +6.00 | 56° × 43° |
-
-From above
-
-From the front
-
-Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
-cam0 | −20.5, +8.5, +19.0 | 29.2 | [+0.004, −0.008, −0.000] | +6.03 | 56° × 43° |
-
-From above
-
-From the front
-
-Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
-cam0 | −20.8, +7.2, +14.7 | 26.5 | [+0.005, −0.009, −0.002] | +6.12 | 55° × 43° |
+cam0 | −23.0, +6.7, +18.6 | 30.4 | [+0.002, −0.009, −0.000] | +6.26 | 56° × 43° |
+cam1 | −8.4, +6.5, +18.8 | 21.6 | [+0.001, −0.003, +0.005] | +6.32 | 79° × 64° |
+cam2 | +41.7, +6.6, +18.9 | 46.2 | [−0.000, −0.003, +0.005] | +6.33 | 79° × 64° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
 
@@ -10494,147 +10472,113 @@ Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame.
 Published by the maker |
 Maker | RealSense (formerly Intel RealSense) |
 Shutter | Global on the infrared pair, rolling on the RGB camera |
-Infrared pair | 87° × 58° depth field of view; not used here |
+Infrared pair | 87° × 58° depth field of view, 50 mm baseline; recorded here at 640×480, 30 Hz, exposure 1.725 ms, emitter off |
 RGB camera | 2 MP, 69° × 42°, up to 1920×1080 at 30 fps; recorded here at 640×480, 30 Hz, exposure fixed at 3 ms |
 IMU chip | Bosch BMI055 or BMI085, by production revision |
 Link | USB-C 3.1 Gen 1; 90 × 25 × 25 mm |
 Measured in these recordings |
 IMU | gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps |
-Calibrated field of view | cam0 56° × 43° |
+Calibrated field of view | cam0 56° × 43° · cam1 79° × 64° · cam2 79° × 64° |
 
 ## Dataset
 
-Recordings | 3 recordings, 80, 67.7 and 77 s, hand-held. About 2,000 to 2,400 RGB frames each, IMU at 200 Hz |
-Format | EuRoC mav0: RGB PNG and IMU CSV |
+Recordings | 4 recordings, 95, 73, 50 and 65 s, hand-held. RGB, left and right infrared at 640×480, 30 Hz, IMU at 200 Hz; recording 1 has 2,847 frames per camera and 19,038 IMU samples |
+Format | EuRoC mav0: PNG per camera and IMU CSV |
 Board | AprilGrid, 6×6 tags of 88 mm, spacing 0.3 |
-Exposure | Fixed, 3 ms; gain fixed after a short warm-up; white balance fixed |
-Data | Not hosted |
+Exposure | Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed |
+Data | Calibench-VI community, realsense-d435i/data/ (access by automatic approval). The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY-NC 4.0, for the data, clip and figures; commercial use by request. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs |
+Configs and results | Calibench-VI community, realsense-d435i/ (access by automatic approval) |
 
 AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 ## Detailed results
 
 Lens Calibrated field of view
-Calibrated field of view, horizontal × vertical. cam0: 56° × 43°, corners reach 33° from the axis
+Calibrated field of view, horizontal × vertical. cam0: 56° × 43°, corners reach 34° from the axis · cam1: 79° × 64°, corners reach 46° from the axis · cam2: 79° × 64°, corners reach 46° from the axis
 
-Calibrated field of view, horizontal × vertical. cam0: 56° × 43°, corners reach 34° from the axis
-
-Calibrated field of view, horizontal × vertical. cam0: 55° × 43°, corners reach 33° from the axis
-
-cam0
+cam0 cam1 cam2
 We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
 
-IMU Gyro–accel time offset t_ga −3.87 ms Gyro–accel time offset t_ga −3.81 ms Gyro–accel time offset t_ga −3.43 ms
-Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: −3.87 ± 0.53 ms.
-Gyro scale x−0.03 %
-Gyro scale y+0.23 %
-Gyro scale z−0.51 %
-Accel scale x+0.91 %
-Accel scale y+1.17 %
-Accel scale z+1.00 %
-−8 %0+8 %
-
-Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: −3.81 ± 0.46 ms.
+IMU Gyro–accel time offset t_ga −2.95 ms
+Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: −2.95 ± 0.40 ms.
 Gyro scale x+0.06 %
-Gyro scale y+0.21 %
-Gyro scale z−0.52 %
-Accel scale x+1.03 %
-Accel scale y+1.13 %
-Accel scale z+1.03 %
+Gyro scale y+0.03 %
+Gyro scale z−0.46 %
+Accel scale x+0.97 %
+Accel scale y+0.64 %
+Accel scale z+0.93 %
 −8 %0+8 %
 
-Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: −3.43 ± 0.72 ms.
-Gyro scale x+0.01 %
-Gyro scale y+0.35 %
-Gyro scale z−0.38 %
-Accel scale x+1.04 %
-Accel scale y+1.53 %
-Accel scale z+1.15 %
-−8 %0+8 %
-
-Timing cam0 td, first row +6.00 ms cam0 td, first row +6.03 ms cam0 td, first row +6.12 ms
+Timing cam0 td, first row +6.26 ms
 The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td. For a rolling-shutter camera td is the time of the first image row; the middle row is td + readout / 2, which is what a global-shutter calibration reports.
 
-Board shape peak to peak 5.8 mm peak to peak 6.0 mm peak to peak 6.0 mm
+Board shape peak to peak 6.4 mm
 The calibration board isn't perfectly flat, so this solve estimated the height of every corner off the flat board along with the calibration. The board's mean plane and tilt belong to its pose, so a flat board shows only noise here.
-Height of each corner off the flat board: peak to peak 5.8 mm, rms 1.2 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
-
-Height of each corner off the flat board: peak to peak 6.0 mm, rms 1.2 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
-
-Height of each corner off the flat board: peak to peak 6.0 mm, rms 1.2 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
+Height of each corner off the flat board: peak to peak 6.4 mm, rms 1.4 mm. Numbers are the tag column and row (row 0 at the bottom). Hover or tap a corner for its value.
 
 Full results Every solved parameter
 Rotation is log(R) in rad, camera in the IMU frame.
 Parameter | MVIS |
 cam0 |
-fx px | 599.37 |
-fy px | 598.02 |
-cx px | 333.53 |
-cy px | 249.02 |
-k1 | 0.10194 |
-k2 | −0.20872 |
-k3 | 0.00257 |
-k4 | −0.00001 |
-Lever x mm | −20.76 |
-Lever y mm | +8.01 |
-Lever z mm | +20.40 |
-log(R) rad | [+0.0026, −0.0054, −0.0010] |
-td ms | +6.003 |
-Reprojection px | 0.124 |
-Readout ms | +32.55 |
+fx px | 598.83 |
+fy px | 599.51 |
+cx px | 331.25 |
+cy px | 247.45 |
+k1 | 0.10514 |
+k2 | −0.21838 |
+k3 | 0.00170 |
+k4 | −0.00097 |
+Lever x mm | −23.02 |
+Lever y mm | +6.70 |
+Lever z mm | +18.65 |
+log(R) rad | [+0.0016, −0.0087, −0.0004] |
+td ms | +6.261 |
+Reprojection px | 0.133 |
+Readout ms | +32.40 |
+cam1 |
+fx px | 386.40 |
+fy px | 387.47 |
+cx px | 322.29 |
+cy px | 236.81 |
+k1 | 0.00241 |
+k2 | −0.00218 |
+k3 | 0.00020 |
+k4 | −0.00040 |
+Lever x mm | −8.38 |
+Lever y mm | +6.48 |
+Lever z mm | +18.77 |
+log(R) rad | [+0.0005, −0.0026, +0.0048] |
+td ms | +6.324 |
+Reprojection px | 0.244 |
+cam2 |
+fx px | 386.20 |
+fy px | 387.28 |
+cx px | 322.73 |
+cy px | 237.13 |
+k1 | 0.00202 |
+k2 | −0.00080 |
+k3 | 0.00018 |
+k4 | −0.00055 |
+Lever x mm | +41.69 |
+Lever y mm | +6.63 |
+Lever z mm | +18.89 |
+log(R) rad | [−0.0001, −0.0029, +0.0048] |
+td ms | +6.326 |
+Reprojection px | 0.228 |
 IMU |
-t_ga ms | −3.87 ± 0.53 |
-
-Parameter | MVIS |
-cam0 |
-fx px | 599.57 |
-fy px | 598.27 |
-cx px | 332.83 |
-cy px | 248.45 |
-k1 | 0.10413 |
-k2 | −0.21446 |
-k3 | 0.00223 |
-k4 | −0.00034 |
-Lever x mm | −20.46 |
-Lever y mm | +8.54 |
-Lever z mm | +19.04 |
-log(R) rad | [+0.0038, −0.0078, −0.0003] |
-td ms | +6.032 |
-Reprojection px | 0.132 |
-Readout ms | +32.56 |
-IMU |
-t_ga ms | −3.81 ± 0.46 |
-
-Parameter | MVIS |
-cam0 |
-fx px | 601.89 |
-fy px | 600.52 |
-cx px | 332.88 |
-cy px | 248.97 |
-k1 | 0.10382 |
-k2 | −0.21002 |
-k3 | 0.00261 |
-k4 | −0.00041 |
-Lever x mm | −20.84 |
-Lever y mm | +7.17 |
-Lever z mm | +14.72 |
-log(R) rad | [+0.0054, −0.0092, −0.0024] |
-td ms | +6.122 |
-Reprojection px | 0.125 |
-Readout ms | +32.53 |
-IMU |
-t_ga ms | −3.43 ± 0.72 |
+t_ga ms | −2.95 ± 0.40 |
 
 ## Limits
 
-- The three recordings agree on the time offset (6.00 to 6.12 ms), the readout time (32.5 ms) and the lever arm across the image (within 0.4 and 1.4 mm), but not along the optical axis: z is 14.7 to 20.4 mm, against 11.3 mm in the RealSense SDK's design values. All three recordings turn the camera little about the two axes across the image, which is what makes that distance observable. Holding z at the SDK value fits nearly as well (within about 2 σ), so the SDK value is the safer choice for now.
-- The tag size, 88 mm, is the stated size of the printed board, and it scales every lever arm.
-- The board is not flat: its corners lie up to about 6 mm out of plane, the same shape in every recording.
-- The camera stores no IMU correction, so the IMU scale and bias values are those of the raw sensor.
+- We ran the same solve on all four recordings. They agree on the RGB lever arm across the image (x within 0.3 mm), the time offset (within 0.08 ms), the readout time (32.33 to 32.42 ms), the focal length (within 1.2 px) and the infrared baseline (49.98 to 50.08 mm, against the 50.05 mm stored in the camera). They do not agree along the optical axis: the RGB lever z is 17.7 to 21.8 mm, a 4.1 mm spread, and every camera sits 6 to 10 mm above the RealSense SDK's design values. The infrared cameras spread as much as the RGB camera, so the rolling shutter is not the cause. All four recordings turn the camera little about the axes across the image, which is what makes that distance observable, so z is not settled.
+- The tag size, 88 mm, is the stated size of the printed board, and it scales every lever arm and baseline.
+- The board is not flat: its corners lie 6.4 to 7.1 mm peak to peak out of plane over the four recordings.
+- The camera stores no IMU correction, so the IMU scale and bias values are those of the raw sensor. IMU noise is the MVIS default, and the gyro's sensitivity to acceleration is not estimated.
+- The infrared distortion comes out close to zero, as expected if the camera delivers rectified infrared images, so those values describe that output, not the bare lens.
 
 ## How it was run
 
-- RGB camera with the IMU in one solve per recording, as a rolling-shutter camera with the readout time estimated. Pinhole camera with radial-tangential distortion, seeded from a single-camera solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-14.
+- Each camera first solved on its own, then the RGB and both infrared cameras with the IMU in one solve. The RGB camera is a rolling-shutter camera with the readout time estimated; the infrared pair is global shutter. Pinhole cameras with radial-tangential distortion, seeded from the single-camera solves and left free; the camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Gravity is the local value at the recording site, 9.7892 m/s² (UAE). Solved 2026-11-24.
 
 
 ---
@@ -18777,13 +18721,13 @@ Every camera and IMU we have calibrated, by who made the chip. A label names a p
 - Module: a packaged IMU module (Xsens, MicroStrain). We name the module; no source names the chip inside.
 
 19 devices calibrated
-45 + 19 cameras + IMUs on them
+47 + 19 cameras + IMUs on them
 5 chip makers named
-13 / 64 parts not known
+13 / 66 parts not known
 
-Image sensors 35 of 45 cameras named, on the devices below
+Image sensors 37 of 47 cameras named, on the devices below
 
-OmniVision 17 SmartSens 15 Sony 3 not known 10
+OmniVision 19 SmartSens 15 Sony 3 not known 10
 
 IMU chips 16 of 19 IMUs named, on the devices below
 
@@ -18791,9 +18735,9 @@ Bosch 8 TDK InvenSense 8 not known 3
 
 ### OmniVision
 
-Image sensors · 17 cameras on devices · 14 in datasets
+Image sensors · 19 cameras on devices · 14 in datasets
 
-- OV9282 T265 ×2 VI-Rig 4 IMUs + 3 cams ×2 VI-Rig 4 IMUs + 4 cams ×2 VI-Rig 5 IMUs + 4 cams ×4
+- OV9282 T265 ×2 D435i ×2 VI-Rig 4 IMUs + 3 cams ×2 VI-Rig 4 IMUs + 4 cams ×2 VI-Rig 5 IMUs + 4 cams ×4
 - OV9782 D455 ×3 D456 ×3
 - OV2740 D435i
 - OV4689 ZED 2 ×2
@@ -18873,8 +18817,9 @@ RealSense D455 3 cameras · 1 IMU | OmniVision OV9782 ×3 D400 datasheet, Mar 20
 RealSense D456 3 cameras · 1 IMU | OmniVision OV9782 ×3 D400 datasheet, Mar 2026 · IR pair + RGB
 | Bosch BMI085 D400 datasheet
 |
-RealSense D435i 1 camera · 1 IMU | OmniVision OV2740 D400 datasheet, Mar 2026 · RGB, rolling shutter
-On board, not yet calibrated: OmniVision OV9282 ×2 | Bosch BMI055 / BMI085 D400 datasheet · by production revision
+RealSense D435i 3 cameras · 1 IMU | OmniVision OV2740 D400 datasheet, Mar 2026 · RGB, rolling shutter
+OmniVision OV9282 ×2 D400 datasheet, Mar 2026 · IR pair, global shutter
+| Bosch BMI055 / BMI085 D400 datasheet · by production revision
 |
 RoboBaton Neo 1 camera · 1 IMU | SmartSens SC132GS maker's device-config file, no public link
 | TDK InvenSense ICM-42670-P RoboBaton Neo docs

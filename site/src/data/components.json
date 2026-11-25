@@ -106,6 +106,16 @@
      "count": 1,
      "src": "Maker",
      "html": "<span class=\"cl cam\" title=\"D400 datasheet, Mar 2026 · RGB, rolling shutter\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV2740</span></span></span>"
+    },
+    {
+     "maker": "OmniVision",
+     "part": "OV9282",
+     "note": "IR pair, global shutter",
+     "via": "D400 datasheet, Mar 2026",
+     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
+     "count": 2,
+     "src": "Maker",
+     "html": "<span class=\"cl cam\" title=\"D400 datasheet, Mar 2026 · IR pair, global shutter\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     }
    ],
    "imus": [
@@ -118,18 +128,6 @@
      "count": 1,
      "src": "Maker",
      "html": "<span class=\"cl imu\" title=\"D400 datasheet · by production revision\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>Bosch</b> <span class=p>BMI055 / BMI085</span></span></span>"
-    }
-   ],
-   "uncalibrated": [
-    {
-     "maker": "OmniVision",
-     "part": "OV9282",
-     "note": "IR pair, not yet calibrated",
-     "via": "D400 datasheet, Mar 2026",
-     "url": "https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf",
-     "count": 2,
-     "src": "Maker",
-     "html": "<span class=\"cl cam\" title=\"D400 datasheet, Mar 2026 · IR pair, not yet calibrated\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV9282</span> <span class=x>×2</span></span></span>"
     }
    ]
   },
@@ -847,10 +845,10 @@
  ],
  "counts": {
   "cameras": {
-   "total": 45,
+   "total": 47,
    "not_known": 10,
    "by_maker": {
-    "OmniVision": 17,
+    "OmniVision": 19,
     "SmartSens": 15,
     "Sony": 3
    }
@@ -869,7 +867,7 @@
    "kind": "cameras",
    "maker": "OmniVision",
    "key": "omnivision",
-   "on_devices": 17,
+   "on_devices": 19,
    "in_datasets": 14,
    "parts": [
     {
@@ -879,6 +877,12 @@
       {
        "name": "T265",
        "href": "/devices/intel-t265/",
+       "count": 2,
+       "dataset": false
+      },
+      {
+       "name": "D435i",
+       "href": "/devices/realsense-d435i/",
        "count": 2,
        "dataset": false
       },
