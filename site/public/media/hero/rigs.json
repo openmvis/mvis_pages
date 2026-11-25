@@ -331,8 +331,8 @@
     "holder": "OpenMVIS, recorded with a GI EGO1GS; everything except the board is blurred",
     "dataset": "Calibench community, gi-ego1gs",
     "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/gi-ego1gs",
-    "licence": "CC BY-NC 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
    }
   },
   {
