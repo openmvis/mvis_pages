@@ -27,8 +27,8 @@ ELP stereo pair. You can download it from the Hub,
 </figure>
 
 We recorded the [calibration motion](/guides/calibration-motion/) with the first two boards. The third is
-the layout of ALG Tech's board (see [below](#example-the-alg-tech-charuco-board)). You can download all three
-as images with configs in [section 5](#5-no-printer-use-a-screen-board). Each board type needs these fields:
+a ChArUco board (see [below](#example-a-charuco-board)). You can download all three as images with configs in
+[section 5](#5-no-printer-use-a-screen-board). Each board type needs these fields:
 
 | Board | `board_type` | Required fields |
 |---|---|---|
@@ -45,11 +45,9 @@ as images with configs in [section 5](#5-no-printer-use-a-screen-board). Each bo
 - **ArUco boards** also work (`board_type: aruco`). See [Configuration](/reference/configuration/).
 - **A Kalibr target file:** no config key reads one. Copy its values into the `board:` block, as in section 2.
 
-### Example: the ALG Tech ChArUco board
+### Example: a ChArUco board
 
-ALG Tech recorded its stereo modules in front of a printed ChArUco board, and MVIS reads it as is (MVIS
-0.3.0 or later). Both ALG device pages, [AVS111C-Y](/devices/alg-avs111c/) and
-[AVS115D-Y](/devices/alg-avs115d/), were solved with it:
+MVIS reads a printed ChArUco board as is (MVIS 0.3.0 or later). A common layout:
 
 - **Board:** 14 × 9 squares, so 13 × 8 = 104 inner corners.
 - **Squares:** 40 mm. **Markers:** 30 mm, from the OpenCV dictionary `DICT_5X5_250`.
@@ -69,7 +67,7 @@ board:
 - **The dictionary is required.** A board read with the wrong dictionary finds no corners, so MVIS stops when
   it is missing. OpenCV's name for the key, `dictionary`, is read the same way.
 - **Boards printed with OpenCV before 4.6** with an even number of rows have another marker layout: add
-  `charuco_legacy: true`. The ALG board has 9 rows, so it does not need it.
+  `charuco_legacy: true`. This board has 9 rows, so it does not need it.
 - **Every corner is used.** MVIS refines each corner after OpenCV, and needs OpenCV 4.7 or later (the `aruco`
   extra installs it). All keys: [Configuration](/reference/configuration/#board).
 
@@ -146,7 +144,7 @@ for MVIS and, for the first two, Kalibr:
 |---|---|---|
 | AprilGrid 6 × 6 | tag36h11, tag 43.47 mm, spacing 0.3 | [image](/downloads/boards/aprilgrid_6x6_2560x1440.png) (PNG, 75 KB) · [MVIS config](/downloads/boards/aprilgrid_6x6_mvis.yaml) · [Kalibr config](/downloads/boards/aprilgrid_6x6_kalibr.yaml) |
 | Chessboard 10 × 7 squares | 9 × 6 inner corners, square 43.47 mm | [image](/downloads/boards/chessboard_10x7_2560x1440.png) (PNG, 30 KB) · [MVIS config](/downloads/boards/chessboard_10x7_2560x1440_mvis.yaml) · [Kalibr config](/downloads/boards/chessboard_10x7_2560x1440_kalibr.yaml) |
-| ChArUco 14 × 9 squares (ALG layout) | DICT_5X5_250, square 39.12 mm (144 px), marker 29.34 mm (108 px) | [image](/downloads/boards/charuco_14x9_2560x1440.png) (PNG, 8 KB) · [MVIS config](/downloads/boards/charuco_14x9_2560x1440_mvis.yaml) |
+| ChArUco 14 × 9 squares | DICT_5X5_250, square 39.12 mm (144 px), marker 29.34 mm (108 px) | [image](/downloads/boards/charuco_14x9_2560x1440.png) (PNG, 8 KB) · [MVIS config](/downloads/boards/charuco_14x9_2560x1440_mvis.yaml) |
 
 **How to show them:**
 

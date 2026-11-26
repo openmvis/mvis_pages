@@ -54,7 +54,7 @@ The calibration target. Both config types use the same block.
 | `heights_file` | none | camera–IMU | Start values for the board shape: one height per corner. The `<output>_board_shape.yaml` of an earlier camera–IMU run is a valid file. Camera-only runs do not read it |
 
 On a ChArUco board MVIS uses every corner: `corner_subsample` has nothing to thin, and other values are
-replaced by `all` with a warning. Example block: [the ALG Tech board](/guides/board-setup/#example-the-alg-tech-charuco-board).
+replaced by `all` with a warning. Example block: [a ChArUco board](/guides/board-setup/#example-a-charuco-board).
 
 `board.detection` holds expert settings for the multi-scale AprilTag detector.
 The defaults suit most boards; leave it out unless detection misses tags.
