@@ -10136,15 +10136,15 @@ Cameras, IMUs and rigs we calibrated with MVIS, one page per device. Each page h
 
 - Solved rig
 
-- Specifications
-
-- Dataset
-
 - Detailed results
 
 - Limits
 
+- Specifications
+
 - How it was run
+
+- Dataset
 
 Tracking modules · Head-worn cameras · VR headsets · 360° cameras
 
@@ -10244,28 +10244,6 @@ cam1 | −52.4, +3.1, +7.8 | 53.1 | [+0.029, +0.001, −3.125] | −10.65 | past
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
 
-## Specifications
-
-Published by the maker |
-Cameras | 2 × OV9282, 848×800 at 30 Hz |
-Shutter | Global |
-Lens | Fisheye, about 163° |
-IMU chip | Bosch BMI055 |
-Measured in these recordings |
-IMU | gyro at 200 Hz, accel at 62.5 Hz |
-Calibrated field of view | cam0 past the fit · cam1 past the fit |
-
-## Dataset
-
-Recording | VI-Rig, recording 1, 80 s window chosen by motion |
-Format | ROS bag |
-Board | AprilGrid 6×6, tag 88 mm, spacing 0.3, t36h11 |
-Configs and results | Calibench-VI community, intel-t265/ (access by automatic approval) |
-Licence | CC BY 4.0, for the data and for this page's clip and figures |
-Hosted | Calibench-VI, virig-4imus-3cams/ (access by automatic approval) |
-
-AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
-
 ## Detailed results
 
 Lens Calibrated field of view
@@ -10332,9 +10310,31 @@ t_ga ms | −6.39 ± 0.42 |
 - One recording, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
 - The T265 gyro-to-accel offset isn't a pure time shift. We measured about −6.8 ms at 2–4 Hz and −1.2 ms at 30–40 Hz, so a single t_ga is a compromise that depends on the motion.
 
+## Specifications
+
+Published by the maker |
+Cameras | 2 × OV9282, 848×800 at 30 Hz |
+Shutter | Global |
+Lens | Fisheye, about 163° |
+IMU chip | Bosch BMI055 |
+Measured in these recordings |
+IMU | gyro at 200 Hz, accel at 62.5 Hz |
+Calibrated field of view | cam0 past the fit · cam1 past the fit |
+
 ## How it was run
 
 - Fisheye stereo plus the T265's own IMU, camera intrinsics free, t_ga estimated, and the shape of the calibration board estimated, since the VI-Rig board isn't perfectly flat: about 4.5 mm peak to peak in this August 2021 recording (see Board shape); later recordings of the same board design, from October 2021, show the same saddle at 10–11 mm. Solved 2026-11-12.
+
+## Dataset
+
+Recording | VI-Rig, recording 1, 80 s window chosen by motion |
+Format | ROS bag |
+Board | AprilGrid 6×6, tag 88 mm, spacing 0.3, t36h11 |
+Configs and results | Calibench-VI community, intel-t265/ (access by automatic approval) |
+Licence | CC BY 4.0, for the data and for this page's clip and figures |
+Hosted | Calibench-VI, virig-4imus-3cams/ (access by automatic approval) |
+
+AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 
 ---
@@ -10381,31 +10381,6 @@ cam1 | +66.7, +6.9, +18.6 | 69.6 | [−0.002, −0.017, −0.006] | +7.16 | 89°
 cam2 | +30.9, +7.0, +18.1 | 36.5 | [−0.003, −0.017, −0.005] | +6.67 | 91° × 60° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | RealSense (formerly Intel RealSense) |
-Camera module | RealSense Module D450 with the Vision Processor D4 |
-Shutter | Global, on the infrared pair and the RGB camera |
-Infrared pair | 87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp |
-RGB camera | 1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, about 33 Hz (30 requested) |
-IMU chip | Bosch BMI055 or BMI085, by production revision |
-Link | USB-C; 124 × 29 × 26 mm |
-Measured in these recordings |
-IMU | gyro 400 Hz, accelerometer about 250 Hz in this recording |
-Calibrated field of view | cam0 89° × 58° · cam1 89° × 58° · cam2 91° × 60° |
-
-## Dataset
-
-Recording | 1 recording, 90 s, hand-held. About 2,700 frames per infrared camera, 2,985 RGB frames, 36,417 IMU samples |
-Format | ROS1 bag |
-Board | Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder |
-Exposure | Fixed, about 2 ms on all three cameras; no auto exposure |
-Data | Calibench-VI community, realsense-d455/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures |
-Configs and results | Calibench-VI community, realsense-d455/ (access by automatic approval) |
-
-Chessboard 10 × 7 squares (9 × 6 inner corners), 75 mm squares, 750 × 525 mm. To scale
 
 ## Detailed results
 
@@ -10486,9 +10461,34 @@ t_ga ms | −5.44 ± 0.18 |
 - The infrared images are the camera's own rectified output, so their distortion is close to zero by construction and the values describe that output, not the bare lens.
 - The recorder turned the camera's IMU correction off, so the IMU scale and bias values are those of the raw sensor. The accelerometer was resampled onto the gyro's time stamps before the solve.
 
+## Specifications
+
+Published by the maker |
+Maker | RealSense (formerly Intel RealSense) |
+Camera module | RealSense Module D450 with the Vision Processor D4 |
+Shutter | Global, on the infrared pair and the RGB camera |
+Infrared pair | 87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp |
+RGB camera | 1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, about 33 Hz (30 requested) |
+IMU chip | Bosch BMI055 or BMI085, by production revision |
+Link | USB-C; 124 × 29 × 26 mm |
+Measured in these recordings |
+IMU | gyro 400 Hz, accelerometer about 250 Hz in this recording |
+Calibrated field of view | cam0 89° × 58° · cam1 89° × 58° · cam2 91° × 60° |
+
 ## How it was run
 
 - Left infrared, right infrared and RGB cameras with the IMU in one solve, all three treated as global shutter. Pinhole camera with radial-tangential distortion, seeded from three single-camera solves of the same recording and left free; camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board is kept rigid. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-13.
+
+## Dataset
+
+Recording | 1 recording, 90 s, hand-held. About 2,700 frames per infrared camera, 2,985 RGB frames, 36,417 IMU samples |
+Format | ROS1 bag |
+Board | Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder |
+Exposure | Fixed, about 2 ms on all three cameras; no auto exposure |
+Data | Calibench-VI community, realsense-d455/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures |
+Configs and results | Calibench-VI community, realsense-d455/ (access by automatic approval) |
+
+Chessboard 10 × 7 squares (9 × 6 inner corners), 75 mm squares, 750 × 525 mm. To scale
 
 
 ---
@@ -10535,32 +10535,6 @@ cam1 | +67.4, +7.4, +21.3 | 71.1 | [+0.007, +0.009, +0.006] | +7.08 | 89° × 58
 cam2 | +31.6, +7.0, +21.7 | 38.9 | [+0.009, +0.008, +0.005] | +6.03 | 90° × 59° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | RealSense (formerly Intel RealSense) |
-Camera module | RealSense Module D450 with the Vision Processor D4 |
-Shutter | Global, on the infrared pair and the RGB camera |
-Infrared pair | 87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp |
-RGB camera | 1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, 30 Hz |
-IMU chip | Bosch BMI085 |
-Enclosure | IP65: dust-tight and protected against water jets |
-Link | USB-C; 124 × 29 × 26 mm |
-Measured in these recordings |
-IMU | 6-axis; gyro 400 Hz, accelerometer about 200 Hz in this recording |
-Calibrated field of view | cam0 89° × 58° · cam1 89° × 58° · cam2 90° × 59° |
-
-## Dataset
-
-Recording | 1 recording, 90 s, hand-held. 2,700 frames per infrared camera, 2,699 RGB frames, 36,471 IMU samples |
-Format | ROS1 bag |
-Board | Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder |
-Exposure | Fixed, about 2 ms on all three cameras; no auto exposure |
-Data | Calibench-VI community, realsense-d456/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures |
-Configs and results | Calibench-VI community, realsense-d456/ (access by automatic approval) |
-
-Chessboard 10 × 7 squares (9 × 6 inner corners), 75 mm squares, 750 × 525 mm. To scale
 
 ## Detailed results
 
@@ -10641,9 +10615,35 @@ t_ga ms | −4.89 ± 0.27 |
 - The infrared images are the camera's own rectified output, so their distortion is close to zero by construction and the values describe that output, not the bare lens.
 - The recorder turned the camera's IMU correction off, so the IMU scale and bias values are those of the raw sensor. The accelerometer was resampled onto the gyro's time stamps before the solve.
 
+## Specifications
+
+Published by the maker |
+Maker | RealSense (formerly Intel RealSense) |
+Camera module | RealSense Module D450 with the Vision Processor D4 |
+Shutter | Global, on the infrared pair and the RGB camera |
+Infrared pair | 87° × 58° depth field of view, 95 mm baseline; recorded here at 848×480, 30 Hz, both images on one stamp |
+RGB camera | 1 MP, 90° × 65°, up to 1280×800 at 30 fps; recorded here at 848×480, 30 Hz |
+IMU chip | Bosch BMI085 |
+Enclosure | IP65: dust-tight and protected against water jets |
+Link | USB-C; 124 × 29 × 26 mm |
+Measured in these recordings |
+IMU | 6-axis; gyro 400 Hz, accelerometer about 200 Hz in this recording |
+Calibrated field of view | cam0 89° × 58° · cam1 89° × 58° · cam2 90° × 59° |
+
 ## How it was run
 
 - Left infrared, right infrared and RGB cameras with the IMU in one solve, all three treated as global shutter. Pinhole camera with radial-tangential distortion, seeded from three single-camera solves of the same recording and left free; camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board is kept rigid. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-13.
+
+## Dataset
+
+Recording | 1 recording, 90 s, hand-held. 2,700 frames per infrared camera, 2,699 RGB frames, 36,471 IMU samples |
+Format | ROS1 bag |
+Board | Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder |
+Exposure | Fixed, about 2 ms on all three cameras; no auto exposure |
+Data | Calibench-VI community, realsense-d456/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures |
+Configs and results | Calibench-VI community, realsense-d456/ (access by automatic approval) |
+
+Chessboard 10 × 7 squares (9 × 6 inner corners), 75 mm squares, 750 × 525 mm. To scale
 
 
 ---
@@ -10690,30 +10690,6 @@ cam1 | −8.4, +6.5, +18.8 | 21.6 | [+0.001, −0.003, +0.005] | +6.32 | 79° ×
 cam2 | +41.7, +6.6, +18.9 | 46.2 | [−0.000, −0.003, +0.005] | +6.33 | 79° × 64° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | RealSense (formerly Intel RealSense) |
-Shutter | Global on the infrared pair, rolling on the RGB camera |
-Infrared pair | 87° × 58° depth field of view, 50 mm baseline; recorded here at 640×480, 30 Hz, exposure 1.725 ms, emitter off |
-RGB camera | 2 MP, 69° × 42°, up to 1920×1080 at 30 fps; recorded here at 640×480, 30 Hz, exposure fixed at 3 ms |
-IMU chip | Bosch BMI055 or BMI085, by production revision |
-Link | USB-C 3.1 Gen 1; 90 × 25 × 25 mm |
-Measured in these recordings |
-IMU | gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps |
-Calibrated field of view | cam0 56° × 43° · cam1 79° × 64° · cam2 79° × 64° |
-
-## Dataset
-
-Recordings | 4 recordings, 95, 73, 50 and 65 s, hand-held. RGB, left and right infrared at 640×480, 30 Hz, IMU at 200 Hz; recording 1 has 2,847 frames per camera and 19,038 IMU samples |
-Format | EuRoC mav0: PNG per camera and IMU CSV |
-Board | AprilGrid, 6×6 tags of 88 mm, spacing 0.3 |
-Exposure | Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed |
-Data | Calibench-VI community, realsense-d435i/data/ (access by automatic approval). The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY 4.0, commercial use included, for the data, clip and figures. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs |
-Configs and results | Calibench-VI community, realsense-d435i/ (access by automatic approval) |
-
-AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -10800,9 +10776,33 @@ t_ga ms | −2.95 ± 0.40 |
 - The camera stores no IMU correction, so the IMU scale and bias values are those of the raw sensor. IMU noise is the MVIS default, and the gyro's sensitivity to acceleration is not estimated.
 - The infrared distortion comes out close to zero, as expected if the camera delivers rectified infrared images, so those values describe that output, not the bare lens.
 
+## Specifications
+
+Published by the maker |
+Maker | RealSense (formerly Intel RealSense) |
+Shutter | Global on the infrared pair, rolling on the RGB camera |
+Infrared pair | 87° × 58° depth field of view, 50 mm baseline; recorded here at 640×480, 30 Hz, exposure 1.725 ms, emitter off |
+RGB camera | 2 MP, 69° × 42°, up to 1920×1080 at 30 fps; recorded here at 640×480, 30 Hz, exposure fixed at 3 ms |
+IMU chip | Bosch BMI055 or BMI085, by production revision |
+Link | USB-C 3.1 Gen 1; 90 × 25 × 25 mm |
+Measured in these recordings |
+IMU | gyro and accelerometer at 200 Hz in these recordings, accelerometer resampled onto the gyro stamps |
+Calibrated field of view | cam0 56° × 43° · cam1 79° × 64° · cam2 79° × 64° |
+
 ## How it was run
 
 - Each camera first solved on its own, then the RGB and both infrared cameras with the IMU in one solve. The RGB camera is a rolling-shutter camera with the readout time estimated; the infrared pair is global shutter. Pinhole cameras with radial-tangential distortion, seeded from the single-camera solves and left free; the camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Gravity is the local value at the recording site, 9.7892 m/s² (UAE). Solved 2026-11-24.
+
+## Dataset
+
+Recordings | 4 recordings, 95, 73, 50 and 65 s, hand-held. RGB, left and right infrared at 640×480, 30 Hz, IMU at 200 Hz; recording 1 has 2,847 frames per camera and 19,038 IMU samples |
+Format | EuRoC mav0: PNG per camera and IMU CSV |
+Board | AprilGrid, 6×6 tags of 88 mm, spacing 0.3 |
+Exposure | Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed |
+Data | Calibench-VI community, realsense-d435i/data/ (access by automatic approval). The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY 4.0, commercial use included, for the data, clip and figures. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs |
+Configs and results | Calibench-VI community, realsense-d435i/ (access by automatic approval) |
+
+AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 
 ---
@@ -10821,24 +10821,6 @@ cam0 td +1.14 ms
 cam0 lever arm 31.1 mm
 
 Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
-
-### Calibrate it yourself
-
-The recording on this page is free to download. You can run the same calibration on your own computer in a few minutes (about 3 on a desktop). No ROS needed.
-
-- Install MVIS and the Hugging Face tool:pip install "pymvis[apriltag,ros1]" huggingface_hub
-
-- Get access. Open the Neo folder on Hugging Face, sign in and accept the terms (name, affiliation, intended use). Then sign in from the terminal with hf auth login.
-- Download (about 95 MB):hf download calibench-vi/community --repo-type dataset \
---include "robobaton-neo/*" --local-dir calibench-community
-cd calibench-community/robobaton-neo
-
-- Calibrate:mvis cam-imu -c config/cam_imu.yaml
-Your result and HTML report land in replay/. Compare them with the published values that came with the download.
-Your own device, or another module
-Have your own Neo? Record the board with the Neo's capture tool, then in config/cam_imu.yaml set input.format: euroc and input.path to the mav0 folder inside your recording, or pass a ROS1 bag with --bag. See Calibration motion for how to move.
-Have another camera or IMU module? Send us a recording and we calibrate it with MVIS, Kalibr and Basalt and publish it in the Device wiki. See Submit a dataset.
-
 One recording, 5 frames per second. The maker's own calibration of the same recording agrees on the rotation (within 0.4°) and on the lever arm across the image (within 2 mm), but not along the optical axis (17 mm here against 9 mm) nor on the time offset (1.1 ms against 0.3 ms). A digital twin of the recording puts the noise on z at about 1 mm, so the gap is systematic; the image stamp convention and the tag size on the monitor are the open questions.
 
 ## Calibration process
@@ -10864,30 +10846,6 @@ Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of 
 cam0 | −24.8, +6.4, +17.7 | 31.1 | [−0.002, +0.006, −1.570] | +1.14 | 126° × ~147° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | RoboBaton (documentation site; company name not given there) |
-Camera | SmartSens SC132GS, 1080 × 1280 native at 60 fps |
-Shutter | Global |
-Lens | Fisheye, 193.8° diagonal |
-IMU | TDK ICM-42670-P, gyro and accelerometer at 200 Hz with multi-sample averaging |
-Sync | Hardware-triggered camera and IMU on one clock |
-Link | USB-C (network adapter with an HTTP stream), 6-pin UART with trigger in and exposure out, microSD; 8.69 g bare, 13.86 g cased |
-Measured in these recordings |
-Calibration stream | 544 × 640 at 5 Hz |
-Calibrated field of view | cam0 126° × ~147° |
-
-## Dataset
-
-Recording | 1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz |
-Format | EuRoC mav0: PNG and IMU CSV, written by the module's capture tool |
-Board | AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor |
-Data | Calibench-VI community, robobaton-neo/data/ (access by automatic approval). The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY 4.0, commercial use included, for the data, clip and figures |
-Configs and results | Calibench-VI community, robobaton-neo/ (access by automatic approval) |
-
-AprilGrid 6 × 6, 188 × 188 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -10941,9 +10899,50 @@ t_ga ms | −0.27 ± 0.07 |
 - The tag size, 25 mm, is the value in the capture tool's config, not a measurement on the monitor; it scales the lever arm.
 - A double-sphere model fits as well as kb4, but its focal length and xi trade off along a flat valley, so only the projection is comparable between the two.
 
+## Specifications
+
+Published by the maker |
+Maker | RoboBaton (documentation site; company name not given there) |
+Camera | SmartSens SC132GS, 1080 × 1280 native at 60 fps |
+Shutter | Global |
+Lens | Fisheye, 193.8° diagonal |
+IMU | TDK ICM-42670-P, gyro and accelerometer at 200 Hz with multi-sample averaging |
+Sync | Hardware-triggered camera and IMU on one clock |
+Link | USB-C (network adapter with an HTTP stream), 6-pin UART with trigger in and exposure out, microSD; 8.69 g bare, 13.86 g cased |
+Measured in these recordings |
+Calibration stream | 544 × 640 at 5 Hz |
+Calibrated field of view | cam0 126° × ~147° |
+
 ## How it was run
 
 - Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the ICM-42670-P datasheet value times three. Solved 2026-11-19.
+
+## Dataset
+
+Recording | 1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz |
+Format | EuRoC mav0: PNG and IMU CSV, written by the module's capture tool |
+Board | AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor |
+Data | Calibench-VI community, robobaton-neo/data/ (access by automatic approval). The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY 4.0, commercial use included, for the data, clip and figures |
+Configs and results | Calibench-VI community, robobaton-neo/ (access by automatic approval) |
+
+AprilGrid 6 × 6, 188 × 188 mm. Standard pattern, to scale
+
+## Calibrate it yourself
+
+The recording on this page is free to download. You can run the same calibration on your own computer in a few minutes (about 3 on a desktop). No ROS needed.
+
+- Install MVIS and the Hugging Face tool:pip install "pymvis[apriltag,ros1]" huggingface_hub
+
+- Get access. Open the Neo folder on Hugging Face, sign in and accept the terms (name, affiliation, intended use). Then sign in from the terminal with hf auth login.
+- Download (about 95 MB):hf download calibench-vi/community --repo-type dataset \
+--include "robobaton-neo/*" --local-dir calibench-community
+cd calibench-community/robobaton-neo
+
+- Calibrate:mvis cam-imu -c config/cam_imu.yaml
+Your result and HTML report land in replay/. Compare them with the published values that came with the download.
+Your own device, or another module
+Have your own Neo? Record the board with the Neo's capture tool, then in config/cam_imu.yaml set input.format: euroc and input.path to the mav0 folder inside your recording, or pass a ROS1 bag with --bag. See Calibration motion for how to move.
+Have another camera or IMU module? Send us a recording and we calibrate it with MVIS, Kalibr and Basalt and publish it in the Device wiki. See Submit a dataset.
 
 
 ---
@@ -10988,36 +10987,6 @@ cam0 | −0.3, −24.1, −21.3 | 32.2 | [+2.202, +2.211, −0.042] | −2.49 | 
 cam1 | −0.5, +96.0, −23.4 | 98.8 | [+2.201, +2.209, −0.036] | −2.46 | ~102° × 69° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | Stereolabs |
-Image sensors | 2 × 4 MP 1/3-inch back-illuminated CMOS, 2 µm pixels |
-Image sensor chip | OmniVision OV4689, from the chip ID check in Stereolabs' open-source capture code |
-Shutter | Rolling, the two cameras synchronised; readout 14.1 ms (left) and 14.0 ms (right) solved here |
-Lenses | 2.1 mm, 110° × 70° (120° diagonal) |
-Baseline | 120 mm |
-Video modes | Up to 2208×1242 at 15 fps; 1280×720 at 60, 30 or 15 fps |
-IMU chip | Bosch BMI270: Bosch's BMI270 start-up file is in every ZED 2 sensor firmware in the ZED SDK |
-From the dataset |
-Model | The dataset names a ZED2. The original ZED 2 rather than the later ZED 2i is inferred from the recording date (December 2020) and the solved focal length |
-Measured in these recordings |
-Images in the recording | 2 × 1280×720 grey at 19.7 Hz (the dataset states 30 fps) |
-IMU | 6-axis, 400 Hz on the sheet; 381 Hz in the recording |
-Calibrated field of view | cam0 ~102° × 69° · cam1 ~102° × 69° |
-
-## Dataset
-
-Recordings | 1 camera + IMU recording, 74 s, hand-held in front of the board. 1,457 frames per camera, 29,410 IMU samples |
-Source | WHUVID dataset (Wuhan University), calibration recording published by the authors |
-Format | ROS 1 bag. Two IMU samples repeat the one before (same time and values) and are dropped |
-Board | AprilGrid 6×6, tag 20.8 mm, spacing 0.3 |
-Licence | CC BY 4.0, as stated in the WHUVID paper (Chen et al., Remote Sensing 14(9) 2033, 2022); cite it when you use the recording |
-Data | Calibench-VI community, zed2/data/ (access by automatic approval). The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors |
-Configs and results | Calibench-VI community, zed2/ (access by automatic approval) |
-
-AprilGrid 6 × 6, 156 × 156 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -11086,9 +11055,39 @@ t_ga ms | +3.13 ± 0.37 |
 - The recording runs at 19.7 Hz and the IMU at 381 Hz, below the 30 fps and 400 Hz on the sheet, probably from drops while recording.
 - Solved at Wuhan's local gravity, 9.7936 m/s², on the assumption that the recording was made there (the dataset is from Wuhan University). Until 2026-11-25 this page showed a solve at 9.81 m/s², with an accel scale about 0.15 % higher.
 
+## Specifications
+
+Published by the maker |
+Maker | Stereolabs |
+Image sensors | 2 × 4 MP 1/3-inch back-illuminated CMOS, 2 µm pixels |
+Image sensor chip | OmniVision OV4689, from the chip ID check in Stereolabs' open-source capture code |
+Shutter | Rolling, the two cameras synchronised; readout 14.1 ms (left) and 14.0 ms (right) solved here |
+Lenses | 2.1 mm, 110° × 70° (120° diagonal) |
+Baseline | 120 mm |
+Video modes | Up to 2208×1242 at 15 fps; 1280×720 at 60, 30 or 15 fps |
+IMU chip | Bosch BMI270: Bosch's BMI270 start-up file is in every ZED 2 sensor firmware in the ZED SDK |
+From the dataset |
+Model | The dataset names a ZED2. The original ZED 2 rather than the later ZED 2i is inferred from the recording date (December 2020) and the solved focal length |
+Measured in these recordings |
+Images in the recording | 2 × 1280×720 grey at 19.7 Hz (the dataset states 30 fps) |
+IMU | 6-axis, 400 Hz on the sheet; 381 Hz in the recording |
+Calibrated field of view | cam0 ~102° × 69° · cam1 ~102° × 69° |
+
 ## How it was run
 
 - Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Gravity 9.7936 m/s², Wuhan's local value. Solved 2026-11-25.
+
+## Dataset
+
+Recordings | 1 camera + IMU recording, 74 s, hand-held in front of the board. 1,457 frames per camera, 29,410 IMU samples |
+Source | WHUVID dataset (Wuhan University), calibration recording published by the authors |
+Format | ROS 1 bag. Two IMU samples repeat the one before (same time and values) and are dropped |
+Board | AprilGrid 6×6, tag 20.8 mm, spacing 0.3 |
+Licence | CC BY 4.0, as stated in the WHUVID paper (Chen et al., Remote Sensing 14(9) 2033, 2022); cite it when you use the recording |
+Data | Calibench-VI community, zed2/data/ (access by automatic approval). The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors |
+Configs and results | Calibench-VI community, zed2/ (access by automatic approval) |
+
+AprilGrid 6 × 6, 156 × 156 mm. Standard pattern, to scale
 
 
 ---
@@ -11167,34 +11166,6 @@ cam1 | −12.5, −57.4, +14.5 | 60.5 | [+0.005, +0.006, −1.561] | +1.25 | 94�
 cam2 | −12.8, −7.9, +14.2 | 20.7 | [−0.000, +0.013, −3.133] | −4.06 | ~153° × 82° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Type | Spatial AI camera |
-Image sensors | 2 × SmartSens SC132GS (global shutter), 1 × Sony IMX415 (rolling shutter) |
-IMU chip | Bosch BMI088 |
-From our catalog |
-Global-shutter cameras | 2 × 544×640 mono at 20 Hz, hardware-synced stereo |
-Rolling-shutter camera | 1 × 1088×1920 colour at about 4.3 Hz |
-Lens | Wide field of view; pinhole-equidistant fit |
-IMU | 1 × 400 Hz, with stamps quantized to 2.5 ms |
-Measured in these recordings |
-Calibrated field of view | cam0 96° × 113° · cam1 96° × 113° · cam2 ~149° × 82° |
-
-## Dataset
-
-Chessboard | 4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04 |
-Chessboard data | Calibench-VI community, looper-insight9/data/ (access by automatic approval), takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
-Hand-held | 10 of about 66 s, 15.0 GB in all |
-Hand-held data | Calibench-VI, looper-insight9/ (access by automatic approval). CC BY 4.0, for the hand-held data, clip and figures |
-Robot arm | 2 of about 58 s, same program in both |
-Robot-arm data | Calibench-VI community, looper-insight9/data/ (access by automatic approval). Normal frames. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
-Board | Chessboard: 10×7 squares (9×6 inner corners), 43.47 mm, shown on a monitor. Hand-held and robot arm: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11 |
-Configs and results | Calibench-VI community, looper-insight9/ (access by automatic approval) |
-Worked example | Looper Insight 9 |
-
-AprilGrid 6 × 6, 412 × 412 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -11406,9 +11377,37 @@ t_ga ms | −5.15 ± 0.05 |
 - The arm program rotates mostly about one axis, which leaves lever arms less well determined, so treat the arm's values with more caution.
 - The chessboard recordings come from our own unit, not the partner's, and are shown on their own. The values shown come from take 04 alone, so they show no repeatability; all 4 takes are in the hosted data.
 
+## Specifications
+
+Published by the maker |
+Type | Spatial AI camera |
+Image sensors | 2 × SmartSens SC132GS (global shutter), 1 × Sony IMX415 (rolling shutter) |
+IMU chip | Bosch BMI088 |
+From our catalog |
+Global-shutter cameras | 2 × 544×640 mono at 20 Hz, hardware-synced stereo |
+Rolling-shutter camera | 1 × 1088×1920 colour at about 4.3 Hz |
+Lens | Wide field of view; pinhole-equidistant fit |
+IMU | 1 × 400 Hz, with stamps quantized to 2.5 ms |
+Measured in these recordings |
+Calibrated field of view | cam0 96° × 113° · cam1 96° × 113° · cam2 ~149° × 82° |
+
 ## How it was run
 
 - Camera + IMU with camera intrinsics free, t_ga and the cam2 rolling-shutter readout both estimated. Chessboard recordings of 2026-11-07; hand-held batch of 2026-11-02; robot-arm batch of 2026-11-04.
+
+## Dataset
+
+Chessboard | 4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04 |
+Chessboard data | Calibench-VI community, looper-insight9/data/ (access by automatic approval), takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Hand-held | 10 of about 66 s, 15.0 GB in all |
+Hand-held data | Calibench-VI, looper-insight9/ (access by automatic approval). CC BY 4.0, for the hand-held data, clip and figures |
+Robot arm | 2 of about 58 s, same program in both |
+Robot-arm data | Calibench-VI community, looper-insight9/data/ (access by automatic approval). Normal frames. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Board | Chessboard: 10×7 squares (9×6 inner corners), 43.47 mm, shown on a monitor. Hand-held and robot arm: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11 |
+Configs and results | Calibench-VI community, looper-insight9/ (access by automatic approval) |
+Worked example | Looper Insight 9 |
+
+AprilGrid 6 × 6, 412 × 412 mm. Standard pattern, to scale
 
 
 ---
@@ -11471,26 +11470,6 @@ cam2 | +64.7, +48.3, +20.2 | 83.2 | [−1.215, +1.216, −1.201] | +2.67 | ~167�
 cam3 | −13.1, +85.2, +20.8 | 88.7 | [−1.565, −0.000, +0.005] | +2.71 | 167° × 130° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Cameras | Up to 4 global-shutter, 1280×1024 MJPEG, 1 to 30 fps |
-Sync | PPS |
-Measured in these recordings |
-IMU | 6-axis at 797.7 Hz in these recordings |
-Lens | Fisheye, EUCM fit |
-Calibrated field of view | cam0 168° × 131° · cam1 167° × 131° · cam2 167° × 130° · cam3 168° × 130° |
-
-## Dataset
-
-Recordings | 2 camera + IMU bags at 1,000 and 2,000 µs exposure, about 450 MB each |
-Source | Maker's public download, files.dibuli.com |
-Board | AprilGrid 8×8, tag 70 mm, spacing 0.3 |
-Licence | CC BY-NC 4.0; commercial use by request |
-Hosted | Calibench-VI community, dibuli-prism-a4l/ (access by automatic approval) |
-
-AprilGrid 8 × 8, 707 × 707 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -11643,9 +11622,29 @@ t_ga ms | −0.12 ± 0.03 |
 - No independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
 - td changes with exposure. The exact slope is still open.
 
+## Specifications
+
+Published by the maker |
+Cameras | Up to 4 global-shutter, 1280×1024 MJPEG, 1 to 30 fps |
+Sync | PPS |
+Measured in these recordings |
+IMU | 6-axis at 797.7 Hz in these recordings |
+Lens | Fisheye, EUCM fit |
+Calibrated field of view | cam0 168° × 131° · cam1 167° × 131° · cam2 167° × 130° · cam3 168° × 130° |
+
 ## How it was run
 
 - EUCM camera model, Kalibr IMU model, t_ga estimated, camera intrinsics free, seeded from the camera-only fit. Batch of 2026-11-03. This solve uses physical camera 1 as its base, so cam0 and cam1 on this page are physical cam1 and cam0.
+
+## Dataset
+
+Recordings | 2 camera + IMU bags at 1,000 and 2,000 µs exposure, about 450 MB each |
+Source | Maker's public download, files.dibuli.com |
+Board | AprilGrid 8×8, tag 70 mm, spacing 0.3 |
+Licence | CC BY-NC 4.0; commercial use by request |
+Hosted | Calibench-VI community, dibuli-prism-a4l/ (access by automatic approval) |
+
+AprilGrid 8 × 8, 707 × 707 mm. Standard pattern, to scale
 
 
 ---
@@ -11691,33 +11690,6 @@ cam0 | +42.2, +7.5, −18.0 | 46.5 | [+0.006, −3.140, +0.002] | −16.32 | ~11
 cam1 | −7.7, +7.6, −18.5 | 21.4 | [−0.025, +3.136, −0.001] | −16.37 | ~121° × 76° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | Shenzhen Aili-Light Technology (ALG Tech) |
-Closest published model | AVS111C-Y: 1280×800, 50 mm baseline, 120° × 76°, global shutter. Matched from this recording; the exact model isn't confirmed |
-Lens | 1.67 mm, 120° horizontal on the AVS111C-Y sheet |
-IMU | 6-axis, up to 6400 Hz on the sheet; 200 Hz in these recordings |
-Link and power | GMSL2, power over coax, 9 to 12 V |
-Measured in these recordings |
-Cameras | 2 × 1280×800, 30 Hz with no dropped frames in these recordings |
-Shutter | Global on the AVS111C-Y sheet; a rolling-shutter solve of an earlier recording found no readout |
-Calibrated field of view | cam0 ~119° × 76° · cam1 ~121° × 76° |
-
-Sales contact Provided by the maker
-Email | sales@aili-light.com |
-Phone | +86 755 2721 8150 |
-
-## Dataset
-
-Recordings | 3 recordings of 112, 144 and 148 s. Shown: the 148 s one, cam0 4,433 frames, cam1 4,432, IMU 29,516 samples |
-Format | ROS2 bag with compressed images, converted to EuRoC layout |
-Board | ChArUco 14×9 squares, 40 mm squares, 30 mm markers |
-Data | Calibench-VI community, alg-avs111c/data/ (access by automatic approval). All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
-Configs and results | Calibench-VI community, alg-avs111c/ (access by automatic approval) |
-
-ChArUco 14 × 9 squares (13 × 8 inner corners), 40 mm squares, 30 mm DICT_5X5 markers, 560 × 360 mm, markers 0–62. To scale
 
 ## Detailed results
 
@@ -11784,9 +11756,36 @@ t_ga ms | +0.83 ± 0.83 |
 - The motion is gentle (about 6 to 11°/s RMS). In a simulated copy of each recording, with noise matched to this unit, MVIS recovered the lever arm within 1.1 mm, the rotation within 0.6 mrad, the time offset within 0.1 ms and the IMU scales within 0.4 %. The solver's own σ for the lever arm (2 to 4 mm) is wider, because the solve used MVIS's default IMU noise, which is looser than this IMU needs.
 - The model is matched from resolution, baseline, field of view and shutter, not confirmed by the maker.
 
+## Specifications
+
+Published by the maker |
+Maker | Shenzhen Aili-Light Technology (ALG Tech) |
+Closest published model | AVS111C-Y: 1280×800, 50 mm baseline, 120° × 76°, global shutter. Matched from this recording; the exact model isn't confirmed |
+Lens | 1.67 mm, 120° horizontal on the AVS111C-Y sheet |
+IMU | 6-axis, up to 6400 Hz on the sheet; 200 Hz in these recordings |
+Link and power | GMSL2, power over coax, 9 to 12 V |
+Measured in these recordings |
+Cameras | 2 × 1280×800, 30 Hz with no dropped frames in these recordings |
+Shutter | Global on the AVS111C-Y sheet; a rolling-shutter solve of an earlier recording found no readout |
+Calibrated field of view | cam0 ~119° × 76° · cam1 ~121° × 76° |
+
+Sales contact Provided by the maker
+Email | sales@aili-light.com |
+Phone | +86 755 2721 8150 |
+
 ## How it was run
 
 - Both cameras and the IMU, global shutter, default IMU noise, t_ga estimated, camera intrinsics free. The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively; cx and cy are about 0.45 px lower than in the first solve of 2026-11-11.
+
+## Dataset
+
+Recordings | 3 recordings of 112, 144 and 148 s. Shown: the 148 s one, cam0 4,433 frames, cam1 4,432, IMU 29,516 samples |
+Format | ROS2 bag with compressed images, converted to EuRoC layout |
+Board | ChArUco 14×9 squares, 40 mm squares, 30 mm markers |
+Data | Calibench-VI community, alg-avs111c/data/ (access by automatic approval). All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Configs and results | Calibench-VI community, alg-avs111c/ (access by automatic approval) |
+
+ChArUco 14 × 9 squares (13 × 8 inner corners), 40 mm squares, 30 mm DICT_5X5 markers, 560 × 360 mm, markers 0–62. To scale
 
 
 ---
@@ -11845,33 +11844,6 @@ cam0 | +33.3, −6.2, +16.5 | 37.7 | [−0.014, −0.016, −3.141] | −1.42 | 
 cam1 | −32.1, −6.3, +17.1 | 36.9 | [+0.005, +0.019, +3.140] | −1.51 | 118° × 118° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | Shenzhen Aili-Light Technology (ALG Tech) |
-Model | AVS115D-Y, 1920×1920 at 30 fps (AVS115D-B06-M95DFA1-RABI) |
-Image sensor | 1/2.7-inch CMOS, 2.0 µm pixels, rolling shutter |
-Lens | 1.90 mm, 119° × 119° |
-IMU | TDK ICM-45686 (named by ALG), 6-axis, up to 6400 Hz on the sheet; 200 Hz in both recordings |
-Link and power | GMSL2, power over coax, 9 to 12 V, 2.3 W |
-Measured in these recordings |
-Cameras | 2 × 1920×1920, 30 Hz with no dropped frames in either recording; left and right stamps 5 µs apart (median) |
-Calibrated field of view | cam0 ~118° × 118° · cam1 119° × 118° |
-
-Sales contact Provided by the maker
-Email | sales@aili-light.com |
-Phone | +86 755 2721 8150 |
-
-## Dataset
-
-Recordings | 2 hand-held recordings. Recording 1 (2026-11-13): 163 s, cam0 4,900 frames, cam1 4,899, IMU 32,664 samples. Recording 2 (2026-11-14, stronger light, shorter exposure): 101 s, 3,024 frames per camera, IMU 20,164 samples |
-Format | ROS2 bag with compressed images, converted to EuRoC layout |
-Board | ChArUco 14×9 squares, 40 mm squares, 30 mm markers |
-Data | Calibench-VI community, alg-avs115d/data/ (access by automatic approval). Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
-Configs and results | Calibench-VI community, alg-avs115d/ (access by automatic approval) |
-
-ChArUco 14 × 9 squares (13 × 8 inner corners), 40 mm squares, 30 mm DICT_5X5 markers, 560 × 360 mm, markers 0–62. To scale
 
 ## Detailed results
 
@@ -11988,9 +11960,36 @@ t_ga ms | +1.07 ± 0.20 |
 - The bags don't record the exposure time. Measured from the motion blur, recording 1 was exposed for about 18 to 21 ms and recording 2 for about 2 to 5 ms. Half of that change is about 8 ms: the right direction, but short of the 13 ms measured, and the rest is still open. On the Dibuli Prism A4L, two exposures 1 ms apart moved td by 0.5 to 0.7 ms per ms of exposure, close to what this explanation predicts.
 - In practice, td on this module depends on the exposure, so with auto-exposure it is not one number. Stamp frames at mid-exposure if the driver allows it, or use the td measured at an exposure close to yours; recording 2's value suits short exposures.
 
+## Specifications
+
+Published by the maker |
+Maker | Shenzhen Aili-Light Technology (ALG Tech) |
+Model | AVS115D-Y, 1920×1920 at 30 fps (AVS115D-B06-M95DFA1-RABI) |
+Image sensor | 1/2.7-inch CMOS, 2.0 µm pixels, rolling shutter |
+Lens | 1.90 mm, 119° × 119° |
+IMU | TDK ICM-45686 (named by ALG), 6-axis, up to 6400 Hz on the sheet; 200 Hz in both recordings |
+Link and power | GMSL2, power over coax, 9 to 12 V, 2.3 W |
+Measured in these recordings |
+Cameras | 2 × 1920×1920, 30 Hz with no dropped frames in either recording; left and right stamps 5 µs apart (median) |
+Calibrated field of view | cam0 ~118° × 118° · cam1 119° × 118° |
+
+Sales contact Provided by the maker
+Email | sales@aili-light.com |
+Phone | +86 755 2721 8150 |
+
 ## How it was run
 
 - Both cameras and the IMU, rolling shutter with each camera's readout time estimated, Kannala–Brandt (kb4) lenses with intrinsics free, IMU noise set about 5× tighter than MVIS's default to match this unit, t_ga estimated. Fast motion blurred some frames; stereo pairs whose board edges were more than 1.5× wider than the median were left out (17 % of the pairs in recording 1, 0.6 % in recording 2). The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Both recordings solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively, with the same settings; cx and cy are about 0.45 px lower than in the first solves of 2026-11-14 and 2026-11-15.
+
+## Dataset
+
+Recordings | 2 hand-held recordings. Recording 1 (2026-11-13): 163 s, cam0 4,900 frames, cam1 4,899, IMU 32,664 samples. Recording 2 (2026-11-14, stronger light, shorter exposure): 101 s, 3,024 frames per camera, IMU 20,164 samples |
+Format | ROS2 bag with compressed images, converted to EuRoC layout |
+Board | ChArUco 14×9 squares, 40 mm squares, 30 mm markers |
+Data | Calibench-VI community, alg-avs115d/data/ (access by automatic approval). Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Configs and results | Calibench-VI community, alg-avs115d/ (access by automatic approval) |
+
+ChArUco 14 × 9 squares (13 × 8 inner corners), 40 mm squares, 30 mm DICT_5X5 markers, 560 × 360 mm, markers 0–62. To scale
 
 
 ---
@@ -12038,35 +12037,6 @@ cam2 | +86.1, +1.3, +15.3 | 87.5 | [+0.510, +1.963, +1.908] | −0.04 | 170° ×
 cam3 | −46.0, −0.6, +15.4 | 48.5 | [+0.525, −1.941, −1.914] | −0.03 | ~170° × 137° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | Shenzhen Tujian Intelligent Technology (深圳市图间智能科技有限公司) |
-Image sensor | SmartSens SC136HGS, RGB, global shutter, back-illuminated, 4 × 4 µm pixels |
-Wide lenses (cam2, cam3) | 1.67 mm, F2.0, M12; 200° diagonal, 174° × 139° |
-Narrow lenses (cam0, cam1) | 1.79 mm, F2.0, M12; 160° diagonal, 133° × 112° |
-Synchronization | Camera to camera 10 µs, camera to IMU 100 µs on the sheet; identical camera stamps in this recording |
-IMU chip | Bosch BMI088 |
-Link and power | USB 3.0, UVC; 1.5–2 W at 5 V |
-Measured in these recordings |
-Cameras | 4 × 1280×1024; 30 fps on the sheet, 15 Hz in this recording |
-IMU | 200 Hz |
-Calibrated field of view | cam0 131° × 110° · cam1 131° × 110° · cam2 170° × 137° · cam3 ~170° × 137° |
-
-Sales contact Provided by the maker
-Email | support@tujian.com |
-
-## Dataset
-
-Recordings | 1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples |
-Format | ROS1 bag |
-Board | AprilGrid 6×6, tag 55 mm, spacing 0.3 |
-Licence | CC BY 4.0, commercial use included, for the recording, clip and figures |
-Data | Calibench-VI community, cyperstereo/data/ (access by automatic approval). The maker's bag, unchanged (cyperstereo_imu_calibra2.bag, 9.3 GB), normal frames; hosted with Tujian's agreement. Recorded by Tujian |
-Configs and results | Calibench-VI community, cyperstereo/ (access by automatic approval). The configs, the starting calibration and this page's results; the configs read the recording in data/ |
-
-AprilGrid 6 × 6, 412 × 412 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -12163,9 +12133,38 @@ t_ga ms | −0.11 ± 0.25 |
 - In the digital twin (6 noisy seeds) every value is recovered within tolerance except the four camera-to-IMU rotations: worst 3.0 mrad against 2 mrad, within 1.8× MVIS's own σ (1.7 mrad). The 39.5 s recording constrains rotation less than a longer one would.
 - The tag size is taken from the target file sent with the data and isn't confirmed on the printed board. It scales every baseline and lever arm.
 
+## Specifications
+
+Published by the maker |
+Maker | Shenzhen Tujian Intelligent Technology (深圳市图间智能科技有限公司) |
+Image sensor | SmartSens SC136HGS, RGB, global shutter, back-illuminated, 4 × 4 µm pixels |
+Wide lenses (cam2, cam3) | 1.67 mm, F2.0, M12; 200° diagonal, 174° × 139° |
+Narrow lenses (cam0, cam1) | 1.79 mm, F2.0, M12; 160° diagonal, 133° × 112° |
+Synchronization | Camera to camera 10 µs, camera to IMU 100 µs on the sheet; identical camera stamps in this recording |
+IMU chip | Bosch BMI088 |
+Link and power | USB 3.0, UVC; 1.5–2 W at 5 V |
+Measured in these recordings |
+Cameras | 4 × 1280×1024; 30 fps on the sheet, 15 Hz in this recording |
+IMU | 200 Hz |
+Calibrated field of view | cam0 131° × 110° · cam1 131° × 110° · cam2 170° × 137° · cam3 ~170° × 137° |
+
+Sales contact Provided by the maker
+Email | support@tujian.com |
+
 ## How it was run
 
 - All four cameras and the IMU together. Camera intrinsics (Kannala–Brandt kb4) from four single-camera solves of the same recording, then held fixed; IMU scale and misalignment, gyro-to-accel offset t_ga and camera time offsets estimated. IMU noise from the BMI088 datasheet, about 2.5× wider. Solved 2026-11-15.
+
+## Dataset
+
+Recordings | 1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples |
+Format | ROS1 bag |
+Board | AprilGrid 6×6, tag 55 mm, spacing 0.3 |
+Licence | CC BY 4.0, commercial use included, for the recording, clip and figures |
+Data | Calibench-VI community, cyperstereo/data/ (access by automatic approval). The maker's bag, unchanged (cyperstereo_imu_calibra2.bag, 9.3 GB), normal frames; hosted with Tujian's agreement. Recorded by Tujian |
+Configs and results | Calibench-VI community, cyperstereo/ (access by automatic approval). The configs, the starting calibration and this page's results; the configs read the recording in data/ |
+
+AprilGrid 6 × 6, 412 × 412 mm. Standard pattern, to scale
 
 
 ---
@@ -12222,34 +12221,6 @@ Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of 
 cam0 | −32.0, −0.6, +13.7 | 34.8 | [+0.003, −0.001, +0.002] | −4.74 | ~154° × 121° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Closest published model | USB-3372-V1.0: dual 2MP global shutter, M12 fixed focus, IMU at 100, 200 or 500 Hz, SD storage. The exact model isn't confirmed |
-Image sensors | SmartSens SC235HGS on Hampo's listing for the 3372; not confirmed on this unit |
-Measured in these recordings |
-Cameras | 2 × 1600×1200, H.264, 30 fps, colour |
-IMU | 505 Hz measured, 500 Hz set |
-Sync | Both cameras share one frame time in the recorder log |
-Calibrated field of view | cam0 ~154° × 121° · cam1 ~153° × 120° |
-Not published |
-Open | Shutter: Not confirmed on this unit; global on the USB-3372 sheet |
-
-Sales contact Provided by the maker
-Name | 周宇华, sales manager |
-Email | cannychow@dghpdz.cn |
-Office phone | +86 769 8798 9852 |
-
-## Dataset
-
-Recordings | 1 recording. cam0 107.8 s, 3,235 frames. cam1 stops at 57.6 s, 1,728 frames |
-Format | Unfinalised MP4s, rebuilt, then converted to EuRoC layout |
-Board | AprilGrid 8×6, tag 50 mm, spacing 0.3 |
-Licence | CC BY-NC 4.0; commercial use by request |
-Hosted | Calibench-VI community, hampo/ (access by automatic approval) |
-
-AprilGrid 8 × 6, 375 × 505 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -12344,9 +12315,37 @@ t_ga ms | +0.13 ± 1.03 |
 - The recording is H.264 and the USB-3372 sheet lists MJPG and YUY2, so the exact model stays open.
 - Frame stamps fall about 5.2 ms after mid-exposure, so td here isn't a physical delay.
 
+## Specifications
+
+Published by the maker |
+Closest published model | USB-3372-V1.0: dual 2MP global shutter, M12 fixed focus, IMU at 100, 200 or 500 Hz, SD storage. The exact model isn't confirmed |
+Image sensors | SmartSens SC235HGS on Hampo's listing for the 3372; not confirmed on this unit |
+Measured in these recordings |
+Cameras | 2 × 1600×1200, H.264, 30 fps, colour |
+IMU | 505 Hz measured, 500 Hz set |
+Sync | Both cameras share one frame time in the recorder log |
+Calibrated field of view | cam0 ~154° × 121° · cam1 ~153° × 120° |
+Not published |
+Open | Shutter: Not confirmed on this unit; global on the USB-3372 sheet |
+
+Sales contact Provided by the maker
+Name | 周宇华, sales manager |
+Email | cannychow@dghpdz.cn |
+Office phone | +86 769 8798 9852 |
+
 ## How it was run
 
 - cam0 at 30 Hz, cam1 at 10 Hz, default IMU noise, t_ga estimated, camera intrinsics free. Batch of 2026-11-03.
+
+## Dataset
+
+Recordings | 1 recording. cam0 107.8 s, 3,235 frames. cam1 stops at 57.6 s, 1,728 frames |
+Format | Unfinalised MP4s, rebuilt, then converted to EuRoC layout |
+Board | AprilGrid 8×6, tag 50 mm, spacing 0.3 |
+Licence | CC BY-NC 4.0; commercial use by request |
+Hosted | Calibench-VI community, hampo/ (access by automatic approval) |
+
+AprilGrid 8 × 6, 375 × 505 mm. Standard pattern, to scale
 
 
 ---
@@ -12392,31 +12391,6 @@ cam0 | −12.7, −21.3, −20.2 | 31.9 | [+0.023, −3.125, −0.021] | +55.55 
 cam1 | +49.4, −20.4, −21.8 | 57.8 | [+0.022, −3.117, −0.008] | +55.63 | ~128° × 68° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Field of view | 120° × 72° |
-IMU | 200 Hz, 9-DoF |
-Image sensors | 2 × SmartSens SC3336, from the device tree in GI's public firmware 0.1.2 (this recording ran 1.0.x) |
-IMU chip | Bosch BNO055, from the setup file in GI's public firmware 0.1.2. It outputs about 100 Hz, and every other 200 Hz sample in our recording is filled in |
-Measured in these recordings |
-Shutter | Rolling, readout about 26 ms (solved) |
-Cameras | 2 × 1920×1080 at about 30 fps |
-Calibrated field of view | cam0 ~122° × 68° · cam1 ~128° × 68° |
-
-## Dataset
-
-Recording | 2026-07-17, 30.1 s |
-Format | MCAP, H.265 |
-Frames | Everything except the board is blurred |
-Frames kept at decode | cam0 889 of 900, cam1 about 859 |
-Board | AprilGrid 6×6, tag 35.2 mm, spacing 0.3 |
-Bags, configs and results | Calibench-VI community, gi-ego1/ (access by automatic approval) |
-Licence | CC BY 4.0, for the data and for this page's clip and figures |
-Hosted | Calibench-VI, gilabs-examples/ (access by automatic approval) |
-
-AprilGrid 6 × 6, 264 × 264 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -12482,10 +12456,35 @@ t_ga ms | −5.66 ± 0.64 |
 - One recording, with no independent reference. These values show what MVIS solved, not how close they are to the truth.
 - Gyro scale solves 3 to 4 % below 1 on all axes. We have not confirmed the cause.
 
+## Specifications
+
+Published by the maker |
+Field of view | 120° × 72° |
+IMU | 200 Hz, 9-DoF |
+Image sensors | 2 × SmartSens SC3336, from the device tree in GI's public firmware 0.1.2 (this recording ran 1.0.x) |
+IMU chip | Bosch BNO055, from the setup file in GI's public firmware 0.1.2. It outputs about 100 Hz, and every other 200 Hz sample in our recording is filled in |
+Measured in these recordings |
+Shutter | Rolling, readout about 26 ms (solved) |
+Cameras | 2 × 1920×1080 at about 30 fps |
+Calibrated field of view | cam0 ~122° × 68° · cam1 ~128° × 68° |
+
 ## How it was run
 
 - Recording converted to EuRoC layout, camera-only solve per camera, then camera + IMU with camera intrinsics free, t_ga and the rolling-shutter readout both estimated. Batch of 2026-11-03.
 - sha256 of the recording: f4443fc201d70088a28aa2011c1f82597ae911f2896745bdf267fa043f8aeae4
+
+## Dataset
+
+Recording | 2026-07-17, 30.1 s |
+Format | MCAP, H.265 |
+Frames | Everything except the board is blurred |
+Frames kept at decode | cam0 889 of 900, cam1 about 859 |
+Board | AprilGrid 6×6, tag 35.2 mm, spacing 0.3 |
+Bags, configs and results | Calibench-VI community, gi-ego1/ (access by automatic approval) |
+Licence | CC BY 4.0, for the data and for this page's clip and figures |
+Hosted | Calibench-VI, gilabs-examples/ (access by automatic approval) |
+
+AprilGrid 6 × 6, 264 × 264 mm. Standard pattern, to scale
 
 
 ---
@@ -12548,34 +12547,6 @@ cam0 | +19.4, −14.7, −20.0 | 31.5 | [−2.190, +2.221, −0.031] | −1.16 |
 cam1 | +19.5, +47.5, −19.8 | 55.0 | [−2.197, +2.222, −0.015] | −1.16 | past the fit × 84° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Audio | Stereo, dual microphones (source) |
-Synchronization | All four streams on one hardware clock (source) |
-Storage | MicroSD, 128 GB card included (source) |
-Connectivity | Wi-Fi and USB (source) |
-Power | USB power bank; 12 to 16 hours on 10,000 mAh (source) |
-Weight | About 200 g, headset only (source) |
-Measured in these recordings |
-IMU rate | 470.9 Hz (recording 1), 476.8 Hz (recording 2) |
-Calibrated field of view | cam0 past the fit × 84° · cam1 ~164° × 85° |
-Not published |
-Parts | Sensor part numbers, lens model |
-
-## Dataset
-
-Recording 1 | 2026-07-23, 30.1 s. Frames kept: cam0 821 of 894, cam1 744 of 890 |
-Recording 2 | 2026-07-24, 30.1 s. Frames kept: 895 of 899 on each camera |
-Frames | Everything except the board is blurred |
-Format | MCAP, H.265, 61 MB |
-Board | AprilGrid 6×6, tag 35.2 mm, spacing 0.3 |
-Bags, configs and results | Calibench-VI community, gi-ego1gs/ (access by automatic approval) |
-Licence | CC BY 4.0, for the data and for this page's clip and figures |
-Hosted | Calibench-VI, gilabs-examples/ (access by automatic approval) |
-
-AprilGrid 6 × 6, 264 × 264 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -12685,10 +12656,38 @@ t_ga ms | +4.34 ± 0.57 |
 - Recording 1 lost frames on both cameras at decode, so it has gaps.
 - Both recordings are solved from the blurred video. Blurring moved the lever arm by less than 0.1 mm.
 
+## Specifications
+
+Published by the maker |
+Audio | Stereo, dual microphones (source) |
+Synchronization | All four streams on one hardware clock (source) |
+Storage | MicroSD, 128 GB card included (source) |
+Connectivity | Wi-Fi and USB (source) |
+Power | USB power bank; 12 to 16 hours on 10,000 mAh (source) |
+Weight | About 200 g, headset only (source) |
+Measured in these recordings |
+IMU rate | 470.9 Hz (recording 1), 476.8 Hz (recording 2) |
+Calibrated field of view | cam0 past the fit × 84° · cam1 ~164° × 85° |
+Not published |
+Parts | Sensor part numbers, lens model |
+
 ## How it was run
 
 - Recording converted to EuRoC layout, camera-only solve per camera, then camera + IMU with camera intrinsics free and t_ga estimated. Batch of 2026-11-03.
 - sha256 of the recording: 54ce767a06ae0a6c9ab1acb73924a0c243928470f35ac7be36d19215514cea89
+
+## Dataset
+
+Recording 1 | 2026-07-23, 30.1 s. Frames kept: cam0 821 of 894, cam1 744 of 890 |
+Recording 2 | 2026-07-24, 30.1 s. Frames kept: 895 of 899 on each camera |
+Frames | Everything except the board is blurred |
+Format | MCAP, H.265, 61 MB |
+Board | AprilGrid 6×6, tag 35.2 mm, spacing 0.3 |
+Bags, configs and results | Calibench-VI community, gi-ego1gs/ (access by automatic approval) |
+Licence | CC BY 4.0, for the data and for this page's clip and figures |
+Hosted | Calibench-VI, gilabs-examples/ (access by automatic approval) |
+
+AprilGrid 6 × 6, 264 × 264 mm. Standard pattern, to scale
 
 
 ---
@@ -12747,39 +12746,6 @@ cam0 | −29.7, −9.4, +21.1 | 37.6 | [−0.001, −0.003, +0.004] | +5.78 | 12
 cam1 | +30.4, −9.1, +20.6 | 37.8 | [+0.001, +0.009, +0.004] | +5.79 | 122° × 91° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-From the supplier's sheet |
-Cameras | 2 × 1920×1200, H.265 MP4 |
-Frame rate | 30 or 60 fps on the sheet; about 30 Hz in these recordings |
-Field of view | 123.6° on the sheet; axis not stated |
-IMU | 6-axis, 300 or 600 Hz on the sheet; 300.5 Hz measured |
-Storage and interface | microSD up to 128 GB, or UVC; Type-C |
-Power | No battery |
-Weight | 180 g with strap |
-From the seller's listing |
-Model number | XQ20 |
-Cameras | 2, dual 1080P, 2 MP, MP4 |
-Lens | Fisheye |
-Frame rate | 60 and 30 fps |
-Field of view | 160°; axis not stated |
-Shutter | Global; not measured in these recordings |
-IMU | 300 Hz; stamped at measurement end, 50 ppm, 32-bit µs |
-Measured in these recordings |
-Calibrated field of view | cam0 122° × 91° · cam1 122° × 91° |
-Not published |
-Open | Sensor part numbers |
-
-## Dataset
-
-Recordings | Unit A: 158 s, 4,736 frames. Unit B: 119 s, 3,573 frames |
-Format | MP4 plus per-segment IMU CSV, converted to EuRoC layout |
-Board | AprilGrid 6×6, tag 35.2 mm, spacing 0.3 |
-Licence | CC BY-NC 4.0; commercial use by request |
-Hosted | Calibench-VI community, xq20/ (access by automatic approval) |
-
-AprilGrid 6 × 6, 264 × 264 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -12876,9 +12842,42 @@ t_ga ms | −0.91 ± 0.57 |
 - With IMU intrinsics free, the lever arm's y shifts about 9 mm on both units, more than its 3.5 mm uncertainty. Pinned, it agrees with the supplier's Kalibr, so these results pin the IMU intrinsics.
 - The listing says 1080P and 160°, and the supplier's sheet says 1920×1200 and 123.6°. These recordings are 1920×1200. The listing's shutter value wasn't tested here.
 
+## Specifications
+
+From the supplier's sheet |
+Cameras | 2 × 1920×1200, H.265 MP4 |
+Frame rate | 30 or 60 fps on the sheet; about 30 Hz in these recordings |
+Field of view | 123.6° on the sheet; axis not stated |
+IMU | 6-axis, 300 or 600 Hz on the sheet; 300.5 Hz measured |
+Storage and interface | microSD up to 128 GB, or UVC; Type-C |
+Power | No battery |
+Weight | 180 g with strap |
+From the seller's listing |
+Model number | XQ20 |
+Cameras | 2, dual 1080P, 2 MP, MP4 |
+Lens | Fisheye |
+Frame rate | 60 and 30 fps |
+Field of view | 160°; axis not stated |
+Shutter | Global; not measured in these recordings |
+IMU | 300 Hz; stamped at measurement end, 50 ppm, 32-bit µs |
+Measured in these recordings |
+Calibrated field of view | cam0 122° × 91° · cam1 122° × 91° |
+Not published |
+Open | Sensor part numbers |
+
 ## How it was run
 
 - cam0 at 30 Hz, cam1 at 10 Hz, t_ga estimated, camera intrinsics free, IMU intrinsics pinned. IMU noise padded from the measured noise: gyro 6e-4 rad/s/√Hz, accel 0.015 m/s²/√Hz. Batch of 2026-11-07.
+
+## Dataset
+
+Recordings | Unit A: 158 s, 4,736 frames. Unit B: 119 s, 3,573 frames |
+Format | MP4 plus per-segment IMU CSV, converted to EuRoC layout |
+Board | AprilGrid 6×6, tag 35.2 mm, spacing 0.3 |
+Licence | CC BY-NC 4.0; commercial use by request |
+Hosted | Calibench-VI community, xq20/ (access by automatic approval) |
+
+AprilGrid 6 × 6, 264 × 264 mm. Standard pattern, to scale
 
 
 ---
@@ -12924,33 +12923,6 @@ cam0 | +70.6, +120.6, +9.9 | 140.1 | [−0.064, −0.061, −1.562] | −0.04 | 
 cam1 | +69.5, −13.1, +10.4 | 71.5 | [+0.044, +0.072, −1.555] | −0.02 | ~119° × 119° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-From the seller's listing |
-IMU chip | TDK InvenSense ICM-20602, from the iFixit chip ID teardown |
-From the dataset |
-Cameras | 2 × 960×960 at 54 Hz, grayscale |
-Shutter | Global |
-Lens | Fisheye, about 120° (unofficial) |
-IMU | 6-axis, about 1 kHz |
-Measured in these recordings |
-Calibrated field of view | cam0 120° × 120° · cam1 ~119° × 119° |
-Not published |
-Open | Camera sensor |
-
-## Dataset
-
-Recording | Monado MIC, imucalib1 |
-Source | Monado SLAM Datasets, Collabora |
-Board | AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11 |
-Licence | CC BY 4.0 |
-Hosted copy | Calibench-VI, converted/tum_mic/ (access by automatic approval) |
-Configs and results | Calibench-VI community, valve-index/ (access by automatic approval) |
-Data | Monado SLAM Datasets |
-Worked example | Monado example, run on the HP Reverb G2 |
-
-AprilGrid 6 × 6, 225 × 225 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -13013,9 +12985,36 @@ t_ga ms | −0.74 ± 0.27 |
 
 - One recording shown, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
 
+## Specifications
+
+From the seller's listing |
+IMU chip | TDK InvenSense ICM-20602, from the iFixit chip ID teardown |
+From the dataset |
+Cameras | 2 × 960×960 at 54 Hz, grayscale |
+Shutter | Global |
+Lens | Fisheye, about 120° (unofficial) |
+IMU | 6-axis, about 1 kHz |
+Measured in these recordings |
+Calibrated field of view | cam0 120° × 120° · cam1 ~119° × 119° |
+Not published |
+Open | Camera sensor |
+
 ## How it was run
 
 - Camera + IMU with camera intrinsics free and t_ga estimated. Batch of 2026-11-02.
+
+## Dataset
+
+Recording | Monado MIC, imucalib1 |
+Source | Monado SLAM Datasets, Collabora |
+Board | AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11 |
+Licence | CC BY 4.0 |
+Hosted copy | Calibench-VI, converted/tum_mic/ (access by automatic approval) |
+Configs and results | Calibench-VI community, valve-index/ (access by automatic approval) |
+Data | Monado SLAM Datasets |
+Worked example | Monado example, run on the HP Reverb G2 |
+
+AprilGrid 6 × 6, 225 × 225 mm. Standard pattern, to scale
 
 
 ---
@@ -13063,29 +13062,6 @@ cam2 | −75.8, +15.1, −30.1 | 82.9 | [+0.953, −1.331, −1.068] | −1.30 |
 cam3 | +80.7, +16.5, −29.7 | 87.5 | [−1.384, +0.978, −1.378] | −1.36 | 118° × 94° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-From the dataset |
-Cameras | 4 × 640×480 grayscale at 30 Hz |
-IMU | About 1 kHz |
-IMU chip | TDK InvenSense ICM-20602, from the headset calibration file in the dataset |
-Camera chips | 4 × OmniVision OV7251, from the dataset authors' sensor table (Table II of their paper) |
-Measured in these recordings |
-Calibrated field of view | cam0 118° × 94° · cam1 119° × 95° · cam2 118° × 94° · cam3 118° × 94° |
-
-## Dataset
-
-Recordings | Monado MGC round 1: imucalib01, 02 and 13, one for each camera pair |
-Source | Monado SLAM Datasets, Collabora |
-Board | AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11 |
-Licence | CC BY 4.0 |
-Hosted copy | Calibench-VI, converted/monado_mgc/ (access by automatic approval) |
-Configs and results | Calibench-VI community, hp-reverb-g2/ (access by automatic approval) |
-Data | Monado SLAM Datasets |
-Worked example | Monado: HP Reverb G2 |
-
-AprilGrid 6 × 6, 225 × 225 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -13180,9 +13156,32 @@ t_ga ms | +2.50 ± 0.21 |
 - This rig is stitched from three solves, not one joint solve. Cameras seen in two pairs agree to 0.89 mm and 0.34° (cam0) and 0.54 mm and 0.15° (cam1). cam2 and cam3 move 0.79 and 0.52 mm depending on how they are attached.
 - The process figure and values for the IMU show the cam0 + cam1 recording only.
 
+## Specifications
+
+From the dataset |
+Cameras | 4 × 640×480 grayscale at 30 Hz |
+IMU | About 1 kHz |
+IMU chip | TDK InvenSense ICM-20602, from the headset calibration file in the dataset |
+Camera chips | 4 × OmniVision OV7251, from the dataset authors' sensor table (Table II of their paper) |
+Measured in these recordings |
+Calibrated field of view | cam0 118° × 94° · cam1 119° × 95° · cam2 118° × 94° · cam3 118° × 94° |
+
 ## How it was run
 
 - Each recording shows the board to one camera pair, so three pairs are solved: cam0 + cam1, cam0 + cam2, cam1 + cam3. Each is camera + IMU with camera intrinsics free and t_ga estimated, on current MVIS, 2026-11-03. cam0, cam1 and all IMU values come from the first pair. cam2 is attached through cam0 and cam3 through cam1.
+
+## Dataset
+
+Recordings | Monado MGC round 1: imucalib01, 02 and 13, one for each camera pair |
+Source | Monado SLAM Datasets, Collabora |
+Board | AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11 |
+Licence | CC BY 4.0 |
+Hosted copy | Calibench-VI, converted/monado_mgc/ (access by automatic approval) |
+Configs and results | Calibench-VI community, hp-reverb-g2/ (access by automatic approval) |
+Data | Monado SLAM Datasets |
+Worked example | Monado: HP Reverb G2 |
+
+AprilGrid 6 × 6, 225 × 225 mm. Standard pattern, to scale
 
 
 ---
@@ -13228,28 +13227,6 @@ cam0 | −84.0, −2.0, +4.2 | 84.1 | [−0.366, −0.406, +0.068] | −0.64 | 1
 cam1 | +21.5, −2.1, +4.0 | 22.0 | [−0.374, +0.401, −0.083] | −0.64 | 119° × 94° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-From the dataset |
-Cameras | 2 × 640×480 grayscale at 30 Hz |
-IMU | About 1 kHz |
-Camera sensor | OmniVision OV7251, named by the dataset authors |
-IMU chip | TDK InvenSense ICM-20602, from the headset calibration file in the dataset |
-Measured in these recordings |
-Calibrated field of view | cam0 119° × 95° · cam1 119° × 94° |
-
-## Dataset
-
-Recording | Monado MOC, imucalib, round 4 |
-Source | Monado SLAM Datasets, Collabora |
-Board | AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11 |
-Licence | CC BY 4.0 |
-Hosted copy | Calibench-VI, converted/monado_moc/ (access by automatic approval) |
-Configs and results | Calibench-VI community, samsung-odyssey-plus/ (access by automatic approval) |
-Data | Monado SLAM Datasets |
-
-AprilGrid 6 × 6, 225 × 225 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -13313,9 +13290,31 @@ t_ga ms | +2.26 ± 0.14 |
 - One recording shown, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
 - In this batch, 2 of the 4 rounds on this headset didn't converge to a usable solve (rounds 1 and 3). Round 4 is shown. Treat these values with that in mind.
 
+## Specifications
+
+From the dataset |
+Cameras | 2 × 640×480 grayscale at 30 Hz |
+IMU | About 1 kHz |
+Camera sensor | OmniVision OV7251, named by the dataset authors |
+IMU chip | TDK InvenSense ICM-20602, from the headset calibration file in the dataset |
+Measured in these recordings |
+Calibrated field of view | cam0 119° × 95° · cam1 119° × 94° |
+
 ## How it was run
 
 - Camera + IMU with camera intrinsics free and t_ga estimated. Batch of 2026-11-02.
+
+## Dataset
+
+Recording | Monado MOC, imucalib, round 4 |
+Source | Monado SLAM Datasets, Collabora |
+Board | AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11 |
+Licence | CC BY 4.0 |
+Hosted copy | Calibench-VI, converted/monado_moc/ (access by automatic approval) |
+Configs and results | Calibench-VI community, samsung-odyssey-plus/ (access by automatic approval) |
+Data | Monado SLAM Datasets |
+
+AprilGrid 6 × 6, 225 × 225 mm. Standard pattern, to scale
 
 
 ---
@@ -13389,35 +13388,6 @@ Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of 
 cam0 | −14.7, +24.1, +20.6 | 34.9 | [−1.214, −1.198, −1.216] | −20.91 | 188° × 182° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
-
-## Specifications
-
-Published by the maker |
-Maker | Insta360 (Arashi Vision), lenses co-engineered with Leica |
-Image sensors | 2 × 1-inch CMOS; Sony IMX283, from the IMX283 dual sensor driver in the ONE RS firmware v2.0.8 |
-IMU chip | TDK InvenSense ICM-40609: the gyro type the camera writes into each video (INSDEV_IMU_TYPE_40609 in a 1-Inch 360 sample video published by 360 Rumors) |
-Maker video modes | Up to 6K 360° video (5888×2944 at 30 fps) |
-From the dataset |
-Lenses | Leica Super-Summicron-A, f/2.2, 6.52 mm (35 mm equivalent); about 200° each, back to back |
-Shutter | Rolling; the two shutters are synchronised |
-Readout time | 31.05 ms, top to bottom, in the organisers' SLAM settings; 31.1 ms (front) and 31.4 ms (back) solved here |
-Measured in these recordings |
-Images in the recordings | 2 × 1472×1440 at 30 Hz, JPEG |
-IMU | 6-axis, 1 kHz, read from the video metadata |
-Calibrated field of view | cam0 188° × 182° · cam1 188° × 182° |
-
-## Dataset
-
-Recordings | 2 camera + IMU recordings, one per lens: 233 s and 208 s, hand-held in front of the board. 1 camera-pair recording, 205 s, camera still and board moved |
-Source | Hilti-Trimble SLAM Challenge 2026 dataset (Hilti, Trimble, University of Oxford) |
-Format | ROS 2 bag (sqlite3), read directly |
-Boards | AprilGrid 7×12, tag 150 mm, spacing 0.25 (camera + IMU). AprilGrid 6×6, tag 80 mm, spacing 0.3 (camera pair) |
-Licence | CC BY-NC-SA 3.0 |
-Hosted | Not hosted here; download from the challenge dataset |
-Configs and results | Calibench-VI community, insta360-one-rs-1inch-360/ (access by automatic approval). CC BY 4.0; the reports show frames from the challenge recordings, so they stay CC BY-NC-SA 3.0 |
-Data | Hilti-Trimble SLAM Challenge 2026: camera_calibration |
-
-AprilGrid 7 × 12, 2212 × 1275 mm. Standard pattern, to scale
 
 ## Detailed results
 
@@ -13549,9 +13519,38 @@ t_ga ms | −0.36 ± 0.07 |
 - The board reaches about 95° from the lens axis, so the outermost part of each 200° image is extrapolated.
 - The images are JPEG-compressed, which can shift detected corners slightly.
 
+## Specifications
+
+Published by the maker |
+Maker | Insta360 (Arashi Vision), lenses co-engineered with Leica |
+Image sensors | 2 × 1-inch CMOS; Sony IMX283, from the IMX283 dual sensor driver in the ONE RS firmware v2.0.8 |
+IMU chip | TDK InvenSense ICM-40609: the gyro type the camera writes into each video (INSDEV_IMU_TYPE_40609 in a 1-Inch 360 sample video published by 360 Rumors) |
+Maker video modes | Up to 6K 360° video (5888×2944 at 30 fps) |
+From the dataset |
+Lenses | Leica Super-Summicron-A, f/2.2, 6.52 mm (35 mm equivalent); about 200° each, back to back |
+Shutter | Rolling; the two shutters are synchronised |
+Readout time | 31.05 ms, top to bottom, in the organisers' SLAM settings; 31.1 ms (front) and 31.4 ms (back) solved here |
+Measured in these recordings |
+Images in the recordings | 2 × 1472×1440 at 30 Hz, JPEG |
+IMU | 6-axis, 1 kHz, read from the video metadata |
+Calibrated field of view | cam0 188° × 182° · cam1 188° × 182° |
+
 ## How it was run
 
 - Each lens alone with the IMU, then both placed in the one IMU frame. Only the well-excited part of each recording is used: the camera turns about all three axes from 130 s (front) and 100 s (back), and the last 10 s, where it is put down, are left out; 92 s and 97 s. Camera intrinsics (enhanced unified model, EUCM, as in the organisers' calibration) start from a single-camera solve and stay free; the shape of the 7×12 board, rolling-shutter readout, camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise measured on the camera-pair recording, where the camera stands still, and widened about 2.8×. Solved 2026-11-12.
+
+## Dataset
+
+Recordings | 2 camera + IMU recordings, one per lens: 233 s and 208 s, hand-held in front of the board. 1 camera-pair recording, 205 s, camera still and board moved |
+Source | Hilti-Trimble SLAM Challenge 2026 dataset (Hilti, Trimble, University of Oxford) |
+Format | ROS 2 bag (sqlite3), read directly |
+Boards | AprilGrid 7×12, tag 150 mm, spacing 0.25 (camera + IMU). AprilGrid 6×6, tag 80 mm, spacing 0.3 (camera pair) |
+Licence | CC BY-NC-SA 3.0 |
+Hosted | Not hosted here; download from the challenge dataset |
+Configs and results | Calibench-VI community, insta360-one-rs-1inch-360/ (access by automatic approval). CC BY 4.0; the reports show frames from the challenge recordings, so they stay CC BY-NC-SA 3.0 |
+Data | Hilti-Trimble SLAM Challenge 2026: camera_calibration |
+
+AprilGrid 7 × 12, 2212 × 1275 mm. Standard pattern, to scale
 
 
 ---
