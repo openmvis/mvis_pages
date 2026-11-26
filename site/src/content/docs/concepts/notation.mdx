@@ -103,7 +103,7 @@ What the sensors report, and the terms we build from those readings:
 | $\mathbf{a}_m$ | measured specific force (raw accel reading) |
 | ${}^{I}\boldsymbol{\omega}$ | true angular velocity of $\{I\}$, expressed in $\{I\}$ |
 | ${}^{I}\mathbf{a}$ | true specific force in $\{I\}$: ${}^{I}\mathbf{a} = {}^{I}_{G}\mathbf{R}\,({}^{G}\mathbf{a}_I - {}^{G}\mathbf{g})$ |
-| ${}^{G}\mathbf{g}$ | gravity in $\{G\}$, $[0\ 0\ {-9.81}]^\top$ m/s² |
+| ${}^{G}\mathbf{g}$ | gravity in $\{G\}$, $[0\ 0\ {-g}]^\top$ m/s²; $g$ from `gravity:` or `site:`, 9.81 by default |
 | $\mathbf{n}_g,\ \mathbf{n}_a$ | gyro / accel white noise (densities `sigma_g`, `sigma_a`) |
 | $\mathbf{n}_{bg},\ \mathbf{n}_{ba}$ | bias random-walk noise (densities `sigma_bg`, `sigma_ba`) |
 | $\mathbf{z}_{i,m}$ | pixel observation of board corner $m$ in camera $i$ |

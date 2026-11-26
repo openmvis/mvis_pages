@@ -99,8 +99,9 @@ $$
   integrated from the IMU readings over $\Delta_m$, in the anchor's frame. They
   use the **corrected** readings: current biases, $\mathbf{D}_w$, $\mathbf{D}_a$,
   $\mathbf{T}_g$ and `t_ga` (see [Base IMU factor](/concepts/camera-imu-math/base-imu/#corrected-readings)).
-- **${}^{G}\mathbf{g} = [0,\ 0,\ -9.81]^\top$ m/s²:** gravity in the global frame,
-  which is gravity-aligned.
+- **${}^{G}\mathbf{g} = [0,\ 0,\ -g]^\top$ m/s²:** gravity in the global frame,
+  which is gravity-aligned. $g$ comes from the config's `gravity:` or `site:`, and is
+  9.81 when neither is set (see [Local gravity](/reference/local-gravity/)).
 - **A negative $\Delta_m$** is integrated backwards in time. The window follows
   the current $t_{d,i}$ and $t_{r,i}$, so it moves as they change.
 

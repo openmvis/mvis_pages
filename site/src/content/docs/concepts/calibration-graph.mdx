@@ -184,7 +184,7 @@ starting point close enough to converge.
 Checks on the way:
 
 - **Start values:** a lever-arm start with 1σ over 5 cm starts at 0 instead. The start reports its
-  gravity magnitude and scale (both should come out near 9.81 m/s² and 1) and how
+  gravity magnitude and scale (both should come out near the configured $g$, 9.81 m/s² by default, and 1) and how
   sharp the time-offset minimum is.
 - **The joint solve:** Levenberg–Marquardt can stop at its damping cap far from
   a minimum, which looks like convergence. MVIS spots this from the step the
