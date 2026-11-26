@@ -139,7 +139,7 @@ def test_looper_licence_is_scoped_to_hand_held(pub):
     assert rows["Robot-arm data"].startswith("__HUB:community/looper-insight9/data/__")
     # arm bags on the Hub were replaced with the unblurred frames (Hub a2a09ebc, 2026-11-07)
     assert "Normal frames" in rows["Robot-arm data"] and "blurred" not in rows["Robot-arm data"] and "CC BY-NC 4.0" in rows["Robot-arm data"]
-    # recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25; the community folder (chessboard, robot arm) stays CC BY-NC 4.0
+    # recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25; the robot-arm bags in the community folder stay CC BY-NC 4.0; the chessboard takes are CC BY 4.0 since 2026-11-26
     assert "__LINK__" in rows["Hand-held data"] and "CC BY 4.0" in rows["Hand-held data"] and "NC" not in rows["Hand-held data"] and p["folder"] == "looper-insight9/"
     assert "hand-held recordings of about 66 s, CC BY 4.0" in p["header"]["foot"] and "robot-arm recordings of about 58 s, CC BY-NC 4.0" in p["header"]["foot"]
     html = dataset_rows(p, "https://x")
@@ -188,6 +188,7 @@ def test_looper_limits_keep_the_two_sets_apart_and_clips_follow_the_tabs(pub):
     rows = dict(p["dataset"])
     # chessboard takes 01 to 04 hosted, blurred except the board (2026-11-07)
     assert rows["Chessboard data"].startswith("__HUB:community/looper-insight9/data/__") and "takes 01 to 04" in rows["Chessboard data"]
-    assert "Everything except the board is blurred" in rows["Chessboard data"] and "CC BY-NC 4.0" in rows["Chessboard data"]
+    assert "Everything except the board is blurred" in rows["Chessboard data"]
+    assert "CC BY 4.0, commercial use included" in rows["Chessboard data"] and "NC" not in rows["Chessboard data"]   # our own takes (user, 2026-11-26)
     text = strip_urls(yaml.safe_dump(p, allow_unicode=True))
     assert public_problems(text) == [] and "firmware" not in text.lower()

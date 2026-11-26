@@ -384,7 +384,7 @@ sensors:
       - [IMU chip, Bosch BMI088, Maker]
     dataset:
       - [Chessboard, "4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04"]
-      - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Hand-held, "10 of about 66 s, 15.0 GB in all"]
       - [Hand-held data, "__LINK__. CC BY 4.0, for the hand-held data, clip and figures"]
       - [Robot arm, "2 of about 58 s, same program in both"]
@@ -403,7 +403,7 @@ sensors:
       maker: {name: LooperRobotics, url: "https://looper-robotics.com/"}
       links: {product: "https://looper-robotics.com/home/product/insight-9/"}
       image: {kind: photo, file: looper-insight9.jpg, alt: "LooperRobotics Insight 9, front view", credit: "Photo: LooperRobotics, Insight 9 product page", url: "https://looper-robotics.com/home/product/insight-9/"}
-      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board · 10 hand-held recordings of about 66 s, CC BY 4.0 · 2 robot-arm recordings of about 58 s, CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board, CC BY 4.0 · 10 hand-held recordings of about 66 s, CC BY 4.0 · 2 robot-arm recordings of about 58 s, CC BY-NC 4.0"
       key_specs:
         cameras: {v: "2 mono 544×640, 1 colour 1920×1080", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
         shutter: {v: "Mono global, colour rolling", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
