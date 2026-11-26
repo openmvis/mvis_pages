@@ -223,8 +223,7 @@ Part | Licence |
 MVIS toolbox | GPL-3.0-only, or a commercial licence |
 Calibration results | yours on your own recordings; CC BY 4.0 on our datasets, commercial use included |
 This site | code GPL-3.0-only; text and figures CC BY 4.0, except third-party clips, product photos and the replay pack |
-Recordings in calibench-vi/datasets (VI-Rig, Looper, GiLabs, converted third-party sets) | CC BY 4.0, commercial use included; gated |
-Device recordings in calibench-vi/community | each folder’s own licence: CC BY 4.0, commercial use included, unless the folder says otherwise |
+Datasets | every recording we host is CC BY 4.0, commercial use included; the full list, set by set, is under Datasets |
 Third-party software | its own licence |
 
 ## MVIS toolbox
@@ -252,8 +251,7 @@ You may publish them anywhere, including on commercial product pages, without
 a commercial licence.
 
 - Our datasets: results computed on the recordings we host (parameters,
-metrics, plots, reports) are CC BY 4.0, commercial use included, also where
-the recording itself is CC BY-NC 4.0. Our published results are in
+metrics, plots, reports) are CC BY 4.0, commercial use included. Our published results are in
 calibench-vi/results.
 
 - Third-party datasets: results you compute are yours; results that the
@@ -279,16 +277,9 @@ attribution to OpenMVIS and a link to the page.
 
 Exceptions, which keep their own terms:
 
-- Third-party dataset clips and figures. Clips and figures on the homepage,
-the example pages and the device pages that are made from a third-party
-recording carry that recording’s licence, stated on the page:
-TUM-VI CC BY 4.0,
-Monado MSD CC BY 4.0,
-UZH-FPV CC BY-NC-SA 3.0,
-VI-Rig, the hand-held
-Looper recordings and the GiLabs
-examples CC BY 4.0, recordings from a community folder CC BY 4.0 unless the
-device page says otherwise.
+- Clips and figures made from a recording. Clips and figures on the homepage,
+the example pages and the device pages carry the licence of the recording
+they are made from. Every recording is listed under Datasets.
 
 - Product photos on the device pages belong to their makers. Each is
 credited with a link to its source and is not covered by this licence.
@@ -304,46 +295,129 @@ contact@openmvis.com.
 
 ## Datasets
 
-All datasets are in the Calibench-VI
-organisation on Hugging Face. The licence is set per dataset; see
-Datasets and the
-dataset card.
+This is the one list of dataset licences for OpenMVIS and
+Calibench-VI. Other pages and the
+dataset cards on Hugging Face point here.
 
-- Recordings in calibench-vi/datasets: everything hosted in this
-repository is CC BY 4.0,
-commercial use included. That covers our own VI-Rig captures
-(virig-4imus-3cams, virig-4imus-3cams-aruco, virig-4imus-4cams,
-virig-5imus-4cams), the partner sets looper-insight9 and
-gilabs-examples, and the sets under converted/. The partner sets are
-shared under CC BY 4.0 with the partners’ agreement. Use, share and adapt
-everything here for any purpose with attribution: cite Calibench-VI and the
-sources, and please acknowledge Looper Robotics and GiLabs for their
-recordings.
+- Every recording we host is
+CC BY 4.0, commercial use
+included. Use, share and adapt it for any purpose with attribution: cite
+Calibench-VI and name the owner or source in the table.
 
-- Access is gated: accept the terms on the Hub once, then download. The gate
-adds no restriction.
+- Not hosted: third-party sets we only link to keep their owners’ licences,
+listed under Linked datasets.
 
-- Since 2026-11-25: from 2026-09-11 to 2026-11-25 the VI-Rig captures, and
-from 2026-11-03 looper-insight9 and gilabs-examples, were CC BY-NC 4.0. A
-copy downloaded then may now be used under CC BY 4.0 as well.
+- Last change: 2026-11-26.
 
-- Converted third-party sets: the calibration recordings under converted/
-(Monado SLAM datasets MIC, MGC and MOC, and the TUM-VIE frame cameras) stay
-under their original CC BY 4.0,
-commercial use included. Each bag carries a .provenance.json with its source
-address. Cite the original dataset.
+### Hosted recordings
 
-- Other third-party datasets: we do not re-host them. mvis datasets and the
-recipes on the dataset card download them from their owners, under the owners’
-terms. TUM-VI, for example, is CC BY 4.0.
+Set or folder | Licence | Owner or source | Since |
+calibench-vi/datasets |
+VI-Rig, 4 IMUs + 3 cameras | CC BY 4.0 | OpenMVIS | 2026-11-25 |
+VI-Rig, 4 IMUs + 3 cameras, ArUco | CC BY 4.0 | OpenMVIS | 2026-11-25 |
+VI-Rig, 4 IMUs + 4 cameras | CC BY 4.0 | OpenMVIS | 2026-11-25 |
+VI-Rig, 5 IMUs + 4 cameras | CC BY 4.0 | OpenMVIS | 2026-11-25 |
+Looper Insight 9, hand-held recordings | CC BY 4.0 | Looper Robotics | 2026-11-25 |
+GiLabs examples | CC BY 4.0 | GiLabs | 2026-11-25 |
+Monado SLAM, MIC (converted) | CC BY 4.0; the owner's licence | Collabora, Monado SLAM Datasets | upstream |
+Monado SLAM, MGC (converted) | CC BY 4.0; the owner's licence | Collabora, Monado SLAM Datasets | upstream |
+Monado SLAM, MOC (converted) | CC BY 4.0; the owner's licence | Collabora, Monado SLAM Datasets | upstream |
+TUM-VIE frame cameras (converted) | CC BY 4.0; the owner's licence | TUM | upstream |
+calibench-vi/community |
+GI Ego1 | CC BY 4.0 | GiLabs | 2026-11-25 |
+GI EGO1GS | CC BY 4.0 | GiLabs | 2026-11-25 |
+Intel RealSense T265 | CC BY 4.0; the recording is the VI-Rig one in calibench-vi/datasets | OpenMVIS | 2026-11-25 |
+RealSense D435i | CC BY 4.0 | Shared by a contributor | 2026-11-25 |
+RealSense D455 | CC BY 4.0 | OpenMVIS | 2026-11-25 |
+RealSense D456 | CC BY 4.0 | OpenMVIS | 2026-11-25 |
+CyperStereo four-camera module | CC BY 4.0 | CyperStereo | 2026-11-25 |
+RoboBaton Neo | CC BY 4.0 | Shared by the maker | 2026-11-25 |
+Dibuli Prism-A4L | CC BY 4.0 | Dibuli, public example data | 2026-11-26 |
+XQ20 | CC BY 4.0 | Feekass | 2026-11-26 |
+Hampo stereo module | CC BY 4.0 | Hampo | 2026-11-26 |
+ALG AVS115D-Y | CC BY 4.0 | ALG Tech | 2026-11-26 |
+ALG AVS111C-Y | CC BY 4.0 | ALG Tech | 2026-11-26 |
+Looper Insight 9, robot-arm recordings | CC BY 4.0 | Looper Robotics | 2026-11-26 |
+Looper Insight 9, chessboard recordings | CC BY 4.0 | OpenMVIS | 2026-11-26 |
+Stereolabs ZED 2 | CC BY 4.0; as stated in the WHUVID paper; cite it | WHUVID authors (Wuhan University) | 2026-11-17 |
+Valve Index | CC BY 4.0; recording in calibench-vi/datasets, converted/ | Collabora, Monado SLAM Datasets | upstream |
+HP Reverb G2 | CC BY 4.0; recording in calibench-vi/datasets, converted/ | Collabora, Monado SLAM Datasets | upstream |
+Samsung Odyssey+ | CC BY 4.0; recording in calibench-vi/datasets, converted/ | Collabora, Monado SLAM Datasets | upstream |
+Insta360 ONE RS 1-Inch 360, configs and results | CC BY 4.0; the recordings are not hosted (see Linked datasets); the reports show their frames and are CC BY-NC-SA 3.0 | OpenMVIS | 2026-11-12 |
+openmvis.com download |
+Calibration-motion replay pack | CC BY 4.0; the reader script in the pack is MIT; the two real-example trajectories were CC BY-NC 4.0 before 2026-11-25 | OpenMVIS | 2026-11-25 |
 
-- Community device recordings: recordings in
-calibench-vi/community
-keep each folder’s own licence: CC BY 4.0, commercial use included, unless the
-folder says otherwise. The XQ20, Hampo, ALG, Dibuli and Looper
-recordings there were CC BY-NC 4.0 until 2026-11-26.
-Results made from them are CC BY 4.0 (see Calibration results above). See
-Submit a dataset.
+- Converted third-party sets: the bags under converted/ are calibration
+recordings from sets whose licence allows sharing them again. Each bag
+carries a .provenance.json with its source address. Cite the original
+dataset.
+
+- Partner and maker recordings: please acknowledge the owner named in the
+table, for example Looper Robotics and GiLabs for their recordings.
+
+- Results computed on any of these are CC BY 4.0 (see
+Calibration results).
+
+### Linked datasets
+
+We do not re-host these sets. mvis datasets and the recipes on the dataset
+card download them from their owners, under the owners’ terms. Cite the
+original authors.
+
+Dataset | Licence | Source | How we use it |
+TUM-VI | CC BY 4.0 | TUM | download recipe |
+TUM RGB-D | CC BY 4.0 | TUM | download recipe |
+EuRoC MAV | CC BY, no version given | ETH Zurich | download recipe |
+UZH-FPV | CC BY-NC-SA 3.0 | UZH | download recipe |
+Hilti 2022 | CC BY-NC-SA 3.0 | Hilti | download recipe |
+Hilti 2023 handheld | CC BY-NC-SA 3.0 | Hilti | download recipe |
+Hilti-Trimble SLAM Challenge 2026 (Insta360 recordings) | CC BY-NC-SA 3.0 | Hilti, Trimble, University of Oxford | linked from the device page |
+Urban fisheye (ImprovedOcamCalib) | GPL-2.0 | GitHub | download recipe |
+TUM-Fisheye (Double Sphere) | none stated | TUM | download recipe |
+TUM RS (rolling shutter) | none stated | TUM | download recipe |
+PennCOSYVIO | none stated; citation asked | Penn | download recipe |
+
+The licences in this table are as their owners state them; check the source
+before you rely on one.
+
+### Access
+
+Both Hugging Face repositories ask you to log in and fill in a short form once
+(name, affiliation, intended use). Access is granted at once. The form adds no
+restriction to the licence.
+
+### Licence history
+
+Some recordings had another licence before. A copy downloaded in an earlier
+period may be used under the current licence as well.
+
+Set or folder | Earlier licence | Now, since |
+VI-Rig, 4 IMUs + 3 cameras | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
+VI-Rig, 4 IMUs + 3 cameras, ArUco | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
+VI-Rig, 4 IMUs + 4 cameras | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
+VI-Rig, 5 IMUs + 4 cameras | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
+Looper Insight 9, hand-held recordings | CC BY-NC 4.0 from 2026-11-03 | CC BY 4.0, 2026-11-25 |
+GiLabs examples | CC BY-NC 4.0 from 2026-11-03 | CC BY 4.0, 2026-11-25 |
+GI Ego1 | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-25 |
+GI EGO1GS | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-25 |
+RealSense D435i | CC BY-NC 4.0 from 2026-11-24 | CC BY 4.0, 2026-11-25 |
+RealSense D455 | CC BY-NC 4.0 from 2026-11-13 | CC BY 4.0, 2026-11-25 |
+RealSense D456 | CC BY-NC 4.0 from 2026-11-13 | CC BY 4.0, 2026-11-25 |
+CyperStereo four-camera module | CC BY-NC 4.0 from 2026-11-17 | CC BY 4.0, 2026-11-25 |
+RoboBaton Neo | CC BY-NC 4.0 from 2026-11-20 | CC BY 4.0, 2026-11-25 |
+Dibuli Prism-A4L | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-26 |
+XQ20 | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-26 |
+Hampo stereo module | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-26 |
+ALG AVS115D-Y | CC BY-NC 4.0 from 2026-11-14 | CC BY 4.0, 2026-11-26 |
+ALG AVS111C-Y | CC BY-NC 4.0 from 2026-11-14 | CC BY 4.0, 2026-11-26 |
+Looper Insight 9, robot-arm recordings | CC BY-NC 4.0 from 2026-11-05 | CC BY 4.0, 2026-11-26 |
+Looper Insight 9, chessboard recordings | CC BY-NC 4.0 from 2026-11-07 | CC BY 4.0, 2026-11-26 |
+
+### New datasets
+
+A recording that we host for you is published under CC BY 4.0. Data that must
+stay under another licence stays where it is, and we add a download recipe.
+See Submit a dataset.
 
 ## Third-party software
 
@@ -385,8 +459,11 @@ How to cite MVIS, the benchmark and the datasets:
 Contributors & citation.
 
 Not legal advice
-This page summarises the licences for orientation. The licence files in each
-repository, and the dataset card on Hugging Face, are what govern use.
+This page lists the licences. The licence file or notice shipped with a copy
+(the licence files in each repository, a dataset card, a folder README, a
+pack README) governs that copy. Where this page is more permissive than an
+older notice, the licence history above applies. If the two disagree in any
+other way, write to contact@openmvis.com.
 
 
 ---
@@ -1014,7 +1091,7 @@ ${MVIS_DATASETS}.
 
 - Checked: the download is verified against the checksum in the catalog.
 
-- Licence: CC BY 4.0, commercial use included.
+- Licence: see License.
 If you publish with it, cite Calibench-VI and the MVIS paper; see
 Citing the datasets
 and Citing the paper.
@@ -1576,8 +1653,7 @@ replay pack (zip, 3.2 MB). It holds:
 Its README gives the frames, units and replay steps. The files are plain CSV, YAML and JSON, so you do not
 need MVIS to use them. We ran the twin with the MVIS simulator (mvis.simulation).
 
-Licence: CC BY 4.0, commercial use included, for every motion, rig and result in the pack. That includes the two
-real-example trajectories since 2026-11-25; a README that still lists them as CC BY-NC 4.0 is from before that date.
+Licence: see License; the README in the pack states it too.
 
 ## Next
 
@@ -3747,8 +3823,8 @@ Monado SLAM Datasets, CC BY 4.0, with their
 lighthouse ground truth. The MVIS configs are in the Monado example.
 
 - VI-Rig: virig-4imus-4cams, run T8 of the
-results. Licence and
-citation are on the dataset page.
+results. The licence is on License; the
+citation is on the dataset page.
 
 - Runs: the OpenVINS runs date from October 2026. They use MVIS calibrations made with older code (August 2026), before the results batch.
 
@@ -13557,14 +13633,14 @@ AprilGrid 7 × 12, 2212 × 1275 mm. Standard pattern, to scale
 
 URL: https://openmvis.com/datasets/
 
-This page lists every dataset we use to test and benchmark MVIS, where to get it, and its licence.
+This page lists every dataset we use to test and benchmark MVIS and where to get it. The licence of each one is on License.
 
 - Where the data lives: the calibench-vi/datasets
 repository on Hugging Face. Calibench-VI is our visual-inertial calibration benchmark.
 
 - What it hosts: our own VI-Rig recordings, recordings from two partners, and third-party sets whose licence
-allows us to share them again (CC BY 4.0). Our calibration results are in a separate repository,
-calibench-vi/results, under CC BY 4.0.
+allows us to share them again. Our calibration results are in a separate repository,
+calibench-vi/results.
 
 - What it does not host: all other third-party sets. For those, a download recipe fetches the files from the
 original site.
@@ -13596,15 +13672,10 @@ Terms used in the table:
 
 ### Licence and access
 
-- Licence: CC BY 4.0, commercial use included. Use, share and adapt
-the recordings for any purpose, with attribution.
+- Licence: see License, the one list for every dataset.
 
-- Gated: log in to Hugging Face and accept the terms on the
-dataset page. Access is granted at once. The gate adds
-no restriction.
-
-- Since 2026-11-25: from 2026-09-11 until then these recordings were CC BY-NC 4.0. A copy downloaded in that time
-may now be used under CC BY 4.0 as well.
+- Access: log in to Hugging Face and accept the terms on the
+dataset page. Access is granted at once.
 
 ### Download
 
@@ -13623,9 +13694,8 @@ ${MVIS_DATASETS}/....
 
 ## Partner recordings on the Hub
 
-Two partners agreed to share their recordings under the same terms as the VI-Rig sets (CC BY 4.0, commercial
-use included, gated; CC BY-NC 4.0 from 2026-11-03 to 2026-11-25). Please acknowledge Looper Robotics and GiLabs when
-you use them.
+Two partners share their recordings in the same repository. Please acknowledge Looper Robotics and GiLabs when
+you use them. Licence: see License.
 
 Dataset | Rig | Recordings | Hub folder | On this site |
 Looper Robotics Insight 9 | 2 global-shutter mono cameras + 1 rolling-shutter colour camera + 400 Hz IMU | 10 ROS1 bags, AprilGrid | looper-insight9 | device · results · example |
@@ -13633,9 +13703,10 @@ GiLabs examples | GI Ego1 and GI EGO1GS head-worn cameras: 2 cameras + IMU | 3 M
 
 ## Third-party datasets
 
-These sets come from other groups. Each keeps its own licence and citation; please cite the original authors.
+These sets come from other groups. Each keeps its own licence, listed on
+License; please cite the original authors.
 
-- Hosted: the calibration recordings of sets under CC BY 4.0, converted to ROS1 bags. A .provenance.json
+- Hosted: the calibration recordings of sets whose licence allows it, converted to ROS1 bags. A .provenance.json
 beside each bag records the source address, the source checksum and the conversion steps.
 
 - Recipe: we never copy these files. The Hub’s
@@ -13647,23 +13718,23 @@ the hosted sets it gets the original archives; mvis datasets convert then turns 
 fisheye and part of PennCOSYVIO have no checksum in the catalog; add --allow-unverified to fetch them
 unchecked.
 
-Dataset | Rig | Licence | How to get it | Original source | On this site |
-TUM-VI | stereo fisheye 1024² (and 512²) + BMI160 IMU | CC BY 4.0 | recipe · keys tum_vi_raw, tum_vi_standard_512 | TUM | results · example |
-Monado SLAM, MIC (Valve Index) | 2 fisheye + 1 kHz IMU | CC BY 4.0 | hosted: converted/tum_mic · key tum_mic | Collabora | device |
-Monado SLAM, MGC (HP Reverb G2) | 4 fisheye + 1 kHz IMU | CC BY 4.0 | hosted: converted/monado_mgc · key monado_mgc | Collabora | device · results · example |
-Monado SLAM, MOC (Samsung Odyssey+) | 2 fisheye + 1 kHz IMU | CC BY 4.0 | hosted: converted/monado_moc · key monado_moc | Collabora | device |
-TUM-VIE, frame cameras | stereo 1024² + BMI160 IMU | CC BY 4.0 | hosted: converted/tum_event · key tum_event | TUM | – |
-UZH-FPV | DAVIS346 + IMU; Snapdragon stereo + IMU | CC BY-NC-SA 3.0 | keys uzh_fpv_davis, uzh_fpv_snapdragon | UZH | results · example |
-TUM-Fisheye (Double Sphere) | 1 camera, 5 fisheye lenses | none stated | recipe · key tum_fisheye | TUM | Why kb4 · MVIS results on the Hub |
-TUM RGB-D | Kinect and Xtion RGB + IR cameras | CC BY 4.0 | recipe · key tum_rgbd_bag | TUM | – |
-PennCOSYVIO | GoPro, Tango and VI-Sensor cameras + IMUs | citation only | recipe · key penncosyvio | Penn | – |
-Urban fisheye (ImprovedOcamCalib) | fisheye and GoPro stills | GPL v2 | recipe · key fisheye_dataset | GitHub | – |
-EuRoC MAV | stereo + IMU | CC BY | Hub recipe only | ETH Zurich | – |
-TUM RS (rolling shutter) | rolling- and global-shutter cameras + IMU | none stated | Hub recipe only | TUM | – |
-Hilti 2022 | multi-camera + IMU | CC BY-NC-SA 3.0 | Hub recipe only | Hilti | – |
-Hilti 2023 handheld | multi-camera + IMU | CC BY-NC-SA 3.0 | Hub recipe only | Hilti | – |
+Dataset | Rig | How to get it | Original source | On this site |
+TUM-VI | stereo fisheye 1024² (and 512²) + BMI160 IMU | recipe · keys tum_vi_raw, tum_vi_standard_512 | TUM | results · example |
+Monado SLAM, MIC (Valve Index) | 2 fisheye + 1 kHz IMU | hosted: converted/tum_mic · key tum_mic | Collabora | device |
+Monado SLAM, MGC (HP Reverb G2) | 4 fisheye + 1 kHz IMU | hosted: converted/monado_mgc · key monado_mgc | Collabora | device · results · example |
+Monado SLAM, MOC (Samsung Odyssey+) | 2 fisheye + 1 kHz IMU | hosted: converted/monado_moc · key monado_moc | Collabora | device |
+TUM-VIE, frame cameras | stereo 1024² + BMI160 IMU | hosted: converted/tum_event · key tum_event | TUM | – |
+UZH-FPV | DAVIS346 + IMU; Snapdragon stereo + IMU | keys uzh_fpv_davis, uzh_fpv_snapdragon | UZH | results · example |
+TUM-Fisheye (Double Sphere) | 1 camera, 5 fisheye lenses | recipe · key tum_fisheye | TUM | Why kb4 · MVIS results on the Hub |
+TUM RGB-D | Kinect and Xtion RGB + IR cameras | recipe · key tum_rgbd_bag | TUM | – |
+PennCOSYVIO | GoPro, Tango and VI-Sensor cameras + IMUs | recipe · key penncosyvio | Penn | – |
+Urban fisheye (ImprovedOcamCalib) | fisheye and GoPro stills | recipe · key fisheye_dataset | GitHub | – |
+EuRoC MAV | stereo + IMU | Hub recipe only | ETH Zurich | – |
+TUM RS (rolling shutter) | rolling- and global-shutter cameras + IMU | Hub recipe only | TUM | – |
+Hilti 2022 | multi-camera + IMU | Hub recipe only | Hilti | – |
+Hilti 2023 handheld | multi-camera + IMU | Hub recipe only | Hilti | – |
 
-- Exact sources and licences: see
+- Exact sources: see
 recipes/SOURCES.md on the
 Hub.
 
@@ -13730,8 +13801,7 @@ Quickstart uses this set.
 
 - Hub folder: calibench-vi/datasets → virig-4imus-3cams
 
-- Licence: CC BY 4.0, commercial use included; gated. See
-Licence and access.
+- Licence and access: see License.
 
 - Results: results page ·
 worked example
@@ -13856,8 +13926,7 @@ printed on several boards set at different angles, so their corners spread in 3D
 
 - Hub folder: calibench-vi/datasets → virig-4imus-3cams-aruco
 
-- Licence: CC BY 4.0, commercial use included; gated. See
-Licence and access.
+- Licence and access: see License.
 
 - Results: none published. This set is not part of the benchmark.
 
@@ -13928,8 +13997,7 @@ rolling shutter, several cameras and several IMUs.
 
 - Hub folder: calibench-vi/datasets → virig-4imus-4cams
 
-- Licence: CC BY 4.0, commercial use included; gated. See
-Licence and access.
+- Licence and access: see License.
 
 - Results: results page ·
 worked example
@@ -14081,8 +14149,7 @@ a test of time offsets across many sensors.
 
 - Hub folder: calibench-vi/datasets → virig-5imus-4cams
 
-- Licence: CC BY 4.0, commercial use included; gated. See
-Licence and access.
+- Licence and access: see License.
 
 - Results: results page ·
 worked example
@@ -16506,7 +16573,7 @@ The catalog of benchmark datasets on Hugging Face
 Files go to $MVIS_DATASETS, by default a Datasets folder in your home directory.
 The shipped example configs refer to them as ${MVIS_DATASETS}/....
 
-The VI-Rig sets are gated: accept the terms on the Hub page, then set
+The calibench-vi/datasets repository is gated: accept the terms on the Hub page, then set
 HF_TOKEN to a read token (or run hf auth login, after pip install huggingface_hub) before you download.
 
 See Datasets.
@@ -17335,7 +17402,7 @@ You do not need us to compare your tool against the leaderboard.
 
 - Get the data. Download the recordings from
 calibench-vi/datasets
-(see Datasets). The VI-Rig sets are gated: accept the terms on
+(see Datasets). The calibench-vi/datasets repository is gated: accept the terms on
 the Hugging Face page first.
 
 - Use the same recordings. Take the recording list of a family from
@@ -17452,7 +17519,7 @@ clean clone passes without any download.
 
 To run them:
 
-- Log in with hf auth login, or set HF_TOKEN. The VI-Rig sets are gated: accept their terms on the
+- Log in with hf auth login, or set HF_TOKEN. The calibench-vi/datasets repository is gated: accept its terms on the
 dataset page first.
 
 - Pick a folder for the data and set MVIS_DATASETS to it. Without it, MVIS
@@ -17652,7 +17719,8 @@ copy, it must also allow redistribution.
 
 - Hosted by us: recordings we host in the Hugging Face dataset
 calibench-vi/community
-use CC BY-NC 4.0 (non-commercial, attribution required). Downloads need a free
+use CC BY 4.0 (commercial use included, attribution required), like every
+recording listed on License. Downloads need a free
 Hugging Face login with automatic approval.
 
 - Hosted by you: if your data must stay under another licence, keep it where
@@ -17948,6 +18016,18 @@ commit history has every change.
 
 - Site changes: see the
 site repository.
+
+## Datasets: one licence list, all hosted recordings CC BY 4.0 (2026-11-26)
+
+- One list: License now lists the licence of
+every set and folder we host and of every third-party set we link to. Other
+pages and the Hugging Face dataset cards point to it.
+
+- Community recordings: the XQ20, Hampo, ALG, Dibuli and Looper recordings
+in calibench-vi/community are CC BY 4.0, commercial use included. They were
+CC BY-NC 4.0 before; the dates are in the licence history on that page.
+
+- New datasets that we host are published under CC BY 4.0.
 
 ## MVIS 0.4.1
 
@@ -18322,10 +18402,8 @@ licensing@openmvis.com.
 - Your results: results you compute on your own recordings are yours.
 Results on our datasets are CC BY 4.0.
 
-- Datasets: the recordings in calibench-vi/datasets (VI-Rig, Looper,
-GiLabs and the converted third-party sets) are CC BY 4.0, commercial use
-included, and gated. Community device recordings are CC BY 4.0 too, unless
-their folder says otherwise.
+- Datasets: every recording we host is CC BY 4.0, commercial use included.
+Each set and folder is listed on License.
 
 - Citing: cite the MVIS paper; cite the OpenMVIS project
 (Zenodo DOI) for the toolbox, the
