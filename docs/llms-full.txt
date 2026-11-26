@@ -17999,8 +17999,7 @@ every set and folder we host and of every third-party set we link to. Other
 pages and the Hugging Face dataset cards point to it.
 
 - Community recordings: the XQ20, Hampo, ALG, Dibuli and Looper recordings
-in calibench-vi/community are CC BY 4.0, commercial use included. They were
-CC BY-NC 4.0 before.
+in calibench-vi/community are CC BY 4.0, commercial use included.
 
 - New datasets that we host are published under CC BY 4.0.
 
@@ -18198,16 +18197,7 @@ cameras, CC BY 4.0.
 - Now CC BY 4.0, commercial use included: every recording in
 calibench-vi/datasets:
 the VI-Rig sets, looper-insight9 and gilabs-examples, like the converted
-sets before. Access stays gated.
-
-- Before: the VI-Rig sets were CC BY-NC 4.0 from 2026-09-11, the Looper and
-GiLabs sets from 2026-11-03. A copy downloaded then may now be used under
-CC BY 4.0 as well.
-
-- Unchanged: device recordings in
-calibench-vi/community
-keep each folder’s licence, CC BY-NC 4.0 unless the folder says otherwise. See
-License.
+sets before. Access stays gated. See License.
 
 ## Planned
 
