@@ -156,6 +156,15 @@ def test_pages_whose_recording_is_in_the_main_datasets_repo_say_cc_by(pub):
         assert "NC" not in dataset_rows(p, "https://x") and "request" not in dataset_rows(p, "https://x"), slug
 
 
+def test_realsense_community_folders_are_cc_by(pub):
+    """realsense-d435i, -d455 and -d456 in calibench-vi/community are CC BY 4.0, commercial use included (user, 2026-11-25)."""
+    for slug in ("realsense-d435i", "realsense-d455", "realsense-d456"):
+        p = pub["sensors"][slug]
+        data = dict(p["dataset"])["Data"]
+        assert data.startswith(f"__HUB:community/{slug}/data/__") and "CC BY 4.0, commercial use included" in data, slug
+        assert "NC" not in data and "request" not in data and p["header"]["foot"].endswith("· CC BY 4.0"), slug
+
+
 def test_looper_limits_keep_the_two_sets_apart_and_clips_follow_the_tabs(pub):
     p = pub["sensors"]["looper-insight9"]
     limits = " ".join(p["limits"])
