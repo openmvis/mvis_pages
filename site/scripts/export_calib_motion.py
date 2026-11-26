@@ -306,7 +306,7 @@ def cams_sidecar(views, anim):
                         grid=[nx, ny], reach=reach, cov100_first=first, uv=uvs, outline=outl, n_so_far=nsf,
                         dist_cm=dist, off_deg=off))
     return {"schema": "calib-motion/cams v2", "variant": anim["variant"], "hz": hz, "n": N,
-            "t": [round(x, 3) for x in T], "licence": "CC BY-NC 4.0", "cams": out}
+            "t": [round(x, 3) for x in T], "licence": "CC BY 4.0", "cams": out}
 
 
 def cov_pct(cam):

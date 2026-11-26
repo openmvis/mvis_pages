@@ -67,6 +67,15 @@ def test_dump_refuses_a_local_path_and_writes_nothing(tmp_path):
     assert X.dump({"ok": 1}, out) == len('{"ok":1}')
 
 
+def test_sidecar_licence_is_cc_by_in_the_exporter_and_in_the_published_files():
+    """Our own Insight 9 takes: CC BY 4.0, commercial use included (user, 2026-11-25; CC BY-NC 4.0 before)."""
+    assert X.cams_sidecar(views(), ANIM)["licence"] == "CC BY 4.0"
+    published = sorted((SCRIPT.parents[1] / "public/data/calib-motion").glob("*/*.cams.json"))
+    assert len(published) == 2
+    for f in published:
+        assert json.loads(f.read_text(encoding="utf-8"))["licence"] == "CC BY 4.0", f.name
+
+
 def test_sidecar_corners_round_trip_through_the_delta_coding():
     side = X.cams_sidecar(views(), ANIM)
     assert side["n"] == 4
