@@ -9,17 +9,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "OpenMVIS",
    "since": "2026-11-25",
-   "page": "/datasets/virig-4imus-3cams/",
-   "was": [
-    [
-     "2026-06",
-     "CC BY 4.0"
-    ],
-    [
-     "2026-09-11",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "page": "/datasets/virig-4imus-3cams/"
   },
   {
    "id": "virig-4imus-3cams-aruco",
@@ -29,17 +19,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "OpenMVIS",
    "since": "2026-11-25",
-   "page": "/datasets/virig-4imus-3cams-aruco/",
-   "was": [
-    [
-     "2026-06",
-     "CC BY 4.0"
-    ],
-    [
-     "2026-09-11",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "page": "/datasets/virig-4imus-3cams-aruco/"
   },
   {
    "id": "virig-4imus-4cams",
@@ -49,17 +29,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "OpenMVIS",
    "since": "2026-11-25",
-   "page": "/datasets/virig-4imus-4cams/",
-   "was": [
-    [
-     "2026-06",
-     "CC BY 4.0"
-    ],
-    [
-     "2026-09-11",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "page": "/datasets/virig-4imus-4cams/"
   },
   {
    "id": "virig-5imus-4cams",
@@ -69,17 +39,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "OpenMVIS",
    "since": "2026-11-25",
-   "page": "/datasets/virig-5imus-4cams/",
-   "was": [
-    [
-     "2026-06",
-     "CC BY 4.0"
-    ],
-    [
-     "2026-09-11",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "page": "/datasets/virig-5imus-4cams/"
   },
   {
    "id": "looper-insight9",
@@ -89,13 +49,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "Looper Robotics",
    "since": "2026-11-25",
-   "page": "/devices/looper-insight9/",
-   "was": [
-    [
-     "2026-11-03",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "page": "/devices/looper-insight9/"
   },
   {
    "id": "gilabs-examples",
@@ -105,13 +59,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "GiLabs",
    "since": "2026-11-25",
-   "page": "/devices/gi-ego1/",
-   "was": [
-    [
-     "2026-11-03",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "page": "/devices/gi-ego1/"
   },
   {
    "id": "converted-tum-mic",
@@ -161,13 +109,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "GiLabs",
    "since": "2026-11-25",
-   "device": "gi-ego1",
-   "was": [
-    [
-     "2026-11-04",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "gi-ego1"
   },
   {
    "id": "community-gi-ego1gs",
@@ -177,13 +119,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "GiLabs",
    "since": "2026-11-25",
-   "device": "gi-ego1gs",
-   "was": [
-    [
-     "2026-11-04",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "gi-ego1gs"
   },
   {
    "id": "community-intel-t265",
@@ -204,13 +140,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "Shared by a contributor",
    "since": "2026-11-25",
-   "device": "realsense-d435i",
-   "was": [
-    [
-     "2026-11-24",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "realsense-d435i"
   },
   {
    "id": "community-realsense-d455",
@@ -220,13 +150,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "OpenMVIS",
    "since": "2026-11-25",
-   "device": "realsense-d455",
-   "was": [
-    [
-     "2026-11-13",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "realsense-d455"
   },
   {
    "id": "community-realsense-d456",
@@ -236,13 +160,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "OpenMVIS",
    "since": "2026-11-25",
-   "device": "realsense-d456",
-   "was": [
-    [
-     "2026-11-13",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "realsense-d456"
   },
   {
    "id": "community-cyperstereo",
@@ -252,13 +170,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "CyperStereo",
    "since": "2026-11-25",
-   "device": "cyperstereo",
-   "was": [
-    [
-     "2026-11-17",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "cyperstereo"
   },
   {
    "id": "community-robobaton-neo",
@@ -268,13 +180,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "Shared by the maker",
    "since": "2026-11-25",
-   "device": "robobaton-neo",
-   "was": [
-    [
-     "2026-11-20",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "robobaton-neo"
   },
   {
    "id": "community-dibuli-prism-a4l",
@@ -284,13 +190,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "Dibuli, public example data",
    "since": "2026-11-26",
-   "device": "dibuli-prism-a4l",
-   "was": [
-    [
-     "2026-11-04",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "dibuli-prism-a4l"
   },
   {
    "id": "community-xq20",
@@ -300,13 +200,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "Feekass",
    "since": "2026-11-26",
-   "device": "xq20",
-   "was": [
-    [
-     "2026-11-04",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "xq20"
   },
   {
    "id": "community-hampo",
@@ -316,13 +210,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "Hampo",
    "since": "2026-11-26",
-   "device": "hampo",
-   "was": [
-    [
-     "2026-11-04",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "hampo"
   },
   {
    "id": "community-alg-avs115d",
@@ -332,13 +220,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "ALG Tech",
    "since": "2026-11-26",
-   "device": "alg-avs115d",
-   "was": [
-    [
-     "2026-11-14",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "alg-avs115d"
   },
   {
    "id": "community-alg-avs111c",
@@ -348,13 +230,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "ALG Tech",
    "since": "2026-11-26",
-   "device": "alg-avs111c",
-   "was": [
-    [
-     "2026-11-14",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "alg-avs111c"
   },
   {
    "id": "community-looper-insight9-arm",
@@ -364,13 +240,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "Looper Robotics",
    "since": "2026-11-26",
-   "device": "looper-insight9",
-   "was": [
-    [
-     "2026-11-05",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "looper-insight9"
   },
   {
    "id": "community-looper-insight9-chessboard",
@@ -380,13 +250,7 @@
    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
    "owner": "OpenMVIS",
    "since": "2026-11-26",
-   "device": "looper-insight9",
-   "was": [
-    [
-     "2026-11-07",
-     "CC BY-NC 4.0"
-    ]
-   ]
+   "device": "looper-insight9"
   },
   {
    "id": "community-zed2",
@@ -452,7 +316,7 @@
    "owner": "OpenMVIS",
    "since": "2026-11-25",
    "page": "/guides/calibration-motion/#replay-it-yourself",
-   "note": "the reader script in the pack is MIT; the two real-example trajectories were CC BY-NC 4.0 before 2026-11-25"
+   "note": "the reader script in the pack is MIT"
   }
  ],
  "linked": [

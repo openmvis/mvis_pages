@@ -26,13 +26,10 @@ def test_ids_are_unique_stable_anchors_and_licences_come_from_the_fixed_list():
     assert all(re.fullmatch(r"\d{4}-\d\d-\d\d|upstream", r["since"]) for r in HOSTED)
 
 
-def test_every_recording_we_host_is_cc_by_and_earlier_licences_are_dated():
+def test_every_recording_we_host_is_cc_by():
     """User decisions of 2026-11-25 and 2026-11-26: nothing hosted is non-commercial. A new row under another licence is a
-    decision, not a data edit: change this test with it."""
-    assert {r["licence"] for r in HOSTED} == {"CC BY 4.0"}
-    for r in HOSTED:
-        for when, what in r.get("was", []):
-            assert re.fullmatch(r"\d{4}-\d\d(-\d\d)?", when) and when < r["since"], r["id"]
+    decision, not a data edit: change this test with it. The page shows no licence history (user, 2026-11-26)."""
+    assert {r["licence"] for r in HOSTED} == {"CC BY 4.0"} and not any("was" in r for r in HOSTED)
 
 
 def test_every_device_page_has_a_row_and_agrees_with_it():
@@ -55,7 +52,7 @@ def test_homepage_clip_credits_use_a_listed_licence():
 def test_pages_point_to_the_list_and_state_no_old_default():
     docs = SITE / "src/content/docs"
     page = (docs / "about/license.mdx").read_text(encoding="utf-8")
-    assert page.count("<LicenceTables part=") == 3 and "## Datasets" in page and f"**Last change:** {LIC['updated']}" in page
+    assert page.count("<LicenceTables part=") == 2 and "history" not in page.lower() and "## Datasets" in page and f"**Last change:** {LIC['updated']}" in page
     for rel in ("datasets/index.mdx", "about/faq.mdx", "getting-started/quickstart.mdx", "contribute/submit-dataset.mdx",
                 "datasets/virig-4imus-3cams.mdx", "datasets/virig-4imus-3cams-aruco.mdx", "datasets/virig-4imus-4cams.mdx",
                 "datasets/virig-5imus-4cams.mdx"):
