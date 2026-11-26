@@ -286,9 +286,8 @@ credited with a link to its source and is not covered by this licence.
 
 - The replay pack on Record the dataset
 is CC BY 4.0, commercial use included: the guide motions, the rigs, the
-results and, since 2026-11-25, the two real-example trajectories, which come
-from our own Looper Insight 9 recordings and were CC BY-NC 4.0 before. The
-reader script in the pack is MIT.
+results and the two real-example trajectories. The reader script in the pack
+is MIT.
 
 If you are the maker and want a photo changed or removed, write to
 contact@openmvis.com.
@@ -306,6 +305,9 @@ Calibench-VI and name the owner or source in the table.
 
 - Not hosted: third-party sets we only link to keep their owners’ licences,
 listed under Linked datasets.
+
+- Earlier copies: a copy downloaded under an earlier licence may be used
+under CC BY 4.0 as well.
 
 - Last change: 2026-11-26.
 
@@ -345,7 +347,7 @@ HP Reverb G2 | CC BY 4.0; recording in calibench-vi/datasets, converted/ | Colla
 Samsung Odyssey+ | CC BY 4.0; recording in calibench-vi/datasets, converted/ | Collabora, Monado SLAM Datasets | upstream |
 Insta360 ONE RS 1-Inch 360, configs and results | CC BY 4.0; the recordings are not hosted (see Linked datasets); the reports show their frames and are CC BY-NC-SA 3.0 | OpenMVIS | 2026-11-12 |
 openmvis.com download |
-Calibration-motion replay pack | CC BY 4.0; the reader script in the pack is MIT; the two real-example trajectories were CC BY-NC 4.0 before 2026-11-25 | OpenMVIS | 2026-11-25 |
+Calibration-motion replay pack | CC BY 4.0; the reader script in the pack is MIT | OpenMVIS | 2026-11-25 |
 
 - Converted third-party sets: the bags under converted/ are calibration
 recordings from sets whose licence allows sharing them again. Each bag
@@ -385,33 +387,6 @@ before you rely on one.
 Both Hugging Face repositories ask you to log in and fill in a short form once
 (name, affiliation, intended use). Access is granted at once. The form adds no
 restriction to the licence.
-
-### Licence history
-
-Some recordings had another licence before. A copy downloaded in an earlier
-period may be used under the current licence as well.
-
-Set or folder | Earlier licence | Now, since |
-VI-Rig, 4 IMUs + 3 cameras | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
-VI-Rig, 4 IMUs + 3 cameras, ArUco | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
-VI-Rig, 4 IMUs + 4 cameras | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
-VI-Rig, 5 IMUs + 4 cameras | CC BY 4.0 from 2026-06; CC BY-NC 4.0 from 2026-09-11 | CC BY 4.0, 2026-11-25 |
-Looper Insight 9, hand-held recordings | CC BY-NC 4.0 from 2026-11-03 | CC BY 4.0, 2026-11-25 |
-GiLabs examples | CC BY-NC 4.0 from 2026-11-03 | CC BY 4.0, 2026-11-25 |
-GI Ego1 | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-25 |
-GI EGO1GS | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-25 |
-RealSense D435i | CC BY-NC 4.0 from 2026-11-24 | CC BY 4.0, 2026-11-25 |
-RealSense D455 | CC BY-NC 4.0 from 2026-11-13 | CC BY 4.0, 2026-11-25 |
-RealSense D456 | CC BY-NC 4.0 from 2026-11-13 | CC BY 4.0, 2026-11-25 |
-CyperStereo four-camera module | CC BY-NC 4.0 from 2026-11-17 | CC BY 4.0, 2026-11-25 |
-RoboBaton Neo | CC BY-NC 4.0 from 2026-11-20 | CC BY 4.0, 2026-11-25 |
-Dibuli Prism-A4L | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-26 |
-XQ20 | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-26 |
-Hampo stereo module | CC BY-NC 4.0 from 2026-11-04 | CC BY 4.0, 2026-11-26 |
-ALG AVS115D-Y | CC BY-NC 4.0 from 2026-11-14 | CC BY 4.0, 2026-11-26 |
-ALG AVS111C-Y | CC BY-NC 4.0 from 2026-11-14 | CC BY 4.0, 2026-11-26 |
-Looper Insight 9, robot-arm recordings | CC BY-NC 4.0 from 2026-11-05 | CC BY 4.0, 2026-11-26 |
-Looper Insight 9, chessboard recordings | CC BY-NC 4.0 from 2026-11-07 | CC BY 4.0, 2026-11-26 |
 
 ### New datasets
 
@@ -462,8 +437,8 @@ Not legal advice
 This page lists the licences. The licence file or notice shipped with a copy
 (the licence files in each repository, a dataset card, a folder README, a
 pack README) governs that copy. Where this page is more permissive than an
-older notice, the licence history above applies. If the two disagree in any
-other way, write to contact@openmvis.com.
+older notice, the more permissive licence may be used. If the two disagree in
+any other way, write to contact@openmvis.com.
 
 
 ---
@@ -18025,7 +18000,7 @@ pages and the Hugging Face dataset cards point to it.
 
 - Community recordings: the XQ20, Hampo, ALG, Dibuli and Looper recordings
 in calibench-vi/community are CC BY 4.0, commercial use included. They were
-CC BY-NC 4.0 before; the dates are in the licence history on that page.
+CC BY-NC 4.0 before.
 
 - New datasets that we host are published under CC BY 4.0.
 
