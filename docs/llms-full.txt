@@ -295,8 +295,10 @@ terms.
 credited with a link to its source and is not covered by this licence.
 
 - The replay pack on Record the dataset
-states its own split: the guide motions, rigs and results CC BY 4.0, the two
-real-example trajectories CC BY-NC 4.0.
+is CC BY 4.0, commercial use included: the guide motions, the rigs, the
+results and, since 2026-11-25, the two real-example trajectories, which come
+from our own Looper Insight 9 recordings and were CC BY-NC 4.0 before. The
+reader script in the pack is MIT.
 
 If you are the maker and want a photo changed or removed, write to
 contact@openmvis.com.
@@ -1535,7 +1537,8 @@ replay pack (zip, 3.2 MB). It holds:
 Its README gives the frames, units and replay steps. The files are plain CSV, YAML and JSON, so you do not
 need MVIS to use them. We ran the twin with the MVIS simulator (mvis.simulation).
 
-Licence: the pack’s README names the licence of each file.
+Licence: CC BY 4.0, commercial use included, for every motion, rig and result in the pack. That includes the two
+real-example trajectories since 2026-11-25; a README that still lists them as CC BY-NC 4.0 is from before that date.
 
 ## Next
 
@@ -10920,8 +10923,8 @@ From above
 From the front
 
 Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
-cam0 | −0.2, −24.1, −21.3 | 32.2 | [+2.202, +2.211, −0.042] | −2.49 | ~102° × 69° |
-cam1 | −0.4, +96.0, −23.3 | 98.8 | [+2.201, +2.208, −0.036] | −2.46 | ~102° × 69° |
+cam0 | −0.3, −24.1, −21.3 | 32.2 | [+2.202, +2.211, −0.042] | −2.49 | ~102° × 69° |
+cam1 | −0.5, +96.0, −23.4 | 98.8 | [+2.201, +2.209, −0.036] | −2.46 | ~102° × 69° |
 
 Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
 
@@ -10935,13 +10938,13 @@ Shutter | Rolling, the two cameras synchronised; readout 14.1 ms (left) and 14.0
 Lenses | 2.1 mm, 110° × 70° (120° diagonal) |
 Baseline | 120 mm |
 Video modes | Up to 2208×1242 at 15 fps; 1280×720 at 60, 30 or 15 fps |
+IMU chip | Bosch BMI270: Bosch's BMI270 start-up file is in every ZED 2 sensor firmware in the ZED SDK |
+From the dataset |
+Model | The dataset names a ZED2. The original ZED 2 rather than the later ZED 2i is inferred from the recording date (December 2020) and the solved focal length |
 Measured in these recordings |
 Images in the recording | 2 × 1280×720 grey at 19.7 Hz (the dataset states 30 fps) |
 IMU | 6-axis, 400 Hz on the sheet; 381 Hz in the recording |
-IMU chip | Bosch BMI270: Bosch's BMI270 start-up file is in every ZED 2 sensor firmware in the ZED SDK |
 Calibrated field of view | cam0 ~102° × 69° · cam1 ~102° × 69° |
-From the dataset |
-Model | The dataset names a ZED2. The original ZED 2 rather than the later ZED 2i is inferred from the recording date (December 2020) and the solved focal length |
 
 ## Dataset
 
@@ -10950,8 +10953,8 @@ Source | WHUVID dataset (Wuhan University), calibration recording published by t
 Format | ROS 1 bag. Two IMU samples repeat the one before (same time and values) and are dropped |
 Board | AprilGrid 6×6, tag 20.8 mm, spacing 0.3 |
 Licence | CC BY 4.0, as stated in the WHUVID paper (Chen et al., Remote Sensing 14(9) 2033, 2022); cite it when you use the recording |
-Data | Calibench community, zed2/data/ (access by automatic approval). The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors |
-Configs and results | Calibench community, zed2/ (access by automatic approval) |
+Data | Calibench-VI community, zed2/data/ (access by automatic approval). The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors |
+Configs and results | Calibench-VI community, zed2/ (access by automatic approval) |
 
 AprilGrid 6 × 6, 156 × 156 mm. Standard pattern, to scale
 
@@ -10968,9 +10971,9 @@ Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time
 Gyro scale x+0.52 %
 Gyro scale y−1.26 %
 Gyro scale z−1.44 %
-Accel scale x−0.19 %
-Accel scale y−0.12 %
-Accel scale z+0.11 %
+Accel scale x−0.32 %
+Accel scale y−0.28 %
+Accel scale z−0.05 %
 −8 %0+8 %
 
 Timing cam0 td, first row −2.49 ms
@@ -10985,30 +10988,30 @@ fy px | 534.37 |
 cx px | 636.86 |
 cy px | 361.39 |
 k1 | −0.07103 |
-k2 | 0.03219 |
+k2 | 0.03218 |
 k3 | −0.00034 |
 k4 | −0.00557 |
-Lever x mm | −0.16 |
-Lever y mm | −24.11 |
-Lever z mm | −21.27 |
-log(R) rad | [+2.2024, +2.2114, −0.0420] |
+Lever x mm | −0.32 |
+Lever y mm | −24.13 |
+Lever z mm | −21.31 |
+log(R) rad | [+2.2024, +2.2114, −0.0419] |
 td ms | −2.486 |
 Reprojection px | 0.474 |
 Readout ms | +14.06 |
 cam1 |
-fx px | 532.75 |
-fy px | 536.02 |
+fx px | 532.74 |
+fy px | 536.01 |
 cx px | 654.60 |
 cy px | 340.71 |
 k1 | −0.07322 |
 k2 | 0.03995 |
 k3 | −0.00006 |
 k4 | −0.00525 |
-Lever x mm | −0.38 |
-Lever y mm | +96.02 |
-Lever z mm | −23.34 |
-log(R) rad | [+2.2011, +2.2085, −0.0358] |
-td ms | −2.459 |
+Lever x mm | −0.54 |
+Lever y mm | +95.99 |
+Lever z mm | −23.39 |
+log(R) rad | [+2.2010, +2.2085, −0.0357] |
+td ms | −2.458 |
 Reprojection px | 0.475 |
 Readout ms | +14.01 |
 IMU |
@@ -11020,10 +11023,11 @@ t_ga ms | +3.13 ± 0.37 |
 - The time offset is given at the first image row. At mid-image, the time a global-shutter model reports, it is about 7 ms later (+4.5 ms).
 - The board is small (about 15 cm), so the image edges are covered less well and the principal point trades with the lens distortion: a Kannala–Brandt model moves it by about 10 px with no change in fit.
 - The recording runs at 19.7 Hz and the IMU at 381 Hz, below the 30 fps and 400 Hz on the sheet, probably from drops while recording.
+- Solved at Wuhan's local gravity, 9.7936 m/s², on the assumption that the recording was made there (the dataset is from Wuhan University). Until 2026-11-25 this page showed a solve at 9.81 m/s², with an accel scale about 0.15 % higher.
 
 ## How it was run
 
-- Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Solved 2026-11-16.
+- Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Gravity 9.7936 m/s², Wuhan's local value. Solved 2026-11-25.
 
 
 ---
