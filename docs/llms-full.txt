@@ -10356,7 +10356,7 @@ Recording | 1 recording, 90 s, hand-held. About 2,700 frames per infrared camera
 Format | ROS1 bag |
 Board | Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder |
 Exposure | Fixed, about 2 ms on all three cameras; no auto exposure |
-Data | Calibench-VI community, realsense-d455/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Data | Calibench-VI community, realsense-d455/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures |
 Configs and results | Calibench-VI community, realsense-d455/ (access by automatic approval) |
 
 Chessboard 10 × 7 squares (9 × 6 inner corners), 75 mm squares, 750 × 525 mm. To scale
@@ -10511,7 +10511,7 @@ Recording | 1 recording, 90 s, hand-held. 2,700 frames per infrared camera, 2,69
 Format | ROS1 bag |
 Board | Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder |
 Exposure | Fixed, about 2 ms on all three cameras; no auto exposure |
-Data | Calibench-VI community, realsense-d456/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Data | Calibench-VI community, realsense-d456/data/ (access by automatic approval). Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures |
 Configs and results | Calibench-VI community, realsense-d456/ (access by automatic approval) |
 
 Chessboard 10 × 7 squares (9 × 6 inner corners), 75 mm squares, 750 × 525 mm. To scale
@@ -10664,7 +10664,7 @@ Recordings | 4 recordings, 95, 73, 50 and 65 s, hand-held. RGB, left and right i
 Format | EuRoC mav0: PNG per camera and IMU CSV |
 Board | AprilGrid, 6×6 tags of 88 mm, spacing 0.3 |
 Exposure | Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed |
-Data | Calibench-VI community, realsense-d435i/data/ (access by automatic approval). The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY-NC 4.0, for the data, clip and figures; commercial use by request. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs |
+Data | Calibench-VI community, realsense-d435i/data/ (access by automatic approval). The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY 4.0, commercial use included, for the data, clip and figures. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs |
 Configs and results | Calibench-VI community, realsense-d435i/ (access by automatic approval) |
 
 AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
@@ -10820,7 +10820,7 @@ Calibrated field of view | cam0 126° × ~147° |
 Recording | 1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz |
 Format | EuRoC mav0: PNG and IMU CSV, written by the module's capture tool |
 Board | AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor |
-Data | Calibench-VI community, robobaton-neo/data/ (access by automatic approval). The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Data | Calibench-VI community, robobaton-neo/data/ (access by automatic approval). The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY 4.0, commercial use included, for the data, clip and figures |
 Configs and results | Calibench-VI community, robobaton-neo/ (access by automatic approval) |
 
 AprilGrid 6 × 6, 188 × 188 mm. Standard pattern, to scale
@@ -11997,7 +11997,7 @@ Email | support@tujian.com |
 Recordings | 1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples |
 Format | ROS1 bag |
 Board | AprilGrid 6×6, tag 55 mm, spacing 0.3 |
-Licence | CC BY-NC 4.0, for the recording, clip and figures |
+Licence | CC BY 4.0, commercial use included, for the recording, clip and figures |
 Data | Calibench-VI community, cyperstereo/data/ (access by automatic approval). The maker's bag, unchanged (cyperstereo_imu_calibra2.bag, 9.3 GB), normal frames; hosted with Tujian's agreement. Recorded by Tujian |
 Configs and results | Calibench-VI community, cyperstereo/ (access by automatic approval). The configs, the starting calibration and this page's results; the configs read the recording in data/ |
 
