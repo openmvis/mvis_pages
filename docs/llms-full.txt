@@ -1216,16 +1216,21 @@ AprilGrid 6 × 6
 
 Chessboard 10 × 7 squares
 
-We recorded the calibration motion with these two boards. You can download
-both as images with configs in section 5. Each board type needs these
-fields:
+ChArUco 14 × 9 squares
+
+We recorded the calibration motion with the first two boards. The third is
+a ChArUco board (see below). You can download all three as images with configs in
+section 5. Each board type needs these fields:
 
 Board | board_type | Required fields |
 AprilGrid | apriltag | rows, cols, tag_size (m), tag_spacing (gap ÷ tag size), tag_family |
 Chessboard | chessboard | rows, cols (inner corners), square_size (m) |
+ChArUco | charuco | rows, cols (squares), square_size (m), marker_size (m), aruco_dict |
 
 - Which to pick: an AprilGrid still gives corners when part of it is out of view. A chessboard has to be
-fully in view.
+fully in view. A ChArUco board, a chessboard with a marker in each white square, gives chessboard corners
+and still works when part of it is out of view. Kalibr and Basalt cannot read it, so pick another board if
+you want to compare with them.
 
 - AprilGrid tags: tag_family: t36h11 is the Kalibr AprilGrid, which has a 2-bit black border round each
 tag. Use t36h11b1 for standard AprilTag 3 tags, which have a 1-bit border.
@@ -1233,6 +1238,41 @@ tag. Use t36h11b1 for standard AprilTag 3 tags, which have a 1-bit border.
 - ArUco boards also work (board_type: aruco). See Configuration.
 
 - A Kalibr target file: no config key reads one. Copy its values into the board: block, as in section 2.
+
+### Example: a ChArUco board
+
+MVIS reads a printed ChArUco board as is (MVIS 0.3.0 or later). A common layout:
+
+- Board: 14 × 9 squares, so 13 × 8 = 104 inner corners.
+
+- Squares: 40 mm. Markers: 30 mm, from the OpenCV dictionary DICT_5X5_250.
+
+config.yaml
+board :
+
+board_type : charuco
+
+rows : 9 # squares, not inner corners
+
+cols : 14
+
+square_size : 0.04 # metres
+
+marker_size : 0.03 # metres
+
+aruco_dict : DICT_5X5_250 # must match the printed board
+
+- Count squares. For a ChArUco board rows and cols count squares, as board generators print them. For
+a chessboard they count inner corners.
+
+- The dictionary is required. A board read with the wrong dictionary finds no corners, so MVIS stops when
+it is missing. OpenCV’s name for the key, dictionary, is read the same way.
+
+- Boards printed with OpenCV before 4.6 with an even number of rows have another marker layout: add
+charuco_legacy: true. This board has 9 rows, so it does not need it.
+
+- Every corner is used. MVIS refines each corner after OpenCV, and needs OpenCV 4.7 or later (the aruco
+extra installs it). All keys: Configuration.
 
 ## 2. The board in the running example
 
@@ -1315,12 +1355,13 @@ camera–IMU runs you can change it with solve.board_height_sigma (in m). Camera
 
 ## 5. No printer? Use a screen board
 
-You can show the board on a monitor. We made two full-screen images for a 2560 × 1440 monitor, with configs
-for MVIS and Kalibr:
+You can show the board on a monitor. We made three full-screen images for a 2560 × 1440 monitor, with configs
+for MVIS and, for the first two, Kalibr:
 
 Board | Size | Downloads |
 AprilGrid 6 × 6 | tag36h11, tag 43.47 mm, spacing 0.3 | image (PNG, 75 KB) · MVIS config · Kalibr config |
 Chessboard 10 × 7 squares | 9 × 6 inner corners, square 43.47 mm | image (PNG, 30 KB) · MVIS config · Kalibr config |
+ChArUco 14 × 9 squares | DICT_5X5_250, square 39.12 mm (144 px), marker 29.34 mm (108 px) | image (PNG, 8 KB) · MVIS config |
 
 How to show them:
 
@@ -1329,11 +1370,11 @@ How to show them:
 - Turn off display scaling and zoom, so one image pixel is one screen pixel.
 
 - Measure one tag or square with a ruler. On our monitor, 160 px (one tag or one square) is 43.47 mm, the
-size in the configs.
+size in the configs. The ChArUco squares are 144 px (39.12 mm), so the whole board fits on the screen.
 
 - If yours differs, put your size in the config:
 
-- MVIS: tag_size or square_size.
+- MVIS: tag_size or square_size (for the ChArUco board also marker_size, 0.75 of the square).
 
 - Kalibr: tagSize, or rowSpacingMeters and colSpacingMeters.
 
@@ -15679,16 +15720,21 @@ See Camera model.
 The calibration target. Both config types use the same block.
 
 Key | Default | For | Meaning |
-board_type | chessboard | all | apriltag (AprilGrid), chessboard or aruco |
-rows, cols | 9, 6 | all | Tag rows and columns; inner corners for a chessboard |
+board_type | chessboard | all | apriltag (AprilGrid), chessboard, aruco or charuco (MVIS 0.3.0 or later) |
+rows, cols | 9, 6 | all | Tag rows and columns; inner corners for a chessboard; squares for a ChArUco board |
 tag_size | 0.02 | apriltag | Tag edge length (m) |
 tag_spacing | 0.005 | apriltag | Gap between tags. Below 1 it is a fraction of tag_size (Kalibr’s convention); 1 or more is metres |
 tag_family | t36h11 | apriltag | AprilTag family |
-square_size | 0.025 | chessboard | Square edge length (m) |
-marker_size | 0.02 | aruco | Marker edge length (m) |
+square_size | 0.025 | chessboard, charuco | Square edge length (m) |
+marker_size | 0.02 | aruco, charuco | Marker edge length (m); on a ChArUco board smaller than square_size |
 marker_separation | 0.005 | aruco | Gap between markers (m) |
-aruco_dict | DICT_6X6_250 | aruco | OpenCV dictionary name |
+aruco_dict | DICT_6X6_250 | aruco, charuco | OpenCV dictionary name. Required for a ChArUco board (no default); dictionary is read the same way |
+charuco_legacy | false | charuco | true for boards printed with OpenCV before 4.6 with an even number of rows (another marker layout) |
+charuco_refine | true | charuco | Refine each corner after OpenCV, whose corners sit about 0.5 px off; false keeps OpenCV’s corners |
 heights_file | none | camera–IMU | Start values for the board shape: one height per corner. The <output>_board_shape.yaml of an earlier camera–IMU run is a valid file. Camera-only runs do not read it |
+
+On a ChArUco board MVIS uses every corner: corner_subsample has nothing to thin, and other values are
+replaced by all with a warning. Example block: a ChArUco board.
 
 board.detection holds expert settings for the multi-scale AprilTag detector.
 The defaults suit most boards; leave it out unless detection misses tags.
@@ -17515,7 +17561,7 @@ gyroscope and accelerometer. A correction we cannot undo hides the intrinsics,
 the sensor’s own parameters, so they cannot be calibrated.
 
 - A calibration board in view for most of the recording. MVIS reads
-AprilGrid, chessboard and ArUco boards. See Set up the board.
+AprilGrid, chessboard, ArUco and ChArUco boards. See Set up the board.
 
 - Motion on every axis: rotation about all three axes and translation along
 them, not just one kind. See Record the dataset
@@ -17886,6 +17932,74 @@ commit history has every change.
 - Site changes: see the
 site repository.
 
+## MVIS 0.4.1
+
+Released on 2026-11-25 (PyPI,
+Zenodo). The same config gives the
+same solve as on 0.4.0.
+
+- The report names the place: a comment after the gravity value,
+gravity: 9.8013 # m/s², Newark, Delaware, gives “set in config for Newark,
+Delaware” in the camera–IMU report, cam_imu.json (gravity_place) and
+mvis check. With site: the site name is used, as before.
+
+- Configs set the local gravity first: the example configs, the run-log hint
+and the agent template now start with the local gravity: value. Results
+published from the old example configs were solved at 9.81, so their
+accelerometer scale differs by 0.02–0.17 % from a re-solve.
+
+## MVIS 0.4.0
+
+Released on 2026-11-24 (PyPI,
+Zenodo). A config that ran on 0.3.0
+runs unchanged: without gravity: or site: the solve keeps 9.81.
+
+- Local gravity: gravity: (m/s²) or site: {latitude_deg, altitude_m}
+sets the gravity of a camera–IMU solve. The accelerometer scale absorbs a
+wrong value, so a fixed 9.81 read it 0.23 % high in Shenzhen and up to 0.30 %
+at the equator. The value used, and its site, are in the results, the
+calibration YAML and the report; without either key the run log warns that
+9.81 is in use. See Local gravity.
+
+- Start checks: board and multi-camera camera–IMU runs report failed start
+checks (gravity norm, scale) as a warning, a report line and an init_gates
+block in cam_imu.json.
+
+- Fixed: gyro-only auxiliary IMUs applied their time offset twice (a 50 ms
+offset came out as 0.35 ms). The report’s bias values are labelled as the first
+state’s, and the bias plot shows the biases per state.
+
+## MVIS 0.3.0
+
+Released on 2026-11-22 (PyPI,
+Zenodo). A config that ran on 0.2.0
+runs unchanged.
+
+- ChArUco boards (board_type: charuco): chessboard corners named by ArUco
+markers, so a board that is partly out of view is still used. rows and
+cols count squares, and the dictionary is required. MVIS refines each corner
+after OpenCV, whose corners sit about 0.5 px off. Needs OpenCV 4.7 or later.
+Keys: Configuration.
+
+## MVIS 0.2.0
+
+Released on 2026-11-19 (PyPI,
+Zenodo). Results files gain fields;
+nothing is removed or renamed.
+
+- ROS2 bags without ROS: a bag folder, or one .db3 or .mcap file, in both
+modes, read with rosbags.
+
+- Reprojection statistics: mean, median, standard deviation, P90, P95 and
+max per camera and overall, also for the corners within 3 px.
+
+- Reports redesigned: a Summary with the parameters per sensor, camera tabs,
+a closed Appendix, a print view, and IMU residuals per state block. Reports
+name the installed version.
+
+- Fixed: a camera-only solve that stops stuck is solved again from its start
+with other damping, and mvis verdict grades it RED if it is still stuck.
+
 ## MVIS 0.1.0
 
 The first public release. There is no earlier public version, so the list
@@ -17929,7 +18043,7 @@ JPEG CompressedImage), ROS2 bags and EuRoC / ASL folders.
 - ROS2 without ROS: ROS2 bags (a bag folder, or one .db3 or .mcap file)
 are read with the pure-Python rosbags, with no ROS install.
 
-- Boards: AprilGrid, chessboard and ArUco.
+- Boards: AprilGrid, chessboard and ArUco (ChArUco since 0.3.0).
 
 - Kalibr interop: read and write Kalibr camchains.
 
@@ -18239,7 +18353,7 @@ Answer: only the ones for your board and your input.
 
 - apriltag: AprilGrid boards (the grid of square AprilTag markers).
 
-- aruco: ArUco boards. It installs opencv-contrib-python; install it in
+- aruco: ArUco and ChArUco boards (ChArUco needs OpenCV 4.7 or later). It installs opencv-contrib-python; install it in
 a fresh environment, because it and opencv-python both provide cv2.
 
 - ros1: ROS1 and ROS2 bags, through the pure-Python rosbags reader.
@@ -18396,6 +18510,11 @@ tag_spacing (gap over tag size) and tag_family.
 - Chessboard: rows and cols count inner corners; check square_size.
 
 - ArUco: check marker_size, marker_separation and aruco_dict.
+
+- ChArUco: rows and cols count squares, not inner corners; check
+aruco_dict against the printed board and, for boards printed with OpenCV
+before 4.6, charuco_legacy. MVIS warns once when markers are found but no
+corner comes out.
 
 Then run mvis inspect <dataset path> for a summary of what MVIS sees in the
 recording, and mvis check -c config.yaml to lint the config. MVIS detects at
