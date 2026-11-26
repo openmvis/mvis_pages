@@ -218,7 +218,7 @@ datasets:
     title: UZH-FPV
     ours: false
     study: true
-    study_note: "Separate study (batch 2026-11-04): no repeatability cells on the current schema, so it has no row here."
+    study_note: "Separate study (batch 2026-11-26): no repeatability cells on the current schema, so it has no row here."
     licence: CC BY-NC-SA 3.0
     intro: "The camera–IMU calibration bags of the UZH-FPV Drone Racing dataset: an mDAVIS346 and a Snapdragon Flight, each recorded indoors and outdoors, at 45° and facing forward. A one-off study, not part of the leaderboard batch or the regression suite."
     chips: ["2 devices, 4 bags each", "AprilGrid 5×4, 75 mm"]

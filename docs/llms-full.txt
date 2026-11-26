@@ -4967,7 +4967,7 @@ T12 cam0 + cam1 + IMU camera + IMU · global shutter · 4 recordings Solved 4 4 
 
 VI-Rig 5 IMUs + 4 cams separate study · batch 2026-11-02 Separate study (batch 2026-11-02), MVIS only: Kalibr and Basalt were not run on this set, so it has no row here. Results page
 
-UZH-FPV separate study · batch 2026-11-04 Separate study (batch 2026-11-04): no repeatability cells on the current schema, so it has no row here. Results page
+UZH-FPV separate study · batch 2026-11-26 Separate study (batch 2026-11-26): no repeatability cells on the current schema, so it has no row here. Results page
 
 ◆ counts are the rows where two tools' medians differ by more than the larger of their spreads,
 counted by the same code as the parameter tables. They mark disagreement, not who is right. On camera + IMU
@@ -8253,7 +8253,7 @@ MVIS solve view, from the homepage
 
 The camera–IMU calibration bags of the UZH-FPV Drone Racing dataset: an mDAVIS346 and a Snapdragon Flight, each recorded indoors and outdoors, at 45° and facing forward. A one-off study, not part of the leaderboard batch or the regression suite.
 2 devices, 4 bags each AprilGrid 5×4, 75 mm
-Separate study · batch 2026-11-04 · not part of the leaderboard batch
+Separate study · batch 2026-11-26 · not part of the leaderboard batch
 Example: how MVIS calibrates it Dataset page: downloads
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
@@ -8267,6 +8267,7 @@ DAVIS · camera + IMU SNAP · camera + IMU
 - One Basalt solve is left out. On davis_indoor_forward with these weights, Basalt gives a 120 mm lever and an accel scale (accelerometer scale factor) of 0.84. So its Davis column has 3 of 4 bags. At Basalt's default noise that bag is plausible, but snapdragon_indoor_45 then fails with a broken spline.
 - Basalt's Davis distance stands out. Its camera-to-IMU distance is 33.6 mm. Kalibr gives 23.2 mm and MVIS 22.8 mm on the same 3 bags. We haven't established why. At default noise Basalt's lever z is 14–25 mm.
 - Each device's 4 bags form one family, because the camera and IMU are on the same device. That assumes the camera–IMU geometry stayed the same across recordings, which we can't confirm.
+- Gravity. These solves used 9.81 m/s², before 2026-11-25. The example config now sets 9.8070 (Dübendorf); with it the accel scale moves by about −0.03 %.
 - Snapdragon's time offset really does differ between bags, with an sd (standard deviation) near 4.7 ms in every tool. So a small difference between tools on that row says little about each bag.
 
 ## DAVIS · camera + IMU
@@ -8282,128 +8283,128 @@ Read first: All three tools use each bag's IMU weights from the residuals in UZH
 MVIS made two runs per recording: its default IMU model ("MVIS") and Kalibr's IMU model ("MVIS (K-IMU)"), so the IMU terms of the second mean the same thing as Kalibr's.
 Fit: reprojection median, px (fit of each tool's own model, not accuracy)
 Camera | MVIS | MVIS (K-IMU) | Kalibr | Basalt |
-mDAVIS346 | 0.343 | 0.344 | 0.137 | – |
+mDAVIS346 | 0.345 | 0.347 | 0.137 | – |
 
 ### Parameters by sensor
 
 2 sensors, 20 parameter charts (each tool's spread; click to fold)
-mDAVIS346DAVIS IMU fx px axis 173 ± 3.35
-MVIS 173.16 ± 1.8 (4)
-MVIS (K-IMU) 173.30 ± 1.8 (4)
+mDAVIS346DAVIS IMU fx px axis 173 ± 3.33
+MVIS 173.12 ± 1.8 (4)
+MVIS (K-IMU) 173.28 ± 1.8 (4)
 Kalibr 173.03 ± 1.2 (4) input
 Basalt 171.62 ± 1.1 (3)
 
-fy px axis 173 ± 3.41
-MVIS 173.01 ± 1.7 (4)
-MVIS (K-IMU) 173.15 ± 1.7 (4)
+fy px axis 173 ± 3.4
+MVIS 172.98 ± 1.7 (4)
+MVIS (K-IMU) 173.13 ± 1.7 (4)
 Kalibr 173.03 ± 1.2 (4) input
 Basalt 171.59 ± 1.1 (3)
 
-cx px axis 164 ± 0.586
-MVIS 163.66 ± 0.19 (4)
-MVIS (K-IMU) 163.65 ± 0.17 (4)
+cx px axis 164 ± 0.579
+MVIS 163.66 ± 0.21 (4)
+MVIS (K-IMU) 163.63 ± 0.18 (4)
 Kalibr 163.32 ± 0.33 (4) input
 Basalt 163.41 ± 0.17 (3)
 
-cy px axis 135 ± 6.36
-MVIS 135.38 ± 2.8 (4)
-MVIS (K-IMU) 135.39 ± 2.8 (4)
+cy px axis 135 ± 6.38
+MVIS 135.36 ± 2.9 (4)
+MVIS (K-IMU) 135.37 ± 2.9 (4)
 Kalibr 135.00 ± 3.1 (4) input
 Basalt 134.87 ± 3.5 (3)
 
-dist k1 axis −0.0272 ± 0.0148
-MVIS −0.02695 ± 0.009 (4)
-MVIS (K-IMU) −0.02739 ± 0.0089 (4)
+dist k1 axis −0.0261 ± 0.0129
+MVIS −0.02585 ± 0.008 (4)
+MVIS (K-IMU) −0.02630 ± 0.008 (4)
 Kalibr −0.03125 ± 0.0034 (4) input
 Basalt −0.02110 ± 0.0048 (3)
 
-dist k2 axis 0.000876 ± 0.0482
-MVIS 0.00093 ± 0.028 (4)
-MVIS (K-IMU) 0.00107 ± 0.028 (4)
+dist k2 axis −0.00505 ± 0.047
+MVIS −0.00510 ± 0.026 (4)
+MVIS (K-IMU) −0.00500 ± 0.026 (4)
 Kalibr 0.00082 ± 0.0039 (4) input
 Basalt −0.01699 ± 0.0095 (3)
 
-dist k3 axis −0.0128 ± 0.0551
-MVIS −0.02199 ± 0.031 (4)
-MVIS (K-IMU) −0.02174 ± 0.031 (4)
+dist k3 axis −0.00718 ± 0.049
+MVIS −0.01083 ± 0.029 (4)
+MVIS (K-IMU) −0.01049 ± 0.028 (4)
 Kalibr −0.00386 ± 0.0026 (4) input
 Basalt 0.02458 ± 0.013 (3)
 
-dist k4 axis 0.00651 ± 0.0285
-MVIS 0.01262 ± 0.011 (4)
-MVIS (K-IMU) 0.01230 ± 0.011 (4)
+dist k4 axis 0.00428 ± 0.0261
+MVIS 0.00810 ± 0.0085 (4)
+MVIS (K-IMU) 0.00786 ± 0.0082 (4)
 Kalibr 0.00071 ± 0.00082 (4) input
 Basalt −0.01269 ± 0.0067 (3)
 
-time offset td to base IMU ms axis 5.83 ± 0.672
-MVIS 5.872 ± 0.38 (4)
-MVIS (K-IMU) 5.836 ± 0.37 (4)
+time offset td to base IMU ms axis 5.83 ± 0.685
+MVIS 5.881 ± 0.38 (4)
+MVIS (K-IMU) 5.843 ± 0.37 (4)
 Kalibr 5.813 ± 0.19 (4)
 Basalt 5.823 ± 0.076 (3)
 
 distance to base IMU ‖p‖ mm axis 22.5 ± 14.6
-MVIS 21.52 ± 2 (4)
-MVIS (K-IMU) 21.11 ± 2.1 (4)
+MVIS 21.50 ± 2 (4)
+MVIS (K-IMU) 21.05 ± 2.2 (4)
 Kalibr 23.40 ± 1.7 (4)
 Basalt 33.57 ± 2.1 (3)
 
 gyro Dw[0,0] scale x axis 0.997 ± 0.0187 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.99921 ± 0.0012 (4)
+MVIS (K-IMU) 0.99940 ± 0.0012 (4)
 Kalibr 0.99723 ± 0.0016 (4)
 Basalt 0.98439 ± 0.0042 (3)
 
 gyro Dw[1,1] scale y axis 1 ± 0.033 · line at 1
 MVIS no value
-MVIS (K-IMU) 1.00373 ± 0.007 (4)
+MVIS (K-IMU) 1.00389 ± 0.0071 (4)
 Kalibr 1.00214 ± 0.0081 (4)
 Basalt 0.99559 ± 0.014 (3)
 
 gyro Dw[2,2] scale z axis 1.01 ± 0.00385
 MVIS no value
-MVIS (K-IMU) 1.00683 ± 0.0012 (4)
+MVIS (K-IMU) 1.00682 ± 0.0012 (4)
 Kalibr 1.00612 ± 0.0018 (4)
 Basalt 1.00582 ± 0.00071 (3)
 
-gyro Dw[1,0] cross axis −0.000614 ± 0.00394
+gyro Dw[1,0] cross axis −0.000621 ± 0.00393
 MVIS no value
-MVIS (K-IMU) −0.00061 ± 0.0014 (4)
+MVIS (K-IMU) −0.00062 ± 0.0014 (4)
 Kalibr −0.00059 ± 0.002 (4)
 Basalt −0.00158 ± 0.0007 (3)
 
-gyro Dw[2,0] cross axis −0.00356 ± 0.0194
+gyro Dw[2,0] cross axis −0.00348 ± 0.0192
 MVIS no value
-MVIS (K-IMU) −0.00356 ± 0.0093 (4)
+MVIS (K-IMU) −0.00348 ± 0.0092 (4)
 Kalibr −0.00403 ± 0.0078 (4)
 Basalt −0.00231 ± 0.0099 (3)
 
-gyro Dw[2,1] cross axis −0.0177 ± 0.0101
+gyro Dw[2,1] cross axis −0.0176 ± 0.0101
 MVIS no value
-MVIS (K-IMU) −0.01766 ± 0.0045 (4)
+MVIS (K-IMU) −0.01763 ± 0.0043 (4)
 Kalibr −0.01729 ± 0.0046 (4)
 Basalt −0.01908 ± 0.0042 (3)
 
 accel Da[0,0] scale x axis 0.998 ± 0.0104 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.99955 ± 0.0027 (4)
+MVIS (K-IMU) 0.99938 ± 0.0027 (4)
 Kalibr 0.99835 ± 0.0033 (4)
 Basalt 0.99381 ± 0.0049 (3)
 
 accel Da[1,1] scale y axis 1 ± 0.0122 · line at 1
 MVIS no value
-MVIS (K-IMU) 1.00067 ± 0.0026 (4)
+MVIS (K-IMU) 1.00053 ± 0.0025 (4)
 Kalibr 1.00000 ± 0.0018 (4)
 Basalt 0.99358 ± 0.0036 (3)
 
 accel Da[2,2] scale z axis 0.98 ± 0.0288 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.98507 ± 0.0032 (4)
+MVIS (K-IMU) 0.98513 ± 0.0033 (4)
 Kalibr 0.98025 ± 0.0011 (4)
 Basalt 0.96037 ± 0.0045 (3)
 
-t_ga gyro−accel ms axis −0.5 ± 0.296
-MVIS −0.485 ± 0.17 (4)
-MVIS (K-IMU) −0.514 ± 0.22 (4)
+t_ga gyro−accel ms axis −0.483 ± 0.324
+MVIS −0.477 ± 0.17 (4)
+MVIS (K-IMU) −0.490 ± 0.22 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
 
@@ -8424,195 +8425,195 @@ Read first: All three tools use each bag's IMU weights from the residuals in UZH
 MVIS made two runs per recording: its default IMU model ("MVIS") and Kalibr's IMU model ("MVIS (K-IMU)"), so the IMU terms of the second mean the same thing as Kalibr's.
 Fit: reprojection median, px (fit of each tool's own model, not accuracy)
 Camera | MVIS | MVIS (K-IMU) | Kalibr | Basalt |
-Snapdragon left | 0.203 | 0.203 | 0.483 | – |
-Snapdragon right | 0.202 | 0.201 | 0.405 | – |
+Snapdragon left | 0.202 | 0.202 | 0.483 | – |
+Snapdragon right | 0.201 | 0.200 | 0.405 | – |
 
 ### Parameters by sensor
 
 3 sensors, 31 parameter charts (each tool's spread; click to fold)
-Snapdragon leftSnapdragon rightSnapdragon IMU fx px axis 277 ± 2.78
-MVIS 277.77 ± 1.1 (4)
-MVIS (K-IMU) 277.79 ± 1.1 (4)
+Snapdragon leftSnapdragon rightSnapdragon IMU fx px axis 277 ± 2.77
+MVIS 277.76 ± 1.1 (4)
+MVIS (K-IMU) 277.78 ± 1.1 (4)
 Kalibr 276.47 ± 1.6 (4) input
 Basalt 275.65 ± 1.1 (4)
 
 fy px axis 277 ± 2.89
-MVIS 277.72 ± 1.3 (4)
-MVIS (K-IMU) 277.74 ± 1.4 (4)
+MVIS 277.71 ± 1.3 (4)
+MVIS (K-IMU) 277.73 ± 1.3 (4)
 Kalibr 276.25 ± 1.7 (4) input
 Basalt 275.58 ± 1.2 (4)
 
-cx px axis 318 ± 3.78
-MVIS 317.89 ± 2.6 (4)
-MVIS (K-IMU) 317.90 ± 2.7 (4)
+cx px axis 318 ± 3.84
+MVIS 317.95 ± 2.6 (4)
+MVIS (K-IMU) 317.96 ± 2.7 (4)
 Kalibr 317.86 ± 2.4 (4) input
 Basalt 318.14 ± 2.7 (4)
 
-cy px axis 242 ± 9.8
-MVIS 241.59 ± 4.6 (4)
-MVIS (K-IMU) 241.59 ± 4.6 (4)
+cy px axis 242 ± 9.81
+MVIS 241.65 ± 4.6 (4)
+MVIS (K-IMU) 241.64 ± 4.5 (4)
 Kalibr 242.03 ± 4.3 (4) input
 Basalt 241.52 ± 4.5 (4)
 
-dist k1 axis −0.0104 ± 0.0115
-MVIS −0.01117 ± 0.0037 (4)
-MVIS (K-IMU) −0.01116 ± 0.0037 (4)
+dist k1 axis −0.0104 ± 0.0114
+MVIS −0.01111 ± 0.004 (4)
+MVIS (K-IMU) −0.01110 ± 0.004 (4)
 Kalibr −0.00972 ± 0.008 (4) input
 Basalt −0.00763 ± 0.0042 (4)
 
-dist k2 axis 0.019 ± 0.0348
-MVIS 0.02002 ± 0.0079 (4)
-MVIS (K-IMU) 0.02005 ± 0.0079 (4)
+dist k2 axis 0.0191 ± 0.0349
+MVIS 0.02020 ± 0.0084 (4)
+MVIS (K-IMU) 0.02019 ± 0.0085 (4)
 Kalibr 0.01273 ± 0.025 (4) input
 Basalt 0.01801 ± 0.0067 (4)
 
-dist k3 axis −0.016 ± 0.0377
-MVIS −0.01849 ± 0.0097 (4)
-MVIS (K-IMU) −0.01854 ± 0.0097 (4)
+dist k3 axis −0.0161 ± 0.0378
+MVIS −0.01868 ± 0.0097 (4)
+MVIS (K-IMU) −0.01869 ± 0.0098 (4)
 Kalibr −0.00579 ± 0.024 (4) input
 Basalt −0.01352 ± 0.0059 (4)
 
-dist k4 axis 0.00492 ± 0.0129
-MVIS 0.00625 ± 0.0038 (4)
-MVIS (K-IMU) 0.00625 ± 0.0038 (4)
+dist k4 axis 0.00491 ± 0.0129
+MVIS 0.00624 ± 0.0036 (4)
+MVIS (K-IMU) 0.00625 ± 0.0036 (4)
 Kalibr 0.00047 ± 0.0073 (4) input
 Basalt 0.00358 ± 0.002 (4)
 
 time offset td to base IMU ms axis −10.9 ± 6.12
-MVIS −10.794 ± 4.7 (4)
-MVIS (K-IMU) −10.764 ± 4.7 (4)
+MVIS −10.792 ± 4.7 (4)
+MVIS (K-IMU) −10.761 ± 4.7 (4)
 Kalibr −11.017 ± 4.6 (4)
 Basalt −10.975 ± 4.7 (4)
 
-distance to base IMU ‖p‖ mm axis 25.6 ± 8.48
-MVIS 25.62 ± 1.7 (4)
-MVIS (K-IMU) 25.61 ± 1.7 (4)
+distance to base IMU ‖p‖ mm axis 25.6 ± 8.49
+MVIS 25.61 ± 1.7 (4)
+MVIS (K-IMU) 25.59 ± 1.7 (4)
 Kalibr 24.41 ± 4.7 (4)
 Basalt 27.51 ± 1.7 (4)
 
 fx px axis 276 ± 3.98
 MVIS 276.73 ± 1.5 (4)
-MVIS (K-IMU) 276.74 ± 1.5 (4)
+MVIS (K-IMU) 276.73 ± 1.5 (4)
 Kalibr 275.62 ± 2 (4) input
 Basalt 275.07 ± 1.6 (4)
 
-fy px axis 276 ± 3.59
-MVIS 276.54 ± 1.6 (4)
-MVIS (K-IMU) 276.56 ± 1.6 (4)
+fy px axis 276 ± 3.58
+MVIS 276.53 ± 1.6 (4)
+MVIS (K-IMU) 276.54 ± 1.6 (4)
 Kalibr 275.36 ± 2.1 (4) input
 Basalt 274.91 ± 1.6 (4)
 
-cx px axis 315 ± 1.47
-MVIS 314.44 ± 0.25 (4)
-MVIS (K-IMU) 314.45 ± 0.23 (4)
+cx px axis 315 ± 1.46
+MVIS 314.46 ± 0.27 (4)
+MVIS (K-IMU) 314.46 ± 0.25 (4)
 Kalibr 314.75 ± 0.72 (4) input
 Basalt 314.81 ± 0.21 (4)
 
 cy px axis 236 ± 16.9
-MVIS 235.65 ± 7.3 (4)
-MVIS (K-IMU) 235.65 ± 7.3 (4)
+MVIS 235.70 ± 7.2 (4)
+MVIS (K-IMU) 235.70 ± 7.2 (4)
 Kalibr 236.28 ± 7.5 (4) input
 Basalt 235.71 ± 7.1 (4)
 
-dist k1 axis −0.00903 ± 0.0406
-MVIS −0.00931 ± 0.016 (4)
-MVIS (K-IMU) −0.00933 ± 0.016 (4)
+dist k1 axis −0.00924 ± 0.0408
+MVIS −0.00974 ± 0.016 (4)
+MVIS (K-IMU) −0.00976 ± 0.016 (4)
 Kalibr −0.00874 ± 0.019 (4) input
 Basalt −0.00415 ± 0.015 (4)
 
-dist k2 axis 0.0116 ± 0.0432
-MVIS 0.01253 ± 0.024 (4)
-MVIS (K-IMU) 0.01249 ± 0.024 (4)
+dist k2 axis 0.0122 ± 0.0439
+MVIS 0.01367 ± 0.024 (4)
+MVIS (K-IMU) 0.01363 ± 0.024 (4)
 Kalibr 0.01069 ± 0.022 (4) input
 Basalt 0.00688 ± 0.015 (4)
 
-dist k3 axis −0.00627 ± 0.0493
-MVIS −0.00761 ± 0.03 (4)
-MVIS (K-IMU) −0.00760 ± 0.03 (4)
+dist k3 axis −0.00677 ± 0.0504
+MVIS −0.00860 ± 0.03 (4)
+MVIS (K-IMU) −0.00858 ± 0.03 (4)
 Kalibr −0.00495 ± 0.023 (4) input
 Basalt −0.00200 ± 0.02 (4)
 
-dist k4 axis 0.00113 ± 0.0238
-MVIS 0.00167 ± 0.013 (4)
-MVIS (K-IMU) 0.00167 ± 0.013 (4)
+dist k4 axis 0.00127 ± 0.024
+MVIS 0.00194 ± 0.014 (4)
+MVIS (K-IMU) 0.00195 ± 0.014 (4)
 Kalibr 0.00059 ± 0.0098 (4) input
 Basalt −0.00022 ± 0.0099 (4)
 
-baseline to Snapdragon left mm axis 79.5 ± 1.04
-MVIS 79.435 ± 0.48 (4)
-MVIS (K-IMU) 79.436 ± 0.49 (4)
+baseline to Snapdragon left mm axis 79.5 ± 1.03
+MVIS 79.421 ± 0.49 (4)
+MVIS (K-IMU) 79.422 ± 0.49 (4)
 Kalibr 79.501 ± 0.32 (4) input
 Basalt 79.555 ± 0.76 (4)
 
 time offset td to base IMU ms axis −10.9 ± 6.12
-MVIS −10.810 ± 4.7 (4)
-MVIS (K-IMU) −10.780 ± 4.7 (4)
+MVIS −10.806 ± 4.7 (4)
+MVIS (K-IMU) −10.776 ± 4.7 (4)
 Kalibr −11.052 ± 4.6 (4)
 Basalt −10.975 ± 4.7 (4)
 
-distance to base IMU ‖p‖ mm axis 58.4 ± 6.64
-MVIS 58.00 ± 1.5 (4)
-MVIS (K-IMU) 57.96 ± 1.6 (4)
+distance to base IMU ‖p‖ mm axis 58.4 ± 6.63
+MVIS 58.02 ± 1.6 (4)
+MVIS (K-IMU) 57.98 ± 1.6 (4)
 Kalibr 58.76 ± 3 (4)
 Basalt 59.47 ± 2.4 (4)
 
 gyro Dw[0,0] scale x axis 1 ± 0.00846 · line at 1
 MVIS no value
-MVIS (K-IMU) 1.00405 ± 0.0019 (4)
+MVIS (K-IMU) 1.00407 ± 0.0019 (4)
 Kalibr 1.00395 ± 0.0043 (4)
 Basalt 1.00351 ± 0.001 (4)
 
-gyro Dw[1,1] scale y axis 0.998 ± 0.00915 · line at 1
+gyro Dw[1,1] scale y axis 0.998 ± 0.00897 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.99791 ± 0.0021 (4)
+MVIS (K-IMU) 0.99806 ± 0.0021 (4)
 Kalibr 0.99951 ± 0.0067 (4)
 Basalt 0.99392 ± 0.0034 (4)
 
-gyro Dw[2,2] scale z axis 0.998 ± 0.00879 · line at 1
+gyro Dw[2,2] scale z axis 0.998 ± 0.00898 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.99792 ± 0.0018 (4)
+MVIS (K-IMU) 0.99810 ± 0.0018 (4)
 Kalibr 0.99811 ± 0.004 (4)
 Basalt 0.99402 ± 0.0041 (4)
 
 gyro Dw[1,0] cross axis 0.000182 ± 0.00308
 MVIS no value
-MVIS (K-IMU) 0.00070 ± 0.0003 (4)
+MVIS (K-IMU) 0.00069 ± 0.00032 (4)
 Kalibr −0.00034 ± 0.00046 (4)
 Basalt 0.00018 ± 0.0015 (4)
 
-gyro Dw[2,0] cross axis 0.00606 ± 0.00937
+gyro Dw[2,0] cross axis 0.00619 ± 0.00952
 MVIS no value
-MVIS (K-IMU) 0.00606 ± 0.00085 (4)
+MVIS (K-IMU) 0.00619 ± 0.00086 (4)
 Kalibr 0.00704 ± 0.0054 (4)
 Basalt 0.00413 ± 0.0013 (4)
 
 gyro Dw[2,1] cross axis −0.0000173 ± 0.00169
 MVIS no value
-MVIS (K-IMU) 0.00014 ± 0.00075 (4)
+MVIS (K-IMU) 0.00012 ± 0.00072 (4)
 Kalibr −0.00028 ± 0.001 (4)
 Basalt −0.00002 ± 0.0013 (4)
 
 accel Da[0,0] scale x axis 0.998 ± 0.0149 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.99841 ± 0.0017 (4)
+MVIS (K-IMU) 0.99836 ± 0.0017 (4)
 Kalibr 1.00034 ± 0.0038 (4)
 Basalt 0.98999 ± 0.0052 (4)
 
 accel Da[1,1] scale y axis 0.999 ± 0.0136 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.99930 ± 0.0013 (4)
+MVIS (K-IMU) 0.99912 ± 0.0014 (4)
 Kalibr 0.99910 ± 0.0029 (4)
 Basalt 0.99296 ± 0.0041 (4)
 
-accel Da[2,2] scale z axis 0.989 ± 0.0197 · line at 1
+accel Da[2,2] scale z axis 0.989 ± 0.0195 · line at 1
 MVIS no value
-MVIS (K-IMU) 0.98925 ± 0.0022 (4)
+MVIS (K-IMU) 0.98912 ± 0.0022 (4)
 Kalibr 0.99085 ± 0.0058 (4)
 Basalt 0.97820 ± 0.0036 (4)
 
-t_ga gyro−accel ms axis −0.826 ± 0.234
-MVIS −0.819 ± 0.097 (4)
-MVIS (K-IMU) −0.832 ± 0.12 (4)
+t_ga gyro−accel ms axis −0.833 ± 0.239
+MVIS −0.825 ± 0.094 (4)
+MVIS (K-IMU) −0.841 ± 0.13 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
 
