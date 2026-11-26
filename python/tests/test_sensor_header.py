@@ -195,3 +195,25 @@ def test_imu_and_timing_folds_open_on_load():
     assert fold("imu", "IMU", "k", "b").startswith('<details class=fold id="imu" open>')
     assert fold("timing", "Timing", "k", "b").startswith('<details class=fold id="timing" open>')
     assert fold("lens", "Lens", "k", "b").startswith('<details class=fold id="lens">')
+
+
+def test_try_box_only_for_pages_with_replayed_configs():
+    p = {"title": "Neo", "card": {"name": "Neo"}, "try_it": {"folder": "robobaton-neo", "size": "about 95 MB", "time": "a few minutes",
+         "config": "config/cam_imu.yaml", "own": "Set `input.path` to <your> folder."}}
+    html = H.try_box(p)
+    assert html.startswith("<section class=try id=calibrate-it-yourself>")
+    assert "community/tree/main/robobaton-neo" in html and '--include &quot;robobaton-neo/*&quot;' in html
+    assert "mvis cam-imu -c config/cam_imu.yaml" in html and "huggingface_hub" in html
+    assert "<code>input.path</code>" in html and "&lt;your&gt;" in html   # ticks become code, the rest stays escaped
+    assert H.try_box({"title": "x"}) == ""
+
+
+def test_neo_try_box_passes_the_public_lint():
+    """The box is page text, so the export's lint checks it (2026-11-26: "results/" read as an internal path)."""
+    import yaml
+    from mvis_site import DATA
+    from mvis_site.lint import public_problems, strip_urls
+    p = yaml.safe_load((DATA / "public_sensors.yaml").read_text(encoding="utf-8"))["sensors"]["robobaton-neo"]
+    html = H.try_box(p)
+    assert html and public_problems(strip_urls(html)) == []
+

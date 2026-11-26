@@ -244,6 +244,12 @@ sensors:
       solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the
       gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the ICM-42670-P
       datasheet value times three. Solved 2026-11-19.
+    try_it:   # "Calibrate it yourself" box under the demo; replayed from the Hub copy in a clean venv (pymvis 0.4.1), 2026-11-25; the EuRoC path on the maker's original zip, 2026-11-26
+      folder: robobaton-neo
+      size: about 95 MB
+      time: a few minutes (about 3 on a desktop)
+      config: config/cam_imu.yaml
+      own: "Record the board with the Neo's capture tool, then in `config/cam_imu.yaml` set `input.format: euroc` and `input.path` to the `mav0` folder inside your recording, or pass a ROS1 bag with `--bag`."
     limits:
       - "One recording, 5 frames per second. The maker's own calibration of the same recording agrees on the rotation (within 0.4°) and on the lever arm across the image (within 2 mm), but not along the optical axis (17 mm here against 9 mm) nor on the time offset (1.1 ms against 0.3 ms). A digital twin of the recording puts the noise on z at about 1 mm, so the gap is systematic; the image stamp convention and the tag size on the monitor are the open questions."
       - "The tag size, 25 mm, is the value in the capture tool's config, not a measurement on the monitor; it scales the lever arm."
