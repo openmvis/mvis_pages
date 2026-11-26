@@ -10820,6 +10820,24 @@ cam0 td +1.14 ms
 cam0 lever arm 31.1 mm
 
 Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
+
+### Calibrate it yourself
+
+The recording on this page is free to download. You can run the same calibration on your own computer in a few minutes (about 3 on a desktop). No ROS needed.
+
+- Install MVIS and the Hugging Face tool:pip install "pymvis[apriltag,ros1]" huggingface_hub
+
+- Get access. Open the Neo folder on Hugging Face, sign in and accept the terms (name, affiliation, intended use). Then sign in from the terminal with hf auth login.
+- Download (about 95 MB):hf download calibench-vi/community --repo-type dataset \
+--include "robobaton-neo/*" --local-dir calibench-community
+cd calibench-community/robobaton-neo
+
+- Calibrate:mvis cam-imu -c config/cam_imu.yaml
+Your result and HTML report land in replay/. Compare them with the published values that came with the download.
+Your own device, or another module
+Have your own Neo? Record the board with the Neo's capture tool, then in config/cam_imu.yaml set input.format: euroc and input.path to the mav0 folder inside your recording, or pass a ROS1 bag with --bag. See Calibration motion for how to move.
+Have another camera or IMU module? Send us a recording and we calibrate it with MVIS, Kalibr and Basalt and publish it in the Device wiki. See Submit a dataset.
+
 One recording, 5 frames per second. The maker's own calibration of the same recording agrees on the rotation (within 0.4°) and on the lever arm across the image (within 2 mm), but not along the optical axis (17 mm here against 9 mm) nor on the time offset (1.1 ms against 0.3 ms). A digital twin of the recording puts the noise on z at about 1 mm, so the gap is systematic; the image stamp convention and the tag size on the monitor are the open questions.
 
 ## Calibration process

@@ -241,6 +241,36 @@ def fold(fid: str, title: str, key: str, body: str) -> str:
     return f'<details class=fold id="{fid}"{opened}><summary>{e(title)} <span>{key}</span></summary><div>{body}</div></details>'
 
 
+def ticks(text: str) -> str:
+    """Escaped text with `x` spans as <code>."""
+    return re.sub(r"`([^`]+)`", r"<code>\1</code>", e(text))
+
+
+def try_box(p: dict) -> str:
+    """The "Calibrate it yourself" box under the demo, for a page whose hosted configs were replayed (p["try_it"])."""
+    t = p.get("try_it")
+    if not t:
+        return ""
+    hub = f'https://huggingface.co/datasets/calibench-vi/community/tree/main/{e(t["folder"])}'
+    pre = lambda s: f"<pre><code>{e(s)}</code></pre>"
+    steps = [
+        "<b>Install</b> MVIS and the Hugging Face tool:" + pre('pip install "pymvis[apriltag,ros1]" huggingface_hub'),
+        f'<b>Get access.</b> Open the <a href="{hub}">{e(p["card"].get("name", p["title"]))} folder on Hugging Face</a>, sign in and accept '
+        "the terms (name, affiliation, intended use). Then sign in from the terminal with <code>hf auth login</code>.",
+        f'<b>Download</b> ({e(t["size"])}):' + pre(f'hf download calibench-vi/community --repo-type dataset \\\n  --include "{t["folder"]}/*" '
+                                                    f'--local-dir calibench-community\ncd calibench-community/{t["folder"]}'),
+        "<b>Calibrate:</b>" + pre(f'mvis cam-imu -c {t["config"]}') + "Your result and HTML report land in <code>replay/</code>. "
+        "Compare them with the published values that came with the download.",
+    ]
+    more = (f'<p><b>Have your own {e(p["card"].get("name", p["title"]))}?</b> {ticks(t["own"])} See <a href="/guides/calibration-motion/">Calibration motion</a> for how to move.</p>'
+            '<p><b>Have another camera or IMU module?</b> Send us a recording and we calibrate it with MVIS, Kalibr and Basalt and '
+            'publish it in the Device wiki. See <a href="/contribute/submit-dataset/">Submit a dataset</a>.</p>')
+    return (f'<section class=try id=calibrate-it-yourself><h3>Calibrate it yourself</h3><p>The recording on this page is free to download. '
+            f'You can run the same calibration on your own computer in {e(t["time"])}. No ROS needed.</p>'
+            '<ol>' + "".join(f"<li>{x}</li>" for x in steps) + '</ol>'
+            f'<details class=fold id=try-more><summary>Your own device, or another module</summary><div>{more}</div></details></section>')
+
+
 TILE_TERMS = ("<p class=sd-note>Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. "
               "td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.</p>")
 
@@ -259,7 +289,7 @@ def header_parts(slug: str, p: dict, vs: list, parts: dict) -> dict:
     parts["specifications"] = specs_html(p, vs[0])
     band = re.search(r'<div class=band>.*</div>$', parts["glance"], re.S).group(0)
     tabs = re.search(r'<div class=vtabs.*?</div>', parts["lead"], re.S)
-    parts["glance"] = (tabs.group(0) if tabs else "") + f'<p>{e(p["lead"])}</p>' + band + TILE_TERMS + f'<p class=sd-note>{e(p["limits"][0])}</p>'
+    parts["glance"] = (tabs.group(0) if tabs else "") + f'<p>{e(p["lead"])}</p>' + band + TILE_TERMS + try_box(p) + f'<p class=sd-note>{e(p["limits"][0])}</p>'
     parts["process"] = (PROCESS_VIEWS_LEAD if any(x.get("views") for x in vs) else
                         "<p>The path of the rig around the board, as MVIS solved it. Press Play or drag the bar to follow it. Use the buttons to change the view.</p>")
     parts["process"] += each({"variants": vs}, lambda x, i: process_block(slug, x, i))
