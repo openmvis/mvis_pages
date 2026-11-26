@@ -384,11 +384,11 @@ sensors:
       - [IMU chip, Bosch BMI088, Maker]
     dataset:
       - [Chessboard, "4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04"]
-      - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Hand-held, "10 of about 66 s, 15.0 GB in all"]
       - [Hand-held data, "__LINK__. CC BY 4.0, for the hand-held data, clip and figures"]
       - [Robot arm, "2 of about 58 s, same program in both"]
-      - [Robot-arm data, "__HUB:community/looper-insight9/data/__. Normal frames. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Robot-arm data, "__HUB:community/looper-insight9/data/__. Normal frames. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Board, "Chessboard: 10×7 squares (9×6 inner corners), 43.47 mm, shown on a monitor. Hand-held and robot arm: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11"]
       - [Configs and results, "__HUB:community/looper-insight9/__"]
     folder: looper-insight9/
@@ -403,7 +403,7 @@ sensors:
       maker: {name: LooperRobotics, url: "https://looper-robotics.com/"}
       links: {product: "https://looper-robotics.com/home/product/insight-9/"}
       image: {kind: photo, file: looper-insight9.jpg, alt: "LooperRobotics Insight 9, front view", credit: "Photo: LooperRobotics, Insight 9 product page", url: "https://looper-robotics.com/home/product/insight-9/"}
-      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board · 10 hand-held recordings of about 66 s, CC BY 4.0 · 2 robot-arm recordings of about 58 s, CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board, CC BY 4.0 · 10 hand-held recordings of about 66 s, CC BY 4.0 · 2 robot-arm recordings of about 58 s, CC BY 4.0"
       key_specs:
         cameras: {v: "2 mono 544×640, 1 colour 1920×1080", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
         shutter: {v: "Mono global, colour rolling", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
@@ -432,7 +432,7 @@ sensors:
       - [Recordings, "2 camera + IMU bags at 1,000 and 2,000 µs exposure, about 450 MB each"]
       - [Source, "Maker's public download, files.dibuli.com"]
       - [Board, "AprilGrid 8×8, tag 70 mm, spacing 0.3"]
-      - [Licence, "CC BY-NC 4.0; commercial use by request"]
+      - [Licence, "CC BY 4.0, commercial use included, for the recordings, clip and figures"]
       - [Hosted, "__HUB:community/dibuli-prism-a4l/__"]
     method: "EUCM camera model, Kalibr IMU model, t_ga estimated, camera intrinsics free, seeded from the camera-only fit. Batch of 2026-11-03. This solve uses physical camera 1 as its base, so cam0 and cam1 on this page are physical cam1 and cam0."
     limits:
@@ -476,7 +476,7 @@ sensors:
       - [Recordings, "3 recordings of 112, 144 and 148 s. Shown: the 148 s one, cam0 4,433 frames, cam1 4,432, IMU 29,516 samples"]
       - [Format, "ROS2 bag with compressed images, converted to EuRoC layout"]
       - [Board, "ChArUco 14×9 squares, 40 mm squares, 30 mm markers"]
-      - [Data, "__HUB:community/alg-avs111c/data/__. All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/alg-avs111c/data/__. All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Configs and results, "__HUB:community/alg-avs111c/__"]
     method: "Both cameras and the IMU, global shutter, default IMU noise, t_ga estimated, camera intrinsics free. The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively; cx and cy are about 0.45 px lower than in the first solve of 2026-11-11."
     limits:
@@ -493,7 +493,7 @@ sensors:
         - {item: Phone, v: "+86 755 2721 8150", url: "tel:+8675527218150"}
       links: {product: "https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html", product_label: "Closest model: AVS111C-Y"}
       image: {kind: photo, file: alg-avs111c.png, alt: "ALG AVS111C-Y stereo camera module", credit: "Photo: ALG Tech, AVS111C-Y product page. Closest published model; exact model not confirmed", url: "https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
-      foot: "Values measured in the 148 s recording · Maker values from the AVS111C-Y product page, read 2026-11-06 · CC BY-NC 4.0"
+      foot: "Values measured in the 148 s recording · Maker values from the AVS111C-Y product page, read 2026-11-06 · CC BY 4.0"
       key_specs:
         cameras: {v: "2 × 1280×800", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://www.alg-tech.com.cn/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
@@ -527,7 +527,7 @@ sensors:
       - [Recordings, "2 hand-held recordings. Recording 1 (2026-11-13): 163 s, cam0 4,900 frames, cam1 4,899, IMU 32,664 samples. Recording 2 (2026-11-14, stronger light, shorter exposure): 101 s, 3,024 frames per camera, IMU 20,164 samples"]
       - [Format, "ROS2 bag with compressed images, converted to EuRoC layout"]
       - [Board, "ChArUco 14×9 squares, 40 mm squares, 30 mm markers"]
-      - [Data, "__HUB:community/alg-avs115d/data/__. Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/alg-avs115d/data/__. Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Configs and results, "__HUB:community/alg-avs115d/__"]
     method: "Both cameras and the IMU, rolling shutter with each camera's readout time estimated, Kannala–Brandt (kb4) lenses with intrinsics free, IMU noise set about 5× tighter than MVIS's default to match this unit, t_ga estimated. Fast motion blurred some frames; stereo pairs whose board edges were more than 1.5× wider than the median were left out (17 % of the pairs in recording 1, 0.6 % in recording 2). The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Both recordings solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively, with the same settings; cx and cy are about 0.45 px lower than in the first solves of 2026-11-14 and 2026-11-15."
     limits:
@@ -545,7 +545,7 @@ sensors:
         - {item: Phone, v: "+86 755 2721 8150", url: "tel:+8675527218150"}
       links: {product: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera", product_label: "ALG AVS115D-Y product page"}
       image: {kind: photo, file: alg-avs115d.jpg, alt: "ALG AVS115D-Y stereo camera module", credit: "Photo: ALG Tech, AVS115D-Y product page", url: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
-      foot: "Values measured in the 163 s and 101 s recordings · Maker values from the AVS115D-Y product page, read 2026-11-14 · CC BY-NC 4.0"
+      foot: "Values measured in the 163 s and 101 s recordings · Maker values from the AVS115D-Y product page, read 2026-11-14 · CC BY 4.0"
       key_specs:
         cameras: {v: "2 × 1920×1920", tag: measured}
         shutter: {v: Rolling, tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
@@ -628,7 +628,7 @@ sensors:
       - [Recordings, "1 recording. cam0 107.8 s, 3,235 frames. cam1 stops at 57.6 s, 1,728 frames"]
       - [Format, "Unfinalised MP4s, rebuilt, then converted to EuRoC layout"]
       - [Board, "AprilGrid 8×6, tag 50 mm, spacing 0.3"]
-      - [Licence, "CC BY-NC 4.0; commercial use by request"]
+      - [Licence, "CC BY 4.0, commercial use included"]
       - [Hosted, "__HUB:community/hampo/__"]
     method: "cam0 at 30 Hz, cam1 at 10 Hz, default IMU noise, t_ga estimated, camera intrinsics free. Batch of 2026-11-03."
     limits:
@@ -790,7 +790,7 @@ sensors:
       - [Recordings, "Unit A: 158 s, 4,736 frames. Unit B: 119 s, 3,573 frames"]
       - [Format, "MP4 plus per-segment IMU CSV, converted to EuRoC layout"]
       - [Board, "AprilGrid 6×6, tag 35.2 mm, spacing 0.3"]
-      - [Licence, "CC BY-NC 4.0; commercial use by request"]
+      - [Licence, "CC BY 4.0, commercial use included"]
       - [Hosted, "__HUB:community/xq20/__"]
     method: "cam0 at 30 Hz, cam1 at 10 Hz, t_ga estimated, camera intrinsics free, IMU intrinsics pinned. IMU noise padded from the measured noise: gyro 6e-4 rad/s/√Hz, accel 0.015 m/s²/√Hz. Batch of 2026-11-07."
     limits:
