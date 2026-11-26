@@ -1,46 +1,65 @@
 ---
 title: Roadmap
-description: What we plan after MVIS 0.1.0, and what we do not plan.
+description: What we plan after MVIS 0.4.1, and what we do not plan.
 pageType: reference
 wide: true
 ---
 
-Use this page to see what we plan after MVIS 0.1.0. These are intentions, not
-commitments with dates. What shipped is on the [Changelog](/about/changelog/).
+Use this page to see what we plan after MVIS 0.4.1, the current release. These
+are intentions, not commitments with dates. What shipped is on the
+[Changelog](/about/changelog/).
 
 ## Toolbox
 
 | Item | Status |
 |---|---|
-| `pip install pymvis` from PyPI | done: [pypi.org/p/pymvis](https://pypi.org/p/pymvis) |
+| `pip install pymvis` from PyPI | done: [pypi.org/p/pymvis](https://pypi.org/p/pymvis), 0.4.1 since 2026-11-25 |
 | Public code repository | done: [github.com/openmvis/openmvis](https://github.com/openmvis/openmvis) |
-| `omni_radtan` | experimental in 0.1.0 |
+| Single-IMU rigs (one or more cameras + one IMU) | done: see [Single-IMU rigs](#single-imu-rigs) below |
+| ChArUco boards | done in 0.3.0 |
+| Local gravity (`gravity:` or `site:`) | done in 0.4.0 |
+| `omni_radtan` | experimental |
 | Stable config schema | not before 1.0: 0.x releases may change it |
 | Windows | tentative: MVIS has run there, but GTSAM has no Windows wheels, so the install steps are not written up yet |
 | Python 3.13 | blocked upstream: the NumPy 1.x that GTSAM 4.2 needs has no 3.13 wheel |
 
+## Single-IMU rigs
+
+Most rigs have one IMU, and MVIS calibrates them: one or more cameras with one
+IMU, in one solve. We recommend trying MVIS on such a rig, also if you use
+Kalibr today. Besides the camera–IMU extrinsics and time offset, MVIS estimates:
+
+- **Rolling-shutter readout**, on one camera or several.
+- **The gyro–accel offset `t_ga`** between the two channels of the IMU.
+- **The board shape**, for a board that is not perfectly flat.
+- **IMU intrinsics** (scale, misalignment) in three conventions.
+- **The local gravity**, set from the recording site since 0.4.0, so the
+  accelerometer scale is not biased by a fixed 9.81.
+
+Kalibr stays a good choice, and MVIS reads and writes its camchain files, so you can
+compare the two on your own recording. See
+[Comparison](/getting-started/comparison/) and the
+[Quickstart](/getting-started/quickstart/).
+
 ## Documentation
 
 The [CLI](/reference/cli/), [Configuration](/reference/configuration/) and
-[Python API](/reference/python-api/) pages were checked against MVIS 0.1.0.
-When they differ from the code, `mvis <command> --help` and `mvis check` are
-authoritative.
+[Python API](/reference/python-api/) pages were written against MVIS 0.1.0;
+the keys added since (ChArUco boards, `gravity:`, `site:`) are documented for
+the release that added them. When the pages differ from the code,
+`mvis <command> --help` and `mvis check` are authoritative.
 
 ## Benchmark and datasets
 
 | Item | Status |
 |---|---|
+| One licence list for every dataset | done: [License](/about/license/#datasets); every recording we host is CC BY 4.0 |
 | New results submission process | being set up; see [Submit results](/contribute/submit-results/) |
 | Verified results (a maintainer re-runs a submission) | planned |
 | Contributed datasets | open; see [Submit a dataset](/contribute/submit-dataset/) |
 
 ## Not planned
 
-- **Replacing Kalibr for single-IMU rigs.** Kalibr is mature and widely used.
-  MVIS adds what Kalibr does not cover, such as rolling-shutter readout on
-  several cameras, camera–camera time offsets, the gyro–accel offset `t_ga` and
-  the board shape. See
-  [Comparison](/getting-started/comparison/).
 - **A single combined score on the leaderboard.** How to weigh one parameter
   against another is the reader's call, not the benchmark's. See
   [Methodology](/benchmark/methodology/).
