@@ -52,7 +52,7 @@
     "dataset": "VI-Rig 4 IMUs + 4 cameras",
     "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-4cams",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#virig-4imus-4cams"
    }
   },
   {
@@ -99,7 +99,7 @@
     "dataset": "VI-Rig 4 IMUs + 3 cameras",
     "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/virig-4imus-3cams",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#virig-4imus-3cams"
    }
   },
   {
@@ -146,7 +146,7 @@
     "dataset": "Looper Insight 9 hand-held recordings",
     "url": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/looper-insight9",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#looper-insight9"
    }
   },
   {
@@ -201,7 +201,7 @@
     "dataset": "Prism-A4L example data",
     "url": "https://files.dibuli.com/sharing/public/Prism/datasets/",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#community-dibuli-prism-a4l"
    }
   },
   {
@@ -256,7 +256,7 @@
     "dataset": "the maker's fixed recording; MVIS configs and results on Calibench community",
     "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/cyperstereo",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#community-cyperstereo"
    }
   },
   {
@@ -295,7 +295,7 @@
     "dataset": "Calibench community, alg-avs115d (recording 2)",
     "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/alg-avs115d",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#community-alg-avs115d"
    }
   },
   {
@@ -334,7 +334,7 @@
     "dataset": "Calibench community, gi-ego1gs",
     "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/gi-ego1gs",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#community-gi-ego1gs"
    }
   },
   {
@@ -373,7 +373,7 @@
     "dataset": "Monado SLAM Datasets, MIC",
     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
     "licence": "CC BY 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
+    "licence_url": "/about/license/#converted-tum-mic"
    }
   }
  ]

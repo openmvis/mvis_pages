@@ -10,6 +10,7 @@ import pytest
 import yaml
 
 from mvis_site import SITE
+from mvis_site.sensor_parts import dataset_rows
 
 DATA = Path(__file__).resolve().parents[1] / "data"
 LIC = json.loads((SITE / "src/data/licences.json").read_text(encoding="utf-8"))
@@ -32,21 +33,25 @@ def test_every_recording_we_host_is_cc_by():
     assert {r["licence"] for r in HOSTED} == {"CC BY 4.0"} and not any("was" in r for r in HOSTED)
 
 
-def test_every_device_page_has_a_row_and_agrees_with_it():
-    sensors = yaml.safe_load((DATA / "public_sensors.yaml").read_text(encoding="utf-8"))["sensors"]
-    assert {r["device"] for r in HOSTED if "device" in r} == set(sensors)
-    for slug in sensors:
-        text = yaml.safe_dump(sensors[slug], allow_unicode=True)
-        assert "BY-NC 4.0" not in text and "by request" not in text, slug
-        if slug != "robobaton-neo":   # its page gives the licence inside the Data row only
-            assert "CC BY" in text, slug
-
-
-def test_homepage_clip_credits_use_a_listed_licence():
+def test_every_page_marker_and_clip_credit_points_at_a_listed_row():
+    ids = {r["id"] for r in HOSTED + LINKED}
+    text = (DATA / "public_sensors.yaml").read_text(encoding="utf-8") + (DATA / "public_examples.yaml").read_text(encoding="utf-8")
+    used = {i for m in re.findall(r"__LICENCE:([a-z0-9,-]+)__", text) for i in m.split(",")}
+    assert used <= ids and {r["id"] for r in HOSTED if "device" in r} <= used   # every device row is linked from its page
     rigs = json.loads((SITE / "public/media/hero/rigs.json").read_text(encoding="utf-8"))["rigs"]
-    for r in rigs:
-        c = r["credit"]
-        assert (c["licence"], c["licence_url"]) == ("CC BY 4.0", BY_URL), r["key"]
+    assert {r["credit"]["licence_url"].split("#")[1] for r in rigs} <= ids
+
+
+def test_exported_pages_carry_the_rendered_rows():
+    """The exported JSON must hold what the YAML renders to, so a stale export cannot keep an old licence sentence."""
+    pub = yaml.safe_load((DATA / "public_sensors.yaml").read_text(encoding="utf-8"))
+    for slug, p in pub["sensors"].items():
+        page = json.loads((SITE / f"src/data/sensors/{slug}.json").read_text(encoding="utf-8"))
+        assert dataset_rows(p, pub["data_url"]) in page["parts"]["dataset"] and "CC BY" not in json.dumps(page), slug
+    for f in (SITE / "src/data/examples").glob("*.json"):
+        page = json.loads(f.read_text(encoding="utf-8"))
+        assert 'href="/about/license/#' in page["parts"]["header"], f.name
+        assert not any("CC BY" in t for t in page["card"]["tags"]), f.name
 
 
 def test_pages_point_to_the_list_and_state_no_old_default():

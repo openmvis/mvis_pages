@@ -30,17 +30,12 @@ def test_every_rig_has_its_readouts_timing_tiles_and_credit():
         assert c.get("holder") and c.get("dataset") and (c.get("licence") or c.get("terms")), r["key"]
 
 
-def test_each_credit_carries_the_licence_of_where_its_recording_is_hosted():
-    """Recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25. GiLabs data is CC BY 4.0 too (user, 2026-11-25), which
-    covers the EGO1GS clip although its take is not in the hosted GiLabs folders. A re-rendered rigs.json with an old credit fails here."""
-    by = ("CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/")
-    want = {"virig4": by, "virig3": by, "looper": by, "mic": by, "alg_rs2": by, "gilabs": by, "cyperstereo": by, "dibuli": by}
-    got = {r["key"]: (r["credit"].get("licence"), r["credit"].get("licence_url")) for r in RIGS}
-    assert {k: got[k] for k in want} == want
-    assert not {k for k, v in got.items() if v == (None, None)}   # dibuli is CC BY 4.0 since 2026-11-26 (user)
+def test_each_credit_names_its_licence_and_links_its_row_on_the_license_page():
+    """The credit sits with the clip, so it names the licence; the link goes to the recording's row on About → License
+    (user, 2026-11-26), not to creativecommons.org. test_licences_in_step checks that the rows exist."""
     for r in RIGS:
-        if "calibench-vi/datasets/" in r["credit"].get("url", ""):
-            assert got[r["key"]] == by, r["key"]
+        c = r["credit"]
+        assert c["licence"] == "CC BY 4.0" and re.fullmatch(r"/about/license/#[a-z0-9-]+", c["licence_url"]), r["key"]
 
 
 def test_reprojection_median_is_a_px_value_or_a_dash():

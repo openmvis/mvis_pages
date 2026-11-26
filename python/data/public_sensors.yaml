@@ -33,6 +33,7 @@ sensors:
       - [Format, ROS bag]
       - [Board, "AprilGrid 6×6, tag 88 mm, spacing 0.3, t36h11"]
       - [Configs and results, "__HUB:community/intel-t265/__"]
+      - [Licence, "__LICENCE:community-intel-t265__"]
     folder: virig-4imus-3cams/
     method: "Fisheye stereo plus the T265's own IMU, camera intrinsics free, t_ga estimated, and the shape of the calibration board estimated, since the VI-Rig board isn't perfectly flat: about 4.5 mm peak to peak in this August 2021 recording (see Board shape); later recordings of the same board design, from October 2021, show the same saddle at 10–11 mm. Solved 2026-11-12."
     limits:
@@ -44,7 +45,7 @@ sensors:
       maker: {name: Intel RealSense, url: "https://dev.realsenseai.com/docs/tracking-camera-t265/"}
       links: {product: "https://dev.realsenseai.com/docs/tracking-camera-t265/", product_label: "RealSense T265 page"}
       image: {kind: photo, file: intel-t265.jpg, alt: "Intel RealSense T265, front view", credit: "Photo: Intel, T265 launch press release", url: "https://www.intc.com/news-events/press-releases/detail/97/intel-announces-new-class-of-realsense-stand-alone"}
-      foot: "Maker values from Intel's specification page, archived copy of 2026-10-30 (Intel has since removed the page); discontinued · 1 recording · CC BY 4.0"
+      foot: "Maker values from Intel's specification page, archived copy of 2026-10-30 (Intel has since removed the page); discontinued · 1 recording"
       key_specs:
         cameras: {v: "848 × 800 fisheye stereo", tag: maker, src: "https://web.archive.org/web/20261030190401/https://www.intel.com/content/www/us/en/products/sku/192742/intel-realsense-tracking-camera-t265/specifications.html"}
         shutter: {v: Global, tag: catalog}
@@ -79,8 +80,9 @@ sensors:
       - [Format, ROS1 bag]
       - [Board, "Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder"]
       - [Exposure, "Fixed, about 2 ms on all three cameras; no auto exposure"]
-      - [Data, "__HUB:community/realsense-d455/data/__. Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures"]
+      - [Data, "__HUB:community/realsense-d455/data/__. Everything except the chessboard is blurred."]
       - [Configs and results, "__HUB:community/realsense-d455/__"]
+      - [Licence, "__LICENCE:community-realsense-d455__"]
     method: "Left infrared, right infrared and RGB cameras with the IMU in one solve, all three treated as global shutter. Pinhole camera with radial-tangential distortion, seeded from three single-camera solves of the same recording and left free; camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board is kept rigid. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-13."
     limits:
       - One recording, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
@@ -92,7 +94,7 @@ sensors:
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
       links: {product: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d455.jpg, alt: "RealSense D455 depth camera, front view", credit: "Photo: RealSense, D455 product page", url: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
-      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s · CC BY 4.0"
+      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s"
       key_specs:
         cameras: {v: "848 × 480 here: IR stereo + RGB", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
@@ -128,8 +130,9 @@ sensors:
       - [Format, ROS1 bag]
       - [Board, "Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder"]
       - [Exposure, "Fixed, about 2 ms on all three cameras; no auto exposure"]
-      - [Data, "__HUB:community/realsense-d456/data/__. Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures"]
+      - [Data, "__HUB:community/realsense-d456/data/__. Everything except the chessboard is blurred."]
       - [Configs and results, "__HUB:community/realsense-d456/__"]
+      - [Licence, "__LICENCE:community-realsense-d456__"]
     method: "Left infrared, right infrared and RGB cameras with the IMU in one solve, all three treated as global shutter. Pinhole camera with radial-tangential distortion, seeded from three single-camera solves of the same recording and left free; camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board is kept rigid. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-13."
     limits:
       - One recording, with no independent reference on this page. These values show what MVIS solved, not how close they are to the truth.
@@ -141,7 +144,7 @@ sensors:
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/d456-usb/"}
       links: {product: "https://www.realsenseai.com/products/d456-usb/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d456.jpg, alt: "RealSense D456 depth camera with water splashing over it", credit: "Photo: RealSense, D456 product page", url: "https://www.realsenseai.com/products/d456-usb/"}
-      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s · CC BY 4.0"
+      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s"
       key_specs:
         cameras: {v: "848 × 480 here: IR stereo + RGB", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://www.realsenseai.com/products/d456-usb/"}
@@ -177,8 +180,9 @@ sensors:
       - [Format, "EuRoC mav0: PNG per camera and IMU CSV"]
       - [Board, "AprilGrid, 6×6 tags of 88 mm, spacing 0.3"]
       - [Exposure, "Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed"]
-      - [Data, "__HUB:community/realsense-d435i/data/__. The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY 4.0, commercial use included, for the data, clip and figures. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs"]
+      - [Data, "__HUB:community/realsense-d435i/data/__. The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs"]
       - [Configs and results, "__HUB:community/realsense-d435i/__"]
+      - [Licence, "__LICENCE:community-realsense-d435i__"]
     method: "Each camera first solved on its own, then the RGB and both infrared cameras with the IMU in one solve. The RGB camera is a rolling-shutter camera with the readout time estimated; the infrared pair is global shutter. Pinhole cameras with radial-tangential distortion, seeded from the single-camera solves and left free; the camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Gravity is the local value at the recording site, 9.7892 m/s² (UAE). Solved 2026-11-24."
     limits:
       - "We ran the same solve on all four recordings. They agree on the RGB lever arm across the image (x within 0.3 mm), the time offset (within 0.08 ms), the readout time (32.33 to 32.42 ms), the focal length (within 1.2 px) and the infrared baseline (49.98 to 50.08 mm, against the 50.05 mm stored in the camera). They do not agree along the optical axis: the RGB lever z is 17.7 to 21.8 mm, a 4.1 mm spread, and every camera sits 6 to 10 mm above the RealSense SDK's design values. The infrared cameras spread as much as the RGB camera, so the rolling shutter is not the cause. All four recordings turn the camera little about the axes across the image, which is what makes that distance observable, so z is not settled."
@@ -191,7 +195,7 @@ sensors:
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
       links: {product: "https://www.realsenseai.com/products/depth-camera-d435i/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d435i.jpg, alt: "RealSense D435i depth camera, front view", credit: "Photo: RealSense, D435i product page", url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
-      foot: "Maker values checked 2026-11-14 · 4 recordings, 50 to 95 s · CC BY 4.0"
+      foot: "Maker values checked 2026-11-14 · 4 recordings, 50 to 95 s"
       key_specs:
         cameras: {v: "640 × 480 here: RGB + IR stereo", tag: measured}
         shutter: {v: "Rolling (RGB), global (IR pair)", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
@@ -238,8 +242,9 @@ sensors:
       - [Recording, "1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz"]
       - [Format, "EuRoC mav0: PNG and IMU CSV, written by the module's capture tool"]
       - [Board, "AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor"]
-      - [Data, "__HUB:community/robobaton-neo/data/__. The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY 4.0, commercial use included, for the data, clip and figures"]
+      - [Data, "__HUB:community/robobaton-neo/data/__. The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool."]
       - [Configs and results, "__HUB:community/robobaton-neo/__"]
+      - [Licence, "__LICENCE:community-robobaton-neo__"]
     method: Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera
       solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the
       gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the ICM-42670-P
@@ -328,7 +333,7 @@ sensors:
       - [Source, "WHUVID dataset (Wuhan University), calibration recording published by the authors"]
       - [Format, "ROS 1 bag. Two IMU samples repeat the one before (same time and values) and are dropped"]
       - [Board, "AprilGrid 6×6, tag 20.8 mm, spacing 0.3"]
-      - [Licence, "CC BY 4.0, as stated in the WHUVID paper (Chen et al., Remote Sensing 14(9) 2033, 2022); cite it when you use the recording"]
+      - [Licence, "__LICENCE:community-zed2__. Cite the WHUVID paper (Chen et al., Remote Sensing 14(9) 2033, 2022) when you use the recording"]
       - [Data, "__HUB:community/zed2/data/__. The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors"]
       - [Configs and results, "__HUB:community/zed2/__"]
     method: "Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Gravity 9.7936 m/s², Wuhan's local value. Solved 2026-11-25."
@@ -384,13 +389,14 @@ sensors:
       - [IMU chip, Bosch BMI088, Maker]
     dataset:
       - [Chessboard, "4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04"]
-      - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY 4.0, commercial use included, for the data, clip and figures"]
+      - [Chessboard data, "__HUB:community/looper-insight9/data/__, takes 01 to 04 (this page shows take 04). Everything except the board is blurred."]
       - [Hand-held, "10 of about 66 s, 15.0 GB in all"]
-      - [Hand-held data, "__LINK__. CC BY 4.0, for the hand-held data, clip and figures"]
+      - [Hand-held data, "__LINK__"]
       - [Robot arm, "2 of about 58 s, same program in both"]
-      - [Robot-arm data, "__HUB:community/looper-insight9/data/__. Normal frames. CC BY 4.0, commercial use included, for the data, clip and figures"]
+      - [Robot-arm data, "__HUB:community/looper-insight9/data/__. Normal frames."]
       - [Board, "Chessboard: 10×7 squares (9×6 inner corners), 43.47 mm, shown on a monitor. Hand-held and robot arm: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11"]
       - [Configs and results, "__HUB:community/looper-insight9/__"]
+      - [Licence, "__LICENCE:looper-insight9,community-looper-insight9-arm,community-looper-insight9-chessboard__"]
     folder: looper-insight9/
     method: "Camera + IMU with camera intrinsics free, t_ga and the cam2 rolling-shutter readout both estimated. Chessboard recordings of 2026-11-07; hand-held batch of 2026-11-02; robot-arm batch of 2026-11-04."
     limits:
@@ -403,7 +409,7 @@ sensors:
       maker: {name: LooperRobotics, url: "https://looper-robotics.com/"}
       links: {product: "https://looper-robotics.com/home/product/insight-9/"}
       image: {kind: photo, file: looper-insight9.jpg, alt: "LooperRobotics Insight 9, front view", credit: "Photo: LooperRobotics, Insight 9 product page", url: "https://looper-robotics.com/home/product/insight-9/"}
-      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board, CC BY 4.0 · 10 hand-held recordings of about 66 s, CC BY 4.0 · 2 robot-arm recordings of about 58 s, CC BY 4.0"
+      foot: "Maker values checked 2026-11-03 for the retail Insight 9 · 4 chessboard recordings of our own unit, 36 to 61 s, blurred except the board · 10 hand-held recordings of about 66 s · 2 robot-arm recordings of about 58 s"
       key_specs:
         cameras: {v: "2 mono 544×640, 1 colour 1920×1080", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
         shutter: {v: "Mono global, colour rolling", tag: maker, src: "https://looper-robotics.com/home/product/insight-9/"}
@@ -432,7 +438,7 @@ sensors:
       - [Recordings, "2 camera + IMU bags at 1,000 and 2,000 µs exposure, about 450 MB each"]
       - [Source, "Maker's public download, files.dibuli.com"]
       - [Board, "AprilGrid 8×8, tag 70 mm, spacing 0.3"]
-      - [Licence, "CC BY 4.0, commercial use included, for the recordings, clip and figures"]
+      - [Licence, "__LICENCE:community-dibuli-prism-a4l__"]
       - [Hosted, "__HUB:community/dibuli-prism-a4l/__"]
     method: "EUCM camera model, Kalibr IMU model, t_ga estimated, camera intrinsics free, seeded from the camera-only fit. Batch of 2026-11-03. This solve uses physical camera 1 as its base, so cam0 and cam1 on this page are physical cam1 and cam0."
     limits:
@@ -476,8 +482,9 @@ sensors:
       - [Recordings, "3 recordings of 112, 144 and 148 s. Shown: the 148 s one, cam0 4,433 frames, cam1 4,432, IMU 29,516 samples"]
       - [Format, "ROS2 bag with compressed images, converted to EuRoC layout"]
       - [Board, "ChArUco 14×9 squares, 40 mm squares, 30 mm markers"]
-      - [Data, "__HUB:community/alg-avs111c/data/__. All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY 4.0, commercial use included, for the data, clip and figures"]
+      - [Data, "__HUB:community/alg-avs111c/data/__. All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission."]
       - [Configs and results, "__HUB:community/alg-avs111c/__"]
+      - [Licence, "__LICENCE:community-alg-avs111c__"]
     method: "Both cameras and the IMU, global shutter, default IMU noise, t_ga estimated, camera intrinsics free. The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively; cx and cy are about 0.45 px lower than in the first solve of 2026-11-11."
     limits:
       - No independent reference, so these values show what MVIS solved, not how close they are to the truth.
@@ -493,7 +500,7 @@ sensors:
         - {item: Phone, v: "+86 755 2721 8150", url: "tel:+8675527218150"}
       links: {product: "https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html", product_label: "Closest model: AVS111C-Y"}
       image: {kind: photo, file: alg-avs111c.png, alt: "ALG AVS111C-Y stereo camera module", credit: "Photo: ALG Tech, AVS111C-Y product page. Closest published model; exact model not confirmed", url: "https://www.aili-light.com/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
-      foot: "Values measured in the 148 s recording · Maker values from the AVS111C-Y product page, read 2026-11-06 · CC BY 4.0"
+      foot: "Values measured in the 148 s recording · Maker values from the AVS111C-Y product page, read 2026-11-06"
       key_specs:
         cameras: {v: "2 × 1280×800", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://www.alg-tech.com.cn/machine-vision-stereo-camera/AVS111C-X-machine-vision-stereo-camera.html"}
@@ -527,8 +534,9 @@ sensors:
       - [Recordings, "2 hand-held recordings. Recording 1 (2026-11-13): 163 s, cam0 4,900 frames, cam1 4,899, IMU 32,664 samples. Recording 2 (2026-11-14, stronger light, shorter exposure): 101 s, 3,024 frames per camera, IMU 20,164 samples"]
       - [Format, "ROS2 bag with compressed images, converted to EuRoC layout"]
       - [Board, "ChArUco 14×9 squares, 40 mm squares, 30 mm markers"]
-      - [Data, "__HUB:community/alg-avs115d/data/__. Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY 4.0, commercial use included, for the data, clip and figures"]
+      - [Data, "__HUB:community/alg-avs115d/data/__. Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission."]
       - [Configs and results, "__HUB:community/alg-avs115d/__"]
+      - [Licence, "__LICENCE:community-alg-avs115d__"]
     method: "Both cameras and the IMU, rolling shutter with each camera's readout time estimated, Kannala–Brandt (kb4) lenses with intrinsics free, IMU noise set about 5× tighter than MVIS's default to match this unit, t_ga estimated. Fast motion blurred some frames; stereo pairs whose board edges were more than 1.5× wider than the median were left out (17 % of the pairs in recording 1, 0.6 % in recording 2). The IMU stored accel 4× and gyro 2× too small; both were scaled before solving. Both recordings solved 2026-11-21 with MVIS 0.3.0, which reads the ChArUco board natively, with the same settings; cx and cy are about 0.45 px lower than in the first solves of 2026-11-14 and 2026-11-15."
     limits:
       - No independent reference on this page. These values show what MVIS solved, not how close they are to the truth. The two recordings agree within 1.5 mm on the lever arm, 0.15 % on the gyro scales, 0.9 ms on the readout and 0.1 mm on the baseline.
@@ -545,7 +553,7 @@ sensors:
         - {item: Phone, v: "+86 755 2721 8150", url: "tel:+8675527218150"}
       links: {product: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera", product_label: "ALG AVS115D-Y product page"}
       image: {kind: photo, file: alg-avs115d.jpg, alt: "ALG AVS115D-Y stereo camera module", credit: "Photo: ALG Tech, AVS115D-Y product page", url: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
-      foot: "Values measured in the 163 s and 101 s recordings · Maker values from the AVS115D-Y product page, read 2026-11-14 · CC BY 4.0"
+      foot: "Values measured in the 163 s and 101 s recordings · Maker values from the AVS115D-Y product page, read 2026-11-14"
       key_specs:
         cameras: {v: "2 × 1920×1920", tag: measured}
         shutter: {v: Rolling, tag: maker, src: "https://docs.alg-tech.com/en/camera-products/stereo-cameras/avs115d-y-stereo-camera"}
@@ -580,7 +588,7 @@ sensors:
       - [Recordings, "1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples"]
       - [Format, ROS1 bag]
       - [Board, "AprilGrid 6×6, tag 55 mm, spacing 0.3"]
-      - [Licence, "CC BY 4.0, commercial use included, for the recording, clip and figures"]
+      - [Licence, "__LICENCE:community-cyperstereo__"]
       - [Data, "__HUB:community/cyperstereo/data/__. The maker's bag, unchanged (cyperstereo_imu_calibra2.bag, 9.3 GB), normal frames; hosted with Tujian's agreement. Recorded by Tujian"]
       - [Configs and results, "__HUB:community/cyperstereo/__. The configs, the starting calibration and this page's results; the configs read the recording in data/"]
     method: "All four cameras and the IMU together. Camera intrinsics (Kannala–Brandt kb4) from four single-camera solves of the same recording, then held fixed; IMU scale and misalignment, gyro-to-accel offset t_ga and camera time offsets estimated. IMU noise from the BMI088 datasheet, about 2.5× wider. Solved 2026-11-15."
@@ -628,7 +636,7 @@ sensors:
       - [Recordings, "1 recording. cam0 107.8 s, 3,235 frames. cam1 stops at 57.6 s, 1,728 frames"]
       - [Format, "Unfinalised MP4s, rebuilt, then converted to EuRoC layout"]
       - [Board, "AprilGrid 8×6, tag 50 mm, spacing 0.3"]
-      - [Licence, "CC BY 4.0, commercial use included"]
+      - [Licence, "__LICENCE:community-hampo__"]
       - [Hosted, "__HUB:community/hampo/__"]
     method: "cam0 at 30 Hz, cam1 at 10 Hz, default IMU noise, t_ga estimated, camera intrinsics free. Batch of 2026-11-03."
     limits:
@@ -679,6 +687,7 @@ sensors:
       - [Frames kept at decode, "cam0 889 of 900, cam1 about 859"]
       - [Board, "AprilGrid 6×6, tag 35.2 mm, spacing 0.3"]
       - ["Bags, configs and results", "__HUB:community/gi-ego1/__"]
+      - [Licence, "__LICENCE:gilabs-examples,community-gi-ego1__"]
     folder: gilabs-examples/
     method: "Recording converted to EuRoC layout, camera-only solve per camera, then camera + IMU with camera intrinsics free, t_ga and the rolling-shutter readout both estimated. Batch of 2026-11-03."
     limits:
@@ -689,7 +698,7 @@ sensors:
       maker: {name: General Intelligence Labs, url: "https://www.gilabs.xyz/"}
       links: {product: "https://www.gilabs.xyz/products/ego1"}
       image: {kind: photo, file: gi-ego1gs.jpg, alt: "GI headset on a mannequin head, three-quarter view", credit: "Photo: General Intelligence Labs, GI EGO1GS product page", url: "https://www.gilabs.xyz/products/ego1gs"}
-      foot: "Maker values checked 2026-11-03 · 1 recording, 30.1 s · CC BY 4.0"
+      foot: "Maker values checked 2026-11-03 · 1 recording, 30.1 s"
       key_specs:
         cameras: {v: "2× 1080p, 30 fps, colour", tag: maker, src: "https://www.gilabs.xyz/products/ego1"}
         shutter: {v: Rolling, tag: maker, src: "https://www.gilabs.xyz/products/ego1gs"}
@@ -725,6 +734,7 @@ sensors:
       - [Format, "MCAP, H.265, 61 MB"]
       - [Board, "AprilGrid 6×6, tag 35.2 mm, spacing 0.3"]
       - ["Bags, configs and results", "__HUB:community/gi-ego1gs/__"]
+      - [Licence, "__LICENCE:gilabs-examples,community-gi-ego1gs__"]
     folder: gilabs-examples/
     method: "Recording converted to EuRoC layout, camera-only solve per camera, then camera + IMU with camera intrinsics free and t_ga estimated. Batch of 2026-11-03."
     limits:
@@ -736,7 +746,7 @@ sensors:
       maker: {name: General Intelligence Labs, url: "https://www.gilabs.xyz/"}
       links: {product: "https://www.gilabs.xyz/products/ego1gs"}
       image: {kind: photo, file: gi-ego1gs-front.jpg, alt: "GI EGO1GS on a mannequin head, front view", credit: "Photo: General Intelligence Labs, GI EGO1GS product page", url: "https://www.gilabs.xyz/products/ego1gs"}
-      foot: "Maker values checked 2026-11-03 · 2 recordings, 30.1 s each · CC BY 4.0"
+      foot: "Maker values checked 2026-11-03 · 2 recordings, 30.1 s each"
       key_specs:
         cameras: {v: "Dual 1080p, 30 fps, colour", tag: maker, src: "https://www.gilabs.xyz/blog/ego1gs-vs-project-aria-vs-ego-oscar"}
         shutter: {v: Global, tag: maker, src: "https://www.gilabs.xyz/products/ego1gs"}
@@ -790,7 +800,7 @@ sensors:
       - [Recordings, "Unit A: 158 s, 4,736 frames. Unit B: 119 s, 3,573 frames"]
       - [Format, "MP4 plus per-segment IMU CSV, converted to EuRoC layout"]
       - [Board, "AprilGrid 6×6, tag 35.2 mm, spacing 0.3"]
-      - [Licence, "CC BY 4.0, commercial use included"]
+      - [Licence, "__LICENCE:community-xq20__"]
       - [Hosted, "__HUB:community/xq20/__"]
     method: "cam0 at 30 Hz, cam1 at 10 Hz, t_ga estimated, camera intrinsics free, IMU intrinsics pinned. IMU noise padded from the measured noise: gyro 6e-4 rad/s/√Hz, accel 0.015 m/s²/√Hz. Batch of 2026-11-07."
     limits:
@@ -837,7 +847,7 @@ sensors:
       - [Recording, "Monado MIC, imucalib1"]
       - [Source, "Monado SLAM Datasets, Collabora"]
       - [Board, "AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11"]
-      - [Licence, CC BY 4.0]
+      - [Licence, "__LICENCE:community-valve-index__"]
       - [Hosted copy, "__HUB:datasets/converted/tum_mic/__"]
       - [Configs and results, "__HUB:community/valve-index/__"]
     data_link: {url: "https://huggingface.co/datasets/collabora/monado-slam-datasets", label: "Monado SLAM Datasets"}
@@ -849,7 +859,7 @@ sensors:
       maker: {name: Valve, url: "https://www.valvesoftware.com/"}
       links: {product: "https://store.steampowered.com/app/1059530/"}
       image: {kind: photo, file: valve-index.jpg, alt: "Valve Index headset", credit: "Image: Valve, Steam store page", url: "https://store.steampowered.com/app/1059530/"}
-      foot: "Values from the Monado SLAM Datasets · 1 recording shown · CC BY 4.0 data"
+      foot: "Values from the Monado SLAM Datasets · 1 recording shown"
       key_specs:
         cameras: {v: "2 × 960×960, 54 Hz, grayscale", tag: dataset}
         shutter: {v: Global, tag: dataset}
@@ -880,7 +890,7 @@ sensors:
       - [Recordings, "Monado MGC round 1: imucalib01, 02 and 13, one for each camera pair"]
       - [Source, "Monado SLAM Datasets, Collabora"]
       - [Board, "AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11"]
-      - [Licence, CC BY 4.0]
+      - [Licence, "__LICENCE:community-hp-reverb-g2__"]
       - [Hosted copy, "__HUB:datasets/converted/monado_mgc/__"]
       - [Configs and results, "__HUB:community/hp-reverb-g2/__"]
     data_link: {url: "https://huggingface.co/datasets/collabora/monado-slam-datasets", label: "Monado SLAM Datasets"}
@@ -894,7 +904,7 @@ sensors:
       maker: {name: HP, url: "https://www.hp.com/"}
       links: {product: "https://www.hp.com/us-en/newsroom/press-releases/2020/hp-valve-microsoft-next-gen-virtual-reality-headset.html", product_label: "HP announcement"}
       image: {kind: photo, file: hp-reverb-g2.jpg, alt: "HP Reverb G2 headset, front view", credit: "Photo: HP, Reverb G2 press release", url: "https://www.hp.com/us-en/newsroom/press-releases/2020/hp-valve-microsoft-next-gen-virtual-reality-headset.html"}
-      foot: "Values from the Monado SLAM Datasets · 3 pair recordings, stitched into one rig · CC BY 4.0 data"
+      foot: "Values from the Monado SLAM Datasets · 3 pair recordings, stitched into one rig"
       key_specs:
         cameras: {v: "4 × 640×480, 30 Hz, grayscale", tag: dataset}
         shutter: {v: Not stated, tag: not_published}
@@ -924,7 +934,7 @@ sensors:
       - [Recording, "Monado MOC, imucalib, round 4"]
       - [Source, "Monado SLAM Datasets, Collabora"]
       - [Board, "AprilGrid 6×6, tag 30 mm, spacing 0.3, t36h11"]
-      - [Licence, CC BY 4.0]
+      - [Licence, "__LICENCE:community-samsung-odyssey-plus__"]
       - [Hosted copy, "__HUB:datasets/converted/monado_moc/__"]
       - [Configs and results, "__HUB:community/samsung-odyssey-plus/__"]
     data_link: {url: "https://huggingface.co/datasets/collabora/monado-slam-datasets", label: "Monado SLAM Datasets"}
@@ -937,7 +947,7 @@ sensors:
       maker: {name: Samsung, url: "https://www.samsung.com/"}
       links: {product: "https://news.samsung.com/br/samsung-apresenta-o-novo-hmd-odyssey-no-brasil", product_label: "Samsung announcement"}
       image: {kind: photo, file: samsung-odyssey-plus.jpg, alt: "Samsung HMD Odyssey+ headset", credit: "Photo: Samsung Newsroom Brasil", url: "https://news.samsung.com/br/samsung-apresenta-o-novo-hmd-odyssey-no-brasil"}
-      foot: "Values from the Monado SLAM Datasets · 1 recording shown · CC BY 4.0 data"
+      foot: "Values from the Monado SLAM Datasets · 1 recording shown"
       key_specs:
         cameras: {v: "2 × 640×480, 30 Hz, grayscale", tag: dataset}
         shutter: {v: Not stated, tag: not_published}
@@ -954,9 +964,9 @@ sensors:
     card: {name: "ONE RS 1-Inch 360", maker: Insta360, tags: [Rolling shutter, 2 cameras, 1 kHz IMU]}
     demo:
       by_variant:
-        - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
-        - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
-        - {from: "insta360-back_small", note: "The 3D scene MVIS recovered from the back-lens recording of the Hilti-Trimble SLAM Challenge 2026 (CC BY-NC-SA 3.0)."}
+        - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026."}
+        - {from: "insta360-front_small", note: "The 3D scene MVIS recovered from the front-lens recording of the Hilti-Trimble SLAM Challenge 2026."}
+        - {from: "insta360-back_small", note: "The 3D scene MVIS recovered from the back-lens recording of the Hilti-Trimble SLAM Challenge 2026."}
     components:   # chips by who made them; no maker = not known. src: maker | dataset | report (shown as Teardown)
       cameras:
         - {maker: Sony, part: IMX283, count: 2, src: maker, via: "ONE RS firmware (IMX283 dual sensor driver)", url: "https://file.insta360.com/static/671669adf53b801139f8e724bb58bdf2/Insta360OneRSFW.bin", note: "the firmware names the driver, not the lens; the 1-Inch 360 is the only ONE RS lens with two 1-inch sensors"}
@@ -977,9 +987,9 @@ sensors:
       - [Source, "Hilti-Trimble SLAM Challenge 2026 dataset (Hilti, Trimble, University of Oxford)"]
       - [Format, "ROS 2 bag (sqlite3), read directly"]
       - [Boards, "AprilGrid 7×12, tag 150 mm, spacing 0.25 (camera + IMU). AprilGrid 6×6, tag 80 mm, spacing 0.3 (camera pair)"]
-      - [Licence, CC BY-NC-SA 3.0]
+      - [Licence, "__LICENCE:community-insta360-one-rs-1inch-360,linked-hilti-trimble-2026__"]
       - [Hosted, "Not hosted here; download from the challenge dataset"]
-      - [Configs and results, "__HUB:community/insta360-one-rs-1inch-360/__. CC BY 4.0; the reports show frames from the challenge recordings, so they stay CC BY-NC-SA 3.0"]
+      - [Configs and results, "__HUB:community/insta360-one-rs-1inch-360/__"]
     data_link: {url: "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/tree/main/camera_calibration", label: "Hilti-Trimble SLAM Challenge 2026: camera_calibration"}
     method: "Each lens alone with the IMU, then both placed in the one IMU frame. Only the well-excited part of each recording is used: the camera turns about all three axes from 130 s (front) and 100 s (back), and the last 10 s, where it is put down, are left out; 92 s and 97 s. Camera intrinsics (enhanced unified model, EUCM, as in the organisers' calibration) start from a single-camera solve and stay free; the shape of the 7×12 board, rolling-shutter readout, camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise measured on the camera-pair recording, where the camera stands still, and widened about 2.8×. Solved 2026-11-12."
     limits:
@@ -994,7 +1004,7 @@ sensors:
       maker: {name: Insta360, url: "https://www.insta360.com/"}
       links: {product: "https://www.insta360.com/product/insta360-oners/1inch-360", product_label: "Insta360 product page", more: [{label: Hilti-Trimble SLAM Challenge 2026, url: "https://hilti-trimble-challenge.com/dataset-2026"}, {label: Dataset paper, url: "https://arxiv.org/abs/2607.06464"}]}
       image: {kind: photo, file: insta360-one-rs-1inch-360.jpg, alt: "Insta360 ONE RS 1-Inch 360 Edition, front view", credit: "Photo: Insta360, store page", url: "https://store.insta360.com/product/one_rs_1_inch_360"}
-      foot: "Values measured in the Hilti-Trimble SLAM Challenge 2026 calibration recordings · 2 recordings, put together as one rig · CC BY-NC-SA 3.0 data"
+      foot: "Values measured in the Hilti-Trimble SLAM Challenge 2026 calibration recordings · 2 recordings, put together as one rig"
       key_specs:
         cameras: {v: "2 × 1472×1440 at 30 Hz in the recordings", tag: dataset, src: "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md"}
         shutter: {v: Rolling, tag: dataset, src: "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md"}

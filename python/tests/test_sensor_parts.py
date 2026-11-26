@@ -1,3 +1,4 @@
+import pytest
 import re
 
 import make_fixtures as F
@@ -32,10 +33,20 @@ def test_hub_rows_become_links_to_the_right_repo():
     assert "__HUB" not in html
 
 
-def test_dataset_rows_on_a_plain_folder_page_are_unchanged():
+def test_dataset_rows_on_a_plain_folder_page_add_only_the_hosted_row():
     assert S.dataset_rows({"dataset": [["A", "B"]], "folder": "x/"}, "https://d") == (
-        "<tr><td>A</td><td>B</td></tr><tr><td>Licence</td><td>CC BY 4.0, for the data and for this page&#x27;s clip and figures</td></tr>"
+        "<tr><td>A</td><td>B</td></tr>"
         '<tr><td>Hosted</td><td><a href="https://d/x/">Calibench-VI, x/</a> (access by automatic approval)</td></tr>')
+
+
+def test_licence_marker_links_the_license_page_rows():
+    one = S.dataset_rows({"dataset": [["Licence", "__LICENCE:community-xq20__"]]}, "https://d")
+    assert one == '<tr><td>Licence</td><td>see <a href="/about/license/#community-xq20">License</a></td></tr>'
+    two = S.licence_links("__LICENCE:looper-insight9,community-looper-insight9-arm__")
+    assert two == ('see License: <a href="/about/license/#looper-insight9">hand-held recordings</a> · '
+                   '<a href="/about/license/#community-looper-insight9-arm">robot-arm recordings</a>')
+    with pytest.raises(KeyError):
+        S.licence_links("__LICENCE:no-such-row__")
 
 
 def test_a_page_that_places_its_own_link_scopes_its_own_licence():
