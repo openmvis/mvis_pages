@@ -325,13 +325,13 @@ sensors:
       - [Licence, "CC BY 4.0, as stated in the WHUVID paper (Chen et al., Remote Sensing 14(9) 2033, 2022); cite it when you use the recording"]
       - [Data, "__HUB:community/zed2/data/__. The authors' calibration bag, unchanged (myCalibrate.bag, 2.7 GB), with a script that drops the two repeated IMU samples. Recorded by the WHUVID authors"]
       - [Configs and results, "__HUB:community/zed2/__"]
-    method: "Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Solved 2026-11-16."
+    method: "Both cameras and the IMU together. Camera intrinsics (pinhole with radial-tangential distortion, as in the authors' calibration) start from a camera-only solve and stay free; rolling-shutter readout, camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga are estimated. IMU noise from the authors' IMU file. Gravity 9.7936 m/s², Wuhan's local value. Solved 2026-11-25."
     limits:
       - "No independent reference. The authors publish a Kalibr calibration from the same recording with a global-shutter camera model; it isn't an independent check."
       - "The time offset is given at the first image row. At mid-image, the time a global-shutter model reports, it is about 7 ms later (+4.5 ms)."
       - "The board is small (about 15 cm), so the image edges are covered less well and the principal point trades with the lens distortion: a Kannala–Brandt model moves it by about 10 px with no change in fit."
       - "The recording runs at 19.7 Hz and the IMU at 381 Hz, below the 30 fps and 400 Hz on the sheet, probably from drops while recording."
-      - "Solved at gravity 9.81 m/s². The local value in Wuhan is 9.7936 m/s²; with it the accel scale moves by about −0.17 %. A re-solve is pending."
+      - "Solved at Wuhan's local gravity, 9.7936 m/s², on the assumption that the recording was made there (the dataset is from Wuhan University). Until 2026-11-25 this page showed a solve at 9.81 m/s², with an accel scale about 0.15 % higher."
     header:
       type: "Stereo depth camera: two rolling-shutter cameras with a 400 Hz IMU"
       maker: {name: Stereolabs, url: "https://www.stereolabs.com/"}
