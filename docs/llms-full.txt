@@ -224,7 +224,7 @@ MVIS toolbox | GPL-3.0-only, or a commercial licence |
 Calibration results | yours on your own recordings; CC BY 4.0 on our datasets, commercial use included |
 This site | code GPL-3.0-only; text and figures CC BY 4.0, except third-party clips, product photos and the replay pack |
 Recordings in calibench-vi/datasets (VI-Rig, Looper, GiLabs, converted third-party sets) | CC BY 4.0, commercial use included; gated |
-Device recordings in calibench-vi/community | each folder’s own licence: CC BY-NC 4.0 unless the folder says otherwise |
+Device recordings in calibench-vi/community | each folder’s own licence: CC BY 4.0, commercial use included, unless the folder says otherwise |
 Third-party software | its own licence |
 
 ## MVIS toolbox
@@ -287,9 +287,8 @@ Monado MSD CC BY 4.0,
 UZH-FPV CC BY-NC-SA 3.0,
 VI-Rig, the hand-held
 Looper recordings and the GiLabs
-examples CC BY 4.0, recordings from a community folder CC BY-NC 4.0 unless the
-device page says otherwise, and the Dibuli maker example data under Dibuli’s
-terms.
+examples CC BY 4.0, recordings from a community folder CC BY 4.0 unless the
+device page says otherwise.
 
 - Product photos on the device pages belong to their makers. Each is
 credited with a link to its source and is not covered by this licence.
@@ -340,11 +339,10 @@ terms. TUM-VI, for example, is CC BY 4.0.
 
 - Community device recordings: recordings in
 calibench-vi/community
-keep each folder’s own licence: CC BY-NC 4.0 unless the folder says otherwise.
-Anyone, a company included, may run a calibration tool on the CC BY-NC 4.0
-recordings to produce results for the benchmark; the results are CC BY 4.0
-(see Calibration results above). Other commercial use of those recordings
-needs a separate licence: write to licensing@openmvis.com. See
+keep each folder’s own licence: CC BY 4.0, commercial use included, unless the
+folder says otherwise. The XQ20, Hampo, ALG, Dibuli and Looper
+recordings there were CC BY-NC 4.0 until 2026-11-26.
+Results made from them are CC BY 4.0 (see Calibration results above). See
 Submit a dataset.
 
 ## Third-party software
@@ -11398,11 +11396,11 @@ Calibrated field of view | cam0 96° × 113° · cam1 96° × 113° · cam2 ~149
 ## Dataset
 
 Chessboard | 4 recordings of 36 to 61 s, our own unit: takes 01 to 03 warm (41 to 43 °C), take 04 at 55 °C. This page shows take 04 |
-Chessboard data | Calibench-VI community, looper-insight9/data/ (access by automatic approval), takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Chessboard data | Calibench-VI community, looper-insight9/data/ (access by automatic approval), takes 01 to 04 (this page shows take 04). Everything except the board is blurred. CC BY 4.0, commercial use included, for the data, clip and figures |
 Hand-held | 10 of about 66 s, 15.0 GB in all |
 Hand-held data | Calibench-VI, looper-insight9/ (access by automatic approval). CC BY 4.0, for the hand-held data, clip and figures |
 Robot arm | 2 of about 58 s, same program in both |
-Robot-arm data | Calibench-VI community, looper-insight9/data/ (access by automatic approval). Normal frames. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Robot-arm data | Calibench-VI community, looper-insight9/data/ (access by automatic approval). Normal frames. CC BY 4.0, commercial use included, for the data, clip and figures |
 Board | Chessboard: 10×7 squares (9×6 inner corners), 43.47 mm, shown on a monitor. Hand-held and robot arm: AprilGrid 6×6, tag 55 mm, spacing 0.3, t36h11 |
 Configs and results | Calibench-VI community, looper-insight9/ (access by automatic approval) |
 Worked example | Looper Insight 9 |
@@ -11641,7 +11639,7 @@ Calibrated field of view | cam0 168° × 131° · cam1 167° × 131° · cam2 16
 Recordings | 2 camera + IMU bags at 1,000 and 2,000 µs exposure, about 450 MB each |
 Source | Maker's public download, files.dibuli.com |
 Board | AprilGrid 8×8, tag 70 mm, spacing 0.3 |
-Licence | CC BY-NC 4.0; commercial use by request |
+Licence | CC BY 4.0, commercial use included, for the recordings, clip and figures |
 Hosted | Calibench-VI community, dibuli-prism-a4l/ (access by automatic approval) |
 
 AprilGrid 8 × 8, 707 × 707 mm. Standard pattern, to scale
@@ -11782,7 +11780,7 @@ Phone | +86 755 2721 8150 |
 Recordings | 3 recordings of 112, 144 and 148 s. Shown: the 148 s one, cam0 4,433 frames, cam1 4,432, IMU 29,516 samples |
 Format | ROS2 bag with compressed images, converted to EuRoC layout |
 Board | ChArUco 14×9 squares, 40 mm squares, 30 mm markers |
-Data | Calibench-VI community, alg-avs111c/data/ (access by automatic approval). All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Data | Calibench-VI community, alg-avs111c/data/ (access by automatic approval). All three recordings, normal frames: alg_avs111c_01.bag is the 148 s one shown here, alg_avs111c_02.bag and alg_avs111c_03.bag the 112 s and 144 s ones, with the IMU already corrected for the accel 4× and gyro 2× scale. Recorded by ALG Tech and hosted with their permission. CC BY 4.0, commercial use included, for the data, clip and figures |
 Configs and results | Calibench-VI community, alg-avs111c/ (access by automatic approval) |
 
 ChArUco 14 × 9 squares (13 × 8 inner corners), 40 mm squares, 30 mm DICT_5X5 markers, 560 × 360 mm, markers 0–62. To scale
@@ -11986,7 +11984,7 @@ Phone | +86 755 2721 8150 |
 Recordings | 2 hand-held recordings. Recording 1 (2026-11-13): 163 s, cam0 4,900 frames, cam1 4,899, IMU 32,664 samples. Recording 2 (2026-11-14, stronger light, shorter exposure): 101 s, 3,024 frames per camera, IMU 20,164 samples |
 Format | ROS2 bag with compressed images, converted to EuRoC layout |
 Board | ChArUco 14×9 squares, 40 mm squares, 30 mm markers |
-Data | Calibench-VI community, alg-avs115d/data/ (access by automatic approval). Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY-NC 4.0, for the data, clip and figures; commercial use by request |
+Data | Calibench-VI community, alg-avs115d/data/ (access by automatic approval). Both recordings, every frame, normal frames: alg_avs115d_01.bag is recording 1 and alg_avs115d_02.bag recording 2, with the IMU already corrected for the accel 4× and gyro 2× scale; the blurred pairs left out of each solve are listed next to its bag. Recorded by ALG Tech and hosted with their permission. CC BY 4.0, commercial use included, for the data, clip and figures |
 Configs and results | Calibench-VI community, alg-avs115d/ (access by automatic approval) |
 
 ChArUco 14 × 9 squares (13 × 8 inner corners), 40 mm squares, 30 mm DICT_5X5 markers, 560 × 360 mm, markers 0–62. To scale
@@ -12342,7 +12340,7 @@ Office phone | +86 769 8798 9852 |
 Recordings | 1 recording. cam0 107.8 s, 3,235 frames. cam1 stops at 57.6 s, 1,728 frames |
 Format | Unfinalised MP4s, rebuilt, then converted to EuRoC layout |
 Board | AprilGrid 8×6, tag 50 mm, spacing 0.3 |
-Licence | CC BY-NC 4.0; commercial use by request |
+Licence | CC BY 4.0, commercial use included |
 Hosted | Calibench-VI community, hampo/ (access by automatic approval) |
 
 AprilGrid 8 × 6, 375 × 505 mm. Standard pattern, to scale
@@ -12874,7 +12872,7 @@ Open | Sensor part numbers |
 Recordings | Unit A: 158 s, 4,736 frames. Unit B: 119 s, 3,573 frames |
 Format | MP4 plus per-segment IMU CSV, converted to EuRoC layout |
 Board | AprilGrid 6×6, tag 35.2 mm, spacing 0.3 |
-Licence | CC BY-NC 4.0; commercial use by request |
+Licence | CC BY 4.0, commercial use included |
 Hosted | Calibench-VI community, xq20/ (access by automatic approval) |
 
 AprilGrid 6 × 6, 264 × 264 mm. Standard pattern, to scale
@@ -18326,7 +18324,7 @@ Results on our datasets are CC BY 4.0.
 
 - Datasets: the recordings in calibench-vi/datasets (VI-Rig, Looper,
 GiLabs and the converted third-party sets) are CC BY 4.0, commercial use
-included, and gated. Community device recordings are CC BY-NC 4.0 unless
+included, and gated. Community device recordings are CC BY 4.0 too, unless
 their folder says otherwise.
 
 - Citing: cite the MVIS paper; cite the OpenMVIS project
