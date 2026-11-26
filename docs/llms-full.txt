@@ -295,8 +295,10 @@ terms.
 credited with a link to its source and is not covered by this licence.
 
 - The replay pack on Record the dataset
-states its own split: the guide motions, rigs and results CC BY 4.0, the two
-real-example trajectories CC BY-NC 4.0.
+is CC BY 4.0, commercial use included: the guide motions, the rigs, the
+results and, since 2026-11-25, the two real-example trajectories, which come
+from our own Looper Insight 9 recordings and were CC BY-NC 4.0 before. The
+reader script in the pack is MIT.
 
 If you are the maker and want a photo changed or removed, write to
 contact@openmvis.com.
@@ -1535,7 +1537,8 @@ replay pack (zip, 3.2 MB). It holds:
 Its README gives the frames, units and replay steps. The files are plain CSV, YAML and JSON, so you do not
 need MVIS to use them. We ran the twin with the MVIS simulator (mvis.simulation).
 
-Licence: the pack’s README names the licence of each file.
+Licence: CC BY 4.0, commercial use included, for every motion, rig and result in the pack. That includes the two
+real-example trajectories since 2026-11-25; a README that still lists them as CC BY-NC 4.0 is from before that date.
 
 ## Next
 
