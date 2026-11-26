@@ -6,7 +6,7 @@ import re
 
 from .assets import EXTRA_DARK, EXTRA_LIGHT
 from .components import labels
-from .sensor_header import HEADER_PARTS
+from .sensor_header import HEADER_PARTS, TRY_PART
 from .sensor_parts import PARTS, PLOTLY_LOCAL, rig_json
 
 SENSOR_BASE = "/devices/"  # the Device wiki; old /sensors/ and /benchmark/sensors/ addresses redirect here (site/src/data/moved.json)
@@ -34,7 +34,7 @@ def page_description(p: dict) -> str:
 
 def mdx(slug: str, p: dict) -> str:
     q = lambda t: json.dumps(t, ensure_ascii=False)
-    plist = HEADER_PARTS if p.get("header") else PARTS
+    plist = (HEADER_PARTS + ([TRY_PART] if p.get("try_it") else [])) if p.get("header") else PARTS
     body = "".join(f'## {h}\n\n<SensorPage sensor="{slug}" part="{k}" />\n\n' for h, k in plist)
     if p.get("header"):
         head = f"head:\n  - tag: title\n    content: {q(p['title'] + ' camera–IMU calibration | OpenMVIS')}\n"
@@ -126,6 +126,7 @@ def overview_mdx(pub: dict) -> str:
 def sensor_json(slug: str, p: dict, parts: dict, vs: list) -> dict:
     """site/src/data/sensors/<slug>.json, before the arrow glyph fix the writer applies. Only the parts the MDX and
     PageTitle render; the rest (lead, map, hardware, lens, imu, timing, results, board_shape) went into them."""
-    parts = {k: parts[k] for k in ["header", *(k for _, k in HEADER_PARTS)]}
+    keys = ["header", *(k for _, k in HEADER_PARTS)] + ([TRY_PART[1]] if TRY_PART[1] in parts else [])
+    parts = {k: parts[k] for k in keys}
     return {"title": p["title"], "parts": parts, "rigs": [rig_json(v) for v in vs], "procs": [None if v.get("views") else f"/media/sensors/{slug}/process{i}.json" for i, v in enumerate(vs)], "plotly": PLOTLY_LOCAL,
             "card": card_for(slug, p)}

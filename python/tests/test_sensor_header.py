@@ -109,6 +109,15 @@ def test_header_with_photo_buttons_and_thanks(variant):
     assert html.endswith("</aside></div>") and "All specs (" in html
 
 
+def test_try_it_makes_its_button_primary(variant):
+    """With try_it, the primary button jumps to the box and is counted; the maker's page becomes a plain button."""
+    plain = _header(variant, F.pub_entry("photo"))
+    tried = _header(variant, dict(F.pub_entry("photo"), try_it={"folder": "rig"}))
+    assert 'class="sd-btn primary"' in plain and "calibrate-it-yourself" not in plain
+    assert tried.count('class="sd-btn primary"') == 1
+    assert '<a class="sd-btn primary" href="#calibrate-it-yourself" data-goatcounter-click="try-button-rig">Calibrate it yourself</a><a class=sd-btn href=' in tried
+
+
 def test_header_shows_one_chip_label_per_part_under_the_type_line(variant):
     html = _header(variant, F.pub_entry("photo"))
     chips = html[html.index("<p class=sd-chips>"):html.index("</p>", html.index("<p class=sd-chips>"))]
@@ -201,7 +210,7 @@ def test_try_box_only_for_pages_with_replayed_configs():
     p = {"title": "Neo", "card": {"name": "Neo"}, "try_it": {"folder": "robobaton-neo", "size": "about 95 MB", "time": "a few minutes",
          "config": "config/cam_imu.yaml", "own": "Set `input.path` to <your> folder."}}
     html = H.try_box(p)
-    assert html.startswith("<section class=try id=calibrate-it-yourself>")
+    assert html.startswith("<section class=try>") and 'data-goatcounter-click="try-hub-robobaton-neo"' in html
     assert "community/tree/main/robobaton-neo" in html and '--include &quot;robobaton-neo/*&quot;' in html
     assert "mvis cam-imu -c config/cam_imu.yaml" in html and "huggingface_hub" in html
     assert "<code>input.path</code>" in html and "&lt;your&gt;" in html   # ticks become code, the rest stays escaped
@@ -216,4 +225,14 @@ def test_neo_try_box_passes_the_public_lint():
     p = yaml.safe_load((DATA / "public_sensors.yaml").read_text(encoding="utf-8"))["sensors"]["robobaton-neo"]
     html = H.try_box(p)
     assert html and public_problems(strip_urls(html)) == []
+
+
+def test_try_it_puts_the_box_last():
+    """A page with try_it ends with "Calibrate it yourself", after Dataset; pages without try_it keep the fixed sections only."""
+    from mvis_site import site_files as S
+    p = {"title": "Neo", "description": "x", "header": {"type": "x"}, "try_it": {"folder": "neo"}}
+    m = S.mdx("neo", p)
+    assert m.rstrip().endswith('## Calibrate it yourself\n\n<SensorPage sensor="neo" part="calibrate-it-yourself" />')
+    assert m.index("## Limits") < m.index("## Dataset") < m.index("## Calibrate it yourself")
+    assert "Calibrate it yourself" not in S.mdx("neo", {k: v for k, v in p.items() if k != "try_it"})
 
