@@ -138,10 +138,10 @@ def test_looper_licence_is_scoped_to_hand_held(pub):
     rows = dict(p["dataset"])
     assert rows["Robot-arm data"].startswith("__HUB:community/looper-insight9/data/__")
     # arm bags on the Hub were replaced with the unblurred frames (Hub a2a09ebc, 2026-11-07)
-    assert "Normal frames" in rows["Robot-arm data"] and "blurred" not in rows["Robot-arm data"] and "CC BY-NC 4.0" in rows["Robot-arm data"]
-    # recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25; the robot-arm bags in the community folder stay CC BY-NC 4.0; the chessboard takes are CC BY 4.0 since 2026-11-26
+    assert "Normal frames" in rows["Robot-arm data"] and "blurred" not in rows["Robot-arm data"] and "CC BY 4.0, commercial use included" in rows["Robot-arm data"] and "NC" not in rows["Robot-arm data"]
+    # recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25; the robot-arm bags and chessboard takes in the community folder are CC BY 4.0 since 2026-11-26
     assert "__LINK__" in rows["Hand-held data"] and "CC BY 4.0" in rows["Hand-held data"] and "NC" not in rows["Hand-held data"] and p["folder"] == "looper-insight9/"
-    assert "hand-held recordings of about 66 s, CC BY 4.0" in p["header"]["foot"] and "robot-arm recordings of about 58 s, CC BY-NC 4.0" in p["header"]["foot"]
+    assert "hand-held recordings of about 66 s, CC BY 4.0" in p["header"]["foot"] and "robot-arm recordings of about 58 s, CC BY 4.0" in p["header"]["foot"]
     html = dataset_rows(p, "https://x")
     assert html.count("<a href") == 4 and "<td>Licence</td>" not in html and "<td>Hosted</td>" not in html
     assert "for the hand-held data, clip and figures" in html
