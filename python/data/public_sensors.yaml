@@ -432,7 +432,7 @@ sensors:
       - [Recordings, "2 camera + IMU bags at 1,000 and 2,000 µs exposure, about 450 MB each"]
       - [Source, "Maker's public download, files.dibuli.com"]
       - [Board, "AprilGrid 8×8, tag 70 mm, spacing 0.3"]
-      - [Licence, "CC BY-NC 4.0; commercial use by request"]
+      - [Licence, "CC BY 4.0, commercial use included, for the recordings, clip and figures"]
       - [Hosted, "__HUB:community/dibuli-prism-a4l/__"]
     method: "EUCM camera model, Kalibr IMU model, t_ga estimated, camera intrinsics free, seeded from the camera-only fit. Batch of 2026-11-03. This solve uses physical camera 1 as its base, so cam0 and cam1 on this page are physical cam1 and cam0."
     limits:

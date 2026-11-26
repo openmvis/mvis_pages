@@ -34,10 +34,10 @@ def test_each_credit_carries_the_licence_of_where_its_recording_is_hosted():
     """Recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25. GiLabs data is CC BY 4.0 too (user, 2026-11-25), which
     covers the EGO1GS clip although its take is not in the hosted GiLabs folders. A re-rendered rigs.json with an old credit fails here."""
     by, nc = ("CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/"), ("CC BY-NC 4.0", "https://creativecommons.org/licenses/by-nc/4.0/")
-    want = {"virig4": by, "virig3": by, "looper": by, "mic": by, "alg_rs2": nc, "gilabs": by, "cyperstereo": by}
+    want = {"virig4": by, "virig3": by, "looper": by, "mic": by, "alg_rs2": nc, "gilabs": by, "cyperstereo": by, "dibuli": by}
     got = {r["key"]: (r["credit"].get("licence"), r["credit"].get("licence_url")) for r in RIGS}
     assert {k: got[k] for k in want} == want
-    assert {k for k, v in got.items() if v == (None, None)} == {"dibuli"}   # its own terms, in `terms`
+    assert not {k for k, v in got.items() if v == (None, None)}   # dibuli is CC BY 4.0 since 2026-11-26 (user)
     for r in RIGS:
         if "calibench-vi/datasets/" in r["credit"].get("url", ""):
             assert got[r["key"]] == by, r["key"]

@@ -200,7 +200,8 @@
     "holder": "DIBULI",
     "dataset": "Prism-A4L example data",
     "url": "https://files.dibuli.com/sharing/public/Prism/datasets/",
-    "terms": "the maker's example data, under its own terms"
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
    }
   },
   {
