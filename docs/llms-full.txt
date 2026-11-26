@@ -3817,7 +3817,7 @@ on the T265.
 
 Tool | Looper Insight 9 | Intel T265 |
 td (ms) | scale error (%) | td (ms) | scale error (%) |
-MVIS | −0.01 | 0.01 | +0.07 | 0.30 |
+MVIS | −0.01 | 0.01 | +0.11 | 0.36 |
 Kalibr | −0.04 | 0.13 | −0.19 | 0.34 |
 Basalt | −0.04 | 0.21 | −0.28 | 1.50 |
 
@@ -3834,8 +3834,9 @@ everything else unchanged. That is 11 recordings per device; the true t_ga of ea
 
 - Run: all three tools on every recording, with the settings above.
 
-- Gravity: the T265 sweep was solved at 9.81 m/s², before 2026-11-25. The example config now sets
-9.8013 (Newark); with it the accel scale moves by about −0.09 %.
+- Gravity: MVIS solves the T265 sweep at Newark’s 9.8013 m/s², as the example config sets it (MVIS 0.4.1,
+2026-11-25); Kalibr and Basalt keep their own default. Against 9.81, this moves MVIS’s accel scale by about
+−0.07 % and nothing else.
 
 Accel delayed by τ. MVIS puts it in t_ga (solid blue) and keeps td flat (dashed); Kalibr and Basalt have
 no t_ga, so their td takes a steady share of τ.

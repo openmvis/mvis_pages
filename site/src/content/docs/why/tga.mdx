@@ -66,8 +66,9 @@ How to turn it on: [`t_ga` in step 4](/guides/camera-imu-calibration/#t_ga-gyroa
 - **Sweep:** we delayed only the accel by $\tau$ = −50, −20, −10, −5, −2, 0, 2, 5, 10, 20 and 50 ms, and left
   everything else unchanged. That is 11 recordings per device; the true `t_ga` of each is $\tau$.
 - **Run:** all three tools on every recording, with the settings above.
-- **Gravity:** the T265 sweep was solved at 9.81 m/s², before 2026-11-25. The example config now sets
-  9.8013 (Newark); with it the accel scale moves by about −0.09 %.
+- **Gravity:** MVIS solves the T265 sweep at Newark's 9.8013 m/s², as the example config sets it (MVIS 0.4.1,
+  2026-11-25); Kalibr and Basalt keep their own default. Against 9.81, this moves MVIS's accel scale by about
+  −0.07 % and nothing else.
 
 <TgaSweepPlot />
 
