@@ -52,7 +52,7 @@ def test_homepage_clip_credits_use_a_listed_licence():
 def test_pages_point_to_the_list_and_state_no_old_default():
     docs = SITE / "src/content/docs"
     page = (docs / "about/license.mdx").read_text(encoding="utf-8")
-    assert page.count("<LicenceTables part=") == 2 and "history" not in page.lower() and "## Datasets" in page and f"**Last change:** {LIC['updated']}" in page
+    assert page.count("<LicenceTables part=") == 2 and "history" not in page.lower() and "earlier licence" not in page and "## Datasets" in page and f"**Last change:** {LIC['updated']}" in page
     for rel in ("datasets/index.mdx", "about/faq.mdx", "getting-started/quickstart.mdx", "contribute/submit-dataset.mdx",
                 "datasets/virig-4imus-3cams.mdx", "datasets/virig-4imus-3cams-aruco.mdx", "datasets/virig-4imus-4cams.mdx",
                 "datasets/virig-5imus-4cams.mdx"):
