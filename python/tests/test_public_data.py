@@ -69,7 +69,7 @@ NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360",)   # alg-avs111c hosted since
 NO_DEMO = NO_DEMO_NOT_HOSTED + ("zed2",)
 # realsense-d435i (2026-11-24): three-camera recordings to be hosted after the frame review; not hosted yet.
 NOT_HOSTED = NO_DEMO_NOT_HOSTED   # robobaton-neo hosted since 2026-11-20, realsense-d435i since 2026-11-24
-# cyperstereo: results-only 2026-11-15; the maker's bag hosted unchanged since 2026-11-15 (CC BY-NC 4.0, 2026-11-17).
+# cyperstereo: results-only 2026-11-15; the maker's bag hosted unchanged since 2026-11-15 (CC BY-NC 4.0, 2026-11-17; CC BY 4.0 since 2026-11-25).
 RESULTS_ONLY = ()
 
 
@@ -154,6 +154,23 @@ def test_pages_whose_recording_is_in_the_main_datasets_repo_say_cc_by(pub):
         assert p["folder"] and p["header"]["foot"].endswith("· CC BY 4.0"), slug
         assert "<td>Licence</td><td>CC BY 4.0," in dataset_rows(p, "https://x"), slug
         assert "NC" not in dataset_rows(p, "https://x") and "request" not in dataset_rows(p, "https://x"), slug
+
+
+def test_community_folders_opened_to_commercial_use_are_cc_by(pub):
+    """realsense-d435i, -d455, -d456, cyperstereo and robobaton-neo in calibench-vi/community are CC BY 4.0, commercial use included
+    (user, 2026-11-25)."""
+    rows = dict(pub["sensors"]["cyperstereo"]["dataset"])
+    assert rows["Licence"].startswith("CC BY 4.0, commercial use included") and rows["Data"].startswith("__HUB:community/cyperstereo/data/__")
+    neo = dict(pub["sensors"]["robobaton-neo"]["dataset"])["Data"]
+    assert neo.startswith("__HUB:community/robobaton-neo/data/__") and "CC BY 4.0, commercial use included" in neo
+    for slug in ("cyperstereo", "robobaton-neo"):
+        text = yaml.safe_dump(pub["sensors"][slug], allow_unicode=True)
+        assert "BY-NC" not in text and "by request" not in text, slug
+    for slug in ("realsense-d435i", "realsense-d455", "realsense-d456"):
+        p = pub["sensors"][slug]
+        data = dict(p["dataset"])["Data"]
+        assert data.startswith(f"__HUB:community/{slug}/data/__") and "CC BY 4.0, commercial use included" in data, slug
+        assert "NC" not in data and "request" not in data and p["header"]["foot"].endswith("· CC BY 4.0"), slug
 
 
 def test_looper_limits_keep_the_two_sets_apart_and_clips_follow_the_tabs(pub):

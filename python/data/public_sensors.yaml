@@ -79,7 +79,7 @@ sensors:
       - [Format, ROS1 bag]
       - [Board, "Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder"]
       - [Exposure, "Fixed, about 2 ms on all three cameras; no auto exposure"]
-      - [Data, "__HUB:community/realsense-d455/data/__. Everything except the chessboard is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/realsense-d455/data/__. Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Configs and results, "__HUB:community/realsense-d455/__"]
     method: "Left infrared, right infrared and RGB cameras with the IMU in one solve, all three treated as global shutter. Pinhole camera with radial-tangential distortion, seeded from three single-camera solves of the same recording and left free; camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board is kept rigid. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-13."
     limits:
@@ -92,7 +92,7 @@ sensors:
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
       links: {product: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d455.jpg, alt: "RealSense D455 depth camera, front view", credit: "Photo: RealSense, D455 product page", url: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
-      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s · CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s · CC BY 4.0"
       key_specs:
         cameras: {v: "848 × 480 here: IR stereo + RGB", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"}
@@ -128,7 +128,7 @@ sensors:
       - [Format, ROS1 bag]
       - [Board, "Chessboard shown on a screen, 10×7 squares (9×6 inner corners), 75 mm squares as measured by the recorder"]
       - [Exposure, "Fixed, about 2 ms on all three cameras; no auto exposure"]
-      - [Data, "__HUB:community/realsense-d456/data/__. Everything except the chessboard is blurred. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/realsense-d456/data/__. Everything except the chessboard is blurred. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Configs and results, "__HUB:community/realsense-d456/__"]
     method: "Left infrared, right infrared and RGB cameras with the IMU in one solve, all three treated as global shutter. Pinhole camera with radial-tangential distortion, seeded from three single-camera solves of the same recording and left free; camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board is kept rigid. IMU noise is the MVIS default, since no measured values exist for this unit. Solved 2026-11-13."
     limits:
@@ -141,7 +141,7 @@ sensors:
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/d456-usb/"}
       links: {product: "https://www.realsenseai.com/products/d456-usb/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d456.jpg, alt: "RealSense D456 depth camera with water splashing over it", credit: "Photo: RealSense, D456 product page", url: "https://www.realsenseai.com/products/d456-usb/"}
-      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s · CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-13 · 1 recording, 90 s · CC BY 4.0"
       key_specs:
         cameras: {v: "848 × 480 here: IR stereo + RGB", tag: measured}
         shutter: {v: Global, tag: maker, src: "https://www.realsenseai.com/products/d456-usb/"}
@@ -177,7 +177,7 @@ sensors:
       - [Format, "EuRoC mav0: PNG per camera and IMU CSV"]
       - [Board, "AprilGrid, 6×6 tags of 88 mm, spacing 0.3"]
       - [Exposure, "Fixed: 3 ms on the RGB camera, 1.725 ms on the infrared pair; white balance fixed"]
-      - [Data, "__HUB:community/realsense-d435i/data/__. The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY-NC 4.0, for the data, clip and figures; commercial use by request. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs"]
+      - [Data, "__HUB:community/realsense-d435i/data/__. The four recordings as ROS1 bags: both infrared cameras, the RGB camera stored grey, and the IMU. CC BY 4.0, commercial use included, for the data, clip and figures. Earlier RGB-only recordings of this camera (2026-11-13) are replaced here; their results stay on the Hub with the configs"]
       - [Configs and results, "__HUB:community/realsense-d435i/__"]
     method: "Each camera first solved on its own, then the RGB and both infrared cameras with the IMU in one solve. The RGB camera is a rolling-shutter camera with the readout time estimated; the infrared pair is global shutter. Pinhole cameras with radial-tangential distortion, seeded from the single-camera solves and left free; the camera time offsets, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. The board shape is estimated per corner. IMU noise is the MVIS default, since no measured values exist for this unit. Gravity is the local value at the recording site, 9.7892 m/s² (UAE). Solved 2026-11-24."
     limits:
@@ -191,7 +191,7 @@ sensors:
       maker: {name: RealSense, url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
       links: {product: "https://www.realsenseai.com/products/depth-camera-d435i/", product_label: "RealSense product page", more: [{label: SDK, url: "https://github.com/realsenseai/librealsense"}]}
       image: {kind: photo, file: realsense-d435i.jpg, alt: "RealSense D435i depth camera, front view", credit: "Photo: RealSense, D435i product page", url: "https://www.realsenseai.com/products/depth-camera-d435i/"}
-      foot: "Maker values checked 2026-11-14 · 4 recordings, 50 to 95 s · CC BY-NC 4.0"
+      foot: "Maker values checked 2026-11-14 · 4 recordings, 50 to 95 s · CC BY 4.0"
       key_specs:
         cameras: {v: "640 × 480 here: RGB + IR stereo", tag: measured}
         shutter: {v: "Rolling (RGB), global (IR pair)", tag: maker, src: "https://www.realsenseai.com/products/depth-camera-d435i/"}
@@ -238,7 +238,7 @@ sensors:
       - [Recording, "1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz"]
       - [Format, "EuRoC mav0: PNG and IMU CSV, written by the module's capture tool"]
       - [Board, "AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor"]
-      - [Data, "__HUB:community/robobaton-neo/data/__. The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/robobaton-neo/data/__. The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Configs and results, "__HUB:community/robobaton-neo/__"]
     method: Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera
       solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the
@@ -574,7 +574,7 @@ sensors:
       - [Recordings, "1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples"]
       - [Format, ROS1 bag]
       - [Board, "AprilGrid 6×6, tag 55 mm, spacing 0.3"]
-      - [Licence, "CC BY-NC 4.0, for the recording, clip and figures"]
+      - [Licence, "CC BY 4.0, commercial use included, for the recording, clip and figures"]
       - [Data, "__HUB:community/cyperstereo/data/__. The maker's bag, unchanged (cyperstereo_imu_calibra2.bag, 9.3 GB), normal frames; hosted with Tujian's agreement. Recorded by Tujian"]
       - [Configs and results, "__HUB:community/cyperstereo/__. The configs, the starting calibration and this page's results; the configs read the recording in data/"]
     method: "All four cameras and the IMU together. Camera intrinsics (Kannala–Brandt kb4) from four single-camera solves of the same recording, then held fixed; IMU scale and misalignment, gyro-to-accel offset t_ga and camera time offsets estimated. IMU noise from the BMI088 datasheet, about 2.5× wider. Solved 2026-11-15."
