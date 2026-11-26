@@ -41,7 +41,8 @@ def dumps(obj):
 
 
 # UZH-FPV: the same table the leaderboard shows, on this study's stats, leaving the leaderboard batch alone.
-BATCH = "2026-11-04"
+BATCH = "2026-11-26"   # the Hub release runs/uzh-fpv/<BATCH>; MVIS 0.4.1 at Dübendorf gravity (was 2026-11-04, f5cdce0)
+UZH_MVIS = "MVIS 0.4.1"
 UZH_STATS = "three_way/three_way_comparison_stats.json"  # in the study folder, beside hub_stage/<BATCH>/
 
 FAMILIES = {"DAVIS": "UD", "SNAP": "US"}
@@ -104,7 +105,7 @@ def run_configs_html(jobs, weights, mvis_file, kalibr_file, basalt_status):
     others = f"<p class='cfgp'>Runs ({len(jobs)}, gyro and accel noise density; bias sigmas are 0.1 of these):</p><ul class='cfgl'>{runs}</ul>"
     basalt_cmd = " \\\n    ".join(basalt_status["command"])
     return {"MVIS": _fold(f"MVIS · {_mono('mvis cam-imu')}", "mvis cam-imu -c configs/cam_imu_<bag>_kalibr_model.yaml",
-                          f"<p class='cfgp'>{_mono(first)}, commit f5cdce0</p>{_pre(mvis_file)}{others}"),
+                          f"<p class='cfgp'>{_mono(first)}, {UZH_MVIS}</p>{_pre(mvis_file)}{others}"),
             "Kalibr": _fold(f"Kalibr · {_mono('kalibr_calibrate_imu_camera')}", KALIBR_CMD,
                             f"<p class='cfgp'>{_mono('imu.yaml')} for {_mono(first)}</p>{_pre(kalibr_file)}{others}"),
             "Basalt": _fold(f"Basalt · {_mono('basalt_calibrate_imu')}", basalt_cmd,

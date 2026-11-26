@@ -108,24 +108,24 @@ def test_refusals_stop_a_write(lb, tmp_path):
 def test_uzh_from_the_fake_space(lb, tmp_path):
     root = F.write_uzh(tmp_path / "uzh")
     before = set(os.listdir(os.environ.get("TMPDIR", "/tmp")))
-    out = S.export_uzh(lb, root / "three_way/three_way_comparison_stats.json", root / "hub_stage/2026-11-04", tmp_path / "uzh.json")
+    out = S.export_uzh(lb, root / "three_way/three_way_comparison_stats.json", root / "hub_stage/2026-11-26", tmp_path / "uzh.json")
     assert set(os.listdir(os.environ.get("TMPDIR", "/tmp"))) - before == set()  # the records folder is gone
     text = out.read_text()
     assert text.endswith("\n") and list(json.loads(text)) == ["batch", "fragment", "how_to_read"]
     d = json.loads(text)
-    assert d["batch"] == "2026-11-04" and "<h2>UZH-FPV</h2>" not in d["fragment"]
+    assert d["batch"] == "2026-11-26" and "<h2>UZH-FPV</h2>" not in d["fragment"]
     assert S.L.READ_FIRST in d["fragment"] and S.L.LIKE_FOR_LIKE in d["fragment"] and "Run config · MVIS" in d["fragment"]
     assert "here from the calibration UZH ships" in d["how_to_read"]
 
 
 def test_uzh_from_a_study_folder_finds_its_files(lb, tmp_path, monkeypatch):
     root = F.write_uzh(tmp_path / "uzh")
-    want = S.export_uzh(lb, root / "three_way/three_way_comparison_stats.json", root / "hub_stage/2026-11-04", tmp_path / "a.json").read_text()
+    want = S.export_uzh(lb, root / "three_way/three_way_comparison_stats.json", root / "hub_stage/2026-11-26", tmp_path / "a.json").read_text()
     assert S.export_uzh_from_root(lb, root, tmp_path / "b.json").read_text() == want
     monkeypatch.setattr(S, "REPO", tmp_path / "repo")
     (tmp_path / "repo/site/src/data/leaderboard").mkdir(parents=True)
     assert S.export_uzh_from_root(lb, root) == tmp_path / "repo/site/src/data/leaderboard/uzh_fpv.json"
-    (root / "hub_stage/2026-11-04").rename(root / "hub_stage/other")
+    (root / "hub_stage/2026-11-26").rename(root / "hub_stage/other")
     assert S.export_uzh_from_root(lb, root, tmp_path / "c.json", root / "hub_stage/other").read_text() == want
 
 
@@ -134,7 +134,7 @@ def test_space_modules_are_the_contract_and_gradio():
 
 
 def test_read_hub(tmp_path):
-    hub = F.write_uzh(tmp_path / "uzh") / "hub_stage/2026-11-04"
+    hub = F.write_uzh(tmp_path / "uzh") / "hub_stage/2026-11-26"
     h = S.read_hub(hub)
     assert h["DAVIS"]["jobs"] == ["davis_indoor_45", "davis_indoor_forward"] and h["SNAP"]["jobs"] == ["snapdragon_indoor_45"]
     assert h["SNAP"]["basalt_status"]["command"][0] == "basalt_calibrate_imu"
@@ -160,7 +160,7 @@ def test_the_real_space_has_every_contract_name():
 
 @pytest.mark.real_data
 def test_the_real_uzh_hub_names_the_eight_bags():
-    hub = env_path("MVIS_UZH_ROOT") / "hub_stage/2026-11-04"
+    hub = env_path("MVIS_UZH_ROOT") / "hub_stage/2026-11-26"
     h = S.read_hub(hub)
     assert h["DAVIS"]["jobs"] == [f"davis_{e}_{a}" for e in ("indoor", "outdoor") for a in ("45", "forward")]
     assert h["SNAP"]["jobs"] == [f"snapdragon_{e}_{a}" for e in ("indoor", "outdoor") for a in ("45", "forward")]
@@ -172,7 +172,7 @@ def test_fake_space_texts_match_the_golden_files(lb, tmp_path):
     golden = Path(__file__).resolve().parent / "fixtures/golden_space"
     root = F.write_uzh(tmp_path / "uzh")
     board, css = S.board_texts(lb, lb / "records", "0123456789abcdef0123456789abcdef01234567")
-    uzh = S.uzh_text(lb, json.loads((root / "three_way/three_way_comparison_stats.json").read_text()), root / "hub_stage/2026-11-04")
+    uzh = S.uzh_text(lb, json.loads((root / "three_way/three_way_comparison_stats.json").read_text()), root / "hub_stage/2026-11-26")
     got = {"board.json": board, "board.css": css, "uzh_fpv.json": uzh}
     if os.environ.get("MVIS_GOLDEN") == "update":
         golden.mkdir(parents=True, exist_ok=True)

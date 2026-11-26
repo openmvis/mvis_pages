@@ -24,12 +24,13 @@
   "<b>One Basalt solve is left out.</b> On davis_indoor_forward with these weights, Basalt gives a 120 mm lever and an accel scale (accelerometer scale factor) of 0.84. So its Davis column has 3 of 4 bags. At Basalt's default noise that bag is plausible, but snapdragon_indoor_45 then fails with a broken spline.",
   "<b>Basalt's Davis distance stands out.</b> Its camera-to-IMU distance is 33.6 mm. Kalibr gives 23.2 mm and MVIS 22.8 mm on the same 3 bags. We haven't established why. At default noise Basalt's lever z is 14–25 mm.",
   "<b>Each device's 4 bags form one family</b>, because the camera and IMU are on the same device. That assumes the camera–IMU geometry stayed the same across recordings, which we can't confirm.",
+  "<b>Gravity.</b> These solves used 9.81 m/s², before 2026-11-25. The example config now sets 9.8070 (Dübendorf); with it the accel scale moves by about −0.03 %.",
   "<b>Snapdragon's time offset really does differ between bags</b>, with an sd (standard deviation) near 4.7 ms in every tool. So a small difference between tools on that row says little about each bag."
  ],
  "no_repeatability": "This study has no repeatability cells: it was made before the current schema, and 4 bags per device are too few for the test (it needs 6).",
- "study_note": "Separate study (batch 2026-11-04): no repeatability cells on the current schema, so it has no row here.",
+ "study_note": "Separate study (batch 2026-11-26): no repeatability cells on the current schema, so it has no row here.",
  "study": true,
- "batch": "2026-11-04",
+ "batch": "2026-11-26",
  "results_commit": null,
  "link": "/benchmark/results/uzh-fpv/",
  "has_repeatability": false,
@@ -96,8 +97,8 @@
     {
      "sensor": "mDAVIS346",
      "by_col": {
-      "calyx": "0.343",
-      "mvis": "0.344",
+      "calyx": "0.345",
+      "mvis": "0.347",
       "kalibr": "0.137"
      }
     }
@@ -117,9 +118,9 @@
        "key": "td_ms",
        "label": "time offset td to base IMU",
        "unit": "ms",
-       "text": "+0.024",
-       "spread": "0.369",
-       "z": 0.064,
+       "text": "+0.030",
+       "spread": "0.370",
+       "z": 0.081,
        "marked": false,
        "unequal_n": false
       },
@@ -129,9 +130,9 @@
        "key": "lever_mm",
        "label": "distance to base IMU ‖p‖",
        "unit": "mm",
-       "text": "−2.29",
-       "spread": "2.13",
-       "z": -1.075,
+       "text": "−2.36",
+       "spread": "2.22",
+       "z": -1.064,
        "marked": true,
        "unequal_n": false
       },
@@ -141,9 +142,9 @@
        "key": "Dw[0,0]",
        "label": "gyro Dw[0,0] scale x",
        "unit": "",
-       "text": "+0.00198",
+       "text": "+0.00217",
        "spread": "0.00158",
-       "z": 1.256,
+       "z": 1.379,
        "marked": true,
        "unequal_n": false
       },
@@ -153,9 +154,9 @@
        "key": "Dw[1,1]",
        "label": "gyro Dw[1,1] scale y",
        "unit": "",
-       "text": "+0.00159",
+       "text": "+0.00175",
        "spread": "0.00812",
-       "z": 0.196,
+       "z": 0.215,
        "marked": false,
        "unequal_n": false
       },
@@ -165,9 +166,9 @@
        "key": "Dw[2,2]",
        "label": "gyro Dw[2,2] scale z",
        "unit": "",
-       "text": "+0.00071",
+       "text": "+0.00070",
        "spread": "0.00184",
-       "z": 0.386,
+       "z": 0.381,
        "marked": false,
        "unequal_n": false
       },
@@ -179,7 +180,7 @@
        "unit": "",
        "text": "−0.00003",
        "spread": "0.00195",
-       "z": -0.014,
+       "z": -0.018,
        "marked": false,
        "unequal_n": false
       },
@@ -189,9 +190,9 @@
        "key": "Dw[2,0]",
        "label": "gyro Dw[2,0] cross",
        "unit": "",
-       "text": "+0.00046",
-       "spread": "0.00925",
-       "z": 0.05,
+       "text": "+0.00054",
+       "spread": "0.00919",
+       "z": 0.059,
        "marked": false,
        "unequal_n": false
       },
@@ -201,9 +202,9 @@
        "key": "Dw[2,1]",
        "label": "gyro Dw[2,1] cross",
        "unit": "",
-       "text": "−0.00037",
+       "text": "−0.00034",
        "spread": "0.00457",
-       "z": -0.082,
+       "z": -0.074,
        "marked": false,
        "unequal_n": false
       },
@@ -213,9 +214,9 @@
        "key": "Da[0,0]",
        "label": "accel Da[0,0] scale x",
        "unit": "",
-       "text": "+0.00120",
+       "text": "+0.00103",
        "spread": "0.00330",
-       "z": 0.363,
+       "z": 0.311,
        "marked": false,
        "unequal_n": false
       },
@@ -225,9 +226,9 @@
        "key": "Da[1,1]",
        "label": "accel Da[1,1] scale y",
        "unit": "",
-       "text": "+0.00067",
-       "spread": "0.00257",
-       "z": 0.261,
+       "text": "+0.00053",
+       "spread": "0.00253",
+       "z": 0.21,
        "marked": false,
        "unequal_n": false
       },
@@ -237,9 +238,9 @@
        "key": "Da[2,2]",
        "label": "accel Da[2,2] scale z",
        "unit": "",
-       "text": "+0.00482",
-       "spread": "0.00318",
-       "z": 1.517,
+       "text": "+0.00488",
+       "spread": "0.00327",
+       "z": 1.492,
        "marked": true,
        "unequal_n": false
       }
@@ -401,9 +402,9 @@
        "key": "fx",
        "label": "fx",
        "unit": "px",
-       "text": "−1.68",
-       "spread": "1.78",
-       "z": -0.945,
+       "text": "−1.66",
+       "spread": "1.77",
+       "z": -0.933,
        "marked": false,
        "unequal_n": true
       },
@@ -413,9 +414,9 @@
        "key": "fy",
        "label": "fy",
        "unit": "px",
-       "text": "−1.56",
-       "spread": "1.68",
-       "z": -0.928,
+       "text": "−1.54",
+       "spread": "1.67",
+       "z": -0.92,
        "marked": false,
        "unequal_n": true
       },
@@ -425,9 +426,9 @@
        "key": "cx",
        "label": "cx",
        "unit": "px",
-       "text": "−0.24",
-       "spread": "0.17",
-       "z": -1.393,
+       "text": "−0.22",
+       "spread": "0.18",
+       "z": -1.234,
        "marked": true,
        "unequal_n": true
       },
@@ -437,9 +438,9 @@
        "key": "cy",
        "label": "cy",
        "unit": "px",
-       "text": "−0.52",
+       "text": "−0.50",
        "spread": "3.52",
-       "z": -0.149,
+       "z": -0.142,
        "marked": false,
        "unequal_n": true
       },
@@ -449,9 +450,9 @@
        "key": "dist[0]",
        "label": "dist k1",
        "unit": "",
-       "text": "+0.00629",
-       "spread": "0.00892",
-       "z": 0.705,
+       "text": "+0.00521",
+       "spread": "0.00805",
+       "z": 0.647,
        "marked": false,
        "unequal_n": true
       },
@@ -461,9 +462,9 @@
        "key": "dist[1]",
        "label": "dist k2",
        "unit": "",
-       "text": "−0.01806",
-       "spread": "0.02757",
-       "z": -0.655,
+       "text": "−0.01199",
+       "spread": "0.02570",
+       "z": -0.467,
        "marked": false,
        "unequal_n": true
       },
@@ -473,9 +474,9 @@
        "key": "dist[2]",
        "label": "dist k3",
        "unit": "",
-       "text": "+0.04632",
-       "spread": "0.03113",
-       "z": 1.488,
+       "text": "+0.03506",
+       "spread": "0.02840",
+       "z": 1.235,
        "marked": true,
        "unequal_n": true
       },
@@ -485,9 +486,9 @@
        "key": "dist[3]",
        "label": "dist k4",
        "unit": "",
-       "text": "−0.02500",
-       "spread": "0.01119",
-       "z": -2.235,
+       "text": "−0.02055",
+       "spread": "0.00823",
+       "z": -2.497,
        "marked": true,
        "unequal_n": true
       },
@@ -497,9 +498,9 @@
        "key": "td_ms",
        "label": "time offset td to base IMU",
        "unit": "ms",
-       "text": "−0.014",
-       "spread": "0.369",
-       "z": -0.037,
+       "text": "−0.020",
+       "spread": "0.370",
+       "z": -0.053,
        "marked": false,
        "unequal_n": true
       },
@@ -509,9 +510,9 @@
        "key": "lever_mm",
        "label": "distance to base IMU ‖p‖",
        "unit": "mm",
-       "text": "+12.46",
-       "spread": "2.13",
-       "z": 5.845,
+       "text": "+12.52",
+       "spread": "2.22",
+       "z": 5.652,
        "marked": true,
        "unequal_n": true
       },
@@ -521,9 +522,9 @@
        "key": "Dw[0,0]",
        "label": "gyro Dw[0,0] scale x",
        "unit": "",
-       "text": "−0.01482",
+       "text": "−0.01501",
        "spread": "0.00415",
-       "z": -3.568,
+       "z": -3.615,
        "marked": true,
        "unequal_n": true
       },
@@ -533,9 +534,9 @@
        "key": "Dw[1,1]",
        "label": "gyro Dw[1,1] scale y",
        "unit": "",
-       "text": "−0.00814",
+       "text": "−0.00830",
        "spread": "0.01401",
-       "z": -0.581,
+       "z": -0.592,
        "marked": false,
        "unequal_n": true
       },
@@ -545,9 +546,9 @@
        "key": "Dw[2,2]",
        "label": "gyro Dw[2,2] scale z",
        "unit": "",
-       "text": "−0.00101",
-       "spread": "0.00117",
-       "z": -0.865,
+       "text": "−0.00100",
+       "spread": "0.00123",
+       "z": -0.811,
        "marked": false,
        "unequal_n": true
       },
@@ -557,9 +558,9 @@
        "key": "Dw[1,0]",
        "label": "gyro Dw[1,0] cross",
        "unit": "",
-       "text": "−0.00097",
-       "spread": "0.00138",
-       "z": -0.704,
+       "text": "−0.00096",
+       "spread": "0.00142",
+       "z": -0.677,
        "marked": false,
        "unequal_n": true
       },
@@ -569,9 +570,9 @@
        "key": "Dw[2,0]",
        "label": "gyro Dw[2,0] cross",
        "unit": "",
-       "text": "+0.00125",
+       "text": "+0.00117",
        "spread": "0.00987",
-       "z": 0.127,
+       "z": 0.119,
        "marked": false,
        "unequal_n": true
       },
@@ -581,9 +582,9 @@
        "key": "Dw[2,1]",
        "label": "gyro Dw[2,1] cross",
        "unit": "",
-       "text": "−0.00142",
-       "spread": "0.00448",
-       "z": -0.317,
+       "text": "−0.00145",
+       "spread": "0.00434",
+       "z": -0.335,
        "marked": false,
        "unequal_n": true
       },
@@ -593,9 +594,9 @@
        "key": "Da[0,0]",
        "label": "accel Da[0,0] scale x",
        "unit": "",
-       "text": "−0.00573",
+       "text": "−0.00557",
        "spread": "0.00492",
-       "z": -1.166,
+       "z": -1.132,
        "marked": true,
        "unequal_n": true
       },
@@ -605,9 +606,9 @@
        "key": "Da[1,1]",
        "label": "accel Da[1,1] scale y",
        "unit": "",
-       "text": "−0.00709",
+       "text": "−0.00695",
        "spread": "0.00362",
-       "z": -1.957,
+       "z": -1.918,
        "marked": true,
        "unequal_n": true
       },
@@ -617,9 +618,9 @@
        "key": "Da[2,2]",
        "label": "accel Da[2,2] scale z",
        "unit": "",
-       "text": "−0.02471",
+       "text": "−0.02476",
        "spread": "0.00453",
-       "z": -5.45,
+       "z": -5.463,
        "marked": true,
        "unequal_n": true
       }
@@ -651,8 +652,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 173.099,
-        "h": 3.3484
+        "c": 173.08,
+        "h": 3.3275
        },
        "lanes": [
         {
@@ -660,24 +661,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 173.163,
-         "sd": 1.76153,
+         "med": 173.125,
+         "sd": 1.7501,
          "n": 4,
-         "text": "173.16",
-         "min": 171.187,
-         "max": 175.234
+         "text": "173.12",
+         "min": 171.204,
+         "max": 175.158
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 173.303,
-         "sd": 1.78039,
+         "med": 173.275,
+         "sd": 1.77464,
          "n": 4,
-         "text": "173.30",
-         "min": 171.285,
-         "max": 175.342
+         "text": "173.28",
+         "min": 171.303,
+         "max": 175.278
         },
         {
          "col": "kalibr",
@@ -712,8 +713,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 173.019,
-        "h": 3.41165
+        "c": 173.005,
+        "h": 3.39515
        },
        "lanes": [
         {
@@ -721,24 +722,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 173.011,
-         "sd": 1.66746,
+         "med": 172.981,
+         "sd": 1.65216,
          "n": 4,
-         "text": "173.01",
-         "min": 171.074,
-         "max": 174.951
+         "text": "172.98",
+         "min": 171.092,
+         "max": 174.871
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 173.15,
-         "sd": 1.68294,
+         "med": 173.128,
+         "sd": 1.67347,
          "n": 4,
-         "text": "173.15",
-         "min": 171.173,
-         "max": 175.05
+         "text": "173.13",
+         "min": 171.192,
+         "max": 174.982
         },
         {
          "col": "kalibr",
@@ -773,8 +774,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 163.527,
-        "h": 0.585839
+        "c": 163.52,
+        "h": 0.578689
        },
        "lanes": [
         {
@@ -782,24 +783,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 163.665,
-         "sd": 0.193965,
+         "med": 163.655,
+         "sd": 0.207472,
          "n": 4,
          "text": "163.66",
-         "min": 163.329,
-         "max": 163.768
+         "min": 163.289,
+         "max": 163.757
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 163.645,
-         "sd": 0.169413,
+         "med": 163.632,
+         "sd": 0.180697,
          "n": 4,
-         "text": "163.65",
-         "min": 163.354,
-         "max": 163.746
+         "text": "163.63",
+         "min": 163.319,
+         "max": 163.736
         },
         {
          "col": "kalibr",
@@ -834,8 +835,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 135.19,
-        "h": 6.36185
+        "c": 135.177,
+        "h": 6.3756
        },
        "lanes": [
         {
@@ -843,24 +844,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 135.382,
-         "sd": 2.82977,
+         "med": 135.357,
+         "sd": 2.85435,
          "n": 4,
-         "text": "135.38",
-         "min": 134.301,
-         "max": 140.509
+         "text": "135.36",
+         "min": 134.303,
+         "max": 140.541
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 135.392,
-         "sd": 2.83756,
+         "med": 135.369,
+         "sd": 2.86399,
          "n": 4,
-         "text": "135.39",
-         "min": 134.297,
-         "max": 140.522
+         "text": "135.37",
+         "min": 134.299,
+         "max": 140.559
         },
         {
          "col": "kalibr",
@@ -895,8 +896,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.0271668,
-        "h": 0.0147997
+        "c": -0.0260757,
+        "h": 0.0129163
        },
        "lanes": [
         {
@@ -904,24 +905,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.0269483,
-         "sd": 0.00896115,
+         "med": -0.0258488,
+         "sd": 0.00804165,
          "n": 4,
-         "text": "−0.02695",
-         "min": -0.0402998,
-         "max": -0.0186547
+         "text": "−0.02585",
+         "min": -0.0374632,
+         "max": -0.0187282
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.0273853,
-         "sd": 0.00891641,
+         "med": -0.0263026,
+         "sd": 0.00804761,
          "n": 4,
-         "text": "−0.02739",
-         "min": -0.0406211,
-         "max": -0.0190882
+         "text": "−0.02630",
+         "min": -0.0378178,
+         "max": -0.0191617
         },
         {
          "col": "kalibr",
@@ -956,8 +957,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.000875702,
-        "h": 0.0482146
+        "c": -0.00504729,
+        "h": 0.0470044
        },
        "lanes": [
         {
@@ -965,24 +966,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 0.000933219,
-         "sd": 0.0277771,
+         "med": -0.00509795,
+         "sd": 0.0260253,
          "n": 4,
-         "text": "0.00093",
-         "min": -0.0216271,
-         "max": 0.0446528
+         "text": "−0.00510",
+         "min": -0.0216272,
+         "max": 0.0376563
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.00106981,
-         "sd": 0.0275746,
+         "med": -0.00499663,
+         "sd": 0.0256964,
          "n": 4,
-         "text": "0.00107",
-         "min": -0.0208935,
-         "max": 0.0447072
+         "text": "−0.00500",
+         "min": -0.0209124,
+         "max": 0.037684
         },
         {
          "col": "kalibr",
@@ -1017,8 +1018,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.0128031,
-        "h": 0.0551406
+        "c": -0.0071753,
+        "h": 0.0489501
        },
        "lanes": [
         {
@@ -1026,24 +1027,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.0219897,
-         "sd": 0.0313234,
+         "med": -0.0108285,
+         "sd": 0.028884,
          "n": 4,
-         "text": "−0.02199",
-         "min": -0.055119,
-         "max": 0.019828
+         "text": "−0.01083",
+         "min": -0.0494502,
+         "max": 0.0198469
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.0217422,
-         "sd": 0.0311284,
+         "med": -0.0104867,
+         "sd": 0.0283959,
          "n": 4,
-         "text": "−0.02174",
-         "min": -0.0552075,
-         "max": 0.0188023
+         "text": "−0.01049",
+         "min": -0.0495184,
+         "max": 0.0188453
         },
         {
          "col": "kalibr",
@@ -1078,8 +1079,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.00650544,
-        "h": 0.0285343
+        "c": 0.00428359,
+        "h": 0.0260902
        },
        "lanes": [
         {
@@ -1087,24 +1088,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 0.0126237,
-         "sd": 0.0112298,
+         "med": 0.00810305,
+         "sd": 0.00847858,
          "n": 4,
-         "text": "0.01262",
-         "min": -0.00457766,
-         "max": 0.0206714
+         "text": "0.00810",
+         "min": -0.00458646,
+         "max": 0.0157373
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.0123033,
-         "sd": 0.0111872,
+         "med": 0.00785959,
+         "sd": 0.00823112,
          "n": 4,
-         "text": "0.01230",
-         "min": -0.00409177,
-         "max": 0.0210074
+         "text": "0.00786",
+         "min": -0.00410999,
+         "max": 0.0158017
         },
         {
          "col": "kalibr",
@@ -1139,8 +1140,8 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": 5.82957,
-        "h": 0.671759
+        "c": 5.83266,
+        "h": 0.685476
        },
        "lanes": [
         {
@@ -1148,24 +1149,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 5.87184,
-         "sd": 0.375631,
+         "med": 5.88135,
+         "sd": 0.37798,
          "n": 4,
-         "text": "5.872",
-         "min": 5.21888,
-         "max": 6.03611
+         "text": "5.881",
+         "min": 5.2095,
+         "max": 6.02342
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 5.83634,
-         "sd": 0.36945,
+         "med": 5.84252,
+         "sd": 0.369712,
          "n": 4,
-         "text": "5.836",
-         "min": 5.25054,
-         "max": 6.08307
+         "text": "5.843",
+         "min": 5.24516,
+         "max": 6.07427
         },
         {
          "col": "kalibr",
@@ -1199,8 +1200,8 @@
        "unit": "mm",
        "cls": "length",
        "axis": {
-        "c": 22.4631,
-        "h": 14.5585
+        "c": 22.4537,
+        "h": 14.5688
        },
        "lanes": [
         {
@@ -1208,24 +1209,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 21.5215,
-         "sd": 1.95257,
+         "med": 21.5027,
+         "sd": 2.01307,
          "n": 4,
-         "text": "21.52",
-         "min": 19.6364,
-         "max": 23.2149
+         "text": "21.50",
+         "min": 19.6504,
+         "max": 23.3111
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 21.1141,
-         "sd": 2.1313,
+         "med": 21.0481,
+         "sd": 2.21595,
          "n": 4,
-         "text": "21.11",
-         "min": 19.3447,
-         "max": 23.2895
+         "text": "21.05",
+         "min": 19.2461,
+         "max": 23.4556
         },
         {
          "col": "kalibr",
@@ -1281,12 +1282,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.99921,
-         "sd": 0.00123825,
+         "med": 0.999403,
+         "sd": 0.00118115,
          "n": 4,
-         "text": "0.99921",
-         "min": 0.997358,
-         "max": 1.00007
+         "text": "0.99940",
+         "min": 0.99755,
+         "max": 1.00014
         },
         {
          "col": "kalibr",
@@ -1336,12 +1337,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 1.00373,
-         "sd": 0.00702603,
+         "med": 1.00389,
+         "sd": 0.00710429,
          "n": 4,
-         "text": "1.00373",
-         "min": 0.98978,
-         "max": 1.00403
+         "text": "1.00389",
+         "min": 0.989823,
+         "max": 1.00429
         },
         {
          "col": "kalibr",
@@ -1391,12 +1392,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 1.00683,
-         "sd": 0.00116778,
+         "med": 1.00682,
+         "sd": 0.00123323,
          "n": 4,
-         "text": "1.00683",
-         "min": 1.00624,
-         "max": 1.00877
+         "text": "1.00682",
+         "min": 1.00625,
+         "max": 1.00891
         },
         {
          "col": "kalibr",
@@ -1430,8 +1431,8 @@
        "unit": "",
        "cls": "cross",
        "axis": {
-        "c": -0.000614024,
-        "h": 0.00393618
+        "c": -0.000621427,
+        "h": 0.00392804
        },
        "lanes": [
         {
@@ -1446,12 +1447,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.000614024,
-         "sd": 0.00137637,
+         "med": -0.000621427,
+         "sd": 0.00141998,
          "n": 4,
-         "text": "−0.00061",
-         "min": -0.00285723,
-         "max": 0.000367158
+         "text": "−0.00062",
+         "min": -0.00296613,
+         "max": 0.000346696
         },
         {
          "col": "kalibr",
@@ -1485,8 +1486,8 @@
        "unit": "",
        "cls": "cross",
        "axis": {
-        "c": -0.00356043,
-        "h": 0.0193517
+        "c": -0.0034806,
+        "h": 0.0191802
        },
        "lanes": [
         {
@@ -1501,12 +1502,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.00356043,
-         "sd": 0.009253,
+         "med": -0.0034806,
+         "sd": 0.00918519,
          "n": 4,
-         "text": "−0.00356",
-         "min": -0.00580203,
-         "max": 0.014032
+         "text": "−0.00348",
+         "min": -0.00576813,
+         "max": 0.0139559
         },
         {
          "col": "kalibr",
@@ -1540,8 +1541,8 @@
        "unit": "",
        "cls": "cross",
        "axis": {
-        "c": -0.017663,
-        "h": 0.0101174
+        "c": -0.0176278,
+        "h": 0.0100787
        },
        "lanes": [
         {
@@ -1556,12 +1557,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.017663,
-         "sd": 0.00448226,
+         "med": -0.0176278,
+         "sd": 0.00433798,
          "n": 4,
-         "text": "−0.01766",
-         "min": -0.0180792,
-         "max": -0.00884707
+         "text": "−0.01763",
+         "min": -0.0180501,
+         "max": -0.00910264
         },
         {
          "col": "kalibr",
@@ -1611,12 +1612,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.999545,
-         "sd": 0.00268333,
+         "med": 0.999376,
+         "sd": 0.00272062,
          "n": 4,
-         "text": "0.99955",
-         "min": 0.998979,
-         "max": 1.00464
+         "text": "0.99938",
+         "min": 0.998901,
+         "max": 1.0046
         },
         {
          "col": "kalibr",
@@ -1666,12 +1667,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 1.00067,
-         "sd": 0.002569,
+         "med": 1.00053,
+         "sd": 0.00252694,
          "n": 4,
-         "text": "1.00067",
-         "min": 0.996623,
-         "max": 1.00276
+         "text": "1.00053",
+         "min": 0.99661,
+         "max": 1.00266
         },
         {
          "col": "kalibr",
@@ -1721,12 +1722,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.985072,
-         "sd": 0.00317597,
+         "med": 0.985129,
+         "sd": 0.00326748,
          "n": 4,
-         "text": "0.98507",
-         "min": 0.979962,
-         "max": 0.987419
+         "text": "0.98513",
+         "min": 0.979987,
+         "max": 0.987731
         },
         {
          "col": "kalibr",
@@ -1760,8 +1761,8 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -0.499925,
-        "h": 0.295873
+        "c": -0.483225,
+        "h": 0.323812
        },
        "lanes": [
         {
@@ -1769,24 +1770,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.4855,
-         "sd": 0.172374,
+         "med": -0.4766,
+         "sd": 0.166364,
          "n": 4,
-         "text": "−0.485",
-         "min": -0.6589,
-         "max": -0.3037
+         "text": "−0.477",
+         "min": -0.6665,
+         "max": -0.3126
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.51435,
-         "sd": 0.216632,
+         "med": -0.48985,
+         "sd": 0.222278,
          "n": 4,
-         "text": "−0.514",
-         "min": -0.7689,
-         "max": -0.2385
+         "text": "−0.490",
+         "min": -0.7776,
+         "max": -0.2354
         },
         {
          "col": "kalibr",
@@ -1816,49 +1817,49 @@
      "label": "MVIS (K-IMU)",
      "cells": {
       "00": {
-       "med": -0.0610396,
-       "sd": 0.096771,
-       "text": "−0.061"
+       "med": -0.0635826,
+       "sd": 0.106774,
+       "text": "−0.064"
       },
       "01": {
-       "med": 0.0129383,
-       "sd": 0.262236,
-       "text": "0.013"
+       "med": 0.00668893,
+       "sd": 0.300302,
+       "text": "0.007"
       },
       "02": {
-       "med": 0.0813152,
-       "sd": 0.120851,
-       "text": "0.081"
+       "med": 0.0794764,
+       "sd": 0.139015,
+       "text": "0.079"
       },
       "10": {
-       "med": 0.0347671,
-       "sd": 0.0784583,
-       "text": "0.035"
+       "med": 0.0402365,
+       "sd": 0.0830423,
+       "text": "0.040"
       },
       "11": {
-       "med": -0.0516953,
-       "sd": 0.108155,
-       "text": "−0.052"
+       "med": -0.0597835,
+       "sd": 0.111573,
+       "text": "−0.060"
       },
       "12": {
-       "med": 0.172637,
-       "sd": 0.173217,
-       "text": "0.173"
+       "med": 0.189203,
+       "sd": 0.18465,
+       "text": "0.189"
       },
       "20": {
-       "med": 0.0665784,
-       "sd": 0.126456,
-       "text": "0.067"
+       "med": 0.0419839,
+       "sd": 0.12792,
+       "text": "0.042"
       },
       "21": {
-       "med": -0.0735031,
-       "sd": 0.166937,
-       "text": "−0.074"
+       "med": -0.0798313,
+       "sd": 0.156274,
+       "text": "−0.080"
       },
       "22": {
-       "med": -0.131498,
-       "sd": 0.213947,
-       "text": "−0.131"
+       "med": -0.140496,
+       "sd": 0.226692,
+       "text": "−0.140"
       }
      }
     },
@@ -1976,16 +1977,16 @@
     {
      "sensor": "Snapdragon left",
      "by_col": {
-      "calyx": "0.203",
-      "mvis": "0.203",
+      "calyx": "0.202",
+      "mvis": "0.202",
       "kalibr": "0.483"
      }
     },
     {
      "sensor": "Snapdragon right",
      "by_col": {
-      "calyx": "0.202",
-      "mvis": "0.201",
+      "calyx": "0.201",
+      "mvis": "0.200",
       "kalibr": "0.405"
      }
     }
@@ -2005,9 +2006,9 @@
        "key": "td_ms",
        "label": "time offset td to base IMU",
        "unit": "ms",
-       "text": "+0.253",
-       "spread": "4.687",
-       "z": 0.054,
+       "text": "+0.255",
+       "spread": "4.684",
+       "z": 0.055,
        "marked": false,
        "unequal_n": false
       },
@@ -2017,9 +2018,9 @@
        "key": "lever_mm",
        "label": "distance to base IMU ‖p‖",
        "unit": "mm",
-       "text": "+1.19",
+       "text": "+1.18",
        "spread": "4.71",
-       "z": 0.253,
+       "z": 0.25,
        "marked": false,
        "unequal_n": false
       },
@@ -2029,9 +2030,9 @@
        "key": "td_ms",
        "label": "time offset td to base IMU",
        "unit": "ms",
-       "text": "+0.272",
-       "spread": "4.699",
-       "z": 0.058,
+       "text": "+0.276",
+       "spread": "4.696",
+       "z": 0.059,
        "marked": false,
        "unequal_n": false
       },
@@ -2041,9 +2042,9 @@
        "key": "lever_mm",
        "label": "distance to base IMU ‖p‖",
        "unit": "mm",
-       "text": "−0.80",
+       "text": "−0.78",
        "spread": "2.97",
-       "z": -0.27,
+       "z": -0.264,
        "marked": false,
        "unequal_n": false
       },
@@ -2053,9 +2054,9 @@
        "key": "Dw[0,0]",
        "label": "gyro Dw[0,0] scale x",
        "unit": "",
-       "text": "+0.00010",
+       "text": "+0.00012",
        "spread": "0.00431",
-       "z": 0.023,
+       "z": 0.028,
        "marked": false,
        "unequal_n": false
       },
@@ -2065,9 +2066,9 @@
        "key": "Dw[1,1]",
        "label": "gyro Dw[1,1] scale y",
        "unit": "",
-       "text": "−0.00161",
+       "text": "−0.00145",
        "spread": "0.00671",
-       "z": -0.239,
+       "z": -0.216,
        "marked": false,
        "unequal_n": false
       },
@@ -2077,9 +2078,9 @@
        "key": "Dw[2,2]",
        "label": "gyro Dw[2,2] scale z",
        "unit": "",
-       "text": "−0.00019",
+       "text": "−0.00001",
        "spread": "0.00398",
-       "z": -0.048,
+       "z": -0.004,
        "marked": false,
        "unequal_n": false
       },
@@ -2089,9 +2090,9 @@
        "key": "Dw[1,0]",
        "label": "gyro Dw[1,0] cross",
        "unit": "",
-       "text": "+0.00104",
+       "text": "+0.00102",
        "spread": "0.00046",
-       "z": 2.255,
+       "z": 2.222,
        "marked": true,
        "unequal_n": false
       },
@@ -2101,9 +2102,9 @@
        "key": "Dw[2,0]",
        "label": "gyro Dw[2,0] cross",
        "unit": "",
-       "text": "−0.00098",
+       "text": "−0.00084",
        "spread": "0.00538",
-       "z": -0.183,
+       "z": -0.157,
        "marked": false,
        "unequal_n": false
       },
@@ -2113,9 +2114,9 @@
        "key": "Dw[2,1]",
        "label": "gyro Dw[2,1] cross",
        "unit": "",
-       "text": "+0.00042",
+       "text": "+0.00040",
        "spread": "0.00103",
-       "z": 0.41,
+       "z": 0.389,
        "marked": false,
        "unequal_n": false
       },
@@ -2125,9 +2126,9 @@
        "key": "Da[0,0]",
        "label": "accel Da[0,0] scale x",
        "unit": "",
-       "text": "−0.00193",
+       "text": "−0.00198",
        "spread": "0.00383",
-       "z": -0.505,
+       "z": -0.518,
        "marked": false,
        "unequal_n": false
       },
@@ -2137,9 +2138,9 @@
        "key": "Da[1,1]",
        "label": "accel Da[1,1] scale y",
        "unit": "",
-       "text": "+0.00021",
+       "text": "+0.00002",
        "spread": "0.00291",
-       "z": 0.071,
+       "z": 0.008,
        "marked": false,
        "unequal_n": false
       },
@@ -2149,9 +2150,9 @@
        "key": "Da[2,2]",
        "label": "accel Da[2,2] scale z",
        "unit": "",
-       "text": "−0.00160",
+       "text": "−0.00173",
        "spread": "0.00575",
-       "z": -0.279,
+       "z": -0.302,
        "marked": false,
        "unequal_n": false
       }
@@ -2337,9 +2338,9 @@
        "key": "fx",
        "label": "fx",
        "unit": "px",
-       "text": "−2.14",
-       "spread": "1.13",
-       "z": -1.887,
+       "text": "−2.13",
+       "spread": "1.12",
+       "z": -1.902,
        "marked": true,
        "unequal_n": false
       },
@@ -2350,8 +2351,8 @@
        "label": "fy",
        "unit": "px",
        "text": "−2.15",
-       "spread": "1.36",
-       "z": -1.59,
+       "spread": "1.33",
+       "z": -1.613,
        "marked": true,
        "unequal_n": false
       },
@@ -2361,9 +2362,9 @@
        "key": "cx",
        "label": "cx",
        "unit": "px",
-       "text": "+0.23",
+       "text": "+0.17",
        "spread": "2.74",
-       "z": 0.084,
+       "z": 0.063,
        "marked": false,
        "unequal_n": false
       },
@@ -2373,9 +2374,9 @@
        "key": "cy",
        "label": "cy",
        "unit": "px",
-       "text": "−0.07",
+       "text": "−0.12",
        "spread": "4.55",
-       "z": -0.015,
+       "z": -0.027,
        "marked": false,
        "unequal_n": false
       },
@@ -2385,9 +2386,9 @@
        "key": "dist[0]",
        "label": "dist k1",
        "unit": "",
-       "text": "+0.00353",
+       "text": "+0.00347",
        "spread": "0.00416",
-       "z": 0.85,
+       "z": 0.835,
        "marked": false,
        "unequal_n": false
       },
@@ -2397,9 +2398,9 @@
        "key": "dist[1]",
        "label": "dist k2",
        "unit": "",
-       "text": "−0.00204",
-       "spread": "0.00786",
-       "z": -0.259,
+       "text": "−0.00218",
+       "spread": "0.00848",
+       "z": -0.257,
        "marked": false,
        "unequal_n": false
       },
@@ -2409,9 +2410,9 @@
        "key": "dist[2]",
        "label": "dist k3",
        "unit": "",
-       "text": "+0.00502",
-       "spread": "0.00973",
-       "z": 0.516,
+       "text": "+0.00517",
+       "spread": "0.00978",
+       "z": 0.528,
        "marked": false,
        "unequal_n": false
       },
@@ -2421,9 +2422,9 @@
        "key": "dist[3]",
        "label": "dist k4",
        "unit": "",
-       "text": "−0.00267",
-       "spread": "0.00383",
-       "z": -0.696,
+       "text": "−0.00266",
+       "spread": "0.00364",
+       "z": -0.733,
        "marked": false,
        "unequal_n": false
       },
@@ -2433,9 +2434,9 @@
        "key": "td_ms",
        "label": "time offset td to base IMU",
        "unit": "ms",
-       "text": "−0.211",
-       "spread": "4.687",
-       "z": -0.045,
+       "text": "−0.214",
+       "spread": "4.684",
+       "z": -0.046,
        "marked": false,
        "unequal_n": false
       },
@@ -2445,9 +2446,9 @@
        "key": "lever_mm",
        "label": "distance to base IMU ‖p‖",
        "unit": "mm",
-       "text": "+1.91",
+       "text": "+1.92",
        "spread": "1.67",
-       "z": 1.139,
+       "z": 1.146,
        "marked": true,
        "unequal_n": false
       },
@@ -2459,7 +2460,7 @@
        "unit": "px",
        "text": "−1.66",
        "spread": "1.65",
-       "z": -1.007,
+       "z": -1.006,
        "marked": true,
        "unequal_n": false
       },
@@ -2469,9 +2470,9 @@
        "key": "fy",
        "label": "fy",
        "unit": "px",
-       "text": "−1.64",
+       "text": "−1.63",
        "spread": "1.65",
-       "z": -0.997,
+       "z": -0.988,
        "marked": false,
        "unequal_n": false
       },
@@ -2481,9 +2482,9 @@
        "key": "cx",
        "label": "cx",
        "unit": "px",
-       "text": "+0.36",
-       "spread": "0.23",
-       "z": 1.552,
+       "text": "+0.35",
+       "spread": "0.25",
+       "z": 1.372,
        "marked": true,
        "unequal_n": false
       },
@@ -2493,9 +2494,9 @@
        "key": "cy",
        "label": "cy",
        "unit": "px",
-       "text": "+0.06",
-       "spread": "7.26",
-       "z": 0.009,
+       "text": "+0.01",
+       "spread": "7.25",
+       "z": 0.001,
        "marked": false,
        "unequal_n": false
       },
@@ -2505,9 +2506,9 @@
        "key": "dist[0]",
        "label": "dist k1",
        "unit": "",
-       "text": "+0.00518",
-       "spread": "0.01584",
-       "z": 0.327,
+       "text": "+0.00561",
+       "spread": "0.01604",
+       "z": 0.35,
        "marked": false,
        "unequal_n": false
       },
@@ -2517,9 +2518,9 @@
        "key": "dist[1]",
        "label": "dist k2",
        "unit": "",
-       "text": "−0.00561",
-       "spread": "0.02393",
-       "z": -0.234,
+       "text": "−0.00675",
+       "spread": "0.02438",
+       "z": -0.277,
        "marked": false,
        "unequal_n": false
       },
@@ -2529,9 +2530,9 @@
        "key": "dist[2]",
        "label": "dist k3",
        "unit": "",
-       "text": "+0.00559",
-       "spread": "0.02973",
-       "z": 0.188,
+       "text": "+0.00658",
+       "spread": "0.03023",
+       "z": 0.218,
        "marked": false,
        "unequal_n": false
       },
@@ -2541,9 +2542,9 @@
        "key": "dist[3]",
        "label": "dist k4",
        "unit": "",
-       "text": "−0.00189",
-       "spread": "0.01338",
-       "z": -0.141,
+       "text": "−0.00216",
+       "spread": "0.01354",
+       "z": -0.16,
        "marked": false,
        "unequal_n": false
       },
@@ -2553,9 +2554,9 @@
        "key": "baseline_mm",
        "label": "baseline to Snapdragon left",
        "unit": "mm",
-       "text": "+0.119",
+       "text": "+0.133",
        "spread": "0.762",
-       "z": 0.156,
+       "z": 0.175,
        "marked": false,
        "unequal_n": false
       },
@@ -2565,8 +2566,8 @@
        "key": "td_ms",
        "label": "time offset td to base IMU",
        "unit": "ms",
-       "text": "−0.195",
-       "spread": "4.699",
+       "text": "−0.199",
+       "spread": "4.696",
        "z": -0.042,
        "marked": false,
        "unequal_n": false
@@ -2577,9 +2578,9 @@
        "key": "lever_mm",
        "label": "distance to base IMU ‖p‖",
        "unit": "mm",
-       "text": "+1.51",
+       "text": "+1.49",
        "spread": "2.38",
-       "z": 0.632,
+       "z": 0.626,
        "marked": false,
        "unequal_n": false
       },
@@ -2589,9 +2590,9 @@
        "key": "Dw[0,0]",
        "label": "gyro Dw[0,0] scale x",
        "unit": "",
-       "text": "−0.00054",
-       "spread": "0.00194",
-       "z": -0.278,
+       "text": "−0.00056",
+       "spread": "0.00195",
+       "z": -0.287,
        "marked": false,
        "unequal_n": false
       },
@@ -2601,9 +2602,9 @@
        "key": "Dw[1,1]",
        "label": "gyro Dw[1,1] scale y",
        "unit": "",
-       "text": "−0.00399",
+       "text": "−0.00415",
        "spread": "0.00339",
-       "z": -1.176,
+       "z": -1.223,
        "marked": true,
        "unequal_n": false
       },
@@ -2613,9 +2614,9 @@
        "key": "Dw[2,2]",
        "label": "gyro Dw[2,2] scale z",
        "unit": "",
-       "text": "−0.00390",
+       "text": "−0.00408",
        "spread": "0.00409",
-       "z": -0.955,
+       "z": -0.997,
        "marked": false,
        "unequal_n": false
       },
@@ -2625,9 +2626,9 @@
        "key": "Dw[1,0]",
        "label": "gyro Dw[1,0] cross",
        "unit": "",
-       "text": "−0.00052",
+       "text": "−0.00050",
        "spread": "0.00151",
-       "z": -0.343,
+       "z": -0.333,
        "marked": false,
        "unequal_n": false
       },
@@ -2637,9 +2638,9 @@
        "key": "Dw[2,0]",
        "label": "gyro Dw[2,0] cross",
        "unit": "",
-       "text": "−0.00192",
+       "text": "−0.00206",
        "spread": "0.00131",
-       "z": -1.463,
+       "z": -1.568,
        "marked": true,
        "unequal_n": false
       },
@@ -2649,9 +2650,9 @@
        "key": "Dw[2,1]",
        "label": "gyro Dw[2,1] cross",
        "unit": "",
-       "text": "−0.00016",
+       "text": "−0.00014",
        "spread": "0.00127",
-       "z": -0.127,
+       "z": -0.11,
        "marked": false,
        "unequal_n": false
       },
@@ -2661,9 +2662,9 @@
        "key": "Da[0,0]",
        "label": "accel Da[0,0] scale x",
        "unit": "",
-       "text": "−0.00842",
+       "text": "−0.00837",
        "spread": "0.00517",
-       "z": -1.628,
+       "z": -1.618,
        "marked": true,
        "unequal_n": false
       },
@@ -2673,9 +2674,9 @@
        "key": "Da[1,1]",
        "label": "accel Da[1,1] scale y",
        "unit": "",
-       "text": "−0.00634",
+       "text": "−0.00616",
        "spread": "0.00411",
-       "z": -1.542,
+       "z": -1.497,
        "marked": true,
        "unequal_n": false
       },
@@ -2685,9 +2686,9 @@
        "key": "Da[2,2]",
        "label": "accel Da[2,2] scale z",
        "unit": "",
-       "text": "−0.01105",
+       "text": "−0.01092",
        "spread": "0.00363",
-       "z": -3.045,
+       "z": -3.009,
        "marked": true,
        "unequal_n": false
       }
@@ -2719,8 +2720,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 277.12,
-        "h": 2.77736
+        "c": 277.115,
+        "h": 2.77131
        },
        "lanes": [
         {
@@ -2728,24 +2729,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 277.771,
-         "sd": 1.11093,
+         "med": 277.76,
+         "sd": 1.09563,
          "n": 4,
-         "text": "277.77",
-         "min": 276.304,
-         "max": 278.853
+         "text": "277.76",
+         "min": 276.298,
+         "max": 278.805
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 277.786,
-         "sd": 1.13272,
+         "med": 277.776,
+         "sd": 1.11811,
          "n": 4,
-         "text": "277.79",
-         "min": 276.288,
-         "max": 278.879
+         "text": "277.78",
+         "min": 276.281,
+         "max": 278.834
         },
         {
          "col": "kalibr",
@@ -2780,8 +2781,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 276.988,
-        "h": 2.89486
+        "c": 276.985,
+        "h": 2.89101
        },
        "lanes": [
         {
@@ -2789,24 +2790,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 277.722,
-         "sd": 1.33269,
+         "med": 277.715,
+         "sd": 1.30868,
          "n": 4,
-         "text": "277.72",
-         "min": 275.939,
-         "max": 278.98
+         "text": "277.71",
+         "min": 275.932,
+         "max": 278.902
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 277.737,
-         "sd": 1.35511,
+         "med": 277.731,
+         "sd": 1.33193,
          "n": 4,
-         "text": "277.74",
-         "min": 275.92,
-         "max": 279.004
+         "text": "277.73",
+         "min": 275.912,
+         "max": 278.928
         },
         {
          "col": "kalibr",
@@ -2841,8 +2842,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 317.899,
-        "h": 3.7796
+        "c": 317.958,
+        "h": 3.8445
        },
        "lanes": [
         {
@@ -2850,24 +2851,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 317.893,
-         "sd": 2.64324,
+         "med": 317.952,
+         "sd": 2.64749,
          "n": 4,
-         "text": "317.89",
-         "min": 314.683,
-         "max": 319.954
+         "text": "317.95",
+         "min": 314.682,
+         "max": 319.962
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 317.905,
-         "sd": 2.65413,
+         "med": 317.964,
+         "sd": 2.65843,
          "n": 4,
-         "text": "317.90",
-         "min": 314.678,
-         "max": 319.983
+         "text": "317.96",
+         "min": 314.677,
+         "max": 319.992
         },
         {
          "col": "kalibr",
@@ -2902,8 +2903,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 241.587,
-        "h": 9.80375
+        "c": 241.644,
+        "h": 9.81145
        },
        "lanes": [
         {
@@ -2911,24 +2912,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 241.588,
-         "sd": 4.56384,
+         "med": 241.645,
+         "sd": 4.5573,
          "n": 4,
-         "text": "241.59",
-         "min": 232.675,
-         "max": 242.174
+         "text": "241.65",
+         "min": 232.725,
+         "max": 242.181
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 241.587,
-         "sd": 4.55485,
+         "med": 241.644,
+         "sd": 4.54634,
          "n": 4,
-         "text": "241.59",
-         "min": 232.683,
-         "max": 242.148
+         "text": "241.64",
+         "min": 232.737,
+         "max": 242.157
         },
         {
          "col": "kalibr",
@@ -2963,8 +2964,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.0104407,
-        "h": 0.0114776
+        "c": -0.0104094,
+        "h": 0.0114431
        },
        "lanes": [
         {
@@ -2972,24 +2973,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.0111665,
-         "sd": 0.00368887,
+         "med": -0.0111088,
+         "sd": 0.00396297,
          "n": 4,
-         "text": "−0.01117",
-         "min": -0.0136323,
-         "max": -0.00502329
+         "text": "−0.01111",
+         "min": -0.0142936,
+         "max": -0.004895
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.0111606,
-         "sd": 0.00372177,
+         "med": -0.0110979,
+         "sd": 0.00400219,
          "n": 4,
-         "text": "−0.01116",
-         "min": -0.0136917,
-         "max": -0.00499206
+         "text": "−0.01110",
+         "min": -0.0143616,
+         "max": -0.00485871
         },
         {
          "col": "kalibr",
@@ -3024,8 +3025,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.0190147,
-        "h": 0.0348229
+        "c": 0.0190994,
+        "h": 0.0349161
        },
        "lanes": [
         {
@@ -3033,24 +3034,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 0.0200192,
-         "sd": 0.00785039,
+         "med": 0.020199,
+         "sd": 0.00844947,
          "n": 4,
-         "text": "0.02002",
-         "min": 0.0129342,
-         "max": 0.0270806
+         "text": "0.02020",
+         "min": 0.0128806,
+         "max": 0.028066
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.0200472,
-         "sd": 0.0078593,
+         "med": 0.0201886,
+         "sd": 0.00847668,
          "n": 4,
-         "text": "0.02005",
-         "min": 0.0128914,
-         "max": 0.0270543
+         "text": "0.02019",
+         "min": 0.0127981,
+         "max": 0.0281091
         },
         {
          "col": "kalibr",
@@ -3085,8 +3086,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.0160075,
-        "h": 0.0377137
+        "c": -0.0161014,
+        "h": 0.0378169
        },
        "lanes": [
         {
@@ -3094,24 +3095,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.0184912,
-         "sd": 0.0096895,
+         "med": -0.018679,
+         "sd": 0.00971425,
          "n": 4,
-         "text": "−0.01849",
-         "min": -0.0247354,
-         "max": -0.00464426
+         "text": "−0.01868",
+         "min": -0.0249138,
+         "max": -0.00522108
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.0185409,
-         "sd": 0.00972767,
+         "med": -0.0186905,
+         "sd": 0.00977996,
          "n": 4,
-         "text": "−0.01854",
-         "min": -0.0247515,
-         "max": -0.00460571
+         "text": "−0.01869",
+         "min": -0.0250138,
+         "max": -0.00513414
         },
         {
          "col": "kalibr",
@@ -3146,8 +3147,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.00491555,
-        "h": 0.0129259
+        "c": 0.00491361,
+        "h": 0.0129237
        },
        "lanes": [
         {
@@ -3155,24 +3156,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 0.00624738,
-         "sd": 0.00381161,
+         "med": 0.00624352,
+         "sd": 0.00360092,
          "n": 4,
-         "text": "0.00625",
-         "min": 0.000158467,
-         "max": 0.00828575
+         "text": "0.00624",
+         "min": 0.000629983,
+         "max": 0.00822402
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.006254,
-         "sd": 0.00383399,
+         "med": 0.00624801,
+         "sd": 0.00363571,
          "n": 4,
          "text": "0.00625",
-         "min": 0.000146371,
-         "max": 0.00834071
+         "min": 0.000598883,
+         "max": 0.00829126
         },
         {
          "col": "kalibr",
@@ -3207,8 +3208,8 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -10.8846,
-        "h": 6.12375
+        "c": -10.8836,
+        "h": 6.1248
        },
        "lanes": [
         {
@@ -3216,24 +3217,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -10.7939,
-         "sd": 4.70422,
+         "med": -10.792,
+         "sd": 4.70107,
          "n": 4,
-         "text": "−10.794",
-         "min": -16.3949,
-         "max": -7.28144
+         "text": "−10.792",
+         "min": -16.3905,
+         "max": -7.28141
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -10.7638,
-         "sd": 4.68738,
+         "med": -10.7614,
+         "sd": 4.68379,
          "n": 4,
-         "text": "−10.764",
-         "min": -16.3433,
-         "max": -7.29017
+         "text": "−10.761",
+         "min": -16.3389,
+         "max": -7.2906
         },
         {
          "col": "kalibr",
@@ -3267,8 +3268,8 @@
        "unit": "mm",
        "cls": "length",
        "axis": {
-        "c": 25.6116,
-        "h": 8.48155
+        "c": 25.6018,
+        "h": 8.49233
        },
        "lanes": [
         {
@@ -3276,24 +3277,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 25.6176,
-         "sd": 1.7005,
+         "med": 25.6096,
+         "sd": 1.68149,
          "n": 4,
-         "text": "25.62",
-         "min": 23.2794,
-         "max": 26.776
+         "text": "25.61",
+         "min": 23.2946,
+         "max": 26.7682
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 25.6056,
-         "sd": 1.67236,
+         "med": 25.594,
+         "sd": 1.65875,
          "n": 4,
-         "text": "25.61",
-         "min": 23.2545,
-         "max": 26.7549
+         "text": "25.59",
+         "min": 23.2539,
+         "max": 26.7457
         },
         {
          "col": "kalibr",
@@ -3333,8 +3334,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 276.176,
-        "h": 3.9776
+        "c": 276.175,
+        "h": 3.97705
        },
        "lanes": [
         {
@@ -3342,24 +3343,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 276.727,
-         "sd": 1.52354,
+         "med": 276.726,
+         "sd": 1.5245,
          "n": 4,
          "text": "276.73",
-         "min": 275.128,
-         "max": 278.152
+         "min": 275.1,
+         "max": 278.133
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 276.736,
-         "sd": 1.54599,
+         "med": 276.734,
+         "sd": 1.54734,
          "n": 4,
-         "text": "276.74",
-         "min": 275.125,
-         "max": 278.178
+         "text": "276.73",
+         "min": 275.099,
+         "max": 278.162
         },
         {
          "col": "kalibr",
@@ -3394,8 +3395,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 275.951,
-        "h": 3.5915
+        "c": 275.943,
+        "h": 3.58325
        },
        "lanes": [
         {
@@ -3403,24 +3404,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 276.542,
-         "sd": 1.59151,
+         "med": 276.527,
+         "sd": 1.58295,
          "n": 4,
-         "text": "276.54",
-         "min": 275.202,
-         "max": 278.12
+         "text": "276.53",
+         "min": 275.206,
+         "max": 278.074
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 276.558,
-         "sd": 1.61449,
+         "med": 276.544,
+         "sd": 1.60631,
          "n": 4,
-         "text": "276.56",
-         "min": 275.183,
-         "max": 278.143
+         "text": "276.54",
+         "min": 275.186,
+         "max": 278.1
         },
         {
          "col": "kalibr",
@@ -3455,8 +3456,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 314.599,
-        "h": 1.4718
+        "c": 314.607,
+        "h": 1.46245
        },
        "lanes": [
         {
@@ -3464,24 +3465,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 314.443,
-         "sd": 0.248221,
+         "med": 314.46,
+         "sd": 0.266729,
          "n": 4,
-         "text": "314.44",
-         "min": 314.005,
-         "max": 314.545
+         "text": "314.46",
+         "min": 313.975,
+         "max": 314.544
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 314.448,
-         "sd": 0.233234,
+         "med": 314.465,
+         "sd": 0.251541,
          "n": 4,
-         "text": "314.45",
-         "min": 314.036,
-         "max": 314.541
+         "text": "314.46",
+         "min": 314.006,
+         "max": 314.54
         },
         {
          "col": "kalibr",
@@ -3516,8 +3517,8 @@
        "unit": "px",
        "cls": "intr",
        "axis": {
-        "c": 235.68,
-        "h": 16.8916
+        "c": 235.706,
+        "h": 16.863
        },
        "lanes": [
         {
@@ -3525,24 +3526,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 235.648,
-         "sd": 7.25192,
+         "med": 235.7,
+         "sd": 7.23682,
          "n": 4,
-         "text": "235.65",
-         "min": 234.978,
-         "max": 249.913
+         "text": "235.70",
+         "min": 234.998,
+         "max": 249.923
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 235.649,
-         "sd": 7.26017,
+         "med": 235.701,
+         "sd": 7.24681,
          "n": 4,
-         "text": "235.65",
-         "min": 234.946,
-         "max": 249.918
+         "text": "235.70",
+         "min": 234.967,
+         "max": 249.932
         },
         {
          "col": "kalibr",
@@ -3577,8 +3578,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.00902572,
-        "h": 0.0405748
+        "c": -0.00923971,
+        "h": 0.0408102
        },
        "lanes": [
         {
@@ -3586,24 +3587,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.00931046,
-         "sd": 0.0158532,
+         "med": -0.00973844,
+         "sd": 0.0160467,
          "n": 4,
-         "text": "−0.00931",
-         "min": -0.0118863,
-         "max": 0.0214437
+         "text": "−0.00974",
+         "min": -0.0119705,
+         "max": 0.021526
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.00933041,
-         "sd": 0.0158445,
+         "med": -0.0097599,
+         "sd": 0.0160413,
          "n": 4,
-         "text": "−0.00933",
-         "min": -0.0118106,
-         "max": 0.0214448
+         "text": "−0.00976",
+         "min": -0.0118945,
+         "max": 0.0215314
         },
         {
          "col": "kalibr",
@@ -3638,8 +3639,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.0115876,
-        "h": 0.0432423
+        "c": 0.0121598,
+        "h": 0.0438717
        },
        "lanes": [
         {
@@ -3647,24 +3648,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 0.0125259,
-         "sd": 0.0239721,
+         "med": 0.013675,
+         "sd": 0.0244195,
          "n": 4,
-         "text": "0.01253",
-         "min": -0.0237543,
-         "max": 0.0339616
+         "text": "0.01367",
+         "min": -0.024224,
+         "max": 0.0343362
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.0124876,
-         "sd": 0.0239258,
+         "med": 0.013632,
+         "sd": 0.0243775,
          "n": 4,
-         "text": "0.01249",
-         "min": -0.0237489,
-         "max": 0.0338476
+         "text": "0.01363",
+         "min": -0.0242293,
+         "max": 0.0342208
         },
         {
          "col": "kalibr",
@@ -3699,8 +3700,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": -0.00627463,
-        "h": 0.0493125
+        "c": -0.00676808,
+        "h": 0.0503553
        },
        "lanes": [
         {
@@ -3708,24 +3709,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.00761255,
-         "sd": 0.0297775,
+         "med": -0.00859923,
+         "sd": 0.0302772,
          "n": 4,
-         "text": "−0.00761",
-         "min": -0.0328353,
-         "max": 0.0385549
+         "text": "−0.00860",
+         "min": -0.0333752,
+         "max": 0.0390095
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.00759642,
-         "sd": 0.0297262,
+         "med": -0.00858332,
+         "sd": 0.0302288,
          "n": 4,
-         "text": "−0.00760",
-         "min": -0.0327104,
-         "max": 0.0385397
+         "text": "−0.00858",
+         "min": -0.0332484,
+         "max": 0.0390012
         },
         {
          "col": "kalibr",
@@ -3760,8 +3761,8 @@
        "unit": "",
        "cls": "dist",
        "axis": {
-        "c": 0.00113217,
-        "h": 0.0237944
+        "c": 0.00126727,
+        "h": 0.0240416
        },
        "lanes": [
         {
@@ -3769,24 +3770,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 0.00167111,
-         "sd": 0.0134022,
+         "med": 0.00194132,
+         "sd": 0.0135582,
          "n": 4,
-         "text": "0.00167",
-         "min": -0.0204991,
-         "max": 0.0110567
+         "text": "0.00194",
+         "min": -0.0205887,
+         "max": 0.011286
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.00167406,
-         "sd": 0.0133826,
+         "med": 0.00194662,
+         "sd": 0.0135396,
          "n": 4,
-         "text": "0.00167",
-         "min": -0.0204884,
-         "max": 0.011009
+         "text": "0.00195",
+         "min": -0.0205795,
+         "max": 0.0112373
         },
         {
          "col": "kalibr",
@@ -3821,8 +3822,8 @@
        "unit": "mm",
        "cls": "length",
        "axis": {
-        "c": 79.4686,
-        "h": 1.03543
+        "c": 79.4616,
+        "h": 1.02768
        },
        "lanes": [
         {
@@ -3830,11 +3831,11 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 79.4346,
-         "sd": 0.484284,
+         "med": 79.4207,
+         "sd": 0.48561,
          "n": 4,
-         "text": "79.435",
-         "min": 78.8589,
+         "text": "79.421",
+         "min": 78.8621,
          "max": 79.9921
         },
         {
@@ -3842,12 +3843,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 79.4364,
-         "sd": 0.485502,
+         "med": 79.4223,
+         "sd": 0.486128,
          "n": 4,
-         "text": "79.436",
-         "min": 78.857,
-         "max": 79.9932
+         "text": "79.422",
+         "min": 78.8619,
+         "max": 79.9931
         },
         {
          "col": "kalibr",
@@ -3882,8 +3883,8 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -10.8925,
-        "h": 6.11501
+        "c": -10.8908,
+        "h": 6.11688
        },
        "lanes": [
         {
@@ -3891,24 +3892,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -10.8098,
-         "sd": 4.71613,
+         "med": -10.8064,
+         "sd": 4.71393,
          "n": 4,
-         "text": "−10.810",
-         "min": -16.3783,
-         "max": -7.25347
+         "text": "−10.806",
+         "min": -16.3774,
+         "max": -7.25278
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -10.7797,
-         "sd": 4.69902,
+         "med": -10.7759,
+         "sd": 4.6963,
          "n": 4,
-         "text": "−10.780",
-         "min": -16.325,
-         "max": -7.26139
+         "text": "−10.776",
+         "min": -16.3242,
+         "max": -7.26122
         },
         {
          "col": "kalibr",
@@ -3942,8 +3943,8 @@
        "unit": "mm",
        "cls": "length",
        "axis": {
-        "c": 58.379,
-        "h": 6.63971
+        "c": 58.3903,
+        "h": 6.62728
        },
        "lanes": [
         {
@@ -3951,24 +3952,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": 57.9956,
-         "sd": 1.54734,
+         "med": 58.0182,
+         "sd": 1.55769,
          "n": 4,
-         "text": "58.00",
-         "min": 57.5009,
-         "max": 60.806
+         "text": "58.02",
+         "min": 57.4954,
+         "max": 60.837
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 57.9626,
-         "sd": 1.56606,
+         "med": 57.9783,
+         "sd": 1.57484,
          "n": 4,
-         "text": "57.96",
-         "min": 57.464,
-         "max": 60.7919
+         "text": "57.98",
+         "min": 57.4834,
+         "max": 60.824
         },
         {
          "col": "kalibr",
@@ -4024,12 +4025,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 1.00405,
-         "sd": 0.00194348,
+         "med": 1.00407,
+         "sd": 0.00194922,
          "n": 4,
-         "text": "1.00405",
-         "min": 1.00286,
-         "max": 1.00734
+         "text": "1.00407",
+         "min": 1.003,
+         "max": 1.00743
         },
         {
          "col": "kalibr",
@@ -4063,8 +4064,8 @@
        "unit": "",
        "cls": "scale",
        "axis": {
-        "c": 0.997906,
-        "h": 0.00914862
+        "c": 0.998065,
+        "h": 0.00897372
        },
        "lanes": [
         {
@@ -4079,12 +4080,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.997906,
-         "sd": 0.00213422,
+         "med": 0.998065,
+         "sd": 0.00212633,
          "n": 4,
-         "text": "0.99791",
-         "min": 0.996893,
-         "max": 1.0015
+         "text": "0.99806",
+         "min": 0.997095,
+         "max": 1.00163
         },
         {
          "col": "kalibr",
@@ -4118,8 +4119,8 @@
        "unit": "",
        "cls": "scale",
        "axis": {
-        "c": 0.997922,
-        "h": 0.00878816
+        "c": 0.998097,
+        "h": 0.00898066
        },
        "lanes": [
         {
@@ -4134,12 +4135,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.997922,
-         "sd": 0.0018481,
+         "med": 0.998097,
+         "sd": 0.00180744,
          "n": 4,
-         "text": "0.99792",
-         "min": 0.996978,
-         "max": 1.00112
+         "text": "0.99810",
+         "min": 0.997006,
+         "max": 1.00114
         },
         {
          "col": "kalibr",
@@ -4189,12 +4190,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.000701196,
-         "sd": 0.000301035,
+         "med": 0.000686002,
+         "sd": 0.000317385,
          "n": 4,
-         "text": "0.00070",
-         "min": 0.000277129,
-         "max": 0.000996964
+         "text": "0.00069",
+         "min": 0.000225548,
+         "max": 0.000992293
         },
         {
          "col": "kalibr",
@@ -4228,8 +4229,8 @@
        "unit": "",
        "cls": "cross",
        "axis": {
-        "c": 0.00605514,
-        "h": 0.00937075
+        "c": 0.00619277,
+        "h": 0.00952214
        },
        "lanes": [
         {
@@ -4244,12 +4245,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.00605514,
-         "sd": 0.000851194,
+         "med": 0.00619277,
+         "sd": 0.000857152,
          "n": 4,
-         "text": "0.00606",
-         "min": 0.00461575,
-         "max": 0.00650014
+         "text": "0.00619",
+         "min": 0.00471938,
+         "max": 0.0065675
         },
         {
          "col": "kalibr",
@@ -4299,12 +4300,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.000144368,
-         "sd": 0.000753326,
+         "med": 0.000122312,
+         "sd": 0.000719738,
          "n": 4,
-         "text": "0.00014",
-         "min": -0.00106203,
-         "max": 0.000588721
+         "text": "0.00012",
+         "min": -0.00103387,
+         "max": 0.000561669
         },
         {
          "col": "kalibr",
@@ -4338,8 +4339,8 @@
        "unit": "",
        "cls": "scale",
        "axis": {
-        "c": 0.998407,
-        "h": 0.0149436
+        "c": 0.998356,
+        "h": 0.0148875
        },
        "lanes": [
         {
@@ -4354,12 +4355,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.998407,
-         "sd": 0.00172001,
+         "med": 0.998356,
+         "sd": 0.00171824,
          "n": 4,
-         "text": "0.99841",
-         "min": 0.997097,
-         "max": 1.00116
+         "text": "0.99836",
+         "min": 0.996935,
+         "max": 1.00104
         },
         {
          "col": "kalibr",
@@ -4409,12 +4410,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.999305,
-         "sd": 0.00133903,
+         "med": 0.999121,
+         "sd": 0.00138618,
          "n": 4,
-         "text": "0.99930",
-         "min": 0.997849,
-         "max": 1.00069
+         "text": "0.99912",
+         "min": 0.997699,
+         "max": 1.00057
         },
         {
          "col": "kalibr",
@@ -4448,8 +4449,8 @@
        "unit": "",
        "cls": "scale",
        "axis": {
-        "c": 0.989248,
-        "h": 0.019657
+        "c": 0.989118,
+        "h": 0.019514
        },
        "lanes": [
         {
@@ -4464,12 +4465,12 @@
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": 0.989248,
-         "sd": 0.00221126,
+         "med": 0.989118,
+         "sd": 0.00220662,
          "n": 4,
-         "text": "0.98925",
-         "min": 0.985424,
-         "max": 0.990535
+         "text": "0.98912",
+         "min": 0.985386,
+         "max": 0.990533
         },
         {
          "col": "kalibr",
@@ -4503,8 +4504,8 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": -0.8255,
-        "h": 0.23386
+        "c": -0.832875,
+        "h": 0.239277
        },
        "lanes": [
         {
@@ -4512,24 +4513,24 @@
          "tool": "MVIS",
          "label": "MVIS",
          "state": "ok",
-         "med": -0.8189,
-         "sd": 0.0969025,
+         "med": -0.8247,
+         "sd": 0.0935562,
          "n": 4,
-         "text": "−0.819",
-         "min": -0.9755,
-         "max": -0.7459
+         "text": "−0.825",
+         "min": -0.9801,
+         "max": -0.7603
         },
         {
          "col": "mvis",
          "tool": "MVIS",
          "label": "MVIS (K-IMU)",
          "state": "ok",
-         "med": -0.8321,
-         "sd": 0.124395,
+         "med": -0.84105,
+         "sd": 0.128709,
          "n": 4,
-         "text": "−0.832",
-         "min": -1.0381,
-         "max": -0.7511
+         "text": "−0.841",
+         "min": -1.0504,
+         "max": -0.7509
         },
         {
          "col": "kalibr",
@@ -4559,49 +4560,49 @@
      "label": "MVIS (K-IMU)",
      "cells": {
       "00": {
-       "med": 0.00768517,
-       "sd": 0.0824455,
-       "text": "0.008"
+       "med": -0.00139545,
+       "sd": 0.0896386,
+       "text": "−0.001"
       },
       "01": {
-       "med": -0.0885191,
-       "sd": 0.0655416,
-       "text": "−0.089"
+       "med": -0.0868979,
+       "sd": 0.0636972,
+       "text": "−0.087"
       },
       "02": {
-       "med": 0.04628,
-       "sd": 0.145631,
-       "text": "0.046"
+       "med": 0.0316475,
+       "sd": 0.156175,
+       "text": "0.032"
       },
       "10": {
-       "med": 0.162609,
-       "sd": 0.137624,
-       "text": "0.163"
+       "med": 0.163889,
+       "sd": 0.134465,
+       "text": "0.164"
       },
       "11": {
-       "med": 0.0435511,
-       "sd": 0.106921,
-       "text": "0.044"
+       "med": 0.0381914,
+       "sd": 0.110933,
+       "text": "0.038"
       },
       "12": {
-       "med": -0.074394,
-       "sd": 0.400904,
-       "text": "−0.074"
+       "med": -0.0811898,
+       "sd": 0.410166,
+       "text": "−0.081"
       },
       "20": {
-       "med": 0.0294339,
-       "sd": 0.128274,
-       "text": "0.029"
+       "med": 0.0399406,
+       "sd": 0.135566,
+       "text": "0.040"
       },
       "21": {
-       "med": 0.0221564,
-       "sd": 0.0936769,
-       "text": "0.022"
+       "med": 0.0233098,
+       "sd": 0.101594,
+       "text": "0.023"
       },
       "22": {
-       "med": 0.0572046,
-       "sd": 0.206904,
-       "text": "0.057"
+       "med": 0.0692279,
+       "sd": 0.210296,
+       "text": "0.069"
       }
      }
     },
