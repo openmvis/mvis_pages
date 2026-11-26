@@ -14221,7 +14221,7 @@ $\boldsymbol{\omega}_m$ | measured angular velocity (raw gyro reading) |
 $\mathbf{a}_m$ | measured specific force (raw accel reading) |
 ${}^{I}\boldsymbol{\omega}$ | true angular velocity of $\{I\}$, expressed in $\{I\}$ |
 ${}^{I}\mathbf{a}$ | true specific force in $\{I\}$: ${}^{I}\mathbf{a} = {}^{I}_{G}\mathbf{R}\,({}^{G}\mathbf{a}_I - {}^{G}\mathbf{g})$ |
-${}^{G}\mathbf{g}$ | gravity in $\{G\}$, $[0\ 0\ {-9.81}]^\top$ m/s² |
+${}^{G}\mathbf{g}$ | gravity in $\{G\}$, $[0\ 0\ {-g}]^\top$ m/s²; $g$ from gravity: or site:, 9.81 by default |
 $\mathbf{n}_g,\ \mathbf{n}_a$ | gyro / accel white noise (densities sigma_g, sigma_a) |
 $\mathbf{n}_{bg},\ \mathbf{n}_{ba}$ | bias random-walk noise (densities sigma_bg, sigma_ba) |
 $\mathbf{z}_{i,m}$ | pixel observation of board corner $m$ in camera $i$ |
@@ -15059,8 +15059,9 @@ integrated from the IMU readings over $\Delta_m$, in the anchor’s frame. They
 use the corrected readings: current biases, $\mathbf{D}_w$, $\mathbf{D}_a$,
 $\mathbf{T}_g$ and t_ga (see Base IMU factor).
 
-- ${}^{G}\mathbf{g} = [0,\ 0,\ -9.81]^\top$ m/s²: gravity in the global frame,
-which is gravity-aligned.
+- ${}^{G}\mathbf{g} = [0,\ 0,\ -g]^\top$ m/s²: gravity in the global frame,
+which is gravity-aligned. $g$ comes from the config’s gravity: or site:, and is
+9.81 when neither is set (see Local gravity).
 
 - A negative $\Delta_m$ is integrated backwards in time. The window follows
 the current $t_{d,i}$ and $t_{r,i}$, so it moves as they change.
@@ -15274,7 +15275,7 @@ Stage | What happens | What is estimated |
 Checks on the way:
 
 - Start values: a lever-arm start with 1σ over 5 cm starts at 0 instead. The start reports its
-gravity magnitude and scale (both should come out near 9.81 m/s² and 1) and how
+gravity magnitude and scale (both should come out near the configured $g$, 9.81 m/s² by default, and 1) and how
 sharp the time-offset minimum is.
 
 - The joint solve: Levenberg–Marquardt can stop at its damping cap far from
@@ -15563,8 +15564,8 @@ asked (an advanced start option); it then falls back to 0 when the linear fit
 cannot separate it (smallest singular value of the scaled system under 10⁻³, or
 1σ over 0.05 m/s²).
 
-- Gravity and scale: the fitted gravity should be close to 9.81 m/s² and the
-scale within 3 % of 1. A miss points at wrong intrinsics, units or stamps.
+- Gravity and scale: the fitted gravity should be within 5 % of the
+configured $g$ (gravity: or site:, 9.81 by default) and the scale within 3 % of 1. A miss points at wrong intrinsics, units or stamps.
 
 - Auxiliary IMUs: the gyro-to-gyro start needs a clear minimum (1.5 times
 sharper than the edges) and more than 10 s of overlap.
