@@ -132,46 +132,28 @@ def test_only_looper_thanks_anyone_and_it_passes_the_lint(pub):
     assert public_problems(strip_urls(thanks_html(t))) == []  # a profile id in a link is not a device id
 
 
-def test_looper_licence_is_scoped_to_hand_held(pub):
+def test_looper_data_rows_keep_the_three_groups_and_link_one_licence_row(pub):
     p = pub["sensors"]["looper-insight9"]
     assert "not hosted" not in p["header"]["foot"] and "blurred except the board" in p["header"]["foot"]
     rows = dict(p["dataset"])
     assert rows["Robot-arm data"].startswith("__HUB:community/looper-insight9/data/__")
     # arm bags on the Hub were replaced with the unblurred frames (Hub a2a09ebc, 2026-11-07)
-    assert "Normal frames" in rows["Robot-arm data"] and "blurred" not in rows["Robot-arm data"] and "CC BY 4.0, commercial use included" in rows["Robot-arm data"] and "NC" not in rows["Robot-arm data"]
-    # recordings in calibench-vi/datasets are CC BY 4.0 since 2026-11-25; the robot-arm bags and chessboard takes in the community folder are CC BY 4.0 since 2026-11-26
-    assert "__LINK__" in rows["Hand-held data"] and "CC BY 4.0" in rows["Hand-held data"] and "NC" not in rows["Hand-held data"] and p["folder"] == "looper-insight9/"
-    assert "hand-held recordings of about 66 s, CC BY 4.0" in p["header"]["foot"] and "robot-arm recordings of about 58 s, CC BY 4.0" in p["header"]["foot"]
+    assert "Normal frames" in rows["Robot-arm data"] and "blurred" not in rows["Robot-arm data"]
+    assert rows["Hand-held data"] == "__LINK__" and p["folder"] == "looper-insight9/"
     html = dataset_rows(p, "https://x")
-    assert html.count("<a href") == 4 and "<td>Licence</td>" not in html and "<td>Hosted</td>" not in html
-    assert "for the hand-held data, clip and figures" in html
+    assert "<td>Hosted</td>" not in html and html.count('href="/about/license/#') == 3
 
 
-def test_pages_whose_recording_is_in_the_main_datasets_repo_say_cc_by(pub):
-    """`folder` is a folder of calibench-vi/datasets, CC BY 4.0 since 2026-11-25. The converted GiLabs bags in the community folders are CC BY 4.0 too (user, 2026-11-25), so those pages carry one licence."""
-    for slug in ("intel-t265", "gi-ego1", "gi-ego1gs"):
-        p = pub["sensors"][slug]
-        assert p["folder"] and p["header"]["foot"].endswith("· CC BY 4.0"), slug
-        assert "<td>Licence</td><td>CC BY 4.0," in dataset_rows(p, "https://x"), slug
-        assert "NC" not in dataset_rows(p, "https://x") and "request" not in dataset_rows(p, "https://x"), slug
-
-
-def test_community_folders_opened_to_commercial_use_are_cc_by(pub):
-    """realsense-d435i, -d455, -d456, cyperstereo and robobaton-neo in calibench-vi/community are CC BY 4.0, commercial use included
-    (user, 2026-11-25)."""
-    rows = dict(pub["sensors"]["cyperstereo"]["dataset"])
-    assert rows["Licence"].startswith("CC BY 4.0, commercial use included") and rows["Data"].startswith("__HUB:community/cyperstereo/data/__")
-    neo = dict(pub["sensors"]["robobaton-neo"]["dataset"])["Data"]
-    assert neo.startswith("__HUB:community/robobaton-neo/data/__") and "CC BY 4.0, commercial use included" in neo
-    assert dict(pub["sensors"]["dibuli-prism-a4l"]["dataset"])["Licence"].startswith("CC BY 4.0, commercial use included")   # user, 2026-11-26
-    for slug in ("cyperstereo", "robobaton-neo", "dibuli-prism-a4l", "xq20", "hampo", "alg-avs115d", "alg-avs111c"):   # the last four since 2026-11-26 (user)
-        text = yaml.safe_dump(pub["sensors"][slug], allow_unicode=True)
-        assert "BY-NC" not in text and "by request" not in text, slug
-    for slug in ("realsense-d435i", "realsense-d455", "realsense-d456"):
-        p = pub["sensors"][slug]
-        data = dict(p["dataset"])["Data"]
-        assert data.startswith(f"__HUB:community/{slug}/data/__") and "CC BY 4.0, commercial use included" in data, slug
-        assert "NC" not in data and "request" not in data and p["header"]["foot"].endswith("· CC BY 4.0"), slug
+def test_device_pages_link_the_licence_and_never_state_it(pub):
+    """User, 2026-11-26: device pages point to About → License instead of stating a licence per dataset. One Licence row, a
+    link per License-page row; no licence name anywhere else in the page text."""
+    for slug, p in pub["sensors"].items():
+        rows = [b for a, b in p["dataset"] if a == "Licence"]
+        assert len(rows) == 1 and rows[0].startswith("__LICENCE:"), slug
+        text = yaml.safe_dump(p, allow_unicode=True)
+        assert not re.search(r"CC BY|commercial use|by request", text), slug
+        html = dataset_rows(p, "https://x")
+        assert "<td>Licence</td><td>see " in html and "__LICENCE" not in html, slug
 
 
 def test_looper_limits_keep_the_two_sets_apart_and_clips_follow_the_tabs(pub):
@@ -189,6 +171,5 @@ def test_looper_limits_keep_the_two_sets_apart_and_clips_follow_the_tabs(pub):
     # chessboard takes 01 to 04 hosted, blurred except the board (2026-11-07)
     assert rows["Chessboard data"].startswith("__HUB:community/looper-insight9/data/__") and "takes 01 to 04" in rows["Chessboard data"]
     assert "Everything except the board is blurred" in rows["Chessboard data"]
-    assert "CC BY 4.0, commercial use included" in rows["Chessboard data"] and "NC" not in rows["Chessboard data"]   # our own takes (user, 2026-11-26)
     text = strip_urls(yaml.safe_dump(p, allow_unicode=True))
     assert public_problems(text) == [] and "firmware" not in text.lower()

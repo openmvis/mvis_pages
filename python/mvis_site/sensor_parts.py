@@ -1,8 +1,10 @@
 """The parts of a public sensor page, one HTML fragment per section. Pure: loaded runs and page text in, markup out."""
 from __future__ import annotations
 
+import json
 import re
 
+from . import SITE
 from .geometry import baseline_mm
 from .markup import (MAP_STAGE, PARAMS, board_shape_svg, board_svg, e, each, fov_text, imu_bars, lens_svg, num, proc_html, series_tables,
                      tiles, timing_svg, vec)
@@ -172,9 +174,26 @@ def hub_links(html: str) -> str:
     return re.sub(r"__HUB:(community|datasets)/(.+?)__", link, html)
 
 
+LICENCE_ROWS = {r["id"]: r for part in ("hosted", "linked")
+                for r in json.loads((SITE / "src/data/licences.json").read_text(encoding="utf-8"))[part]}
+
+
+def licence_links(html: str) -> str:
+    """__LICENCE:<row id>[,<row id>...]__ becomes "see License", linked to those rows on About → License. Pages never state a
+    licence themselves (user, 2026-11-26); an unknown row id raises."""
+    def link(m: re.Match) -> str:
+        ids = m.group(1).split(",")
+        rows = [LICENCE_ROWS[i] for i in ids]
+        if len(rows) == 1:
+            return f'see <a href="/about/license/#{ids[0]}">License</a>'
+        return "see License: " + " · ".join(f'<a href="/about/license/#{r["id"]}">{e(r["label"].rsplit(", ", 1)[-1])}</a>' for r in rows)
+    return re.sub(r"__LICENCE:([a-z0-9,-]+)__", link, html)
+
+
 def dataset_rows(p: dict, data_url: str) -> str:
-    """Dataset table rows. A page whose own rows place __LINK__ scopes the licence itself, so the generic rows stay out."""
-    return hub_links(_dataset_rows(p, data_url))
+    """Dataset table rows, with __HUB:…__ and __LICENCE:…__ markers expanded. A folder page gets a Hosted row unless it places
+    __LINK__ itself."""
+    return licence_links(hub_links(_dataset_rows(p, data_url)))
 
 
 def _dataset_rows(p: dict, data_url: str) -> str:
@@ -182,7 +201,7 @@ def _dataset_rows(p: dict, data_url: str) -> str:
     if p.get("folder"):
         link = f"{data_url}/{p['folder']}"
         if not any("__LINK__" in b for _, b in rows):
-            rows += [["Licence", "CC BY 4.0, for the data and for this page's clip and figures"], ["Hosted", "__LINK__"]]
+            rows += [["Hosted", "__LINK__"]]
         return "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td></tr>" for a, b in rows).replace("__LINK__", f'<a href="{e(link)}">Calibench-VI, {e(p["folder"])}</a> (access by automatic approval)')
     if p.get("data_link"):
         rows.append(["Data", "__LINK__"])

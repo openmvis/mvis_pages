@@ -27,7 +27,7 @@ from .lint import process_strings, public_problems, strip_urls
 from .markup import MAP_STAGE, board_svg, e, num, reproj, vec
 from .results import expand_root, load_variant, refuse_frames
 from .sensor_header import TILE_TERMS, process_block
-from .sensor_parts import MAP_LEAD, PLOTLY_LOCAL, clip, glance, map_panel, rig_json
+from .sensor_parts import MAP_LEAD, PLOTLY_LOCAL, clip, glance, licence_links, map_panel, rig_json
 
 EX_DATA = "site/src/data/examples"
 EX_MEDIA = "site/public/media/examples"
@@ -232,7 +232,7 @@ def header(slug: str, p: dict, ev: dict | None) -> str:
     cap = f'<a href="{e(img["url"])}">{e(img["credit"])}</a>' if img.get("url") else e(img["credit"])
     ours = "<span class=ex-ours>Our rig</span>" if p.get("ours") else ""
     btns = _btn({"url": p["dataset"]["url"], "label": f'Downloads: {p["dataset"]["label"]}'}, True) + "".join(_btn(x) for x in (ev, p.get("sensor")) if x)
-    rows = "".join(f"<div class=sd-row><dt>{e(a)}</dt><dd>{e(b)}</dd></div>" for a, b in p["facts"])
+    rows = licence_links("".join(f"<div class=sd-row><dt>{e(a)}</dt><dd>{e(b)}</dd></div>" for a, b in p["facts"]))
     return (f'<div class="sd ex-sd"><div class=sd-grid><div class=sd-head><span class="sd-maker none">{ours}{e(p["maker"])}</span><h1 id="_top">{e(p["title"])}</h1>'
             f'<p class=sd-type>{e(p["card"]["rig"])}</p></div>'
             f'<figure class=sd-plate><div class=sd-frame><img src="/media/examples/{slug}/{e(img["file"])}" alt="{e(img["alt"])}" width="800" height="533"></div><figcaption>{cap}</figcaption></figure>'
