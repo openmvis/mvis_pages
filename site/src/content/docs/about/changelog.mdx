@@ -14,6 +14,68 @@ in the datasets. Notable changes come newest first.
 - **Site changes:** see the
   [site repository](https://github.com/openmvis/mvis_pages).
 
+## MVIS 0.4.1
+
+Released on 2026-11-25 ([PyPI](https://pypi.org/project/pymvis/0.4.1/),
+[Zenodo](https://doi.org/10.5281/zenodo.24541924)). The same config gives the
+same solve as on 0.4.0.
+
+- **The report names the place:** a comment after the gravity value,
+  `gravity: 9.8013   # m/s², Newark, Delaware`, gives "set in config for Newark,
+  Delaware" in the camera–IMU report, `cam_imu.json` (`gravity_place`) and
+  `mvis check`. With `site:` the site name is used, as before.
+- **Configs set the local gravity first:** the example configs, the run-log hint
+  and the agent template now start with the local `gravity:` value. Results
+  published from the old example configs were solved at 9.81, so their
+  accelerometer scale differs by 0.02–0.17 % from a re-solve.
+
+## MVIS 0.4.0
+
+Released on 2026-11-24 ([PyPI](https://pypi.org/project/pymvis/0.4.0/),
+[Zenodo](https://doi.org/10.5281/zenodo.24522452)). A config that ran on 0.3.0
+runs unchanged: without `gravity:` or `site:` the solve keeps 9.81.
+
+- **Local gravity:** `gravity:` (m/s²) or `site: {latitude_deg, altitude_m}`
+  sets the gravity of a camera–IMU solve. The accelerometer scale absorbs a
+  wrong value, so a fixed 9.81 read it 0.23 % high in Shenzhen and up to 0.30 %
+  at the equator. The value used, and its site, are in the results, the
+  calibration YAML and the report; without either key the run log warns that
+  9.81 is in use. See [Local gravity](/reference/local-gravity/).
+- **Start checks:** board and multi-camera camera–IMU runs report failed start
+  checks (gravity norm, scale) as a warning, a report line and an `init_gates`
+  block in `cam_imu.json`.
+- **Fixed:** gyro-only auxiliary IMUs applied their time offset twice (a 50 ms
+  offset came out as 0.35 ms). The report's bias values are labelled as the first
+  state's, and the bias plot shows the biases per state.
+
+## MVIS 0.3.0
+
+Released on 2026-11-22 ([PyPI](https://pypi.org/project/pymvis/0.3.0/),
+[Zenodo](https://doi.org/10.5281/zenodo.24444718)). A config that ran on 0.2.0
+runs unchanged.
+
+- **ChArUco boards** (`board_type: charuco`): chessboard corners named by ArUco
+  markers, so a board that is partly out of view is still used. `rows` and
+  `cols` count squares, and the dictionary is required. MVIS refines each corner
+  after OpenCV, whose corners sit about 0.5 px off. Needs OpenCV 4.7 or later.
+  Keys: [Configuration](/reference/configuration/#board).
+
+## MVIS 0.2.0
+
+Released on 2026-11-19 ([PyPI](https://pypi.org/project/pymvis/0.2.0/),
+[Zenodo](https://doi.org/10.5281/zenodo.24385919)). Results files gain fields;
+nothing is removed or renamed.
+
+- **ROS2 bags without ROS:** a bag folder, or one `.db3` or `.mcap` file, in both
+  modes, read with `rosbags`.
+- **Reprojection statistics:** mean, median, standard deviation, P90, P95 and
+  max per camera and overall, also for the corners within 3 px.
+- **Reports redesigned:** a Summary with the parameters per sensor, camera tabs,
+  a closed Appendix, a print view, and IMU residuals per state block. Reports
+  name the installed version.
+- **Fixed:** a camera-only solve that stops stuck is solved again from its start
+  with other damping, and `mvis verdict` grades it RED if it is still stuck.
+
 ## MVIS 0.1.0
 
 The first public release. There is no earlier public version, so the list
@@ -49,7 +111,7 @@ describes the toolbox as it ships. Released on 2026-11-15, on
   JPEG `CompressedImage`), ROS2 bags and EuRoC / ASL folders.
 - **ROS2 without ROS:** ROS2 bags (a bag folder, or one `.db3` or `.mcap` file)
   are read with the pure-Python `rosbags`, with no ROS install.
-- **Boards:** AprilGrid, chessboard and ArUco.
+- **Boards:** AprilGrid, chessboard and ArUco (ChArUco since 0.3.0).
 - **Kalibr interop:** read and write Kalibr camchains.
 - **Output:** YAML calibration files, JSON results and self-contained HTML
   reports for both modes.
