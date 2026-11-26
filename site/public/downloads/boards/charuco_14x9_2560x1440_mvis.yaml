@@ -1,0 +1,7 @@
+board:
+  board_type: charuco
+  rows: 9                     # squares (8 x 13 = 104 inner corners)
+  cols: 14
+  square_size: 0.03912        # 144 px on a 2560 x 1440 monitor where 160 px = 43.47 mm
+  marker_size: 0.02934        # 108 px
+  aruco_dict: DICT_5X5_250

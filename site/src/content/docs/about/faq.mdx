@@ -138,7 +138,7 @@ and the command are `mvis`. Full steps, including an install from source:
 **Answer:** only the ones for your board and your input.
 
 - **`apriltag`:** AprilGrid boards (the grid of square AprilTag markers).
-- **`aruco`:** ArUco boards. It installs `opencv-contrib-python`; install it in
+- **`aruco`:** ArUco and ChArUco boards (ChArUco needs OpenCV 4.7 or later). It installs `opencv-contrib-python`; install it in
   a fresh environment, because it and `opencv-python` both provide `cv2`.
 - **`ros1`:** ROS1 and ROS2 bags, through the pure-Python `rosbags` reader.
 - **`viz`:** the optional Rerun 3D viewer.
@@ -275,6 +275,10 @@ with a 3 mm prior. It is off by default; our VI-Rig runs turn it on. See
   `tag_spacing` (gap over tag size) and `tag_family`.
 - **Chessboard:** `rows` and `cols` count inner corners; check `square_size`.
 - **ArUco:** check `marker_size`, `marker_separation` and `aruco_dict`.
+- **ChArUco:** `rows` and `cols` count squares, not inner corners; check
+  `aruco_dict` against the printed board and, for boards printed with OpenCV
+  before 4.6, `charuco_legacy`. MVIS warns once when markers are found but no
+  corner comes out.
 
 Then run `mvis inspect <dataset path>` for a summary of what MVIS sees in the
 recording, and `mvis check -c config.yaml` to lint the config. MVIS detects at

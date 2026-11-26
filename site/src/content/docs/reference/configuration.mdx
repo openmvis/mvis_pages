@@ -40,16 +40,21 @@ The calibration target. Both config types use the same block.
 
 | Key | Default | For | Meaning |
 |---|---|---|---|
-| `board_type` | `chessboard` | all | `apriltag` (AprilGrid), `chessboard` or `aruco` |
-| `rows`, `cols` | `9`, `6` | all | Tag rows and columns; **inner corners** for a chessboard |
+| `board_type` | `chessboard` | all | `apriltag` (AprilGrid), `chessboard`, `aruco` or `charuco` (MVIS 0.3.0 or later) |
+| `rows`, `cols` | `9`, `6` | all | Tag rows and columns; **inner corners** for a chessboard; **squares** for a ChArUco board |
 | `tag_size` | `0.02` | apriltag | Tag edge length (m) |
 | `tag_spacing` | `0.005` | apriltag | Gap between tags. Below 1 it is a fraction of `tag_size` (Kalibr's convention); 1 or more is metres |
 | `tag_family` | `t36h11` | apriltag | AprilTag family |
-| `square_size` | `0.025` | chessboard | Square edge length (m) |
-| `marker_size` | `0.02` | aruco | Marker edge length (m) |
+| `square_size` | `0.025` | chessboard, charuco | Square edge length (m) |
+| `marker_size` | `0.02` | aruco, charuco | Marker edge length (m); on a ChArUco board smaller than `square_size` |
 | `marker_separation` | `0.005` | aruco | Gap between markers (m) |
-| `aruco_dict` | `DICT_6X6_250` | aruco | OpenCV dictionary name |
+| `aruco_dict` | `DICT_6X6_250` | aruco, charuco | OpenCV dictionary name. **Required** for a ChArUco board (no default); `dictionary` is read the same way |
+| `charuco_legacy` | `false` | charuco | `true` for boards printed with OpenCV before 4.6 with an even number of rows (another marker layout) |
+| `charuco_refine` | `true` | charuco | Refine each corner after OpenCV, whose corners sit about 0.5 px off; `false` keeps OpenCV's corners |
 | `heights_file` | none | camera–IMU | Start values for the board shape: one height per corner. The `<output>_board_shape.yaml` of an earlier camera–IMU run is a valid file. Camera-only runs do not read it |
+
+On a ChArUco board MVIS uses every corner: `corner_subsample` has nothing to thin, and other values are
+replaced by `all` with a warning. Example block: [a ChArUco board](/guides/board-setup/#example-a-charuco-board).
 
 `board.detection` holds expert settings for the multi-scale AprilTag detector.
 The defaults suit most boards; leave it out unless detection misses tags.
