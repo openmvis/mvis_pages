@@ -164,7 +164,7 @@ def test_community_folders_opened_to_commercial_use_are_cc_by(pub):
     neo = dict(pub["sensors"]["robobaton-neo"]["dataset"])["Data"]
     assert neo.startswith("__HUB:community/robobaton-neo/data/__") and "CC BY 4.0, commercial use included" in neo
     assert dict(pub["sensors"]["dibuli-prism-a4l"]["dataset"])["Licence"].startswith("CC BY 4.0, commercial use included")   # user, 2026-11-26
-    for slug in ("cyperstereo", "robobaton-neo", "dibuli-prism-a4l"):
+    for slug in ("cyperstereo", "robobaton-neo", "dibuli-prism-a4l", "xq20", "hampo", "alg-avs115d", "alg-avs111c"):   # the last four since 2026-11-26 (user)
         text = yaml.safe_dump(pub["sensors"][slug], allow_unicode=True)
         assert "BY-NC" not in text and "by request" not in text, slug
     for slug in ("realsense-d435i", "realsense-d455", "realsense-d456"):

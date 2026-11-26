@@ -294,8 +294,8 @@
     "holder": "ALG Tech (Shenzhen Aili-Light Technology)",
     "dataset": "Calibench community, alg-avs115d (recording 2)",
     "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/alg-avs115d",
-    "licence": "CC BY-NC 4.0",
-    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/"
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
    }
   },
   {
