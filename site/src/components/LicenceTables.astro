@@ -1,0 +1,69 @@
+---
+// The dataset licence tables on About → License, from the one data file src/data/licences.json.
+// part: "hosted" (every set and folder we host), "linked" (third-party sets we do not host), "history" (earlier licences).
+// Each hosted row has the anchor #<id>; other pages and the Hub link to it, so ids must not change.
+import data from '../data/licences.json';
+const { part } = Astro.props;
+const hub = (repo: string) => (repo.startsWith('calibench-vi/') ? `https://huggingface.co/datasets/${repo}` : null);
+const groups = [...new Set(data.hosted.map((r) => r.repo))];
+const page = (r: any) => r.page ?? (r.device ? `/devices/${r.device}/` : null);
+const changed = data.hosted.filter((r: any) => r.was);
+---
+
+{part === 'hosted' && (
+  <table class="lic-table">
+    <thead><tr><th>Set or folder</th><th>Licence</th><th>Owner or source</th><th>Since</th></tr></thead>
+    <tbody>
+      {groups.map((g) => (
+        <Fragment>
+          <tr class="lic-group"><th colspan="4" scope="colgroup">{hub(g) ? <a href={hub(g)}><code>{g}</code></a> : g}</th></tr>
+          {data.hosted.filter((r) => r.repo === g).map((r: any) => (
+            <tr id={r.id}>
+              <td>{page(r) ? <a href={page(r)}>{r.label}</a> : r.label}</td>
+              <td><a href={r.licence_url}>{r.licence}</a>{r.note && <Fragment>; {r.note}</Fragment>}</td>
+              <td>{r.owner}</td>
+              <td>{r.since}</td>
+            </tr>
+          ))}
+        </Fragment>
+      ))}
+    </tbody>
+  </table>
+)}
+
+{part === 'linked' && (
+  <table class="lic-table">
+    <thead><tr><th>Dataset</th><th>Licence</th><th>Source</th><th>How we use it</th></tr></thead>
+    <tbody>
+      {data.linked.map((r: any) => (
+        <tr id={r.id}>
+          <td>{r.label}</td>
+          <td>{r.licence_url ? <a href={r.licence_url}>{r.licence}</a> : r.licence}</td>
+          <td>{r.source_url ? <a href={r.source_url}>{r.source}</a> : r.source}</td>
+          <td>{r.how}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)}
+
+{part === 'history' && (
+  <table class="lic-table">
+    <thead><tr><th>Set or folder</th><th>Earlier licence</th><th>Now, since</th></tr></thead>
+    <tbody>
+      {changed.map((r: any) => (
+        <tr>
+          <td>{r.label}</td>
+          <td>{r.was.map((w: string[]) => `${w[1]} from ${w[0]}`).join('; ')}</td>
+          <td>{r.licence}, {r.since}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)}
+
+<style>
+  .lic-table { font-variant-numeric: tabular-nums; }
+  .lic-group th { text-align: left; background: var(--sl-color-gray-6); }
+  .lic-table tr:target { outline: 2px solid var(--sl-color-accent); outline-offset: -2px; }
+</style>

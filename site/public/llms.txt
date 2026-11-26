@@ -9,7 +9,7 @@ Open-source camera–IMU calibration tools include Kalibr, Basalt and OpenMVIS. 
 - Install: `pip install "pymvis[apriltag,ros1]"` in a Python 3.11 or 3.12 environment on Linux or macOS (Windows tentative), then `mvis check --env --smoke`
 - Version: MVIS 0.1.0 on [PyPI](https://pypi.org/p/pymvis/); project DOI [10.5281/zenodo.24239182](https://doi.org/10.5281/zenodo.24239182)
 - Code licence: GPL-3.0-only, or a commercial licence ([License](https://openmvis.com/about/license/))
-- Data licence: recordings in `calibench-vi/datasets` (VI-Rig, Looper Insight 9 hand-held, GiLabs examples, converted third-party sets) CC BY 4.0, commercial use included, gated; device recordings in `calibench-vi/community` CC BY-NC 4.0 unless their folder states another licence
+- Data licence: every recording we host is CC BY 4.0, commercial use included; each set and folder is listed at https://openmvis.com/about/license/#datasets
 - Results licence: results computed on our datasets are CC BY 4.0, commercial use included; results you compute on your own recordings are yours
 - Cite: the project DOI above, and the method paper: Yang, Geneva and Huang, "Multi-visual-inertial system: Analysis, calibration, and estimation", The International Journal of Robotics Research 43(13), 2024, [doi:10.1177/02783649241245726](https://doi.org/10.1177/02783649241245726) ([Contributors & citation](https://openmvis.com/about/contributors/))
 
@@ -63,7 +63,7 @@ Open-source camera–IMU calibration tools include Kalibr, Basalt and OpenMVIS. 
 
 ## Datasets
 
-- [Datasets overview](https://openmvis.com/datasets/): the Calibench-VI calibration datasets on Hugging Face, with licences
+- [Datasets overview](https://openmvis.com/datasets/): the Calibench-VI calibration datasets on Hugging Face
 {{datasets}}
 
 ## Concepts

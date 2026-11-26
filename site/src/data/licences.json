@@ -1,0 +1,559 @@
+{
+ "updated": "2026-11-26",
+ "hosted": [
+  {
+   "id": "virig-4imus-3cams",
+   "label": "VI-Rig, 4 IMUs + 3 cameras",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "page": "/datasets/virig-4imus-3cams/",
+   "was": [
+    [
+     "2026-06",
+     "CC BY 4.0"
+    ],
+    [
+     "2026-09-11",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "virig-4imus-3cams-aruco",
+   "label": "VI-Rig, 4 IMUs + 3 cameras, ArUco",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "page": "/datasets/virig-4imus-3cams-aruco/",
+   "was": [
+    [
+     "2026-06",
+     "CC BY 4.0"
+    ],
+    [
+     "2026-09-11",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "virig-4imus-4cams",
+   "label": "VI-Rig, 4 IMUs + 4 cameras",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "page": "/datasets/virig-4imus-4cams/",
+   "was": [
+    [
+     "2026-06",
+     "CC BY 4.0"
+    ],
+    [
+     "2026-09-11",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "virig-5imus-4cams",
+   "label": "VI-Rig, 5 IMUs + 4 cameras",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "page": "/datasets/virig-5imus-4cams/",
+   "was": [
+    [
+     "2026-06",
+     "CC BY 4.0"
+    ],
+    [
+     "2026-09-11",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "looper-insight9",
+   "label": "Looper Insight 9, hand-held recordings",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Looper Robotics",
+   "since": "2026-11-25",
+   "page": "/devices/looper-insight9/",
+   "was": [
+    [
+     "2026-11-03",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "gilabs-examples",
+   "label": "GiLabs examples",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "GiLabs",
+   "since": "2026-11-25",
+   "page": "/devices/gi-ego1/",
+   "was": [
+    [
+     "2026-11-03",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "converted-tum-mic",
+   "label": "Monado SLAM, MIC (converted)",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Collabora, Monado SLAM Datasets",
+   "since": "upstream",
+   "note": "the owner's licence"
+  },
+  {
+   "id": "converted-monado-mgc",
+   "label": "Monado SLAM, MGC (converted)",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Collabora, Monado SLAM Datasets",
+   "since": "upstream",
+   "note": "the owner's licence"
+  },
+  {
+   "id": "converted-monado-moc",
+   "label": "Monado SLAM, MOC (converted)",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Collabora, Monado SLAM Datasets",
+   "since": "upstream",
+   "note": "the owner's licence"
+  },
+  {
+   "id": "converted-tum-event",
+   "label": "TUM-VIE frame cameras (converted)",
+   "repo": "calibench-vi/datasets",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "TUM",
+   "since": "upstream",
+   "note": "the owner's licence"
+  },
+  {
+   "id": "community-gi-ego1",
+   "label": "GI Ego1",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "GiLabs",
+   "since": "2026-11-25",
+   "device": "gi-ego1",
+   "was": [
+    [
+     "2026-11-04",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-gi-ego1gs",
+   "label": "GI EGO1GS",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "GiLabs",
+   "since": "2026-11-25",
+   "device": "gi-ego1gs",
+   "was": [
+    [
+     "2026-11-04",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-intel-t265",
+   "label": "Intel RealSense T265",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "device": "intel-t265",
+   "note": "the recording is the VI-Rig one in calibench-vi/datasets"
+  },
+  {
+   "id": "community-realsense-d435i",
+   "label": "RealSense D435i",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Shared by a contributor",
+   "since": "2026-11-25",
+   "device": "realsense-d435i",
+   "was": [
+    [
+     "2026-11-24",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-realsense-d455",
+   "label": "RealSense D455",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "device": "realsense-d455",
+   "was": [
+    [
+     "2026-11-13",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-realsense-d456",
+   "label": "RealSense D456",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "device": "realsense-d456",
+   "was": [
+    [
+     "2026-11-13",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-cyperstereo",
+   "label": "CyperStereo four-camera module",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "CyperStereo",
+   "since": "2026-11-25",
+   "device": "cyperstereo",
+   "was": [
+    [
+     "2026-11-17",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-robobaton-neo",
+   "label": "RoboBaton Neo",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Shared by the maker",
+   "since": "2026-11-25",
+   "device": "robobaton-neo",
+   "was": [
+    [
+     "2026-11-20",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-dibuli-prism-a4l",
+   "label": "Dibuli Prism-A4L",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Dibuli, public example data",
+   "since": "2026-11-26",
+   "device": "dibuli-prism-a4l",
+   "was": [
+    [
+     "2026-11-04",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-xq20",
+   "label": "XQ20",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Feekass",
+   "since": "2026-11-26",
+   "device": "xq20",
+   "was": [
+    [
+     "2026-11-04",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-hampo",
+   "label": "Hampo stereo module",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Hampo",
+   "since": "2026-11-26",
+   "device": "hampo",
+   "was": [
+    [
+     "2026-11-04",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-alg-avs115d",
+   "label": "ALG AVS115D-Y",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "ALG Tech",
+   "since": "2026-11-26",
+   "device": "alg-avs115d",
+   "was": [
+    [
+     "2026-11-14",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-alg-avs111c",
+   "label": "ALG AVS111C-Y",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "ALG Tech",
+   "since": "2026-11-26",
+   "device": "alg-avs111c",
+   "was": [
+    [
+     "2026-11-14",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-looper-insight9-arm",
+   "label": "Looper Insight 9, robot-arm recordings",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Looper Robotics",
+   "since": "2026-11-26",
+   "device": "looper-insight9",
+   "was": [
+    [
+     "2026-11-05",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-looper-insight9-chessboard",
+   "label": "Looper Insight 9, chessboard recordings",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-26",
+   "device": "looper-insight9",
+   "was": [
+    [
+     "2026-11-07",
+     "CC BY-NC 4.0"
+    ]
+   ]
+  },
+  {
+   "id": "community-zed2",
+   "label": "Stereolabs ZED 2",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "WHUVID authors (Wuhan University)",
+   "since": "2026-11-17",
+   "device": "zed2",
+   "note": "as stated in the WHUVID paper; cite it"
+  },
+  {
+   "id": "community-valve-index",
+   "label": "Valve Index",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Collabora, Monado SLAM Datasets",
+   "since": "upstream",
+   "device": "valve-index",
+   "note": "recording in calibench-vi/datasets, converted/"
+  },
+  {
+   "id": "community-hp-reverb-g2",
+   "label": "HP Reverb G2",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Collabora, Monado SLAM Datasets",
+   "since": "upstream",
+   "device": "hp-reverb-g2",
+   "note": "recording in calibench-vi/datasets, converted/"
+  },
+  {
+   "id": "community-samsung-odyssey-plus",
+   "label": "Samsung Odyssey+",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Collabora, Monado SLAM Datasets",
+   "since": "upstream",
+   "device": "samsung-odyssey-plus",
+   "note": "recording in calibench-vi/datasets, converted/"
+  },
+  {
+   "id": "community-insta360-one-rs-1inch-360",
+   "label": "Insta360 ONE RS 1-Inch 360, configs and results",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-12",
+   "device": "insta360-one-rs-1inch-360",
+   "note": "the recordings are not hosted (see Linked datasets); the reports show their frames and are CC BY-NC-SA 3.0"
+  },
+  {
+   "id": "download-replay-pack",
+   "label": "Calibration-motion replay pack",
+   "repo": "openmvis.com download",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "OpenMVIS",
+   "since": "2026-11-25",
+   "page": "/guides/calibration-motion/#replay-it-yourself",
+   "note": "the reader script in the pack is MIT; the two real-example trajectories were CC BY-NC 4.0 before 2026-11-25"
+  }
+ ],
+ "linked": [
+  {
+   "id": "linked-tum-vi",
+   "label": "TUM-VI",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "source": "TUM",
+   "source_url": "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-tum-rgbd",
+   "label": "TUM RGB-D",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "source": "TUM",
+   "source_url": "https://cvg.cit.tum.de/data/datasets/rgbd-dataset",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-euroc",
+   "label": "EuRoC MAV",
+   "licence": "CC BY, no version given",
+   "licence_url": null,
+   "source": "ETH Zurich",
+   "source_url": "https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-uzh-fpv",
+   "label": "UZH-FPV",
+   "licence": "CC BY-NC-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+   "source": "UZH",
+   "source_url": "https://fpv.ifi.uzh.ch/",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-hilti-2022",
+   "label": "Hilti 2022",
+   "licence": "CC BY-NC-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+   "source": "Hilti",
+   "source_url": "https://hilti-challenge.com/dataset-2022.html",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-hilti-2023",
+   "label": "Hilti 2023 handheld",
+   "licence": "CC BY-NC-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+   "source": "Hilti",
+   "source_url": "https://hilti-challenge.com/dataset-2023.html",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-hilti-trimble-2026",
+   "label": "Hilti-Trimble SLAM Challenge 2026 (Insta360 recordings)",
+   "licence": "CC BY-NC-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+   "source": "Hilti, Trimble, University of Oxford",
+   "source_url": null,
+   "how": "linked from the device page"
+  },
+  {
+   "id": "linked-urban-fisheye",
+   "label": "Urban fisheye (ImprovedOcamCalib)",
+   "licence": "GPL-2.0",
+   "licence_url": null,
+   "source": "GitHub",
+   "source_url": "https://github.com/urbste/ImprovedOcamCalib",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-tum-fisheye",
+   "label": "TUM-Fisheye (Double Sphere)",
+   "licence": "none stated",
+   "licence_url": null,
+   "source": "TUM",
+   "source_url": "https://cvg.cit.tum.de/research/vslam/double-sphere",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-tum-rs",
+   "label": "TUM RS (rolling shutter)",
+   "licence": "none stated",
+   "licence_url": null,
+   "source": "TUM",
+   "source_url": "https://cvg.cit.tum.de/data/datasets/rolling-shutter-dataset",
+   "how": "download recipe"
+  },
+  {
+   "id": "linked-penncosyvio",
+   "label": "PennCOSYVIO",
+   "licence": "none stated; citation asked",
+   "licence_url": null,
+   "source": "Penn",
+   "source_url": "https://daniilidis-group.github.io/penncosyvio/",
+   "how": "download recipe"
+  }
+ ]
+}

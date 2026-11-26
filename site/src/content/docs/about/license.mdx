@@ -1,8 +1,10 @@
 ---
 title: License
-description: Licences for MVIS, the calibration results it computes, this site, the datasets and the third-party software MVIS uses.
+description: Licences for MVIS, the calibration results it computes, this site, every dataset and the third-party software MVIS uses.
 pageType: reference
 ---
+
+import LicenceTables from '../../../components/LicenceTables.astro';
 
 Use this page to see what you may do with MVIS, its results, this site and our
 datasets. Each part has its own licence.
@@ -12,8 +14,7 @@ datasets. Each part has its own licence.
 | MVIS toolbox | GPL-3.0-only, or a commercial licence |
 | Calibration results | yours on your own recordings; CC BY 4.0 on our datasets, commercial use included |
 | This site | code GPL-3.0-only; text and figures CC BY 4.0, except third-party clips, product photos and the replay pack |
-| Recordings in `calibench-vi/datasets` (VI-Rig, Looper, GiLabs, converted third-party sets) | CC BY 4.0, commercial use included; gated |
-| Device recordings in `calibench-vi/community` | each folder's own licence: CC BY 4.0, commercial use included, unless the folder says otherwise |
+| Datasets | every recording we host is CC BY 4.0, commercial use included; the full list, set by set, is under [Datasets](#datasets) |
 | Third-party software | its own licence |
 
 ## MVIS toolbox
@@ -39,8 +40,7 @@ The GPL covers the MVIS code, not what it computes.
   You may publish them anywhere, including on commercial product pages, without
   a commercial licence.
 - **Our datasets:** results computed on the recordings we host (parameters,
-  metrics, plots, reports) are CC BY 4.0, commercial use included, also where
-  the recording itself is CC BY-NC 4.0. Our published results are in
+  metrics, plots, reports) are CC BY 4.0, commercial use included. Our published results are in
   [`calibench-vi/results`](https://huggingface.co/datasets/calibench-vi/results).
 - **Third-party datasets:** results you compute are yours; results that the
   owner publishes, such as UZH-FPV's own Kalibr files, keep the owner's licence.
@@ -64,16 +64,9 @@ The site repository is
 
 Exceptions, which keep their own terms:
 
-- **Third-party dataset clips and figures.** Clips and figures on the homepage,
-  the example pages and the device pages that are made from a third-party
-  recording carry that recording's licence, stated on the page:
-  [TUM-VI](/benchmark/examples/tum-vi/) CC BY 4.0,
-  [Monado MSD](/benchmark/examples/monado/) CC BY 4.0,
-  [UZH-FPV](/benchmark/examples/uzh-fpv/) CC BY-NC-SA 3.0,
-  [VI-Rig](/datasets/), the hand-held
-  [Looper](/benchmark/examples/looper-insight9/) recordings and the GiLabs
-  examples CC BY 4.0, recordings from a community folder CC BY 4.0 unless the
-  device page says otherwise.
+- **Clips and figures made from a recording.** Clips and figures on the homepage,
+  the example pages and the device pages carry the licence of the recording
+  they are made from. Every recording is listed under [Datasets](#datasets).
 - **Product photos** on the device pages belong to their makers. Each is
   credited with a link to its source and is not covered by this licence.
 - **The replay pack** on [Record the dataset](/guides/calibration-motion/#replay-it-yourself)
@@ -87,41 +80,60 @@ contact@openmvis.com.
 
 ## Datasets
 
-All datasets are in the [Calibench-VI](https://huggingface.co/calibench-vi)
-organisation on Hugging Face. The licence is set per dataset; see
-[Datasets](/datasets/) and the
-[dataset card](https://huggingface.co/datasets/calibench-vi/datasets).
+This is the one list of dataset licences for OpenMVIS and
+[Calibench-VI](https://huggingface.co/calibench-vi). Other pages and the
+dataset cards on Hugging Face point here.
 
-- **Recordings in `calibench-vi/datasets`:** everything hosted in this
-  repository is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
-  commercial use included. That covers our own VI-Rig captures
-  (`virig-4imus-3cams`, `virig-4imus-3cams-aruco`, `virig-4imus-4cams`,
-  `virig-5imus-4cams`), the partner sets `looper-insight9` and
-  `gilabs-examples`, and the sets under `converted/`. The partner sets are
-  shared under CC BY 4.0 with the partners' agreement. Use, share and adapt
-  everything here for any purpose with attribution: cite Calibench-VI and the
-  sources, and please acknowledge Looper Robotics and GiLabs for their
-  recordings.
-- **Access is gated:** accept the terms on the Hub once, then download. The gate
-  adds no restriction.
-- **Since 2026-11-25:** from 2026-09-11 to 2026-11-25 the VI-Rig captures, and
-  from 2026-11-03 `looper-insight9` and `gilabs-examples`, were CC BY-NC 4.0. A
-  copy downloaded then may now be used under CC BY 4.0 as well.
-- **Converted third-party sets:** the calibration recordings under `converted/`
-  (Monado SLAM datasets MIC, MGC and MOC, and the TUM-VIE frame cameras) stay
-  under their original [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
-  commercial use included. Each bag carries a `.provenance.json` with its source
-  address. Cite the original dataset.
-- **Other third-party datasets:** we do not re-host them. `mvis datasets` and the
-  recipes on the dataset card download them from their owners, under the owners'
-  terms. TUM-VI, for example, is CC BY 4.0.
-- **Community device recordings:** recordings in
-  [`calibench-vi/community`](https://huggingface.co/datasets/calibench-vi/community)
-  keep each folder's own licence: CC BY 4.0, commercial use included, unless the
-  folder says otherwise. The XQ20, Hampo, ALG, Dibuli and Looper
-  recordings there were CC BY-NC 4.0 until 2026-11-26.
-  Results made from them are CC BY 4.0 (see Calibration results above). See
-  [Submit a dataset](/contribute/submit-dataset/).
+- **Every recording we host is
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), commercial use
+  included.** Use, share and adapt it for any purpose with attribution: cite
+  Calibench-VI and name the owner or source in the table.
+- **Not hosted:** third-party sets we only link to keep their owners' licences,
+  listed under [Linked datasets](#linked-datasets).
+- **Last change:** 2026-11-26.
+
+### Hosted recordings
+
+<LicenceTables part="hosted" />
+
+- **Converted third-party sets:** the bags under `converted/` are calibration
+  recordings from sets whose licence allows sharing them again. Each bag
+  carries a `.provenance.json` with its source address. Cite the original
+  dataset.
+- **Partner and maker recordings:** please acknowledge the owner named in the
+  table, for example Looper Robotics and GiLabs for their recordings.
+- **Results** computed on any of these are CC BY 4.0 (see
+  [Calibration results](#calibration-results)).
+
+### Linked datasets
+
+We do not re-host these sets. `mvis datasets` and the recipes on the dataset
+card download them from their owners, under the owners' terms. Cite the
+original authors.
+
+<LicenceTables part="linked" />
+
+The licences in this table are as their owners state them; check the source
+before you rely on one.
+
+### Access
+
+Both Hugging Face repositories ask you to log in and fill in a short form once
+(name, affiliation, intended use). Access is granted at once. The form adds no
+restriction to the licence.
+
+### Licence history
+
+Some recordings had another licence before. A copy downloaded in an earlier
+period may be used under the current licence as well.
+
+<LicenceTables part="history" />
+
+### New datasets
+
+A recording that we host for you is published under CC BY 4.0. Data that must
+stay under another licence stays where it is, and we add a download recipe.
+See [Submit a dataset](/contribute/submit-dataset/).
 
 ## Third-party software
 
@@ -165,6 +177,9 @@ How to cite MVIS, the benchmark and the datasets:
 [Contributors & citation](/about/contributors/).
 
 :::note[Not legal advice]
-This page summarises the licences for orientation. The licence files in each
-repository, and the dataset card on Hugging Face, are what govern use.
+This page lists the licences. The licence file or notice shipped with a copy
+(the licence files in each repository, a dataset card, a folder README, a
+pack README) governs that copy. Where this page is more permissive than an
+older notice, the licence history above applies. If the two disagree in any
+other way, write to contact@openmvis.com.
 :::
