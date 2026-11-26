@@ -59,6 +59,7 @@ def test_pages_point_to_the_list_and_state_no_old_default():
         text = (docs / rel).read_text(encoding="utf-8")
         assert "/about/license/#datasets" in text and "BY-NC 4.0" not in text, rel
     assert "about/license/#datasets" in (SITE / "public/llms.txt").read_text(encoding="utf-8")
+    assert "BY-NC 4.0" not in (docs / "about/changelog.mdx").read_text(encoding="utf-8")   # no earlier licences (user, 2026-11-26)
 
 
 def test_hub_community_card_source_agrees():
