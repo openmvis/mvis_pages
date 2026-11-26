@@ -56,8 +56,8 @@ The start-value step runs simple fits before the joint solve and checks them:
   asked (an advanced start option); it then falls back to 0 when the linear fit
   cannot separate it (smallest singular value of the scaled system under 10⁻³, or
   1σ over 0.05 m/s²).
-- **Gravity and scale:** the fitted gravity should be close to 9.81 m/s² and the
-  scale within 3 % of 1. A miss points at wrong intrinsics, units or stamps.
+- **Gravity and scale:** the fitted gravity should be within 5 % of the
+  configured $g$ (`gravity:` or `site:`, 9.81 by default) and the scale within 3 % of 1. A miss points at wrong intrinsics, units or stamps.
 - **Auxiliary IMUs:** the gyro-to-gyro start needs a clear minimum (1.5 times
   sharper than the edges) and more than 10 s of overlap.
 
