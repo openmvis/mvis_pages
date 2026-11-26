@@ -238,7 +238,7 @@ sensors:
       - [Recording, "1 recording, 77 s, hand-held. 386 frames at 5 Hz, IMU at 200 Hz"]
       - [Format, "EuRoC mav0: PNG and IMU CSV, written by the module's capture tool"]
       - [Board, "AprilGrid, 6×6 tags of 25 mm, spacing 0.3, shown on a monitor"]
-      - [Data, "__HUB:community/robobaton-neo/data/__. The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY-NC 4.0, for the data, clip and figures; commercial use by request"]
+      - [Data, "__HUB:community/robobaton-neo/data/__. The recording as a ROS1 bag: every frame unchanged, the IMU rows of the camera window. Recorded by RoboBaton with the module's capture tool. CC BY 4.0, commercial use included, for the data, clip and figures"]
       - [Configs and results, "__HUB:community/robobaton-neo/__"]
     method: Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera
       solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the
@@ -574,7 +574,7 @@ sensors:
       - [Recordings, "1 recording, 39.5 s, hand-held. 593 frames per camera, 7,893 IMU samples"]
       - [Format, ROS1 bag]
       - [Board, "AprilGrid 6×6, tag 55 mm, spacing 0.3"]
-      - [Licence, "CC BY-NC 4.0, for the recording, clip and figures"]
+      - [Licence, "CC BY 4.0, commercial use included, for the recording, clip and figures"]
       - [Data, "__HUB:community/cyperstereo/data/__. The maker's bag, unchanged (cyperstereo_imu_calibra2.bag, 9.3 GB), normal frames; hosted with Tujian's agreement. Recorded by Tujian"]
       - [Configs and results, "__HUB:community/cyperstereo/__. The configs, the starting calibration and this page's results; the configs read the recording in data/"]
     method: "All four cameras and the IMU together. Camera intrinsics (Kannala–Brandt kb4) from four single-camera solves of the same recording, then held fixed; IMU scale and misalignment, gyro-to-accel offset t_ga and camera time offsets estimated. IMU noise from the BMI088 datasheet, about 2.5× wider. Solved 2026-11-15."

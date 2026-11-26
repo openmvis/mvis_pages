@@ -254,7 +254,8 @@
     "holder": "CyperStereo (Shenzhen Tujian Intelligent Technology)",
     "dataset": "the maker's fixed recording; MVIS configs and results on Calibench community",
     "url": "https://huggingface.co/datasets/calibench-vi/community/tree/main/cyperstereo",
-    "terms": "the maker's recording, not hosted; no licence granted yet"
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/"
    }
   },
   {
