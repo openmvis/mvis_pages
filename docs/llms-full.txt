@@ -18219,7 +18219,7 @@ Changelog.
 Item | Status |
 pip install pymvis from PyPI | done: pypi.org/p/pymvis, 0.4.1 since 2026-11-25 |
 Public code repository | done: github.com/openmvis/openmvis |
-Single-IMU rigs (one or more cameras + one IMU) | done: see Single-IMU rigs below |
+One camera + one IMU | done: see Single-IMU rigs below |
 ChArUco boards | done in 0.3.0 |
 Local gravity (gravity: or site:) | done in 0.4.0 |
 omni_radtan | experimental |
@@ -18229,9 +18229,9 @@ Python 3.13 | blocked upstream: the NumPy 1.x that GTSAM 4.2 needs has no 3.13 w
 
 ## Single-IMU rigs
 
-Most rigs have one IMU, and MVIS calibrates them: one or more cameras with one
-IMU, in one solve. We recommend trying MVIS on such a rig, also if you use
-Kalibr today. Besides the camera–IMU extrinsics and time offset, MVIS estimates:
+The most common rig is one camera with one IMU, and MVIS calibrates it, as well
+as several cameras with one IMU. We recommend trying MVIS on a one-camera,
+one-IMU rig, also if you use Kalibr today. Besides the camera–IMU extrinsics and time offset, MVIS estimates:
 
 - Rolling-shutter readout, on one camera or several.
 
