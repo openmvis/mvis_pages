@@ -243,7 +243,7 @@ def write_uzh(root: Path) -> Path:
     note = "All tools use each bag's IMU weights from UZH's Kalibr residuals."
     (root / "three_way/three_way_comparison_stats.json").write_text(json.dumps(
         {"about": "x", "families": {"UD": {"caveat": f"{note} Davis caveat."}, "US": {"caveat": f"Snap {note}"}}}))
-    hub = root / "hub_stage/2026-11-04"
+    hub = root / "hub_stage/2026-11-26"
     (hub / "configs").mkdir(parents=True)
     weights = {j: {"sigma_g": 1.5e-3 * (i + 1), "sigma_a": 2.5e-2} for i, j in enumerate(UZH_JOBS)}
     weights["other_bag"] = {"sigma_g": 1, "sigma_a": 1}

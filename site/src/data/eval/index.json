@@ -559,8 +559,8 @@
   {
    "label": "UZH-FPV",
    "link": "/benchmark/results/uzh-fpv/",
-   "batch": "2026-11-04",
-   "note": "Separate study (batch 2026-11-04): no repeatability cells on the current schema, so it has no row here."
+   "batch": "2026-11-26",
+   "note": "Separate study (batch 2026-11-26): no repeatability cells on the current schema, so it has no row here."
   }
  ]
 }

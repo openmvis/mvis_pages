@@ -347,7 +347,7 @@ def test_uzh_rows_write_records_and_use_the_uzh_read_first(tmp_path):
     root = F.write_uzh(tmp_path / "uzh")
     stats = json.loads((root / "three_way/three_way_comparison_stats.json").read_text())
     out = S.uzh_rows(lb, L.without_repeated_weights_note(L.rekey(stats)), tmp_path / "rec")
-    assert json.loads((tmp_path / "rec/families.json").read_text())["batch"] == "2026-11-04"
+    assert json.loads((tmp_path / "rec/families.json").read_text())["batch"] == "2026-11-26"
     assert set(out["families"]) == {"DAVIS", "SNAP"}
     assert out["families"]["DAVIS"]["read_first"].startswith("All three tools use each bag's IMU weights")
     assert out["families"]["DAVIS"]["notes"][0][0] == "Like for like"
