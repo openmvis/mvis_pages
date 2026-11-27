@@ -304,6 +304,93 @@ sensors:
           v: USB-C network stream, UART; EuRoC mav0 from the capture tool
           tag: maker
           src: https://hessian-matrix.github.io/RoboBaton_Neo_docs/
+  astra-s56:
+    group: cameras
+    key: astra-s56
+    title: SENSING Astra S56
+    description: Wide-angle global-shutter stereo camera with a 400 Hz IMU, calibrated with MVIS as one camera + IMU
+      on an AprilGrid recording from the maker.
+    lead: Wide-angle stereo camera from SENSING TECH with two 5 MP global-shutter sensors and a 6-axis IMU, on a
+      GMSL2 link. One recording from the maker in front of a lit AprilGrid in a dark room, with one of the two
+      cameras, solved as camera + IMU. These are first results; the stereo pair is not calibrated yet.
+    run_labels:
+      - Recording 1
+    card:
+      name: Astra S56
+      maker: SENSING TECH
+      tags:
+        - Global shutter
+        - 1 camera
+        - 400 Hz IMU
+    components:   # the maker has not published the image sensor or the IMU chip; one of the two cameras is calibrated
+      cameras:
+        - {count: 1}
+      imus:
+        - {count: 1}
+    hardware:
+      - [Maker, "SENSING TECH (Shenzhen)", Maker]
+      - [Cameras, "2 × 5 MP global shutter, 2560 × 1984 at 30 fps", Maker]
+      - [Images in the recording, "1 camera, 2560 × 1984 colour at 20 Hz, JPEG", Measured]
+      - [Shutter, "Global", Maker]
+      - [Lens, "Wide angle, 130° or 140° horizontal by variant (S56, S56x)", Maker]
+      - [IMU, "6-axis, gyro and accelerometer at 400 Hz", Measured]
+      - [IMU chip, "Not published", Maker]
+      - [Link, "GMSL2", Maker]
+    dataset:
+      - [Recording, "1 recording, 58 s. 1169 frames at 20 Hz, IMU at 400 Hz"]
+      - [Format, "ROS 1 bag: JPEG images and IMU"]
+      - [Board, "AprilGrid, 6×6 tags, lit, in a dark room. Tag size 88 mm and spacing 0.3 assumed"]
+      - [Data, "__HUB:community/astra-s56/data/__. The maker's ROS1 bag, unchanged. Recorded by SENSING TECH."]
+      - [Configs and results, "__HUB:community/astra-s56/__"]
+      - [Licence, "__LICENCE:community-astra-s56__"]
+    method: Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera
+      solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the
+      gyro-to-accel offset t_ga estimated. Every board corner is used. IMU noise is the noise measured at rest in
+      the recording times 2.5. Gravity is the local value of Shenzhen, 9.788 m/s². Solved 2026-11-25.
+    limits:
+      - "First results from one recording. There is no second recording, no maker calibration and no round-trip check to compare with yet."
+      - "The recording holds one of the two cameras, so the stereo extrinsics and the baseline are not calibrated."
+      - "The tag size, 88 mm, is assumed: the maker has not given the board size. The metric scale from the IMU agrees with it to about 0.1 %. It scales the lever arm."
+      - "The images are JPEG-compressed, which can shift detected corners slightly."
+      - "The recording site is assumed to be Shenzhen, the maker's city."
+    header:
+      type: "Stereo camera: wide-angle global-shutter cameras with a 400 Hz IMU"
+      maker:
+        name: SENSING TECH
+        url: https://www.sensing-world.com/en/
+      links:
+        product: https://www.sensing-world.com/en/h-col-132.html
+        product_label: SENSING stereo cameras
+      image:
+        kind: photo
+        file: astra-s56.jpg
+        alt: Placeholder for the Astra S56 photo
+        credit: "Placeholder: photo pending"
+        url: https://www.sensing-world.com/en/h-col-132.html
+      foot: Maker values from the SENSING product pages, read 2026-11-20 · 1 recording, 58 s
+      key_specs:
+        cameras:
+          v: "1 of 2 recorded: 2560 × 1984 at 20 Hz"
+          tag: measured
+        shutter:
+          v: Global
+          tag: maker
+          src: https://www.sensing-world.com/en/h-col-132.html
+        fov:
+          auto: fov
+          also:
+            v: 130° or 140° horizontal
+            tag: maker
+            src: https://www.sensing-world.com/en/h-col-132.html
+        baseline:
+          auto: baseline
+        imu:
+          v: 400 Hz
+          tag: measured
+        output:
+          v: GMSL2; ROS 1 bag in the recording
+          tag: maker
+          src: https://www.sensing-world.com/en/h-col-132.html
   zed2:
     group: cameras
     key: zed2

@@ -183,6 +183,16 @@
    "device": "robobaton-neo"
   },
   {
+   "id": "community-astra-s56",
+   "label": "SENSING Astra S56",
+   "repo": "calibench-vi/community",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "owner": "Shared by the maker",
+   "since": "2026-11-27",
+   "device": "astra-s56"
+  },
+  {
    "id": "community-dibuli-prism-a4l",
    "label": "Dibuli Prism-A4L",
    "repo": "calibench-vi/community",

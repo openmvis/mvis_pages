@@ -25,6 +25,11 @@
   "group": "Tracking modules"
  },
  {
+  "label": "SENSING Astra S56",
+  "link": "/devices/astra-s56/",
+  "group": "Tracking modules"
+ },
+ {
   "label": "Stereolabs ZED 2",
   "link": "/devices/zed2/",
   "group": "Tracking modules"
