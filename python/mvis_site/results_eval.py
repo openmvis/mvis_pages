@@ -11,7 +11,7 @@ Inputs
   boards  {dataset id: rendered board HTML} (board.json, uzh_fpv.json): the ◆ tallies must equal the board's
 
 A leaderboard page may also hold study families (public_results.yaml `extra`): separate runs fed by a --study stats
-file, appended after the batch families and kept off the Leaderboard (extra_families).
+file, appended after the batch families and kept off the Leaderboard (dataset(), outside()).
 
 No total, rank or score is computed. Rows keep record order (sensor, then parameter), never a value order.
 Rotation rows are not shown (none in the records; they wait for a user OK).

@@ -24,7 +24,7 @@
  },
  "reading": [
   "<b>Runs.</b> We ran MVIS 0.4.1 (development version of 2026-11-26) on all 16 recordings, and Kalibr and Basalt on the 8 camera-only recordings, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026. That Kalibr run uses its scale-misalignment IMU model, with a change that starts its spline from both cameras.",
-  "<b>Accelerometer scale.</b> On the camera + IMU recordings MVIS and Kalibr give an accelerometer scale of 1.055 to 1.066 on the three axes, and Basalt 1.017 to 1.024. We haven't established why the tools differ.",
+  "<b>Accelerometer scale.</b> On the camera + IMU recordings MVIS and Kalibr give a median accelerometer scale of 1.055 to 1.066 on the three axes, and Basalt 1.017 to 1.024. We haven't established why the tools differ.",
   "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
  ],
  "no_repeatability": "This study has no repeatability cells: they are computed for the leaderboard batch only. Each tool's spread over the 8 recordings of a family is in Parameters by sensor.",

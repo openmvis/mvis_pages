@@ -4959,7 +4959,7 @@
     {
      "tool": "Kalibr",
      "n": 4,
-     "text": "Its IMU scales are far from 1 on every recording: gyro scale 1.2 to 12, accelerometer scale z 1.3 to 7860."
+     "text": "Its IMU scales are far from 1 on every recording: gyro scale 1.2 to 12, accelerometer scale z 1.2 to 7860."
     }
    ],
    "notes": [

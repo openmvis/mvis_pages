@@ -230,7 +230,7 @@ datasets:
       MIC: "MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt estimates gravity in these runs."
     reading:
       - "<b>Runs.</b> We ran MVIS 0.4.1 (development version of 2026-11-26) on all 16 recordings, and Kalibr and Basalt on the 8 camera-only recordings, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026. That Kalibr run uses its scale-misalignment IMU model, with a change that starts its spline from both cameras."
-      - "<b>Accelerometer scale.</b> On the camera + IMU recordings MVIS and Kalibr give an accelerometer scale of 1.055 to 1.066 on the three axes, and Basalt 1.017 to 1.024. We haven't established why the tools differ."
+      - "<b>Accelerometer scale.</b> On the camera + IMU recordings MVIS and Kalibr give a median accelerometer scale of 1.055 to 1.066 on the three axes, and Basalt 1.017 to 1.024. We haven't established why the tools differ."
       - "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
     axis_centre: MVIS          # each chart is centred on the MVIS median, so another tool's poor solves do not move it
     reference:    # chart centre per parameter: the Monado authors' Basalt calibration of this headset (public, CC BY 4.0)
@@ -308,7 +308,7 @@ datasets:
       MGC02:
         Kalibr:
           n: 4
-          text: "Its IMU scales are far from 1 on every recording: gyro scale 1.2 to 12, accelerometer scale z 1.3 to 7860."
+          text: "Its IMU scales are far from 1 on every recording: gyro scale 1.2 to 12, accelerometer scale z 1.2 to 7860."
       MGC13:
         Kalibr:
           n: 4
