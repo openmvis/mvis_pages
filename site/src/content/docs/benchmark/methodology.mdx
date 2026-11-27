@@ -34,8 +34,13 @@ So a local run and a published entry measure the same thing.
   sd is the standard deviation; n is the number of recordings.
   The whisker runs from the lowest to the highest value, the box is median ± sd and the tick is the median.
   A hollow box is an input, a hatched one another model (printed, not drawn), a dashed one no value.
-- **Two MVIS lanes** on camera + IMU families: MVIS ran twice per recording, with its default IMU model ("MVIS")
-  and with Kalibr's IMU model ("MVIS (K-IMU)"), so the IMU terms of the second mean the same thing as Kalibr's.
+- **One MVIS lane:** for a fair comparison, MVIS is run on camera + IMU families with Kalibr's IMU model, so its
+  gyro and accel terms mean the same as Kalibr's. MVIS still estimates t_ga, the gyro–accel delay, and refines the
+  camera intrinsics.
+  - This is not the default IMU model of MVIS. The record files name this run "MVIS (Kalibr IMU model)"; they also
+    hold the default-model run, as "MVIS".
+  - A family with no such run shows the default-model run, and says so under Coverage
+    ([VI-Rig 5 IMUs + 4 cams](/benchmark/results/virig-5imus-4cams/)).
 - **Not on the pages:** rotations (the records do not hold them yet), per-row difference tables and run configs.
 - **No totals:** nothing is added up across cells, families or datasets, so there is no score or rank.
   A single number would encode a judgement about which parameters matter.
@@ -104,8 +109,6 @@ Notes on the test:
   Data settings differ on T6, T7 and T8.
 - **Recording counts:** these differ per tool on some families, so a difference can mix recording sets.
   Each lane prints its n, and Coverage gives n of N per tool.
-- **IMU model:** the MVIS default fills fewer rows: its gyro and accel scale and cross-axis lanes say "no value".
-  The MVIS (K-IMU) lane fills them, and the Leaderboard uses it on camera + IMU families.
 
 ## Configs
 

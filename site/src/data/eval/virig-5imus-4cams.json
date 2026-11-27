@@ -65,6 +65,7 @@
     }
    ],
    "read_first": "MVIS only: Kalibr and Basalt were not run on this set, so nothing is compared. The spread shows how much MVIS repeats over the 7 recordings, not that it is right.",
+   "poor": [],
    "notes": [
     [
      "Basalt not run",
@@ -2589,7 +2590,8 @@
     }
    ],
    "model_terms": [],
-   "has_tga": true
+   "has_tga": true,
+   "imu_model": "default"
   },
   {
    "id": "V5c",
@@ -2624,6 +2626,7 @@
     }
    ],
    "read_first": "MVIS only: Kalibr and Basalt were not run on this set, so nothing is compared. The spread shows how much MVIS repeats over the 7 recordings, not that it is right.",
+   "poor": [],
    "notes": [
     [
      "Basalt not run",

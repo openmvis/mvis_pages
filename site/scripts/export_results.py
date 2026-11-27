@@ -3,7 +3,12 @@ the Results sidebar (results-nav.json). Records are local (a snapshot of one bat
 
   PYTHONNOUSERSITE=1 python3 site/scripts/export_results.py --leaderboard <Space folder> --records <results snapshot> \
       --stats <the batch's stats file> --batch <batch> --results-commit <full sha of the snapshot> --uzh-root <uzh study dir> \
-      --study virig-5imus-4cams=<its stats file>
+      --study virig-5imus-4cams=<its stats file> --study monado-mic=<its stats file> --study monado-moc=<its stats file>
+
+One --study per separate study of python/data/public_results.yaml (study: true) other than UZH-FPV: today those
+three. A study left out is not re-exported: its committed page is carried forward with a warning, numbers and texts
+as last exported, with the one MVIS lane the pages show (results_eval.carried). A slug that is not such a study stops
+the run.
 
 Run after export_board.py, export_uzh.py and export_repeatability.py of the same batch: it refuses when those files,
 the records and the stats file are not one batch and one commit, when a ◆ count differs from the rendered board, and
@@ -27,7 +32,7 @@ ap.add_argument("--batch", required=True)
 ap.add_argument("--results-commit", required=True, help="the snapshot's full 40-hex sha")
 ap.add_argument("--uzh-root", type=Path, required=True, help="the UZH-FPV study folder (three_way/ stats)")
 ap.add_argument("--study", action="append", default=[], metavar="SLUG=FILE",
-                help="stats file of another separate study (public_results.yaml study: true); one per study")
+                help="stats file of a separate study (public_results.yaml study: true); one per study, a study left out keeps its committed page")
 ap.add_argument("--site", type=Path, default=_lib.REPO, help="the checkout to write into")
 a = ap.parse_args()
 if any("=" not in s for s in a.study):

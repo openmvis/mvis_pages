@@ -45,7 +45,7 @@ def camimu_family():
         row("cam0 – A", "fx", unit="px", mvis=cell(450.0, 1.0), calyx=cell(450.1, 1.0), kalibr=cell(449.0, 2.0, state="fixed")),
         with_delta(row("cam0 – A", "td_ms", "time offset td", "ms", mvis=cell(-4.0, 0.1), calyx=cell(-4.1, 0.1),
                        kalibr=cell(-5.0, 0.2)), "mk", 1.0, True),
-        row("cam0 – A", "t_ga_ms", "gyro–accel delay", "ms", calyx=cell(1.2, 0.3), kalibr=cell(None, None, 0, "missing", "not in model")),
+        row("cam0 – A", "t_ga_ms", "gyro–accel delay", "ms", mvis=cell(1.25, 0.3), calyx=cell(1.2, 0.3), kalibr=cell(None, None, 0, "missing", "not in model")),
         row("cam0 – A", "reproj_median", unit="px", mvis=cell(0.25, 0.01), kalibr=cell(0.3, 0.02)),
         with_delta(row("base IMU – B", "Dw[0,0]", "gyro scale x", mvis=cell(1.001, 0.001), kalibr=cell(1.0, 0.002)), "mk", 0.001, False, True),
         row("base IMU – B", "Dw[1,0]", "gyro cross", mvis=cell(0.002, 0.001), kalibr=cell(0.0, 0.001, state="shown")),
@@ -56,14 +56,16 @@ def camimu_family():
                                 mvis_all={"r1": 449.1, "r2": 450.0, "r3": 450.1, "r4": 451.2},
                                 kalibr={"r1": 447.0, "r2": 449.0, "r3": 449.5, "r4": 452.0}),
                       stats_row("cam0 – A", "td_ms", calyx={"a": -4.2, "b": -4.0, "c": -4.1, "d": float("nan"), "e": -4.15},
-                                mvis_all={"a": -4.1, "b": -3.9, "c": -4.0, "d": -4.05}, kalibr={"a": -5.2, "b": -4.9, "c": -5.0, "d": -5.1})]}
+                                mvis_all={"a": -4.1, "b": -3.9, "c": -4.0, "d": float("nan"), "e": -4.05}, kalibr={"a": -5.2, "b": -4.9, "c": -5.0, "d": -5.1})]}
     return {"rows": rows, "read_first": "Read this.", "notes": [["Note", "A note."]]}, stats
 
 
-def records(ran=("MVIS", "Kalibr"), n=4):
+def records(ran=("MVIS", "Kalibr"), n=4, kalibr_model_n=None):
+    """MVIS holds its two record methods: the default model ("MVIS") and Kalibr's IMU model."""
+    methods = lambda t: {m: {"ran": True, "n_recordings": k} for m, k in
+                         ([(t, n), (R.METHOD["mvis"], n if kalibr_model_n is None else kalibr_model_n)] if t == "MVIS" else [(t, n)])}
     return {"families": {"families": {"T1": {"mode": "camera+imu", "title": "Cam + IMU", "n_recordings": n}}},
-            "tools": {t: ({"T1": {"methods": {t: {"ran": True, "n_recordings": n}}}} if t in ran else {})
-                      for t in ("MVIS", "Kalibr", "Basalt")}}
+            "tools": {t: ({"T1": {"methods": methods(t)}} if t in ran else {}) for t in ("MVIS", "Kalibr", "Basalt")}}
 
 
 def fam(**kw):
@@ -88,6 +90,12 @@ def test_formatting_follows_the_space():
     assert R.decimals(DECS, "dist[0]", [0.1]) == 5 and R.decimals(DECS, "dist[0]", [12.0]) == 3 and R.decimals(DECS, "q") == 4
     assert R.is_camimu("camera+imu") and not R.is_camimu("camera") and not R.is_camimu("camera only")
     assert [c for c, _ in R.columns(False)] == ["mvis", "kalibr", "basalt"]
+    # one MVIS column, always labelled "MVIS": the Kalibr-IMU-model run, or the default-model run where there is no such run
+    assert R.columns(True) == [("mvis", "MVIS"), ("kalibr", "Kalibr"), ("basalt", "Basalt")]
+    assert R.columns(True, kalibr_model=False)[0] == ("calyx", "MVIS") and R.columns(False, kalibr_model=False)[0] == ("mvis", "MVIS")
+    assert R.shown_method("mvis", True) == "MVIS (Kalibr IMU model)" and R.shown_method("calyx", True) == "MVIS"
+    assert R.shown_method("mvis", False) == "MVIS" and R.shown_method("kalibr", True) == "Kalibr"
+    # the Leaderboard keeps the long label
     assert R.pair_label(PAIRS[2], True) == "Basalt − MVIS (K-IMU)" and R.pair_label(PAIRS[0], False) == "MVIS − Kalibr"
 
 
@@ -142,7 +150,8 @@ def test_a_lane_with_poor_solves_keeps_its_values_and_carries_the_reason():
 # ---------------------------------------------------------------- one family
 def test_a_camimu_family_page():
     f = fam()
-    assert [c["label"] for c in f["columns"]] == ["MVIS", "MVIS (K-IMU)", "Kalibr"]  # Basalt did not run: no lanes
+    assert [(c["col"], c["label"]) for c in f["columns"]] == [("mvis", "MVIS"), ("kalibr", "Kalibr")]  # one MVIS lane; Basalt did not run
+    assert f["imu_model"] == "kalibr" and "K-IMU" not in json.dumps(f)
     assert f["solved"][2] == {"n": 0, "of": 4, "reason": "not run on this family", "tool": "Basalt"}
     assert f["read_first"] == "Read this." and f["notes"] == [["Note", "A note."]] and f["has_tga"]
     assert f["records"]["Kalibr"].endswith(f"/blob/{SHA}/Kalibr/b1/T1.json")
@@ -150,17 +159,24 @@ def test_a_camimu_family_page():
     cam, imu = f["sensors"]
     assert [p["key"] for p in cam["params"]] == ["fx", "td_ms", "t_ga_ms"] and [p["key"] for p in imu["params"]] == ["Dw[0,0]", "Dw[1,0]"]
     fx = cam["params"][0]
-    assert [(x["col"], x.get("min"), x.get("max")) for x in fx["lanes"]] == [("calyx", 449.0, 451.0), ("mvis", 449.1, 451.2), ("kalibr", 447.0, 452.0)]
-    assert fx["axis"]["c"] == 450.0
+    assert [(x["col"], x.get("min"), x.get("max")) for x in fx["lanes"]] == [("mvis", 449.1, 451.2), ("kalibr", 447.0, 452.0)]
+    assert fx["axis"]["c"] == 449.5
     td = cam["params"][1]["lanes"][0]
-    assert (td["min"], td["max"], td["n"]) == (-4.2, -4.0, 4)  # the NaN recording is not a value
-    assert [x["state"] for x in imu["params"][1]["lanes"]] == ["missing", "ok", "shown"]
+    assert (td["min"], td["max"], td["n"]) == (-4.1, -3.9, 4)  # the NaN recording is not a value
+    assert [x["state"] for x in imu["params"][1]["lanes"]] == ["ok", "shown"]
+
+
+def test_the_shown_mvis_run_solved_what_coverage_prints():
+    """Coverage prints the larger count of the two MVIS runs; the export stops when the shown run solved fewer."""
+    assert next(s for s in fam()["solved"] if s["tool"] == "MVIS")["n"] == 4
+    with pytest.raises(ValueError, match=r"T1: Coverage prints MVIS 4 of 4, but the shown run \(MVIS \(Kalibr IMU model\)\) solved 3"):
+        fam(records=records(kalibr_model_n=3))
 
 
 def test_differences_keep_record_order_and_count_like_the_board():
     f = fam()
     (mk,) = f["diffs"]
-    assert mk["label"] == "MVIS (K-IMU) − Kalibr" and (mk["marked"], mk["compared"]) == (1, 2) and f["tally"] == {"mk": [1, 2]}
+    assert mk["label"] == "MVIS − Kalibr" and (mk["marked"], mk["compared"]) == (1, 2) and f["tally"] == {"mk": [1, 2]}
     assert [r["key"] for r in mk["rows"]] == ["td_ms", "Dw[0,0]"]
     td, dw = mk["rows"]
     assert (td["text"], td["spread"], td["z"], td["marked"], td["sensor_id"]) == ("+1.000", "0.200", 5.0, True, "cam0")
@@ -188,6 +204,7 @@ def test_an_unmapped_sensor_stops_the_export():
 def test_a_camera_only_family_has_one_mvis_column_and_no_hub_links_without_a_commit():
     f = fam(meta={"mode": "camera", "title": "Cam", "n_recordings": 4}, hub=R.hub_links("T1", "b1", None))
     assert [c["label"] for c in f["columns"]] == ["MVIS", "Kalibr"] and f["records"] == {} and f["mode"] == "cam"
+    assert "imu_model" not in f
     assert f["diffs"][0]["label"] == "MVIS − Kalibr"
 
 
@@ -397,12 +414,14 @@ def test_write_keeps_an_mdx_page_it_rewrites(tmp_path):
 def test_the_real_export_reproduces_the_committed_files():
     """collect + render on the batch's private inputs give the committed files byte for byte.
     MVIS_LEADERBOARD=<Space folder> MVIS_RESULTS_RECORDS=<records snapshot> MVIS_RESULTS_STATS=<its stats file>
-    MVIS_UZH_ROOT=<uzh study dir>"""
+    MVIS_UZH_ROOT=<uzh study dir>. The separate studies are given no stats file, so their committed pages are carried
+    forward (three warnings) and must come back unchanged."""
     from conftest import env_path
     lb = json.loads((SITE / "eval/index.json").read_text())
-    pages, pub, pairs, boards, private = R.collect(env_path("MVIS_LEADERBOARD"), env_path("MVIS_RESULTS_RECORDS"),
-                                                   env_path("MVIS_RESULTS_STATS"), lb["batch"], lb["results_commit"],
-                                                   env_path("MVIS_UZH_ROOT"), REPO)
+    with pytest.warns(UserWarning, match="NOT RE-EXPORTED"):
+        pages, pub, pairs, boards, private = R.collect(env_path("MVIS_LEADERBOARD"), env_path("MVIS_RESULTS_RECORDS"),
+                                                       env_path("MVIS_RESULTS_STATS"), lb["batch"], lb["results_commit"],
+                                                       env_path("MVIS_UZH_ROOT"), REPO)
     files = R.render(pages, pub, lb["batch"], lb["results_commit"], boards, pairs)
     assert R.problems(files, lb["results_commit"], private) == []
     for path, text in files.items():
@@ -419,7 +438,7 @@ def test_a_row_whose_models_differ_draws_only_mvis():
 
 # ---------------------------------------------------------------- a second separate study (MVIS only)
 def _mvis_only_page():
-    """A study where only MVIS ran, with its default IMU model alone (no K-IMU run): no Kalibr, no mvis values."""
+    """A study where only MVIS ran, with its default IMU model alone (no Kalibr-model run): no Kalibr, no mvis values."""
     sp, st = camimu_family()
     for r in sp["rows"]:
         r["mvis"] = r["kalibr"] = None
@@ -434,7 +453,8 @@ def _mvis_only_page():
 def test_an_mvis_only_study_has_one_column_no_differences_and_no_full_tables():
     p = _mvis_only_page()
     f = p["families"][0]
-    assert [c["label"] for c in f["columns"]] == ["MVIS"]          # the empty K-IMU method gets no lanes
+    assert [(c["col"], c["label"]) for c in f["columns"]] == [("calyx", "MVIS")]  # the fallback: the default-model run
+    assert f["imu_model"] == "default"
     assert f["diffs"] == [] and f["tally"] == {}
     assert [s.get("reason") for s in f["solved"]] == [None, "not run on this set", "not run on this set"]
     assert p["full_tables"] is None and p["study_note"] == "MVIS only."
@@ -538,3 +558,118 @@ def test_a_reference_value_centres_its_chart_and_other_charts_keep_the_mvis_medi
     q = p["families"][0]["sensors"][0]["params"]
     assert (q[0]["axis"]["c"], q[0]["axis"]["by"]) == (123.0, "reference")
     assert all(x["axis"].get("by") != "reference" for x in q[1:])
+
+
+# ---------------------------------------------------------------- one MVIS lane on a carried page
+ENTRY = {"slug": "x-rig", "id": "x", "label": "X rig", "title": "X: a rig", "ours": False, "licence": "CC BY 4.0", "intro": "A rig.",
+         "chips": [], "links": {}, "families": [{"id": "T1", "shutter": "global"}], "sensors": SID, "axis_centre": "MVIS",
+         "reference": {"source": "x", "values": {"cam0 – A": {"td_ms": -4.5}}}}
+
+
+def _two_lane(page):
+    """The page as it was exported before: a default-model lane "MVIS" beside the Kalibr-model lane "MVIS (K-IMU)"."""
+    old = json.loads(json.dumps(page))
+    for f in old["families"]:
+        both = lambda xs: [y for x in xs for y in ((dict(x, col="calyx"), dict(x, label="MVIS (K-IMU)")) if x["col"] == "mvis" else (x,))]
+        f["columns"], f["model_terms"] = both(f["columns"]), both(f["model_terms"])
+        for s in f["sensors"]:
+            for q in s["params"]:
+                q["lanes"] = [dict(x, med=x["med"] + 50, text="far") if x["col"] == "calyx" and "med" in x else x for x in both(q["lanes"])]
+                q["axis"] = R.axis(q["lanes"])
+        for r in f["fit"]:
+            r["by_col"] = {"calyx": "9.999", **r["by_col"]}
+        for d in f["diffs"]:
+            d["label"] = d["label"].replace("MVIS", "MVIS (K-IMU)")
+        del f["imu_model"]
+    return old
+
+
+def test_one_lane_turns_a_committed_two_lane_page_into_what_the_export_writes():
+    page = _page(ENTRY)
+    old = _two_lane(page)
+    assert "K-IMU" in json.dumps(old) and old != page
+    assert R.one_lane(old, ENTRY) == page and R.one_lane(page, ENTRY) == page   # and it changes nothing the second time
+    assert json.dumps(R.one_lane(old, ENTRY)) == json.dumps(page)               # key order too: the files are compared as text
+
+
+def test_one_lane_leaves_camera_only_families_and_flags_a_default_model_family():
+    cam = R.dataset(dict(ENTRY, reference=None), {"pairs": PAIRS, "decimals": DECS, "families": {"T1": camimu_family()[0]}},
+                    dict(records(), families={"families": {"T1": {"mode": "camera", "title": "Cam", "n_recordings": 4}}}),
+                    {"families": {"T1": camimu_family()[1]}}, "b1", SHA, None)
+    assert R.one_lane(cam, ENTRY)["families"][0] is cam["families"][0]
+    v = _mvis_only_page()
+    bare = dict(v, families=[{k: x for k, x in f.items() if k != "imu_model"} for f in v["families"]])
+    assert R.one_lane(bare, {"sensors": SID}) == v
+    gone = dict(v, families=[dict(f, sensors=[dict(s, params=[dict(q, lanes=[dict(x, state="missing") for x in q["lanes"]]) for q in s["params"]])
+                                              for s in f["sensors"]], fit=[]) for f in v["families"]])
+    assert R.one_lane(gone, ENTRY)["families"][0]["sensors"] == []   # a chart with no drawn lane is not kept, as in sensors()
+
+
+def test_every_committed_page_has_one_mvis_lane():
+    pub = {e["slug"]: e for e in _pub()["datasets"]}
+    for p in sorted((SITE / "eval").glob("*.json")):
+        if p.name == "index.json":
+            continue
+        page = json.loads(p.read_text())
+        assert "K-IMU" not in p.read_text() and R.one_lane(page, pub[page["slug"]]) == page, p.name
+        for f in page["families"]:
+            assert [c["label"] for c in f["columns"] if c["tool"] == "MVIS"] == ["MVIS"], (p.name, f["id"])
+            assert f.get("imu_model") == (None if f["mode"] == "cam" else "default" if f["id"] == "V5" else "kalibr"), (p.name, f["id"])
+
+
+def test_a_study_without_stats_is_carried_forward_with_a_warning(tmp_path):
+    page = _page(ENTRY)
+    (tmp_path / R.OUT_DIR).mkdir(parents=True)
+    (tmp_path / R.OUT_DIR / "x-rig.json").write_text(json.dumps(_two_lane(page)))
+    other = {"x-rig": ENTRY, "y-rig": dict(ENTRY, slug="y-rig"), "z-rig": dict(ENTRY, slug="z-rig")}
+    with pytest.warns(UserWarning, match="NOT RE-EXPORTED: x-rig") as seen:
+        pages, found = R.carried(other, {"z-rig": "stats.json", "q-rig": "stats.json"}, tmp_path)
+    assert len(seen) == 1 and pages == {"x-rig": page}
+    assert len(found) == 2 and "q-rig, which public_results.yaml does not list" in found[0] and "y-rig: no --study stats file and no committed" in found[1]
+
+
+# ---------------------------------------------------------------- separate studies alone
+def _study_setup(tmp_path, monkeypatch):
+    lb = F.write_leaderboard(tmp_path / "lb")
+    stats = L.rekey(json.loads((F.write_uzh(tmp_path / "uzh") / "three_way/three_way_comparison_stats.json").read_text()))
+    # the fake Space writes families.json alone (no tool records, no rows), so the pages hold the plumbing, not numbers
+    stats = dict(stats, families={k.replace("DAVIS", "V5").replace("SNAP", "V5c"): dict(f, dataset="v5", rows=[], mode="camera+imu", n_recordings=2)
+                                  for k, f in stats["families"].items()})
+    (tmp_path / "stats.json").write_text(json.dumps(stats))
+    study = {"slug": "v-rig", "id": "v5id", "stats_key": "v5", "label": "V5 rig", "title": "V5: a rig", "ours": True, "licence": "CC BY 4.0",
+             "intro": "A rig.", "chips": [], "links": {}, "study": True, "study_note": "A study.", "batch": "b9", "read_first": "Read.",
+             "like_for_like": "One config.", "families": [{"id": "V5", "shutter": "global"}, {"id": "V5c", "shutter": "global"}],
+             "sensors": {}, "not_run": "not run on this set"}
+    (tmp_path / "data").mkdir()
+    (tmp_path / "data/public_results.yaml").write_text(yaml.safe_dump({"datasets": [{"slug": "a-rig"}, study, {"slug": "uzh-fpv", "study": True}]}))
+    monkeypatch.setattr("mvis_site.DATA", tmp_path / "data")
+    return lb, tmp_path / "stats.json"
+
+
+def test_collect_studies_builds_the_named_studies_alone(tmp_path, monkeypatch):
+    lb, stats = _study_setup(tmp_path, monkeypatch)
+    pages, pub, private = R.collect_studies(lb, {"v-rig": stats})
+    (p,) = pages
+    assert (p["slug"], p["batch"], p["study"], p["results_commit"]) == ("v-rig", "b9", True, None)
+    assert [f["id"] for f in p["families"]] == ["V5", "V5c"] and all(f["diffs"] == [] and f["tally"] == {} for f in p["families"])
+    assert p["families"][0]["read_first"] == "Read." and p["families"][0]["notes"] == [["Like for like", "One config."]]
+    assert [(s["n"], s["of"], s["reason"]) for s in p["families"][0]["solved"]] == [(0, 2, "not run on this set")] * 3
+    assert [d["slug"] for d in pub["datasets"]] == ["a-rig", "v-rig", "uzh-fpv"]
+    assert isinstance(private, tuple)
+    shown = [dict(p, families=[dict(f, columns=[{"col": "calyx", "tool": "MVIS", "label": "MVIS"}]) for f in p["families"]])]
+    files = R.render_studies(shown, pub, [], {"studies": []})
+    assert "Generated by site/scripts/export_study.py from" in files[f"{R.MDX_DIR}/v-rig.mdx"]
+    assert R.problems(files, SHA, private) == []
+
+
+def test_collect_studies_stops_on_a_slug_that_is_not_a_separate_study(tmp_path, monkeypatch):
+    lb, stats = _study_setup(tmp_path, monkeypatch)
+    for slug in ("a-rig", "uzh-fpv", "nowhere"):
+        with pytest.raises(SystemExit, match=f"{slug}: not a separate study"):
+            R.collect_studies(lb, {slug: stats})
+
+
+def test_the_mdx_header_names_the_script_that_wrote_the_page():
+    assert "Generated by site/scripts/export_results.py from" in R.mdx(_page())
+    assert "Generated by site/scripts/export_study.py from" in R.mdx(_page(), "export_study.py")
+    assert "Edit those, not this file. */}\n" in R.mdx(_page())

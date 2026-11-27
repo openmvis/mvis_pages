@@ -93,16 +93,26 @@ def is_camimu(mode: str) -> bool:
     return mode not in ("camera", "camera only")
 
 
-def columns(camimu: bool) -> list[tuple[str, str]]:
-    """(Space column, label) of a family. Camera-only families have one MVIS run, so one MVIS column."""
-    if camimu:
-        return [("calyx", "MVIS"), ("mvis", KIMU), ("kalibr", "Kalibr"), ("basalt", "Basalt")]
-    return [("mvis", "MVIS"), ("kalibr", "Kalibr"), ("basalt", "Basalt")]
+def columns(camimu: bool, kalibr_model: bool = True) -> list[tuple[str, str]]:
+    """(Space column, label) of a family: one MVIS column, always labelled "MVIS". On a camera + IMU family it is the
+    run with Kalibr's IMU model (Space column `mvis`), so its IMU terms mean the same as Kalibr's; kalibr_model False
+    (the family has no such run) gives the default-model run (`calyx`) instead. family() says which as `imu_model`."""
+    return [("calyx" if camimu and not kalibr_model else "mvis", "MVIS"), ("kalibr", "Kalibr"), ("basalt", "Basalt")]
+
+
+def shown_method(col: str, camimu: bool) -> str:
+    """The record method behind a column on a Dataset eval page (a camera-only family has the one method "MVIS")."""
+    return METHOD[col] if camimu or TOOL_OF[col] != "MVIS" else "MVIS"
+
+
+def board_name(tool: str, camimu: bool) -> str:
+    """A tool as the Leaderboard names it: there the Kalibr-IMU-model run keeps its long label."""
+    return KIMU if camimu and tool == "MVIS" else tool
 
 
 def pair_label(pair: list, camimu: bool) -> str:
-    name = {"mvis": KIMU if camimu else "MVIS", "kalibr": "Kalibr", "basalt": "Basalt"}
-    return f"{name[pair[1]]} − {name[pair[2]]}"
+    """The Leaderboard's label of a tool pair. The Dataset eval pages say "MVIS" (diffs())."""
+    return f"{board_name(TOOL_OF[pair[1]], camimu)} − {board_name(TOOL_OF[pair[2]], camimu)}"
 
 
 def short(sensor: str) -> str:
@@ -204,7 +214,7 @@ def fit_rows(rows: list[dict], cols: list[tuple[str, str]], decs: dict) -> list[
     return out
 
 
-def diffs(rows: list[dict], pairs: list, camimu: bool, decs: dict, sid: dict) -> list[dict]:
+def diffs(rows: list[dict], pairs: list, decs: dict, sid: dict) -> list[dict]:
     """Per tool pair, every compared row in record order: Δ = a − b (the Space's app.delta) and Δ in units of the
     larger sd. A pair with nothing compared is left out."""
     out = []
@@ -222,7 +232,7 @@ def diffs(rows: list[dict], pairs: list, camimu: bool, decs: dict, sid: dict) ->
                           "z": None if spread == 0 else round(d["value"] / spread, 3),
                           "marked": bool(d["marked"]), "unequal_n": bool(d["unequal_n"])})
         if items:
-            out.append({"pair": p[0], "label": pair_label(p, camimu), "a": TOOL_OF[p[1]], "b": TOOL_OF[p[2]],
+            out.append({"pair": p[0], "label": f"{TOOL_OF[p[1]]} − {TOOL_OF[p[2]]}", "a": TOOL_OF[p[1]], "b": TOOL_OF[p[2]],
                         "marked": sum(x["marked"] for x in items), "compared": len(items), "rows": items})
     return out
 
@@ -265,14 +275,22 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
             s["poor"] = poor[s["tool"]]["n"]
     ran = {x["tool"] for x in done if "reason" not in x}
     rows = sp["rows"]
-    # a tool that did not run gets no lanes, nor a method that holds no value (a study without the K-IMU run)
-    cols = [(c, l) for c, l in columns(camimu) if TOOL_OF[c] in ran and any((r.get(c) or {}).get("med") is not None for r in rows)]
+    has = lambda c: any((r.get(c) or {}).get("med") is not None for r in rows)
+    # a tool that did not run gets no lanes; a family without the Kalibr-IMU-model run shows the default-model run
+    cols = [(c, l) for c, l in columns(camimu, has("mvis")) if TOOL_OF[c] in ran and has(c)]
+    shown = next((c for c, _ in cols if TOOL_OF[c] == "MVIS"), None)
+    if shown:  # Coverage prints the larger count of the two MVIS runs; it must be the count of the run that is shown
+        n = (((records["tools"]["MVIS"].get(T) or {}).get("methods") or {}).get(shown_method(shown, camimu)) or {}).get("n_recordings")
+        printed = next(x["n"] for x in done if x["tool"] == "MVIS")
+        if n != printed:
+            raise ValueError(f"{T}: Coverage prints MVIS {printed} of {of}, but the shown run "
+                             f"({shown_method(shown, camimu)}) solved {n}")
     unmapped = sorted({r["sensor"] for r in rows} - set(sid))
     if unmapped:
         raise ValueError(f"{T}: sensors without an id in public_results.yaml: {unmapped}")
     stats_rows = {(r["sensor"], r["key"]): r for r in stats_fam["rows"]}
-    ds = diffs(rows, pairs, camimu, decs, sid)
-    return {"id": T, "title": meta.get("title") or T, "mode": "cam+imu" if camimu else "cam", "shutter": shutter,
+    ds = diffs(rows, pairs, decs, sid)
+    out = {"id": T, "title": meta.get("title") or T, "mode": "cam+imu" if camimu else "cam", "shutter": shutter,
             "n": of, "columns": [{"col": c, "tool": TOOL_OF[c], "label": l} for c, l in cols],
             "solved": done, "read_first": _no_notes_ref(sp["read_first"]),
             "poor": [{"tool": t, "n": v["n"], "text": v["text"]} for t, v in (poor or {}).items()],
@@ -280,6 +298,40 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
             "diffs": ds, "tally": {d["pair"]: [d["marked"], d["compared"]] for d in ds},
             "sensors": sensors(rows, cols, stats_rows, decs, sid, centre, poor, ref), "model_terms": tg_tiles(rows, cols, sid),
             "has_tga": any(base(r["key"]) == "t_ga_ms" for r in rows)}
+    if camimu and shown:  # which IMU model the one MVIS lane is: Kalibr's, or MVIS's default where no such run exists
+        out["imu_model"] = "kalibr" if shown == "mvis" else "default"
+    return out
+
+
+def one_lane(page: dict, entry: dict) -> dict:
+    """A committed page with the one MVIS lane of family(): on a camera + IMU family that holds both MVIS runs, the
+    default-model lane is dropped, the Kalibr-model lane is labelled "MVIS" and each axis is made again from the lanes
+    that are left. Pure and idempotent: collect() uses it to carry a study page forward when its stats file is absent.
+    entry: the page's public_results.yaml entry (axis_centre, reference, sensors)."""
+    ref = {entry["sensors"][s]: v for s, v in ((entry.get("reference") or {}).get("values") or {}).items()}
+    fams = []
+    for f in page["families"]:
+        have = {c["col"] for c in f["columns"]}
+        if f["mode"] != "cam+imu" or not have & {"mvis", "calyx"}:
+            fams.append(f)
+            continue
+        drop = "calyx" if "mvis" in have else None
+        keep = lambda xs: [dict(x, label=TOOL_OF[x["col"]]) for x in xs if x["col"] != drop]
+        sens = []
+        for s in f["sensors"]:
+            params = []
+            for q in s["params"]:
+                lanes = keep(q["lanes"])
+                if any(x["state"] in ON_AXIS for x in lanes):
+                    params.append(dict(q, lanes=lanes, axis=axis(lanes, entry.get("axis_centre"), (ref.get(s["id"]) or {}).get(q["key"]))))
+            if params:
+                sens.append(dict(s, params=params))
+        fit = [dict(r, by_col={c: v for c, v in r["by_col"].items() if c != drop}) for r in f["fit"]]
+        f = dict(f, columns=keep(f["columns"]), sensors=sens, fit=[r for r in fit if r["by_col"]],
+                 model_terms=keep(f["model_terms"]), diffs=[dict(d, label=f"{d['a']} − {d['b']}") for d in f["diffs"]])
+        f.pop("imu_model", None)
+        fams.append(dict(f, imu_model="kalibr" if "mvis" in have else "default"))
+    return dict(page, families=fams)
 
 
 def hub_links(T: str, batch: str, commit: str | None) -> dict:
@@ -392,7 +444,8 @@ def leaderboard(pages: list[dict], pub: dict, batch: str, commit: str) -> dict:
         rows.append({"slug": p["slug"], "id": p["id"], "label": p["label"], "ours": p["ours"], "link": p["link"],
                      "families": [{"id": f["id"], "title": f["title"], "mode": f["mode"], "shutter": f["shutter"],
                                    "n": f["n"], "solved": f["solved"],
-                                   "diffs": {d["pair"]: {"label": d["label"], "marked": d["marked"], "compared": d["compared"]}
+                                   "diffs": {d["pair"]: {"label": " − ".join(board_name(d[k], f["mode"] == "cam+imu") for k in "ab"),
+                                                         "marked": d["marked"], "compared": d["compared"]}
                                              for d in f["diffs"]}} for f in p["families"]]})
     study = [{"label": p["label"], "link": p["link"], "batch": p["batch"], "note": p.get("study_note", "")} for p in pages if p["study"]]
     return {"batch": batch, "results_commit": commit, "honest": pub["leaderboard"]["honest"], "datasets": rows,
@@ -423,11 +476,11 @@ def and_list(words: list[str]) -> str:
     return words[0] if len(words) == 1 else f"{', '.join(words[:-1])} and {words[-1]}"
 
 
-def mdx(page: dict) -> str:
+def mdx(page: dict, script: str = "export_results.py") -> str:
     """The thin page wrapper: headings in MDX so they reach the table of contents; every part from the page JSON.
     Coverage and parameters by sensor, plus a study's reading notes (python/data/public_results.yaml `reading`);
     repeatability, tool differences, model notes and full tables stay in the JSON and are left off the page for now.
-    The title says "results", so it differs from the example page of the same dataset."""
+    The title says "results", so it differs from the example page of the same dataset. script: the CLI that writes it."""
     s = page["slug"]
     tools = page_tools(page)
     who = "what each tool solved" if len(tools) > 1 else "what it solved"
@@ -439,7 +492,7 @@ def mdx(page: dict) -> str:
     parts = [f"---\ntitle: {q(title)}\ndescription: {q(desc)}\n"
              f"head:\n  - tag: title\n    content: {q(head)}\n"
              "pageType: reference\nwide: true\n---\n",
-             "{/* Generated by site/scripts/export_results.py from python/data/public_results.yaml and the records. Edit those, not this file. */}\n",
+             f"{{/* Generated by site/scripts/{script} from python/data/public_results.yaml and the records. Edit those, not this file. */}}\n",
              "import * as E from '../../../../components/eval/index';",
              f"import page from '../../../../data/eval/{s}.json';\n",
              "<E.EvalHeader page={page} />\n",
@@ -498,12 +551,32 @@ def render(pages: list[dict], pub: dict, batch: str, commit: str, boards: dict[s
     return files
 
 
+def carried(other: dict, given, site) -> tuple[dict, list[str]]:
+    """({slug: page}, problems) of the separate studies whose stats file was not given: the committed page, carried
+    forward through one_lane() with a loud warning. Its numbers and texts stay as last exported. other: {slug: entry}."""
+    import warnings
+    from pathlib import Path
+
+    pages, found = {}, [f"study stats given for {s}, which public_results.yaml does not list as a separate study"
+                        for s in sorted(set(given) - set(other))]
+    for slug in sorted(set(other) - set(given)):
+        p = Path(site) / OUT_DIR / f"{slug}.json"
+        if not p.exists():
+            found.append(f"{slug}: no --study stats file and no committed {OUT_DIR}/{slug}.json to carry forward")
+            continue
+        pages[slug] = one_lane(json.loads(p.read_text(encoding="utf-8")), other[slug])
+        warnings.warn(f"NOT RE-EXPORTED: {slug} has no --study stats file. Its committed page is carried forward: the "
+                      "numbers and the texts from public_results.yaml stay as last exported.", stacklevel=2)
+    return pages, found
+
+
 # ---------------------------------------------------------------- reading and writing (the only steps with files)
 def collect(leaderboard_dir, records_dir, stats_file, batch: str, commit: str, uzh_root, site,
             studies: dict | None = None) -> tuple[list[dict], dict, list, dict, tuple]:
     """(pages, pub, pairs, boards, private words) from the inputs. Stops when the records, the stats file,
-    repeatability.json and board.json are not one batch and one commit. studies: {slug: stats file} of every separate
-    study other than UZH-FPV (its public_results.yaml entry names batch, read_first and like_for_like)."""
+    repeatability.json and board.json are not one batch and one commit. studies: {slug: stats file} of the separate
+    studies other than UZH-FPV (its public_results.yaml entry names batch, read_first and like_for_like); a study
+    without a stats file keeps its committed page (carried())."""
     import tempfile
     from pathlib import Path
 
@@ -535,8 +608,8 @@ def collect(leaderboard_dir, records_dir, stats_file, batch: str, commit: str, u
     found += gate(ustats, urec, L.BATCH)
     studies = {k: json.loads(Path(v).read_text()) for k, v in (studies or {}).items()}
     other = {e["slug"]: e for e in pub["datasets"] if e.get("study") and e["slug"] != "uzh-fpv"}
-    if set(studies) != set(other):
-        found.append(f"study stats given for {sorted(studies)}, public_results.yaml lists {sorted(other)}")
+    kept, bad = carried(other, studies, site)
+    found += bad
     srows = {}
     for slug in set(studies) & set(other):
         e, st = other[slug], studies[slug]
@@ -550,7 +623,8 @@ def collect(leaderboard_dir, records_dir, stats_file, batch: str, commit: str, u
         raise SystemExit("inputs disagree:\n  " + "\n  ".join(found[:40]))
     boards = dict(board["datasets"], uzh_fpv=json.loads((site / L.UZH_FILE).read_text())["fragment"])
     reps = {d["id"]: d for d in rep["datasets"]}
-    pages = [dataset(e, *srows[e["slug"]], e["batch"], None, None) if e["slug"] in srows
+    pages = [kept[e["slug"]] if e["slug"] in kept
+             else dataset(e, *srows[e["slug"]], e["batch"], None, None) if e["slug"] in srows
              else dataset(e, usp, urec, ustats, L.BATCH, None, None) if e.get("study")
              else dataset(e, sp, records, stats, batch, commit, reps[e["id"]]) for e in pub["datasets"]]
     # UZH bag names are UZH's own public sequence names, already on its page; only the batch's recording names are private.
@@ -632,5 +706,5 @@ def render_studies(pages: list[dict], pub: dict, nav_old: list[dict], board: dic
     files = {NAV_FILE: dumps(side), f"{OUT_DIR}/index.json": dumps(board)}
     for p in pages:
         files[f"{OUT_DIR}/{p['slug']}.json"] = dumps(p)
-        files[f"{MDX_DIR}/{p['slug']}.mdx"] = mdx(p)
+        files[f"{MDX_DIR}/{p['slug']}.mdx"] = mdx(p, "export_study.py")
     return files
