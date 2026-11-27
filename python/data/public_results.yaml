@@ -185,9 +185,58 @@ datasets:
       "cam2 – Looper RS cam2": cam2
       "base IMU – Looper MEMS imu0": imu0
 
+  - slug: monado-mic
+    id: monado_mic
+    stats_key: monado_mic      # the dataset key inside the study's stats file (--study)
+    label: Monado MIC
+    nav_group: Monado
+    nav_label: "MIC · Valve Index"
+    title: "Monado MIC (Valve Index)"
+    ours: false
+    study: true
+    batch: "2026-11-25"
+    study_note: "Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 8 MIC camera-only and 8 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+    licence: CC BY 4.0
+    intro: "The MIC calibration recordings of the Monado SLAM Datasets, made with a Valve Index headset: its front fisheye pair and its IMU, 8 camera-only and 8 camera + IMU recordings."
+    chips: ["front fisheye pair", "headset IMU", "8 + 8 recordings", "AprilGrid 6×6, 30 mm"]
+    image: {src: /media/sensors/valve-index/valve-index.jpg, alt: "Valve Index headset", credit: "Image: Valve, Steam store page"}
+    links:
+      dataset: /datasets/#third-party-datasets
+      sensor: /devices/valve-index/
+      hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/tum_mic
+    no_repeatability: "This study has no repeatability cells: they are computed for the leaderboard batch only. Each tool's spread over the 8 recordings of a family is in Parameters by sensor."
+    read_first:   # by family: camera only (camcalib recordings), camera + IMU (imucalib recordings)
+      MIC-cam: "Each tool calibrates both cameras and their baseline from the images alone, on the 8 camcalib recordings."
+      MIC: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them."
+    like_for_like:
+      MIC-cam: "Every tool ran on the same 8 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+      MIC: "Every tool ran on the same 8 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+    reading:
+      - "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
+    axis_centre: MVIS          # each chart is centred on the MVIS median, so another tool's poor solves do not move it
+    reference:    # chart centre per parameter: the Monado authors' Basalt calibration of this headset (public, CC BY 4.0)
+      source: "Monado SLAM Datasets, MI_valve_index/extras: calibration.raw.json (camera-IMU geometry and time offset), calibration.json (kb4 intrinsics)"
+      values:
+        "cam0 – Valve Index cam0": {"fx": 420.527, "fy": 420.668, "cx": 469.483, "cy": 479.137, "dist[0]": 0.192938, "dist[1]": 0.0421152, "dist[2]": -0.233115, "dist[3]": 0.0954103, "td_ms": -0.33537, "lever_mm": 139.83}
+        "cam1 – Valve Index cam1": {"fx": 421.236, "fy": 421.467, "cx": 467.747, "cy": 484.481, "dist[0]": 0.190179, "dist[1]": 0.054672, "dist[2]": -0.249142, "dist[3]": 0.103103, "td_ms": -0.33537, "lever_mm": 71.4636, "baseline_mm": 133.783}
+    components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
+      cameras:
+        - {count: 2, device: Valve Index}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-20602, device: Valve Index, src: report, via: iFixit chip ID, url: "https://www.ifixit.com/Guide/Valve+Index+Chip+ID/155948"}
+    families:
+      - {id: MIC-cam, shutter: global}
+      - {id: MIC, shutter: global}
+    sensors:
+      "cam0 – Valve Index cam0": cam0
+      "cam1 – Valve Index cam1": cam1
+      "base IMU – Valve Index IMU": imu0
+
   - slug: monado-mgc
     id: monado_msd
     label: Monado MGC
+    nav_group: Monado
+    nav_label: "MGC · HP Reverb G2"
     title: "Monado MGC (HP Reverb G2)"
     ours: false
     licence: CC BY 4.0
@@ -211,6 +260,58 @@ datasets:
       "cam0 – Reverb G2 cam0": cam0
       "cam1 – Reverb G2 cam1": cam1
       "base IMU – Reverb G2 IMU": imu0
+
+  - slug: monado-moc
+    id: monado_moc
+    stats_key: monado_moc
+    label: Monado MOC
+    nav_group: Monado
+    nav_label: "MOC · Samsung Odyssey+"
+    title: "Monado MOC (Samsung Odyssey+)"
+    ours: false
+    study: true
+    batch: "2026-11-25"
+    study_note: "Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 4 MOC camera-only and 4 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+    licence: CC BY 4.0
+    intro: "The MOC calibration recordings of the Monado SLAM Datasets, made with a Samsung Odyssey+ headset: its two tracking cameras and its IMU, 4 camera-only and 4 camera + IMU recordings."
+    chips: ["2 tracking cameras", "headset IMU", "4 + 4 recordings", "AprilGrid 6×6, 30 mm"]
+    image: {src: /media/sensors/samsung-odyssey-plus/samsung-odyssey-plus.jpg, alt: "Samsung HMD Odyssey+ headset", credit: "Photo: Samsung Newsroom Brasil"}
+    links:
+      dataset: /datasets/#third-party-datasets
+      sensor: /devices/samsung-odyssey-plus/
+      hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_moc
+    no_repeatability: "This study has no repeatability cells: they are computed for the leaderboard batch only, and 4 recordings are too few for the test. Each tool's spread is in Parameters by sensor."
+    read_first:   # by family: camera only (camcalib recordings), camera + IMU (imucalib recordings)
+      MOC-cam: "Each tool calibrates both cameras and their baseline from the images alone, on the 4 camcalib recordings."
+      MOC: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them."
+    like_for_like:
+      MOC-cam: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt pinhole-radtan8 (the dataset authors' model, so its intrinsics are shown, not compared)."
+      MOC: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt pinhole-radtan8 (the dataset authors' model, so its intrinsics are shown, not compared)."
+    reading:
+      - "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.kb4.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
+    axis_centre: MVIS
+    reference:    # chart centre per parameter: the Monado authors' Basalt calibration of this headset (public, CC BY 4.0)
+      source: "Monado SLAM Datasets, MO_odyssey_plus/extras: calibration.raw.json (camera-IMU geometry and time offset), calibration.kb4.json (kb4 intrinsics)"
+      values:
+        "cam0 – Odyssey+ cam0": {"fx": 268.764, "fy": 268.625, "cx": 322.999, "cy": 245.854, "dist[0]": 0.0796733, "dist[1]": -0.0281938, "dist[2]": 0.202731, "dist[3]": -0.116912, "td_ms": -1.03892, "lever_mm": 83.4533}
+        "cam1 – Odyssey+ cam1": {"fx": 270.382, "fy": 270.895, "cx": 322.591, "cy": 250.765, "dist[0]": 0.059216, "dist[1]": 0.000848561, "dist[2]": 0.18691, "dist[3]": -0.115812, "td_ms": -1.03892, "lever_mm": 22.9841, "baseline_mm": 105.474}
+    poor:         # family -> tool -> {n: poor solves, text: why}; Coverage counts them apart, lanes keep their values, greyed; the text once under Read first
+      MOC:
+        Kalibr:
+          n: 3
+          text: "MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269)."
+    components:
+      cameras:
+        - {maker: OmniVision, part: OV7251, count: 2, device: Samsung Odyssey+, src: dataset, via: Monado dataset authors, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}
+      imus:
+        - {maker: TDK InvenSense, part: ICM-20602, device: Samsung Odyssey+, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}
+    families:
+      - {id: MOC-cam, shutter: global}
+      - {id: MOC, shutter: global}
+    sensors:
+      "cam0 – Odyssey+ cam0": cam0
+      "cam1 – Odyssey+ cam1": cam1
+      "base IMU – Odyssey+ IMU": imu0
 
   - slug: uzh-fpv
     id: uzh_fpv

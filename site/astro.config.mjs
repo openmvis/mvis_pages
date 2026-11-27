@@ -14,6 +14,15 @@ const sensorGroups = [...new Set(sensorNav.map((n) => n.group))].map((group) => 
 }));
 // Written by site/scripts/export_results.py: one Dataset eval page per dataset, in page order (ours first).
 const resultsNav = JSON.parse(readFileSync(new URL('./src/data/results-nav.json', import.meta.url), 'utf8'));
+// Entries with a group (public_results.yaml nav_group, e.g. the three Monado headsets) share one collapsed subgroup,
+// placed where its first entry is, and are listed there under their nav_label.
+const resultsItems = resultsNav.reduce((items, { label, link, group, nav_label }) => {
+  if (!group) return [...items, { label, link }];
+  const g = items.find((x) => x.label === group && x.items);
+  if (g) g.items.push({ label: nav_label ?? label, link });
+  else items.push({ label: group, collapsed: true, items: [{ label: nav_label ?? label, link }] });
+  return items;
+}, []);
 
 // GitHub Pages serves `main:/docs`, so the build writes there. A build therefore
 // publishes the site — there is no separate deploy step.
@@ -164,7 +173,7 @@ export default defineConfig({
           items: [
             { label: 'Leaderboard', link: '/benchmark/results/' },
             { label: 'Methodology', link: '/benchmark/methodology/' },
-            { label: 'Datasets eval', collapsed: true, items: resultsNav.map(({ label, link }) => ({ label, link })) },
+            { label: 'Datasets eval', collapsed: true, items: resultsItems },
             {
               label: 'Examples',
               collapsed: true,

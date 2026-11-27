@@ -175,6 +175,11 @@ a.lb-d:hover .lb-n b, a.lb-d:focus-visible .lb-n b { text-decoration: underline;
 .ev-lv { font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ev-ln { color: var(--ev-mut); white-space: normal; }
 .ev-missing .ev-lv, .ev-shown .ev-lv, .ev-other_model .ev-lv { white-space: normal; }
+/* poor solves of a tool: the values stay as solved, greyed; the reason once, under the family's read-first line */
+.ev-poorhead { margin: 0.3rem 0; color: var(--sl-color-gray-3); font-size: 0.82rem; }
+.ev-haspoor .ev-pr, .ev-haspoor .ev-lv { opacity: 0.5; }
+.ev-off { fill: var(--sl-color-gray-3); }
+.ev-sq .ev-poorsq { background: var(--sl-color-gray-4); }
 
 .ev-ml, .ev-notes, .ev-reading { margin: 0.3rem 0 0.5rem 1.1rem; padding: 0; font-size: 0.9rem; }
 .ev-ml li, .ev-notes li, .ev-reading li { margin: 0.25rem 0; }

@@ -151,17 +151,18 @@ def space_rows(leaderboard_dir: Path, records: Path, results_commit: str | None 
                 "families": _family_rows(app, data, fams)}
 
 
-def study_rows(leaderboard_dir: Path, stats: dict, records_out: Path, batch: str, board: tuple, read_first: str,
-               like_for_like: str) -> dict:
+def study_rows(leaderboard_dir: Path, stats: dict, records_out: Path, batch: str, board: tuple, read_first: str | dict,
+               like_for_like: str | dict) -> dict:
     """The same for a separate study: its records are written by the Space's exporter to records_out first (as
-    uzh_text does), with the study's read-first and like-for-like texts in place of the leaderboard's."""
+    uzh_text does), with the study's read-first and like-for-like texts in place of the leaderboard's. Either text is
+    one string for every family or a dict by family id (a study whose families differ, as camera only and camera + IMU)."""
     write_records(leaderboard_dir, stats, batch, Path(records_out), board)
     fams = list(stats["families"])
     with space(Path(leaderboard_dir), Path(records_out)) as load:
         app = load("app")
         for fid in fams:
-            app.READ_FIRST[fid] = read_first
-            app.READ_MORE[fid] = like_for_like
+            app.READ_FIRST[fid] = read_first[fid] if isinstance(read_first, dict) else read_first
+            app.READ_MORE[fid] = like_for_like[fid] if isinstance(like_for_like, dict) else like_for_like
         return {"pairs": [list(p) for p in app.PAIRS], "decimals": dict(app.DECIMALS),
                 "families": _family_rows(app, app.DATA, fams)}
 

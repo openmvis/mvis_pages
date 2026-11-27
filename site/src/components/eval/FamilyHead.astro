@@ -1,6 +1,7 @@
 ---
-// A family's anchor (#T6), its title and the read-first line. The repeatability strip is off the dataset pages since
+// A family's anchor (#T6), its title, the read-first line and, once for the family, why a tool's solves are poor. The repeatability strip is off the dataset pages since
 // 2026-11-11 (coverage and parameters only); the Leaderboard keeps its cells.
+import RpShape from '../RpShape.astro';
 interface Props { page: any; i: number }
 const { page, i } = Astro.props;
 const f = page.families[i];
@@ -8,4 +9,5 @@ const f = page.families[i];
 <div class="not-content ev-fam" id={f.id}>
   <p class="ev-ft"><b>{f.title}</b> · {f.n} recordings</p>
   {f.read_first && <p class="ev-rf"><b>Read first:</b> {f.read_first}</p>}
+  {(f.poor ?? []).map((p: any) => <p class="ev-poorhead"><RpShape tool={p.tool} /> <b>{p.tool}</b>: {p.n} of {f.n} solves are poor, shown grey below. {p.text}</p>)}
 </div>

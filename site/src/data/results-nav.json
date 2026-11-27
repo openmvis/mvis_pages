@@ -119,6 +119,14 @@
   ]
  },
  {
+  "label": "Monado MIC",
+  "link": "/benchmark/results/monado-mic/",
+  "slug": "monado-mic",
+  "legacy": [],
+  "group": "Monado",
+  "nav_label": "MIC · Valve Index"
+ },
+ {
   "label": "Monado MGC",
   "link": "/benchmark/results/monado-mgc/",
   "slug": "monado-mgc",
@@ -138,7 +146,17 @@
    "rp-T12-lever",
    "rp-T12-gyro",
    "rp-T12-accel"
-  ]
+  ],
+  "group": "Monado",
+  "nav_label": "MGC · HP Reverb G2"
+ },
+ {
+  "label": "Monado MOC",
+  "link": "/benchmark/results/monado-moc/",
+  "slug": "monado-moc",
+  "legacy": [],
+  "group": "Monado",
+  "nav_label": "MOC · Samsung Odyssey+"
  },
  {
   "label": "UZH-FPV",
