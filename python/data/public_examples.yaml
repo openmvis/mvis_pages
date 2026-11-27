@@ -312,33 +312,33 @@ examples:
   uzh-fpv:
     title: UZH-FPV
     nav: UZH-FPV
-    description: One MVIS camera + IMU run per device on the UZH-FPV drone racing calibration data, compared with the dataset's own Kalibr calibration.
+    description: One MVIS camera + IMU run on the UZH-FPV Snapdragon Flight indoor 45° calibration recording, the bag whose motion calibrates the IMU most reliably, compared with the dataset's own Kalibr calibration.
     maker: UZH Robotics and Perception Group
     image: {file: uzh-fpv-drone.jpg, alt: "The UZH-FPV racing quadrotor with its Snapdragon Flight board, mDAVIS346 camera and motion-capture prism", credit: "Photo: UZH Robotics and Perception Group, Delmerico et al., ICRA 2019, Fig. 4", url: "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf"}
     clip: uzhs
     card:
-      rig: Snapdragon Flight stereo + IMU; mDAVIS346 + IMU
+      rig: Snapdragon Flight stereo + IMU
       format: ROS1 bag
-      shows: One MVIS run per device on a racing drone
-      tags: [Global shutter, Event camera, Drone]
+      shows: One MVIS run on a racing drone
+      tags: [Global shutter, Drone]
     facts:
-      - [Cameras, "Snapdragon: 2 × 640×480 global shutter. mDAVIS346: 1 × 346×260"]
-      - [IMU, "About 500 Hz (Snapdragon), about 1 kHz (mDAVIS346)"]
+      - [Cameras, "Snapdragon Flight: 2 × 640×480 global shutter"]
+      - [IMU, "About 500 Hz"]
       - [Board, "AprilGrid 5×4, tag 75 mm"]
       - [Format, "ROS1 bag"]
       - [Licence, "__LICENCE:linked-uzh-fpv__"]
-    lead: "One MVIS camera + IMU run on the Snapdragon Flight's outdoor forward calibration recording, and one on the mDAVIS346's, each against the Kalibr calibration the dataset ships."
+    lead: "One MVIS camera + IMU run on the Snapdragon Flight's indoor 45° calibration recording, against the Kalibr calibration the dataset ships. Of the 8 UZH-FPV calibration bags, this is the one whose motion calibrates the IMU intrinsics and lever most reliably: see the digital-twin check on the results page."
     dataset: {url: "https://fpv.ifi.uzh.ch/datasets/", label: UZH-FPV datasets page}
     eval: {slug: uzh-fpv, label: MVIS, Kalibr and Basalt on all 8 calibration recordings}
     data:
-      - "Recording outdoor_forward_calib_snapdragon: the Snapdragon Flight's two 640 × 480 global-shutter cameras, fitted with the equidistant lens model as in UZH's own calibration, and its IMU at about 500 Hz."
+      - "Recording indoor_45_calib_snapdragon: the Snapdragon Flight's two 640 × 480 global-shutter cameras, fitted with the equidistant lens model as in UZH's own calibration, and its IMU at about 500 Hz. It is 46 s long."
       - "IMU noise: UZH publishes no measured noise density, so the sigmas come from the residuals of UZH's own Kalibr results. They are estimates."
       - "Board: AprilGrid 5×4, tag 75 mm, spacing 0.2, t36h11."
       - "Cite Delmerico et al., \"Are We Ready for Autonomous Drone Racing? The UZH-FPV Drone Racing Dataset\", ICRA 2019."
     config:
-      name: uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
+      name: uzh_fpv_snapdragon_indoor_45_cam_imu.yaml
       why:
-        gravity: "Kept at 9.81 m/s² for Innovation Park Zürich, Dübendorf, Switzerland: the local gravity there, 9.8070 m/s², differs from it by under 0.1 %. Set your own local value."
+        gravity: "The local gravity at Innovation Park Zürich, Dübendorf, Switzerland: 9.8070 m/s². Set your own local value."
         site: "The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report."
         board: "The UZH board: AprilGrid 5×4, tag 75 mm, spacing 0.2."
         camera_input.path: "Seed intrinsics: UZH's own camera-only Kalibr calibration, equidistant lens. MVIS refines them in this solve."
@@ -349,24 +349,10 @@ examples:
       source: "The Kalibr camera + IMU calibration shipped with this recording on the UZH-FPV datasets page"
       url: "https://fpv.ifi.uzh.ch/datasets/"
       cams:
-        - {name: cam0, p_mm: [10.17, 20.8, -0.75], rotvec: [-1.18369, 1.22363, -1.23775], fx: 277.48, td_ms: -7.999}
-        - {name: cam1, p_mm: [8.81, -58.38, -0.79], rotvec: [-1.18902, 1.21606, -1.21392], fx: 276.79, td_ms: -7.984}
+        - {name: cam0, p_mm: [7.51, 24.05, 5.77], rotvec: [-1.74703, 1.79371, -0.73472], fx: 275.46, td_ms: -14.849}
+        - {name: cam1, p_mm: [6.71, -55.87, 4.23], rotvec: [-1.74172, 1.78018, -0.72332], fx: 274.46, td_ms: -14.951}
       notes:
         - "Kalibr held the intrinsics fixed at UZH's camera-only calibration; MVIS refines them, which explains most of the Δfx."
+        - "On this bag the shipped Kalibr lever is about 9 mm from our own Kalibr run with the same IMU weights and camera seed; MVIS is within 2.4 mm of that run. In rotation the three differ by about 5 mrad."
     reproduce:
-      batch: "MVIS 0.4.0, re-solve of 2026-11-24"
-    other:
-      title: The other device, mDAVIS346
-      lead: "Recording outdoor_forward_calib_davis: one 346 × 260 camera and the sensor's integrated IMU at about 1 kHz, same board. Its result is a table only; this page has one map."
-      config:
-        name: uzh_fpv_davis_outdoor_forward_cam_imu.yaml
-        why:
-          solve.sigma_g: IMU noise from the residuals of UZH's own Kalibr results for this recording. The other three sigmas are set the same way.
-      reference:
-        label: UZH (Kalibr)
-        source: "The Kalibr camera + IMU calibration shipped with this recording on the UZH-FPV datasets page"
-        url: "https://fpv.ifi.uzh.ch/datasets/"
-        cams:
-          - {name: cam0, p_mm: [1.82, 6.79, 23.09], rotvec: [-0.00679, 0.01432, 0.00538], fx: 174.24, td_ms: 5.808}
-        notes:
-          - "Kalibr held the intrinsics fixed at UZH's camera-only calibration; MVIS refines them."
+      batch: "MVIS 0.4.1, solve of 2026-11-26"

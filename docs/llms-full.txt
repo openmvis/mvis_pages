@@ -8741,10 +8741,10 @@ Shows: The rolling-shutter readout solved alongside the global-shutter cameras
 3 cam · 1 IMU sensors 66.4 s window 0.17 px reproj median +1.24 ms cam0 td Global + rolling shutter 3 cameras 400 Hz IMU
 
 - Photo: UZH Robotics and Perception Group, Delmerico et al., ICRA 2019, Fig. 4
-UZH Robotics and Perception Group UZH-FPV Rig: Snapdragon Flight stereo + IMU; mDAVIS346 + IMU
+UZH Robotics and Perception Group UZH-FPV Rig: Snapdragon Flight stereo + IMU
 Format: ROS1 bag
-Shows: One MVIS run per device on a racing drone
-2 cam · 1 IMU sensors 44.7 s window 0.15 px reproj median −7.28 ms cam0 td Global shutter Event camera Drone
+Shows: One MVIS run on a racing drone
+2 cam · 1 IMU sensors 42.7 s window 0.22 px reproj median −14.24 ms cam0 td Global shutter Drone
 
 Looking for a specific device? See the Device wiki. All tools on all recordings? See the Leaderboard.
 
@@ -9958,13 +9958,13 @@ URL: https://openmvis.com/benchmark/examples/uzh-fpv/
 
 ## Demo and values
 
-One MVIS camera + IMU run on the Snapdragon Flight's outdoor forward calibration recording, and one on the mDAVIS346's, each against the Kalibr calibration the dataset ships.
+One MVIS camera + IMU run on the Snapdragon Flight's indoor 45° calibration recording, against the Kalibr calibration the dataset ships. Of the 8 UZH-FPV calibration bags, this is the one whose motion calibrates the IMU intrinsics and lever most reliably: see the digital-twin check on the results page.
 The scene MVIS recovered from this dataset, as on the homepage. The values beside it come from this page's run.
 
-Reprojection median 0.15 px
-cam0–cam1 baseline 79.2 mm
-cam0 td −7.28 ms
-cam0 lever arm 23.3 mm
+Reprojection median 0.22 px
+cam0–cam1 baseline 80.0 mm
+cam0 td −14.24 ms
+cam0 lever arm 26.8 mm
 
 Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
 
@@ -9977,34 +9977,35 @@ MVIS's own player, from this run: the detected board corners, then the rig's pat
 The solved positions and orientations, to scale in the IMU frame. Drag sideways to orbit. Tap a sensor to see its values.
 
 Sensor | fx, fy, cx, cy px | Lever mm | log(R) rad | td ms | t_ga ms | Reprojection px |
-cam0 | 278.8, 278.9, 320.0, 241.5 | [+7.4, +22.0, +1.2] | [−1.1838, +1.2228, −1.2389] | −7.28 | | 0.161 |
-cam1 | 278.2, 278.1, 314.0, 235.6 | [+5.7, −57.2, +1.4] | [−1.1887, +1.2141, −1.2145] | −7.25 | | 0.147 |
-IMU (base) | | 0 | 0 | 0 | −0.98 ± 0.08 | |
+cam0 | 276.3, 275.9, 314.7, 242.2 | [+13.6, +22.9, −2.5] | [−1.7490, +1.7980, −0.7374] | −14.24 | | 0.197 |
+cam1 | 275.6, 275.2, 314.5, 235.0 | [+12.3, −57.1, −3.2] | [−1.7436, +1.7846, −0.7255] | −14.27 | | 0.246 |
+IMU (base) | | 0 | 0 | 0 | −0.82 ± 0.10 | |
 
-Lever arms and rotations are each sensor in the base IMU frame; rotation is log(R) in rad. td is the time offset to the base IMU, t_imu = t_sensor + td. Reprojection is the median per camera (all cameras: median 0.154 px): how well the model fits the corners, not how accurate it is.
+Lever arms and rotations are each sensor in the base IMU frame; rotation is log(R) in rad. td is the time offset to the base IMU, t_imu = t_sensor + td. Reprojection is the median per camera (all cameras: median 0.217 px): how well the model fits the corners, not how accurate it is.
 
 ## Check against a reference
 
 Reference: The Kalibr camera + IMU calibration shipped with this recording on the UZH-FPV datasets page.
 Value | MVIS | UZH (Kalibr) | Difference |
 cam0 |
-Lever mm | [+7.43, +22.02, +1.19] | [+10.17, +20.80, −0.75] | Δp 3.57 mm |
-log(R) rad | [−1.1838, +1.2228, −1.2389] | [−1.1837, +1.2236, −1.2377] | Δθ 1.19 mrad |
-fx px | 278.83 | 277.48 | Δfx +1.35 px |
-td ms | −7.280 | −7.999 | Δtd +0.719 ms |
+Lever mm | [+13.61, +22.92, −2.46] | [+7.51, +24.05, +5.77] | Δp 10.31 mm |
+log(R) rad | [−1.7490, +1.7980, −0.7374] | [−1.7470, +1.7937, −0.7347] | Δθ 5.27 mrad |
+fx px | 276.30 | 275.46 | Δfx +0.84 px |
+td ms | −14.236 | −14.849 | Δtd +0.613 ms |
 cam1 |
-Lever mm | [+5.73, −57.20, +1.45] | [+8.81, −58.38, −0.79] | Δp 3.99 mm |
-log(R) rad | [−1.1887, +1.2141, −1.2145] | [−1.1890, +1.2161, −1.2139] | Δθ 1.84 mrad |
-fx px | 278.16 | 276.79 | Δfx +1.37 px |
-td ms | −7.251 | −7.984 | Δtd +0.733 ms |
+Lever mm | [+12.29, −57.06, −3.19] | [+6.71, −55.87, +4.23] | Δp 9.36 mm |
+log(R) rad | [−1.7436, +1.7846, −0.7255] | [−1.7417, +1.7802, −0.7233] | Δθ 5.13 mrad |
+fx px | 275.64 | 274.46 | Δfx +1.18 px |
+td ms | −14.272 | −14.951 | Δtd +0.679 ms |
 
 Δp is the distance between the two lever arms. Δθ = ‖log(RaT Rb)‖, the angle between the two rotations. A reference, not ground truth: it was solved by another tool on the same kind of data.
 Kalibr held the intrinsics fixed at UZH's camera-only calibration; MVIS refines them, which explains most of the Δfx.
+On this bag the shipped Kalibr lever is about 9 mm from our own Kalibr run with the same IMU weights and camera seed; MVIS is within 2.4 mm of that run. In rotation the three differ by about 5 mrad.
 
 ## Config and run
 
-uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
-gravity : 9.81 # m/s², Innovation Park Zürich, Dübendorf, Switzerland; local 9.8070, under 0.1 %
+uzh_fpv_snapdragon_indoor_45_cam_imu.yaml
+gravity : 9.8070 # m/s², Innovation Park Zürich, Dübendorf, Switzerland
 
 site :
 
@@ -10020,7 +10021,7 @@ input :
 
 format : ros1
 
-path : outdoor_forward_calib_snapdragon_imu.bag
+path : indoor_45_calib_snapdragon_imu.bag
 
 imu_topics :
 
@@ -10042,7 +10043,7 @@ tag_family : t36h11
 
 camera_input :
 
-path : camera_prior_kalibr_camchain.yaml
+path : camchain-..indoor_45_calib_snapdragon_cam.yaml
 
 estimate_readout : false
 
@@ -10052,131 +10053,47 @@ imu_intrinsics : dw_da
 
 estimate_t_ga : true
 
-sigma_g : 0.0002999232700379165
+sigma_g : 0.0007110208680826167
 
-sigma_a : 0.0025286614063113116
+sigma_a : 0.0032732613574351305
 
-sigma_bg : 2.9992327003791653e-05
+sigma_bg : 7.110208680826167e-05
 
-sigma_ba : 0.00025286614063113117
+sigma_ba : 0.00032732613574351307
 
 output :
 
 path : cam_imu.json
 
 shell
-mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
+mvis cam-imu -c uzh_fpv_snapdragon_indoor_45_cam_imu.yaml
 
 The marked lines are the choices that matter for this rig:
 
-- gravity: Kept at 9.81 m/s² for Innovation Park Zürich, Dübendorf, Switzerland: the local gravity there, 9.8070 m/s², differs from it by under 0.1 %. Set your own local value.
+- gravity: The local gravity at Innovation Park Zürich, Dübendorf, Switzerland: 9.8070 m/s². Set your own local value.
 - site: The alternative to gravity: the recording site. With gravity set it does not change g; it names the city in the report.
 - board: The UZH board: AprilGrid 5×4, tag 75 mm, spacing 0.2.
 - camera_input.path: Seed intrinsics: UZH's own camera-only Kalibr calibration, equidistant lens. MVIS refines them in this solve.
 - solve.sigma_g: IMU noise from the residuals of UZH's own Kalibr results, as UZH publishes no measured density. The other three sigmas are set the same way.
 - solve.estimate_t_ga: Estimates t_ga, the time offset between the gyroscope and the accelerometer.
 This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
-The solve took about 5 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
-MVIS: MVIS 0.4.0, re-solve of 2026-11-24
-Run date: 2026-11-24
+The solve took about 1 min on one desktop. It writes cam_imu.json, a calibration YAML and a report beside the config.
+MVIS: MVIS 0.4.1, solve of 2026-11-26
+Run date: 2026-11-26
 Data: UZH-FPV datasets page
-Config: uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml, above
-Command: mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
+Config: uzh_fpv_snapdragon_indoor_45_cam_imu.yaml, above
+Command: mvis cam-imu -c uzh_fpv_snapdragon_indoor_45_cam_imu.yaml
 
 ## Dataset
 
-- Recording outdoor_forward_calib_snapdragon: the Snapdragon Flight's two 640 × 480 global-shutter cameras, fitted with the equidistant lens model as in UZH's own calibration, and its IMU at about 500 Hz.
+- Recording indoor_45_calib_snapdragon: the Snapdragon Flight's two 640 × 480 global-shutter cameras, fitted with the equidistant lens model as in UZH's own calibration, and its IMU at about 500 Hz. It is 46 s long.
 - IMU noise: UZH publishes no measured noise density, so the sigmas come from the residuals of UZH's own Kalibr results. They are estimates.
 - Board: AprilGrid 5×4, tag 75 mm, spacing 0.2, t36h11.
 - Cite Delmerico et al., "Are We Ready for Autonomous Drone Racing? The UZH-FPV Drone Racing Dataset", ICRA 2019.
-- Solve window: 44.7 s.
+- Solve window: 42.7 s.
 Download: UZH-FPV datasets page The recordings are listed there, not copied here.
 
 AprilGrid 4 × 5, 435 × 345 mm. Standard pattern, to scale
-
-## The other device, mDAVIS346
-
-uzh_fpv_davis_outdoor_forward_cam_imu.yaml
-gravity : 9.81 # m/s², Innovation Park Zürich, Dübendorf, Switzerland; local 9.8070, under 0.1 %
-
-site :
-
-latitude_deg : 47.4
-
-longitude_deg : 8.62
-
-altitude_m : 440
-
-name : Innovation Park Zürich, Dübendorf, Switzerland
-
-input :
-
-format : ros1
-
-path : outdoor_forward_calib_davis_imu.bag
-
-imu_topics :
-
-- /dvs/imu
-
-board :
-
-board_type : apriltag
-
-rows : 4
-
-cols : 5
-
-tag_size : 0.075
-
-tag_spacing : 0.2
-
-tag_family : t36h11
-
-camera_input :
-
-path : camera_prior_kalibr_camchain.yaml
-
-estimate_readout : false
-
-solve :
-
-imu_intrinsics : dw_da
-
-estimate_t_ga : true
-
-sigma_g : 0.0004874105702967688
-
-sigma_a : 0.0012171608940189519
-
-sigma_bg : 4.874105702967688e-05
-
-sigma_ba : 0.00012171608940189519
-
-output :
-
-path : cam_imu.json
-
-Recording outdoor_forward_calib_davis: one 346 × 260 camera and the sensor's integrated IMU at about 1 kHz, same board. Its result is a table only; this page has one map.
-Sensor | fx, fy, cx, cy px | Lever mm | log(R) rad | td ms | t_ga ms | Reprojection px |
-cam0 | 172.3, 172.3, 163.3, 140.5 | [+3.6, +4.1, +22.6] | [−0.0083, +0.0124, +0.0053] | +6.02 | | 0.275 |
-IMU (base) | | 0 | 0 | 0 | −0.58 ± 0.10 | |
-
-Lever arms and rotations are each sensor in the base IMU frame; rotation is log(R) in rad. td is the time offset to the base IMU, t_imu = t_sensor + td. Reprojection is the median per camera (all cameras: median 0.275 px): how well the model fits the corners, not how accurate it is.
-Reference: The Kalibr camera + IMU calibration shipped with this recording on the UZH-FPV datasets page.
-Value | MVIS | UZH (Kalibr) | Difference |
-cam0 |
-Lever mm | [+3.65, +4.12, +22.59] | [+1.82, +6.79, +23.09] | Δp 3.28 mm |
-log(R) rad | [−0.0083, +0.0124, +0.0053] | [−0.0068, +0.0143, +0.0054] | Δθ 2.46 mrad |
-fx px | 172.32 | 174.24 | Δfx −1.92 px |
-td ms | +6.023 | +5.808 | Δtd +0.215 ms |
-
-Δp is the distance between the two lever arms. Δθ = ‖log(RaT Rb)‖, the angle between the two rotations. A reference, not ground truth: it was solved by another tool on the same kind of data.
-Kalibr held the intrinsics fixed at UZH's camera-only calibration; MVIS refines them.
-The marked lines are the choices that matter for this rig:
-
-- solve.sigma_g: IMU noise from the residuals of UZH's own Kalibr results for this recording. The other three sigmas are set the same way.
-This is the config of the run on this page, with every path cut to its file name; the gravity line gives the g the run used. Point the paths at your copy, and take the gravity for your site from the Local gravity page.
 
 ## More on this data
 
