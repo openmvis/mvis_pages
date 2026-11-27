@@ -91,7 +91,7 @@ PYTHONNOUSERSITE=1 python3 site/scripts/export_examples.py --private-config <sen
 PYTHONNOUSERSITE=1 python3 site/scripts/export_uzh.py --leaderboard <leaderboard dir> --uzh-root <uzh study dir>
 PYTHONNOUSERSITE=1 python3 site/scripts/export_board.py --leaderboard <leaderboard dir> --records <snapshot> --results-commit <its full sha>
 PYTHONNOUSERSITE=1 python3 site/scripts/export_repeatability.py --records <snapshot> --stats <three_way_compare_stats.json of that batch> --batch <batch> --results-commit <its full sha> [--leaderboard <leaderboard dir>]
-PYTHONNOUSERSITE=1 python3 site/scripts/export_results.py --leaderboard <leaderboard dir> --records <snapshot> --stats <its stats file> --batch <batch> --results-commit <its full sha> --uzh-root <uzh study dir>   # after the three above
+PYTHONNOUSERSITE=1 python3 site/scripts/export_results.py --leaderboard <leaderboard dir> --records <snapshot> --stats <its stats file> --batch <batch> --results-commit <its full sha> --uzh-root <uzh study dir> --study <slug>=<its stats file> [...]   # after the three above; one --study per separate study, a study left out keeps its committed page (warning)
 PYTHONNOUSERSITE=1 python3 site/scripts/export_study.py --leaderboard <leaderboard dir> --study <slug>=<its stats file>   # one separate study, without the batch inputs
 cd python && PYTHONNOUSERSITE=1 python3 -m pytest -q     # unit tests; python/cov.sh for coverage
 ```
@@ -107,7 +107,7 @@ What each writes:
 | `export_board.py` | `site/src/data/leaderboard/board.json`, `board.css` |
 | `export_uzh.py` | `site/src/data/leaderboard/uzh_fpv.json` |
 | `export_repeatability.py` | `site/src/data/leaderboard/repeatability.json` (matched-recording repeatability per family and group; reads the private per-recording stats file, writes derived spreads only) |
-| `export_results.py` | the Results pages: `site/src/data/eval/index.json` (Leaderboard rows), `eval/<slug>.json` + `site/src/content/docs/benchmark/results/<slug>.mdx` (one Dataset eval page per dataset), `site/src/data/results-nav.json` (sidebar, old-hash jumps); text from `python/data/public_results.yaml`, ◆ counted by the Space's code and checked against `board.json`, only min/max per row and tool from the private stats file |
+| `export_results.py` | the Results pages: `site/src/data/eval/index.json` (Leaderboard rows), `eval/<slug>.json` + `site/src/content/docs/benchmark/results/<slug>.mdx` (one Dataset eval page per dataset), `site/src/data/results-nav.json` (sidebar, old-hash jumps); text from `python/data/public_results.yaml`, ◆ counted by the Space's code and checked against `board.json`, only min/max per row and tool from the private stats file. Camera + IMU families get one MVIS lane, labelled "MVIS": the run with Kalibr's IMU model, or the default-model run where a family has no such run (`imu_model` in the family says which). The Leaderboard keeps "MVIS (K-IMU)" |
 | `export_study.py` | one or more separate studies (`study: true` in `public_results.yaml`) alone: their `eval/<slug>.json` + MDX, their `results-nav.json` entries (with every entry's `nav_group` sidebar group) and their line in the Leaderboard's study list; every other page and row is kept as `export_results.py` last wrote it |
 
 The page text is public (`python/data/public_sensors.yaml`,

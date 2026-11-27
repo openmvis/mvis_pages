@@ -932,14 +932,9 @@
    "n": 4,
    "columns": [
     {
-     "col": "calyx",
-     "tool": "MVIS",
-     "label": "MVIS"
-    },
-    {
      "col": "mvis",
      "tool": "MVIS",
-     "label": "MVIS (K-IMU)"
+     "label": "MVIS"
     },
     {
      "col": "kalibr",
@@ -993,7 +988,6 @@
     {
      "sensor": "Odyssey+ cam0",
      "by_col": {
-      "calyx": "0.129",
       "mvis": "0.129",
       "kalibr": "0.680"
      }
@@ -1001,7 +995,6 @@
     {
      "sensor": "Odyssey+ cam1",
      "by_col": {
-      "calyx": "0.137",
       "mvis": "0.137",
       "kalibr": "0.685"
      }
@@ -1026,21 +1019,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 269.255,
-         "sd": 0.175444,
-         "n": 4,
-         "text": "269.25",
-         "min": 269.092,
-         "max": 269.448
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 269.256,
          "sd": 0.175374,
@@ -1083,26 +1064,14 @@
        "cls": "intr",
        "axis": {
         "c": 268.625,
-        "h": 0.874072,
+        "h": 0.873909,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 269.199,
-         "sd": 0.220611,
-         "n": 4,
-         "text": "269.20",
-         "min": 268.95,
-         "max": 269.411
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 269.199,
          "sd": 0.220463,
@@ -1145,26 +1114,14 @@
        "cls": "intr",
        "axis": {
         "c": 322.999,
-        "h": 0.455422,
+        "h": 0.455372,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 323.243,
-         "sd": 0.17002,
-         "n": 4,
-         "text": "323.24",
-         "min": 323.061,
-         "max": 323.386
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 323.243,
          "sd": 0.169975,
@@ -1207,26 +1164,14 @@
        "cls": "intr",
        "axis": {
         "c": 245.854,
-        "h": 0.304677,
+        "h": 0.304441,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 245.673,
-         "sd": 0.0959789,
-         "n": 4,
-         "text": "245.67",
-         "min": 245.592,
-         "max": 245.804
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 245.673,
          "sd": 0.0957644,
@@ -1274,21 +1219,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 0.073984,
-         "sd": 0.00232663,
-         "n": 4,
-         "text": "0.07398",
-         "min": 0.0723714,
-         "max": 0.0778317
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 0.0739837,
          "sd": 0.00232703,
@@ -1336,21 +1269,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": -0.0147964,
-         "sd": 0.00731136,
-         "n": 4,
-         "text": "−0.01480",
-         "min": -0.0215683,
-         "max": -0.00429895
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": -0.0147957,
          "sd": 0.00731279,
@@ -1398,21 +1319,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 0.189299,
-         "sd": 0.0101382,
-         "n": 4,
-         "text": "0.18930",
-         "min": 0.171577,
-         "max": 0.193721
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 0.189298,
          "sd": 0.0101403,
@@ -1460,21 +1369,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": -0.111661,
-         "sd": 0.00480031,
-         "n": 4,
-         "text": "−0.11166",
-         "min": -0.113494,
-         "max": -0.102993
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": -0.111661,
          "sd": 0.00480116,
@@ -1517,26 +1414,14 @@
        "cls": "time",
        "axis": {
         "c": -1.03892,
-        "h": 1.66184,
+        "h": 1.6618,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": -1.4755,
-         "sd": 1.07418,
-         "n": 4,
-         "text": "−1.476",
-         "min": -2.54573,
-         "max": -0.506364
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": -1.47548,
          "sd": 1.07417,
@@ -1584,21 +1469,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 84.2631,
-         "sd": 0.0438323,
-         "n": 4,
-         "text": "84.26",
-         "min": 84.1855,
-         "max": 84.283
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 84.2622,
          "sd": 0.0435192,
@@ -1652,21 +1525,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 270.478,
-         "sd": 0.230584,
-         "n": 4,
-         "text": "270.48",
-         "min": 270.144,
-         "max": 270.704
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 270.478,
          "sd": 0.230615,
@@ -1709,26 +1570,14 @@
        "cls": "intr",
        "axis": {
         "c": 270.895,
-        "h": 0.43273,
+        "h": 0.432704,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 271.065,
-         "sd": 0.223391,
-         "n": 4,
-         "text": "271.06",
-         "min": 270.696,
-         "max": 271.222
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 271.065,
          "sd": 0.223367,
@@ -1776,21 +1625,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 323.347,
-         "sd": 0.080309,
-         "n": 4,
-         "text": "323.35",
-         "min": 323.2,
-         "max": 323.377
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 323.348,
          "sd": 0.0804721,
@@ -1833,26 +1670,14 @@
        "cls": "intr",
        "axis": {
         "c": 250.765,
-        "h": 0.4609,
+        "h": 0.4598,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 250.943,
-         "sd": 0.174859,
-         "n": 4,
-         "text": "250.94",
-         "min": 250.757,
-         "max": 251.184
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 250.943,
          "sd": 0.174632,
@@ -1895,26 +1720,14 @@
        "cls": "dist",
        "axis": {
         "c": 0.059216,
-        "h": 0.00603547,
+        "h": 0.00603353,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 0.056868,
-         "sd": 0.00313879,
-         "n": 4,
-         "text": "0.05687",
-         "min": 0.0539146,
-         "max": 0.0599247
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 0.0568693,
          "sd": 0.00313833,
@@ -1957,26 +1770,14 @@
        "cls": "dist",
        "axis": {
         "c": 0.000848561,
-        "h": 0.0197614,
+        "h": 0.0197569,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 0.00661356,
-         "sd": 0.0110978,
-         "n": 4,
-         "text": "0.00661",
-         "min": -0.00234884,
-         "max": 0.0188135
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 0.00661174,
          "sd": 0.0110963,
@@ -2019,26 +1820,14 @@
        "cls": "dist",
        "axis": {
         "c": 0.18691,
-        "h": 0.0311861,
+        "h": 0.0311839,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 0.177322,
-         "sd": 0.0146523,
-         "n": 4,
-         "text": "0.17732",
-         "min": 0.158559,
-         "max": 0.188372
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 0.177322,
          "sd": 0.0146513,
@@ -2086,21 +1875,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": -0.110401,
-         "sd": 0.00649603,
-         "n": 4,
-         "text": "−0.11040",
-         "min": -0.115462,
-         "max": -0.101576
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": -0.1104,
          "sd": 0.00649603,
@@ -2143,26 +1920,14 @@
        "cls": "length",
        "axis": {
         "c": 105.474,
-        "h": 0.101133,
+        "h": 0.101127,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 105.421,
-         "sd": 0.0389389,
-         "n": 4,
-         "text": "105.421",
-         "min": 105.391,
-         "max": 105.482
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 105.421,
          "sd": 0.0389336,
@@ -2206,26 +1971,14 @@
        "cls": "time",
        "axis": {
         "c": -1.03892,
-        "h": 1.6641,
+        "h": 1.66407,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": -1.47954,
-         "sd": 1.0722,
-         "n": 4,
-         "text": "−1.480",
-         "min": -2.54289,
-         "max": -0.512083
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": -1.47955,
          "sd": 1.07216,
@@ -2268,26 +2021,14 @@
        "cls": "length",
        "axis": {
         "c": 22.9841,
-        "h": 1.40393,
+        "h": 1.40294,
         "by": "reference"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 21.7769,
-         "sd": 0.0567171,
-         "n": 4,
-         "text": "21.78",
-         "min": 21.7078,
-         "max": 21.8224
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 21.7774,
          "sd": 0.0564941,
@@ -2341,16 +2082,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 1.00115,
          "sd": 0.000472186,
@@ -2398,16 +2132,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 1.00126,
          "sd": 0.000276174,
@@ -2455,16 +2182,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 0.99993,
          "sd": 0.000284424,
@@ -2512,16 +2232,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 0.000382581,
          "sd": 0.000334414,
@@ -2569,16 +2282,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 9.88517e-05,
          "sd": 9.28856e-05,
@@ -2626,16 +2332,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": -0.000989292,
          "sd": 0.000107745,
@@ -2683,16 +2382,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 1.00952,
          "sd": 0.000327201,
@@ -2740,16 +2432,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 1.00766,
          "sd": 0.00015462,
@@ -2797,16 +2482,9 @@
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "missing",
-         "note": "no value"
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 1.01394,
          "sd": 0.000311859,
@@ -2848,27 +2526,15 @@
        "unit": "ms",
        "cls": "time",
        "axis": {
-        "c": 2.25835,
-        "h": 0.046035,
+        "c": 2.25855,
+        "h": 0.045815,
         "by": "MVIS median"
        },
        "lanes": [
         {
-         "col": "calyx",
-         "tool": "MVIS",
-         "label": "MVIS",
-         "state": "ok",
-         "med": 2.25835,
-         "sd": 0.0340424,
-         "n": 4,
-         "text": "2.258",
-         "min": 2.2189,
-         "max": 2.3001
-        },
-        {
          "col": "mvis",
          "tool": "MVIS",
-         "label": "MVIS (K-IMU)",
+         "label": "MVIS",
          "state": "ok",
          "med": 2.25855,
          "sd": 0.0339629,
@@ -2903,7 +2569,7 @@
      "sensor_id": "imu0",
      "col": "mvis",
      "tool": "MVIS",
-     "label": "MVIS (K-IMU)",
+     "label": "MVIS",
      "cells": {
       "00": {
        "med": -0.0183632,
@@ -3007,7 +2673,8 @@
      }
     }
    ],
-   "has_tga": true
+   "has_tga": true,
+   "imu_model": "kalibr"
   }
  ],
  "full_tables": null

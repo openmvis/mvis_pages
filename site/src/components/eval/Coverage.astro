@@ -2,11 +2,13 @@
 // Solved n of N per tool (one square per recording, anonymous order; poor solves grey and not counted, their
 // reason under the family's read-first line), the reason where a tool did not run, the
 // record files behind every number, and the fit (reprojection median) folded: fit of each tool's own model.
+// One MVIS lane per family (f.imu_model, camera + IMU only): 'kalibr' = the run with Kalibr's IMU model, 'default' =
+// MVIS's default model where a family has no such run. The line under the squares says which.
 import RpShape from '../RpShape.astro';
 interface Props { page: any; i: number }
 const { page, i } = Astro.props;
 const f = page.families[i];
-const label = (c: string) => f.columns.find((x: any) => x.col === c)?.label ?? c;
+const alone = f.solved.every((s: any) => s.tool === 'MVIS' || s.reason);  // no other tool ran on this family
 ---
 <div class="not-content ev-cov">
   <ul class="ev-solved">
@@ -20,8 +22,9 @@ const label = (c: string) => f.columns.find((x: any) => x.col === c)?.label ?? c
       </li>
     ))}
   </ul>
-  {f.mode === 'cam+imu' && f.columns.some((c: any) => c.col === 'mvis') && <p class="ev-small">MVIS made two runs per recording: its default IMU model ("MVIS") and Kalibr's IMU model ("MVIS (K-IMU)"), so the IMU terms of the second mean the same thing as Kalibr's.</p>}
-  {Object.keys(f.records).length > 0 && <p class="ev-small">Records behind these numbers: {Object.entries(f.records).map(([t, u]: [string, any], k: number) => <>{k ? ' · ' : ''}<a href={u}>{t} {f.id}.json</a></>)}</p>}
+  {f.imu_model === 'kalibr' && <p class="ev-small">For a fair comparison, MVIS is run here with Kalibr's IMU model, so its gyro and accel terms mean the same as Kalibr's. MVIS still estimates t_ga and refines the camera intrinsics.</p>}
+  {f.imu_model === 'default' && <p class="ev-small">MVIS here uses its default IMU model{alone ? '; no other tool ran on this set' : ''}.</p>}
+  {Object.keys(f.records).length > 0 && <p class="ev-small">Records behind these numbers: {Object.entries(f.records).map(([t, u]: [string, any], k: number) => <>{k ? ' · ' : ''}<a href={u}>{t} {f.id}.json</a></>)}{f.imu_model === 'kalibr' && <>. In the MVIS file, this run is the method "MVIS (Kalibr IMU model)".</>}</p>}
   {f.fit.length > 0 && (
     <details class="ev-fold">
       <summary>Fit: reprojection median, px <small>(fit of each tool's own model, not accuracy)</small></summary>

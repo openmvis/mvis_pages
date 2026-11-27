@@ -23,7 +23,7 @@ const tint = (v: number, m: number) => `--ev-a:${Math.round((Math.abs(v) / m) * 
     {inputs.map(([who, n]) => <li><b>{who}</b>: {n} {n === 1 ? 'value is' : 'values are'} input, not estimated (hollow boxes). Their spread copies the input, so it is not that tool's repeatability.</li>)}
     {other.map(([who, n]) => <li><b>{who}</b>: {n} {n === 1 ? 'value comes' : 'values come'} from another model (hatched lanes), so {n === 1 ? 'it is' : 'they are'} printed and not compared.</li>)}
     {f.has_tga && <li><b>t_ga</b>, the gyro–accel delay, is estimated by MVIS only; Kalibr and Basalt have no such term, so MVIS's td is not quite the same quantity.</li>}
-    {tiles.length > 0 && <li><b>Tg</b>, the IMU g-sensitivity, is a term of Kalibr's IMU model, here from {[...new Set(tiles.map((t: any) => t.label))].join(' and ')}; the MVIS default model has no counterpart, so it is not compared.</li>}
+    {tiles.length > 0 && <li><b>Tg</b>, the IMU g-sensitivity, is a term of Kalibr's IMU model, here from {[...new Set(tiles.map((t: any) => t.label))].join(' and ')}. MVIS has it because it is run with Kalibr's IMU model here; its default IMU model has no such term. It is not compared.</li>}
     {inputs.length + other.length === 0 && !f.has_tga && tiles.length === 0 && <li>No charted value is an input or comes from another model.</li>}
   </ul>
   {tiles.length > 0 && (

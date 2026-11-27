@@ -106,13 +106,12 @@ Recording 01 ([example run](/benchmark/examples/virig-4imus-4cams/)):
 - **`td`:** the camera's time offset to the base IMU. The ELP `td` is large; the T265 cameras sit at −5.41 and
   −7.47 ms.
 
-All 15 recordings ([results page](/benchmark/results/virig-4imus-4cams/), the "MVIS" column, not "MVIS (K-IMU)", median
-and sd):
+All 15 recordings ([results page](/benchmark/results/virig-4imus-4cams/), the "MVIS" column, median and sd):
 
 | Run on the results page | ELP left readout (ms) | ELP right readout (ms) |
 |---|---|---|
-| ELP RS stereo + two IMUs | 16.618 (sd 0.122) | 16.594 (sd 0.111) |
-| Mixed t265-f1 + ELP-L, aux Xsens | 16.680 (sd 0.089, n = 14) | — |
+| ELP RS stereo + two IMUs | 16.621 (sd 0.121) | 16.599 (sd 0.108) |
+| Mixed t265-f1 + ELP-L, aux Xsens | 16.669 (sd 0.085) | — |
 
 - **Repeatable:** the camera–IMU readout moves by about 0.1 ms between recordings. A readout that moves much
   more was not observed by the motion.
