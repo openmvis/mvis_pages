@@ -8312,8 +8312,25 @@ DAVIS · camera + IMU SNAP · camera + IMU
 - One Basalt solve is left out. On davis_indoor_forward with these weights, Basalt gives a 120 mm lever and an accel scale (accelerometer scale factor) of 0.84. So its Davis column has 3 of 4 bags. At Basalt's default noise that bag is plausible, but snapdragon_indoor_45 then fails with a broken spline.
 - Basalt's Davis distance stands out. Its camera-to-IMU distance is 33.6 mm. Kalibr gives 23.2 mm and MVIS 22.8 mm on the same 3 bags. We haven't established why. At default noise Basalt's lever z is 14–25 mm.
 - Each device's 4 bags form one family, because the camera and IMU are on the same device. That assumes the camera–IMU geometry stayed the same across recordings, which we can't confirm.
-- Gravity. These solves used 9.81 m/s², before 2026-11-25. The example config now sets 9.8070 (Dübendorf); with it the accel scale moves by about −0.03 %.
+- Gravity. MVIS solves at Dübendorf's 9.8070 m/s², the value the example config sets (since 2026-11-26). Kalibr and Basalt keep their own default; against 9.81 the change moves MVIS's accel scale by under 0.03 %.
 - Snapdragon's time offset really does differ between bags, with an sd (standard deviation) near 4.7 ms in every tool. So a small difference between tools on that row says little about each bag.
+
+## Does the motion calibrate the IMU? A digital-twin check
+
+IMU intrinsics (the gyro and accel scale and misalignment) and the camera–IMU lever are only as good as the motion that excites them. To see what these bags can deliver, we made a digital twin of each one: its real solve becomes the truth, the twin keeps the bag's frame times, board corners and IMU stamps, and measurements simulated with the measured noise are solved again. The distance from the truth is the smallest error this motion allows.
+As a yardstick, the same test ran on two recordings with good calibration motion: VI-Rig (T265) and TUM-VI. That is 220 twin solves in all, on MVIS 0.4.1.
+
+- The solves don't get stuck. From three different starting points every bag lands on the same answer, and without noise it lands within 0.7 mm and 0.15 % of the truth. The motion isn't degenerate.
+- But it doesn't hold against the real noise. On all four DAVIS bags the accel scale comes out 0.35–0.58 % off, against 0.18 % or less on the yardsticks, and the lever 2.2–3.5 mm off, mostly in z. One Snapdragon bag reaches yardstick level; the other three fall in between.
+- What's missing is tilt. These bags rotate as fast as the yardsticks, but gravity turns only 23–44° in the IMU frame, against 76–80°. Gravity seen from many directions is what separates the accel scale and misalignment from the lever. Flown along the TUM-VI motion, the same DAVIS rig gets its accel scale within 0.12 % on 3 of 4 bags.
+- Length matters too. Cut to its first half, every recording fails, the yardsticks included. These bags are 30–57 s long.
+- So read this page's IMU intrinsics and levers as what this motion allows, not as the sensors' true values. To calibrate IMU intrinsics, record longer and turn the rig through many orientations, so gravity points along every axis: see Record the dataset and Why calibrate the IMU.
+Twin error at the measured noise: |mean| + 2 SD over 5 noise draws, worst axis. Recording | Lever | Accel scale | Gyro scale | Misalignment |
+UZH DAVIS, 4 bags | 2.2–3.5 mm | 0.35–0.58 % | 0.20–0.42 % | 1.8–8.1 mrad |
+UZH Snapdragon, indoor 45° | 0.6 mm | 0.14 % | 0.11 % | 1.0–1.8 mrad |
+UZH Snapdragon, other 3 bags | 1.0–2.5 mm | 0.22–0.35 % | 0.17–0.34 % | 2.2–5.4 mrad |
+VI-Rig (T265), yardstick | 1.4 mm | 0.18 % | 0.61 % | 2.3–6.9 mrad |
+TUM-VI, yardstick | 1.1 mm | 0.12 % | 0.07 % | 1.7–3.5 mrad |
 
 ## DAVIS · camera + IMU
 

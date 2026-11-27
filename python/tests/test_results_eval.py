@@ -256,6 +256,14 @@ def test_a_dataset_page_and_its_mdx():
     assert "RepeatabilityMatrix" not in R.mdx(dict(_page(), reading=["<b>x</b>"]))
 
 
+def test_a_twin_block_gets_its_own_section_after_the_notes():
+    twin = dict(title="Does the motion calibrate the IMU?", paras=["p"], bullets=["b"],
+                table=dict(caption="c", head=["h"], rows=[["r"]]))
+    text = R.mdx(dict(_page(), reading=["<b>x</b>"], twin=twin))
+    assert text.index("## Notes") < text.index("## Does the motion calibrate the IMU?") < text.index("## T1 ·")
+    assert "<E.Twin page={page} />" in text and "<E.Twin" not in R.mdx(_page())
+
+
 def test_the_public_text_holds_every_dataset_in_page_order_ours_first():
     pub = _pub()
     ds = pub["datasets"]
