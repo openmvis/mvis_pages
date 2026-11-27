@@ -128,7 +128,7 @@ Export: mvis apply-calib writes a copy of a raw ROS1 bag with the calibration ap
 
 ## Devices calibrated so far
 
-19 devices from 14 makers (ALG Tech, Borme, Dibuli, General Intelligence Labs, Hampo, LooperRobotics, RoboBaton, Tujian, HP, Insta360, Intel RealSense, Samsung, Stereolabs, Valve), plus our own VI-Rig. Each has a page with its calibration, the data and the results.
+20 devices from 15 makers (ALG Tech, Borme, Dibuli, General Intelligence Labs, Hampo, LooperRobotics, RoboBaton, SENSING TECH, Tujian, HP, Insta360, Intel RealSense, Samsung, Stereolabs, Valve), plus our own VI-Rig. Each has a page with its calibration, the data and the results.
 
 - OpenMVIS VI-Rig
 - ALG Tech AVS111C-Y stereo
@@ -140,6 +140,7 @@ Export: mvis apply-calib writes a copy of a raw ROS1 bag with the calibration ap
 - Hampo Stereo module
 - LooperRobotics Insight 9
 - RoboBaton Neo
+- SENSING TECH Astra S56
 - Tujian CyperStereo
 - HP Reverb G2
 - Insta360 ONE RS 1-Inch 360
@@ -160,6 +161,7 @@ Recordings and units from
 -
 - Hampo
 - RoboBaton
+- SENSING TECH
 - Feekass
 Also calibrated, from public datasets
 
@@ -331,6 +333,7 @@ RealSense D455 | CC BY 4.0 | OpenMVIS | 2026-11-25 |
 RealSense D456 | CC BY 4.0 | OpenMVIS | 2026-11-25 |
 CyperStereo four-camera module | CC BY 4.0 | CyperStereo | 2026-11-25 |
 RoboBaton Neo | CC BY 4.0 | Shared by the maker | 2026-11-25 |
+SENSING Astra S56 | CC BY 4.0 | Shared by the maker | 2026-11-27 |
 Dibuli Prism-A4L | CC BY 4.0 | Dibuli, public example data | 2026-11-26 |
 XQ20 | CC BY 4.0 | Feekass | 2026-11-26 |
 Hampo stereo module | CC BY 4.0 | Hampo | 2026-11-26 |
@@ -10139,6 +10142,8 @@ Tracking modules · Head-worn cameras · VR headsets · 360° cameras
 
 - RoboBaton Neo VIO module: global-shutter fisheye camera with a TDK ICM-42670-P IMU SmartSens SC132GS TDK InvenSense ICM-42670-P Global shutter 1 camera 200 Hz IMU
 
+- SENSING TECH Astra S56 Stereo camera: wide-angle global-shutter cameras with a 400 Hz IMU Camera not known IMU not known Global shutter 1 camera 400 Hz IMU
+
 - Stereolabs ZED 2 Stereo depth camera: two rolling-shutter cameras with a 400 Hz IMU OmniVision OV4689 ×2 Bosch BMI270 Rolling shutter 2 cameras 400 Hz IMU
 
 - LooperRobotics Insight 9 Spatial AI camera: stereo pair, rolling-shutter colour camera, 6-axis IMU, VIO SmartSens SC132GS ×2 Sony IMX415 Bosch BMI088 Global + rolling shutter 3 cameras 400 Hz IMU
@@ -10926,6 +10931,128 @@ Your result and HTML report land in replay/. Compare them with the published val
 Your own device, or another module
 Have your own Neo? Record the board with the Neo's capture tool, then in config/cam_imu.yaml set input.format: euroc and input.path to the mav0 folder inside your recording, or pass a ROS1 bag with --bag. See Calibration motion for how to move.
 Have another camera or IMU module? Send us a recording and we calibrate it with MVIS, Kalibr and Basalt and publish it in the Device wiki. See Submit a dataset.
+
+
+---
+
+# SENSING Astra S56 camera–IMU calibration | OpenMVIS
+
+URL: https://openmvis.com/devices/astra-s56/
+
+## Demo and values
+
+Wide-angle stereo camera from SENSING TECH with two 5 MP global-shutter sensors and a 6-axis IMU, on a GMSL2 link. One recording from the maker in front of a lit AprilGrid in a dark room, with one of the two cameras, solved as camera + IMU. These are first results; the stereo pair is not calibrated yet.
+No video on this page. The values below come from the solved run.
+Reprojection median 0.31 px
+cam0 td +3.91 ms
+cam0 lever arm 23.7 mm
+
+Reprojection is how far, in pixels, the detected corners lie from where the solve puts them. td is the camera–IMU time offset, and the lever arm is the camera–IMU position offset.
+First results from one recording. There is no second recording, no maker calibration and no round-trip check to compare with yet.
+
+## Calibration process
+
+The path of the rig around the board, as MVIS solved it. To explore it:
+
+- Press Play or drag the bar to follow the path.
+- Use the view buttons to change the view.
+- Pick a camera card to put that camera on the frustum, the pyramid that shows its view.
+Each card draws the board from the solved pose, with the corners MVIS detected. We publish no camera images.
+
+## Solved rig
+
+The solved rig in 3D, to scale. Tap a sensor to see its values. In full screen you can rotate and zoom. Grid squares are 20 mm.
+
+### To scale, from above and the front
+
+From above
+
+From the front
+
+Camera | Lever x, y, z (mm) | Distance (mm) | log(R) (rad) | td (ms) | Field of view |
+cam0 | +0.9, +16.1, −17.3 | 23.7 | [−2.215, +2.220, −0.009] | +3.91 | 154° × 116° |
+
+Solved by MVIS. Lever arms (camera–IMU position offsets) are in the IMU frame. Rotation is log(R), camera in the IMU frame.
+
+## Detailed results
+
+Lens Calibrated field of view
+Calibrated field of view, horizontal × vertical. cam0: 154° × 116°, corners reach 88° from the axis
+
+cam0
+We read these from the calibrated lens fit at the image edges, through the principal point (where the optical axis meets the image). ~ marks an axis past where the corners reached, so the fit is extrapolated there. Past the fit means an edge lies beyond where the fit holds, so we give no value.
+
+IMU Gyro–accel time offset t_ga +3.11 ms
+Each bar shows a scale as its deviation from 1. IMU model: calyx. t_ga, the time offset between the gyroscope and accelerometer channels: +3.11 ± 0.08 ms.
+Gyro scale x−0.18 %
+Gyro scale y+0.13 %
+Gyro scale z−0.44 %
+Accel scale x−0.53 %
+Accel scale y−0.17 %
+Accel scale z−0.07 %
+−8 %0+8 %
+
+Timing cam0 td +3.91 ms
+The time offsets, to scale. td is the camera–IMU time offset, with t_imu = t_cam + td.
+
+Full results Every solved parameter
+Rotation is log(R) in rad, camera in the IMU frame.
+Parameter | MVIS |
+cam0 |
+fx px | 1022.47 |
+fy px | 1022.34 |
+cx px | 1279.08 |
+cy px | 985.15 |
+k1 | −0.04387 |
+k2 | 0.00872 |
+k3 | −0.00300 |
+k4 | 0.00010 |
+Lever x mm | +0.90 |
+Lever y mm | +16.14 |
+Lever z mm | −17.33 |
+log(R) rad | [−2.2152, +2.2199, −0.0094] |
+td ms | +3.913 |
+Reprojection px | 0.422 |
+IMU |
+t_ga ms | +3.11 ± 0.08 |
+
+## Limits
+
+- First results from one recording. There is no second recording, no maker calibration and no round-trip check to compare with yet.
+- The recording holds one of the two cameras, so the stereo extrinsics and the baseline are not calibrated.
+- The tag size, 88 mm, is assumed: the maker has not given the board size. The metric scale from the IMU agrees with it to about 0.1 %. It scales the lever arm.
+- The images are JPEG-compressed, which can shift detected corners slightly.
+- The recording site is assumed to be Shenzhen, the maker's city.
+
+## Specifications
+
+Published by the maker |
+Maker | SENSING TECH (Shenzhen) |
+Cameras | 2 × 5 MP global shutter, 2560 × 1984 at 30 fps |
+Shutter | Global |
+Variant | Not stated by the maker. Likely the S56D: its listing is the 2560 × 1984 RGB model (the S56x also has 2560 × 1984) |
+Lens | Wide angle, 140° horizontal (S56D); 130° or 140° (S56x) |
+IMU chip | Not published |
+Link | GMSL2 |
+Measured in these recordings |
+Images in the recording | 1 camera, 2560 × 1984 colour at 20 Hz, JPEG |
+IMU | 6-axis, gyro and accelerometer at 400 Hz |
+Calibrated field of view | cam0 154° × 116° |
+
+## How it was run
+
+- Camera with the IMU in one solve. Kannala-Brandt (kb4) fisheye intrinsics seeded from a single-camera solve of the same recording and left free; the camera time offset, IMU scale and misalignment and the gyro-to-accel offset t_ga estimated. Every board corner is used. IMU noise is the noise measured at rest in the recording times 2.5. Gravity is the local value of Shenzhen, 9.788 m/s². Solved 2026-11-25.
+
+## Dataset
+
+Recording | 1 recording, 58 s. 1169 frames at 20 Hz, IMU at 400 Hz |
+Format | ROS 1 bag: JPEG images and IMU |
+Board | AprilGrid, 6×6 tags, lit, in a dark room. Tag size 88 mm and spacing 0.3 assumed |
+Data | Calibench-VI community, astra-s56/data/ (access by automatic approval). The maker's ROS1 bag, unchanged. Recorded by SENSING TECH. |
+Configs and results | Calibench-VI community, astra-s56/ (access by automatic approval) |
+Licence | see License |
+
+AprilGrid 6 × 6, 660 × 660 mm. Standard pattern, to scale
 
 
 ---
@@ -17883,6 +18010,14 @@ Calibration recording of their Neo VIO module, hosted on the Hub (community/robo
 
 - Neo
 
+SENSING TECH
+
+### SENSING TECH
+
+Calibration recording of their Astra S56 stereo camera
+
+- Astra S56
+
 Feekass
 
 ### Feekass
@@ -19095,18 +19230,18 @@ Every camera and IMU we have calibrated, by who made the chip. A label names a p
 
 - Module: a packaged IMU module (Xsens, MicroStrain). We name the module; no source names the chip inside.
 
-19 devices calibrated
-47 + 19 cameras + IMUs on them
+20 devices calibrated
+48 + 20 cameras + IMUs on them
 5 chip makers named
-13 / 66 parts not known
+15 / 68 parts not known
 
-Image sensors 37 of 47 cameras named, on the devices below
+Image sensors 37 of 48 cameras named, on the devices below
 
-OmniVision 19 SmartSens 15 Sony 3 not known 10
+OmniVision 19 SmartSens 15 Sony 3 not known 11
 
-IMU chips 16 of 19 IMUs named, on the devices below
+IMU chips 16 of 20 IMUs named, on the devices below
 
-Bosch 8 TDK InvenSense 8 not known 3
+Bosch 8 TDK InvenSense 8 not known 4
 
 ### OmniVision
 
@@ -19174,13 +19309,13 @@ IMU chips · 8 IMUs on devices · 3 in datasets
 
 ### Not known
 
-Image sensors · 10 cameras on 5 devices
-AVS111C-Y stereo ×2 AVS115D-Y stereo ×2 GI EGO1GS ×2 XQ20 stereo headset ×2 Index ×2
+Image sensors · 11 cameras on 6 devices
+Astra S56 AVS111C-Y stereo ×2 AVS115D-Y stereo ×2 GI EGO1GS ×2 XQ20 stereo headset ×2 Index ×2
 
 ### Not known
 
-IMU chips · 3 IMUs on 3 devices
-Stereo module GI EGO1GS XQ20 stereo headset
+IMU chips · 4 IMUs on 4 devices
+Astra S56 Stereo module GI EGO1GS XQ20 stereo headset
 Tracking modules
 Device | Image sensor | IMU chip |
 Intel RealSense T265 2 cameras · 1 IMU | OmniVision OV9282 ×2 Intel T265 datasheet 572522-004
@@ -19198,6 +19333,9 @@ OmniVision OV9282 ×2 D400 datasheet, Mar 2026 · IR pair, global shutter
 |
 RoboBaton Neo 1 camera · 1 IMU | SmartSens SC132GS maker's device-config file, no public link
 | TDK InvenSense ICM-42670-P RoboBaton Neo docs
+|
+SENSING Astra S56 1 camera · 1 IMU | Camera not known
+| IMU not known
 |
 Stereolabs ZED 2 2 cameras · 1 IMU | OmniVision OV4689 ×2 Stereolabs open-source capture code (chip ID check, ZED 2 and 2i)
 | Bosch BMI270 ZED 2 sensor firmware in the ZED SDK · Bosch's BMI270 start-up file is in every ZED 2 sensor firmware; Stereolabs does not publish the part
