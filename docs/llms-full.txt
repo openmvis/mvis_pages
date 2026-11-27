@@ -10942,7 +10942,8 @@ URL: https://openmvis.com/devices/astra-s56/
 ## Demo and values
 
 Wide-angle stereo camera from SENSING TECH with two 5 MP global-shutter sensors and a 6-axis IMU, on a GMSL2 link. One recording from the maker in front of a lit AprilGrid in a dark room, with one of the two cameras, solved as camera + IMU. These are first results; the stereo pair is not calibrated yet.
-No video on this page. The values below come from the solved run.
+The 3D scene MVIS recovered from the recording.
+
 Reprojection median 0.31 px
 cam0 td +3.91 ms
 cam0 lever arm 23.7 mm
