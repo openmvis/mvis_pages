@@ -8,6 +8,21 @@
 #   sensors    record sensor label -> stable sensor id, explicit, never guessed; an unmapped label stops the export
 #   image      a file already served under site/public, with its alt text and credit
 #   legacy     filled by the export: old hashes on /benchmark/results/ that now live on this page
+#
+# Study families on a leaderboard page (a page that is not study: true), built from a --study <slug>=<stats file>:
+#   extra      {stats_key, batch, mvis[, mvis_url], read_first, like_for_like, families}: families from separate runs,
+#              appended after the batch families. They get no Leaderboard row, no ◆ counts and no record links.
+#              stats_key = the dataset key inside the stats file; batch = the date of the runs; read_first and
+#              like_for_like = one text, or one per family id; families = as above ({id, shutter[, pair]}).
+#   mvis       on the page and inside extra: a public name of the MVIS version behind the batch families and behind
+#              the extra families (a release; a commit only as a link, through mvis_url: the lint refuses a bare hash).
+#              Printed under each family head of such a page, with the batch.
+# Per family, on any page (keyed by family id, like poor; an id the page does not list stops the export):
+#   pair       inside a families entry: the camera pair, printed beside the family title and in its heading
+#   gravity    family -> text: which tool ran at which gravity
+#   no_mvis    family -> text: why MVIS has no value on some charts (it solved each camera alone, so no baseline).
+#              MVIS's empty lanes are left off those charts and the text is printed once under the family head.
+#   poor       family -> tool -> {n, text}: see Monado MOC. n may be every solve of the tool (4 of 4).
 
 leaderboard:
   honest:

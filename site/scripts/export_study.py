@@ -2,6 +2,10 @@
 leaderboard batch inputs: the page JSON and MDX, its sidebar entry and its line in the Leaderboard's study list. Every
 other page, sidebar entry and Leaderboard row stays as export_results.py last wrote it.
 
+It cannot rebuild a leaderboard page that lists study families (public_results.yaml extra:, as Monado MGC with its
+pairs 02 and 13): that page's batch families need the batch inputs, so it is written whole by export_results.py with
+--study <slug>=<stats file>. Such a slug stops this script.
+
   PYTHONNOUSERSITE=1 python3 site/scripts/export_study.py --leaderboard <Space folder> --study <slug>=<stats file> [...]
 
 The stats file is the study's three-way stats file (gen_kalibr_compare.py schema); it is private: only min and max

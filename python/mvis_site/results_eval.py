@@ -10,6 +10,9 @@ Inputs
   rep     repeatability.json: the cells are read there by the page; here only for the legacy hashes
   boards  {dataset id: rendered board HTML} (board.json, uzh_fpv.json): the ◆ tallies must equal the board's
 
+A leaderboard page may also hold study families (public_results.yaml `extra`): separate runs fed by a --study stats
+file, appended after the batch families and kept off the Leaderboard (extra_families).
+
 No total, rank or score is computed. Rows keep record order (sensor, then parameter), never a value order.
 Rotation rows are not shown (none in the records; they wait for a user OK).
 """
@@ -273,6 +276,8 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
     for s in done:  # poor solves still count as run, but Coverage shows them apart from the good ones
         if (poor or {}).get(s["tool"]):
             s["poor"] = poor[s["tool"]]["n"]
+            if s["poor"] > s["n"]:
+                raise ValueError(f"{T}: poor says {s['poor']} {s['tool']} solves, but only {s['n']} of {of} solved")
     ran = {x["tool"] for x in done if "reason" not in x}
     rows = sp["rows"]
     has = lambda c: any((r.get(c) or {}).get("med") is not None for r in rows)
@@ -301,37 +306,6 @@ def family(T: str, meta: dict, shutter: str, sp: dict, pairs: list, decs: dict, 
     if camimu and shown:  # which IMU model the one MVIS lane is: Kalibr's, or MVIS's default where no such run exists
         out["imu_model"] = "kalibr" if shown == "mvis" else "default"
     return out
-
-
-def one_lane(page: dict, entry: dict) -> dict:
-    """A committed page with the one MVIS lane of family(): on a camera + IMU family that holds both MVIS runs, the
-    default-model lane is dropped, the Kalibr-model lane is labelled "MVIS" and each axis is made again from the lanes
-    that are left. Pure and idempotent: collect() uses it to carry a study page forward when its stats file is absent.
-    entry: the page's public_results.yaml entry (axis_centre, reference, sensors)."""
-    ref = {entry["sensors"][s]: v for s, v in ((entry.get("reference") or {}).get("values") or {}).items()}
-    fams = []
-    for f in page["families"]:
-        have = {c["col"] for c in f["columns"]}
-        if f["mode"] != "cam+imu" or not have & {"mvis", "calyx"}:
-            fams.append(f)
-            continue
-        drop = "calyx" if "mvis" in have else None
-        keep = lambda xs: [dict(x, label=TOOL_OF[x["col"]]) for x in xs if x["col"] != drop]
-        sens = []
-        for s in f["sensors"]:
-            params = []
-            for q in s["params"]:
-                lanes = keep(q["lanes"])
-                if any(x["state"] in ON_AXIS for x in lanes):
-                    params.append(dict(q, lanes=lanes, axis=axis(lanes, entry.get("axis_centre"), (ref.get(s["id"]) or {}).get(q["key"]))))
-            if params:
-                sens.append(dict(s, params=params))
-        fit = [dict(r, by_col={c: v for c, v in r["by_col"].items() if c != drop}) for r in f["fit"]]
-        f = dict(f, columns=keep(f["columns"]), sensors=sens, fit=[r for r in fit if r["by_col"]],
-                 model_terms=keep(f["model_terms"]), diffs=[dict(d, label=f"{d['a']} − {d['b']}") for d in f["diffs"]])
-        f.pop("imu_model", None)
-        fams.append(dict(f, imu_model="kalibr" if "mvis" in have else "default"))
-    return dict(page, families=fams)
 
 
 def hub_links(T: str, batch: str, commit: str | None) -> dict:
@@ -404,28 +378,86 @@ def _no_notes_ref(text: str) -> str:
     return text.replace("Data settings differ: see Notes.", "Data settings differ between the tools.")
 
 
-def dataset(entry: dict, sp: dict, records: dict, stats: dict, batch: str, commit: str | None, rep_ds: dict | None) -> dict:
-    fams_meta = records["families"]["families"]
+FAMILY_TEXTS = ("poor", "gravity", "no_mvis")  # public_results.yaml texts keyed by family id
+
+
+def outside(f: dict) -> bool:
+    """A study family on a leaderboard page (public_results.yaml `extra`): not part of the leaderboard batch."""
+    return bool((f.get("run") or {}).get("outside"))
+
+
+def dress(f: dict, entry: dict, fe: dict, run: dict | None = None) -> dict:
+    """The hand-written parts of one family, each only where public_results.yaml has it (a family without them is
+    unchanged). fe: the family's own yaml entry.
+    pair     the camera pair of the family, printed beside its title ("pair 02 · cam0 + cam2")
+    gravity  entry `gravity` {family: text}: which tool ran at which gravity
+    no_mvis  entry `no_mvis` {family: text}: why MVIS has no value on some charts of this family (it solved each
+             camera alone, so there is no baseline). MVIS's empty lanes are taken off those charts and the text is
+             printed once; the export stops when MVIS has a value on every chart, since the text would be wrong.
+    run      {batch, mvis, outside[, mvis_url]}: the runs behind this family, on a page whose families are not one
+             batch. mvis is a public name of the MVIS version (a release, or a commit as a link through mvis_url: the
+             public lint refuses a bare commit hash, here as everywhere)"""
+    if fe.get("pair"):
+        f["pair"] = fe["pair"]
+    if (entry.get("gravity") or {}).get(f["id"]):
+        f["gravity"] = entry["gravity"][f["id"]]
+    text = (entry.get("no_mvis") or {}).get(f["id"])
+    if text:
+        gone = 0
+        for s in f["sensors"]:
+            for q in s["params"]:
+                keep = [x for x in q["lanes"] if not (x["tool"] == "MVIS" and x["state"] == "missing")]
+                gone += len(q["lanes"]) - len(keep)
+                q["lanes"] = keep
+        if not gone:
+            raise ValueError(f"{f['id']}: no_mvis is set, but MVIS has a value on every chart of this family")
+        f["no_mvis"] = text
+    if run:
+        f["run"] = run
+    return f
+
+
+def dataset(entry: dict, sp: dict, records: dict, stats: dict, batch: str, commit: str | None, rep_ds: dict | None,
+            extra: tuple | None = None) -> dict:
+    """One Dataset eval page. extra: (sp, records, stats) of the page's study families (entry `extra`), which
+    collect() builds from their --study stats file; they follow the batch families and stay off the Leaderboard."""
     sid = entry["sensors"]
+    x = entry.get("extra")
+    listed = [*entry["families"], *(x or {}).get("families", [])]
+    ids = [f["id"] for f in listed]
     poor = entry.get("poor") or {}
-    unknown = sorted(set(poor) - {f["id"] for f in entry["families"]})
+    unknown = sorted({T for k in FAMILY_TEXTS for T in entry.get(k) or {}} - set(ids))
     bad = [(T, t) for T, by in poor.items() for t, v in by.items()
            if t not in TOOLS or not isinstance(v, dict) or not isinstance(v.get("n"), int) or not v.get("text")]
     bad += [("reference", s) for s in (entry.get("reference") or {}).get("values", {}) if s not in sid]
-    if unknown or bad or (entry.get("axis_centre") or "MVIS") not in TOOLS:
-        raise ValueError(f"{entry['slug']}: poor names families {unknown} it does not list, malformed poor {bad} "
-                         "(tool: {n, text}), or axis_centre is not a tool")
-    fams = [family(f["id"], fams_meta[f["id"]], f["shutter"], sp["families"][f["id"]], sp["pairs"], sp["decimals"],
-                   records, stats["families"][f["id"]], sid, hub_links(f["id"], batch, commit), entry.get("axis_centre"),
-                   (entry.get("poor") or {}).get(f["id"]), (entry.get("reference") or {}).get("values"))
-            for f in entry["families"]]
-    for f in fams:  # a study names why the other tools did not run (repeatability.NOT_RUN covers the board's families)
-        for s in f["solved"]:
+    if unknown or bad or (entry.get("axis_centre") or "MVIS") not in TOOLS or len(set(ids)) != len(ids):
+        raise ValueError(f"{entry['slug']}: {', '.join(FAMILY_TEXTS)} name families {unknown} it does not list, malformed "
+                         f"poor {bad} (tool: {{n, text}}), a family is listed twice, or axis_centre is not a tool")
+    if x and (extra is None or entry.get("study") or not x.get("mvis") or not entry.get("mvis")):
+        raise ValueError(f"{entry['slug']}: extra families need their stats file (--study {entry['slug']}=<file>), "
+                         "extra.mvis and the page's mvis (the MVIS version of each), and a page that is not itself a study")
+
+    def build(fe, sp, records, stats, hub, run):
+        T = fe["id"]
+        f = family(T, records["families"]["families"][T], fe["shutter"], sp["families"][T], sp["pairs"], sp["decimals"],
+                   records, stats["families"][T], sid, hub, entry.get("axis_centre"), poor.get(T),
+                   (entry.get("reference") or {}).get("values"))
+        for s in f["solved"]:  # a study names why the other tools did not run (repeatability.NOT_RUN covers the board's families)
             if "reason" in s and entry.get("not_run"):
                 s["reason"] = entry["not_run"]
+        return dress(f, entry, fe, run)
+
+    run = lambda src, batch, out: {"batch": batch, "mvis": src["mvis"], "outside": out,
+                                   **({"mvis_url": src["mvis_url"]} if src.get("mvis_url") else {})}
+    here = run(entry, batch, False) if x else None
+    fams = [build(f, sp, records, stats, hub_links(f["id"], batch, commit), here) for f in entry["families"]]
     if entry.get("study") and entry["id"] != "uzh_fpv":
         for f in fams:  # no rendered board to count a separate study's ◆ against (UZH-FPV has its own), so none are kept
             f["diffs"], f["tally"] = [], {}
+    for fe in (x or {}).get("families", []):  # study families: no public record files, and no ◆ counts, as a separate study
+        f = build(fe, *extra, {}, run(x, x["batch"], True))
+        f["diffs"], f["tally"] = [], {}
+        fams.append(f)
     keep = ("slug", "id", "label", "title", "ours", "licence", "intro", "chips", "image", "links", "reading",
             "no_repeatability", "study_note", "twin")
     return {**{k: entry[k] for k in keep if k in entry}, "study": bool(entry.get("study")), "batch": batch,
@@ -435,8 +467,8 @@ def dataset(entry: dict, sp: dict, records: dict, stats: dict, batch: str, commi
 
 
 def leaderboard(pages: list[dict], pub: dict, batch: str, commit: str) -> dict:
-    """The Leaderboard rows: every family of every dataset in page order; solved and ◆ tallies only. The repeatability
-    cells are read from repeatability.json by the page itself."""
+    """The Leaderboard rows: every batch family of every dataset in page order; solved and ◆ tallies only. A page's
+    study families (outside()) have no row. The repeatability cells are read from repeatability.json by the page itself."""
     rows = []
     for p in pages:
         if p["study"]:
@@ -446,7 +478,7 @@ def leaderboard(pages: list[dict], pub: dict, batch: str, commit: str) -> dict:
                                    "n": f["n"], "solved": f["solved"],
                                    "diffs": {d["pair"]: {"label": " − ".join(board_name(d[k], f["mode"] == "cam+imu") for k in "ab"),
                                                          "marked": d["marked"], "compared": d["compared"]}
-                                             for d in f["diffs"]}} for f in p["families"]]})
+                                             for d in f["diffs"]}} for f in p["families"] if not outside(f)]})
     study = [{"label": p["label"], "link": p["link"], "batch": p["batch"], "note": p.get("study_note", "")} for p in pages if p["study"]]
     return {"batch": batch, "results_commit": commit, "honest": pub["leaderboard"]["honest"], "datasets": rows,
             "studies": study}
@@ -480,7 +512,9 @@ def mdx(page: dict, script: str = "export_results.py") -> str:
     """The thin page wrapper: headings in MDX so they reach the table of contents; every part from the page JSON.
     Coverage and parameters by sensor, plus a study's reading notes (python/data/public_results.yaml `reading`);
     repeatability, tool differences, model notes and full tables stay in the JSON and are left off the page for now.
-    The title says "results", so it differs from the example page of the same dataset. script: the CLI that writes it."""
+    The title says "results", so it differs from the example page of the same dataset. script: the CLI that writes it.
+    A family heading carries its camera pair where the yaml names one; a page with study families says, above the
+    first family, which ones are outside the leaderboard batch."""
     s = page["slug"]
     tools = page_tools(page)
     who = "what each tool solved" if len(tools) > 1 else "what it solved"
@@ -501,8 +535,15 @@ def mdx(page: dict, script: str = "export_results.py") -> str:
         parts += ["## Notes\n", "<E.Reading page={page} />\n"]
     if page.get("twin"):
         parts += [f"## {page['twin']['title']}\n", "<E.Twin page={page} />\n"]
+    out = [f for f in page["families"] if outside(f)]
+    if out:
+        runs = and_list(sorted({f"{f['run']['batch']} (MVIS {f['run']['mvis']})" for f in out}))
+        parts.append(f"**Outside the leaderboard batch:** {and_list([f['id'] for f in out])} {'are' if len(out) > 1 else 'is'} "
+                     f"from separate runs, {runs}, added to this page beside the families of batch {page['batch']}. "
+                     f"{'They have' if len(out) > 1 else 'It has'} no row on the Leaderboard and no ◆ counts.\n")
     for i, f in enumerate(page["families"]):
-        parts.append(f"## {f['id']} · {'camera + IMU' if f['mode'] == 'cam+imu' else 'camera only'}\n")
+        pair = f" · {f['pair']}" if f.get("pair") else ""
+        parts.append(f"## {f['id']} · {'camera + IMU' if f['mode'] == 'cam+imu' else 'camera only'}{pair}\n")
         parts.append(f"<E.FamilyHead page={{page}} i={{{i}}} />\n")
         parts.append("### Coverage\n")
         parts.append(f"<E.Coverage page={{page}} i={{{i}}} />\n")
@@ -539,7 +580,7 @@ def render(pages: list[dict], pub: dict, batch: str, commit: str, boards: dict[s
     bad = []
     for p in pages:
         if p["id"] in boards:
-            bad += tally_problems(p["families"], board_tallies(boards[p["id"]], pairs))
+            bad += tally_problems([f for f in p["families"] if not outside(f)], board_tallies(boards[p["id"]], pairs))
         elif not p["study"] or any(f["tally"] for f in p["families"]):
             bad.append(f"{p['id']}: no rendered board to check its ◆ counts against")
     if bad:
@@ -551,32 +592,67 @@ def render(pages: list[dict], pub: dict, batch: str, commit: str, boards: dict[s
     return files
 
 
-def carried(other: dict, given, site) -> tuple[dict, list[str]]:
-    """({slug: page}, problems) of the separate studies whose stats file was not given: the committed page, carried
-    forward through one_lane() with a loud warning. Its numbers and texts stay as last exported. other: {slug: entry}."""
+def check_studies(pub: dict, given, carry=()) -> tuple[dict, dict, list[str]]:
+    """({slug: entry} of the separate studies other than UZH-FPV, {slug: entry} of the leaderboard pages with study
+    families (`extra`), problems). Every one of them needs its --study stats file. A separate study may instead be
+    named in `carry`, on purpose: its committed page is then kept as it is (carried()). A page with study families
+    cannot be carried: its batch families are rebuilt, and the two halves must come from one export."""
+    other = {e["slug"]: e for e in pub["datasets"] if e.get("study") and e["slug"] != "uzh-fpv"}
+    extras = {e["slug"]: e for e in pub["datasets"] if e.get("extra")}
+    given, carry = set(given), set(carry)
+    found = [f"study stats given for {s}, which public_results.yaml lists neither as a separate study nor with extra families"
+             for s in sorted(given - set(other) - set(extras))]
+    found += [f"--carry {s}: only a separate study can be carried, and {s} is not one" for s in sorted(carry - set(other))]
+    found += [f"{s}: both --study and --carry" for s in sorted(given & carry)]
+    found += [f"{s}: no --study stats file. Pass --study {s}=<its stats file>"
+              + (f", or --carry {s} to keep its committed page as it is" if s in other else " (its extra families)")
+              for s in sorted((set(other) | set(extras)) - given - carry)]
+    return other, extras, found
+
+
+def carried(slugs, site) -> tuple[dict, list[str]]:
+    """({slug: page}, problems) of the separate studies named with --carry: the committed page as it is, with a loud
+    warning. Its numbers and its texts from public_results.yaml stay as last exported."""
     import warnings
     from pathlib import Path
 
-    pages, found = {}, [f"study stats given for {s}, which public_results.yaml does not list as a separate study"
-                        for s in sorted(set(given) - set(other))]
-    for slug in sorted(set(other) - set(given)):
+    pages, found = {}, []
+    for slug in sorted(slugs):
         p = Path(site) / OUT_DIR / f"{slug}.json"
         if not p.exists():
-            found.append(f"{slug}: no --study stats file and no committed {OUT_DIR}/{slug}.json to carry forward")
+            found.append(f"--carry {slug}: no committed {OUT_DIR}/{slug}.json to carry forward")
             continue
-        pages[slug] = one_lane(json.loads(p.read_text(encoding="utf-8")), other[slug])
-        warnings.warn(f"NOT RE-EXPORTED: {slug} has no --study stats file. Its committed page is carried forward: the "
-                      "numbers and the texts from public_results.yaml stay as last exported.", stacklevel=2)
+        pages[slug] = json.loads(p.read_text(encoding="utf-8"))
+        warnings.warn(f"NOT RE-EXPORTED: {slug} is carried (--carry). Its committed page is kept: the numbers and the "
+                      "texts from public_results.yaml stay as last exported.", stacklevel=2)
     return pages, found
+
+
+def study_inputs(leaderboard_dir, e: dict, st: dict) -> tuple[tuple, list[str]]:
+    """((Space rows, records, stats), problems) of one --study stats file. e: the study's public_results.yaml entry, or
+    a leaderboard page's `extra` block with the page's id and label (both name batch, stats_key, read_first and
+    like_for_like)."""
+    import tempfile
+    from pathlib import Path
+
+    from . import space
+    from .repeatability import gate, load_records
+
+    with tempfile.TemporaryDirectory(prefix="results_eval_") as tmp:
+        rows = space.study_rows(leaderboard_dir, st, Path(tmp) / "rec", e["batch"], (e["id"], e["stats_key"], e["label"]),
+                                e["read_first"], e["like_for_like"])
+        recs = load_records(Path(tmp) / "rec", e["batch"])
+    return (rows, recs, st), gate(st, recs, e["batch"])
 
 
 # ---------------------------------------------------------------- reading and writing (the only steps with files)
 def collect(leaderboard_dir, records_dir, stats_file, batch: str, commit: str, uzh_root, site,
-            studies: dict | None = None) -> tuple[list[dict], dict, list, dict, tuple]:
+            studies: dict | None = None, carry=()) -> tuple[list[dict], dict, list, dict, tuple]:
     """(pages, pub, pairs, boards, private words) from the inputs. Stops when the records, the stats file,
     repeatability.json and board.json are not one batch and one commit. studies: {slug: stats file} of the separate
-    studies other than UZH-FPV (its public_results.yaml entry names batch, read_first and like_for_like); a study
-    without a stats file keeps its committed page (carried())."""
+    studies other than UZH-FPV and of the leaderboard pages with study families (the public_results.yaml entry, or its
+    `extra` block, names batch, read_first and like_for_like). A stats file left out stops the export, unless the
+    study is named in carry (check_studies)."""
     import tempfile
     from pathlib import Path
 
@@ -591,6 +667,9 @@ def collect(leaderboard_dir, records_dir, stats_file, batch: str, commit: str, u
         raise ValueError("results_commit must be the full 40-hex sha of the records snapshot")
     site = Path(site)
     pub = yaml.safe_load((DATA / "public_results.yaml").read_text(encoding="utf-8"))
+    other, extras, found = check_studies(pub, studies or {}, carry)
+    if found:  # before any solve data is read: a forgotten --study is the common mistake
+        raise SystemExit("inputs disagree:\n  " + "\n  ".join(found))
     stats = json.loads(Path(stats_file).read_text())
     records = load_records(records_dir, batch)
     found = gate(stats, records, batch)
@@ -606,27 +685,21 @@ def collect(leaderboard_dir, records_dir, stats_file, batch: str, commit: str, u
         usp = space.uzh_rows(leaderboard_dir, ustats, Path(tmp) / "rec")
         urec = load_records(Path(tmp) / "rec", L.BATCH)
     found += gate(ustats, urec, L.BATCH)
-    studies = {k: json.loads(Path(v).read_text()) for k, v in (studies or {}).items()}
-    other = {e["slug"]: e for e in pub["datasets"] if e.get("study") and e["slug"] != "uzh-fpv"}
-    kept, bad = carried(other, studies, site)
+    kept, bad = carried(carry, site)
     found += bad
     srows = {}
-    for slug in set(studies) & set(other):
-        e, st = other[slug], studies[slug]
-        with tempfile.TemporaryDirectory(prefix="results_eval_") as tmp:
-            rows = space.study_rows(leaderboard_dir, st, Path(tmp) / "rec", e["batch"], (e["id"], e["stats_key"], e["label"]),
-                                    e["read_first"], e["like_for_like"])
-            recs = load_records(Path(tmp) / "rec", e["batch"])
-        found += gate(st, recs, e["batch"])
-        srows[slug] = (rows, recs, st)
+    for slug, path in (studies or {}).items():
+        e = other[slug] if slug in other else dict(extras[slug]["extra"], id=extras[slug]["id"], label=extras[slug]["label"])
+        srows[slug], bad = study_inputs(leaderboard_dir, e, json.loads(Path(path).read_text()))
+        found += bad
     if found:
         raise SystemExit("inputs disagree:\n  " + "\n  ".join(found[:40]))
     boards = dict(board["datasets"], uzh_fpv=json.loads((site / L.UZH_FILE).read_text())["fragment"])
     reps = {d["id"]: d for d in rep["datasets"]}
     pages = [kept[e["slug"]] if e["slug"] in kept
-             else dataset(e, *srows[e["slug"]], e["batch"], None, None) if e["slug"] in srows
+             else dataset(e, *srows[e["slug"]], e["batch"], None, None) if e["slug"] in other
              else dataset(e, usp, urec, ustats, L.BATCH, None, None) if e.get("study")
-             else dataset(e, sp, records, stats, batch, commit, reps[e["id"]]) for e in pub["datasets"]]
+             else dataset(e, sp, records, stats, batch, commit, reps[e["id"]], srows.get(e["slug"])) for e in pub["datasets"]]
     # UZH bag names are UZH's own public sequence names, already on its page; only the batch's recording names are private.
     return pages, pub, sp["pairs"], boards, private_words(stats) + tuple(w for _, _, st in srows.values() for w in private_words(st))
 
@@ -653,28 +726,28 @@ def write(files: dict[str, str], site, commit: str, private: tuple = (), prune: 
 # ---------------------------------------------------------------- separate studies alone (site/scripts/export_study.py)
 def collect_studies(leaderboard_dir, studies: dict) -> tuple[list[dict], dict, tuple]:
     """(pages, pub, private words) of the separate studies in `studies` ({slug: stats file}), without the leaderboard
-    batch inputs. Every other page, its sidebar entry and the Leaderboard rows stay as they were last exported."""
-    import tempfile
+    batch inputs. Every other page, its sidebar entry and the Leaderboard rows stay as they were last exported.
+    A leaderboard page with study families (`extra`) is refused: its batch families need the batch inputs, and the
+    page is written whole by export_results.py."""
     from pathlib import Path
 
     import yaml
 
-    from . import DATA, space
-    from .repeatability import gate, load_records, private_words
+    from . import DATA
+    from .repeatability import private_words
 
     pub = yaml.safe_load((DATA / "public_results.yaml").read_text(encoding="utf-8"))
-    other = {e["slug"]: e for e in pub["datasets"] if e.get("study") and e["slug"] != "uzh-fpv"}
-    found = [f"{s}: not a separate study in public_results.yaml" for s in studies if s not in other]
+    other, extras, _ = check_studies(pub, studies)
+    found = [f"{s}: a leaderboard page with extra study families. export_study.py cannot rebuild it, because its batch "
+             f"families need the batch inputs: run export_results.py with --study {s}=<its stats file>" if s in extras
+             else f"{s}: not a separate study in public_results.yaml" for s in studies if s not in other]
     pages, private = [], ()
     for slug, path in studies.items():
         if slug not in other:
             continue
-        e, st = other[slug], json.loads(Path(path).read_text())
-        with tempfile.TemporaryDirectory(prefix="results_eval_") as tmp:
-            rows = space.study_rows(leaderboard_dir, st, Path(tmp) / "rec", e["batch"], (e["id"], e["stats_key"], e["label"]),
-                                    e["read_first"], e["like_for_like"])
-            recs = load_records(Path(tmp) / "rec", e["batch"])
-        found += gate(st, recs, e["batch"])
+        e = other[slug]
+        (rows, recs, st), bad = study_inputs(leaderboard_dir, e, json.loads(Path(path).read_text()))
+        found += bad
         pages.append(dataset(e, rows, recs, st, e["batch"], None, None))
         private += private_words(st)
     if found:

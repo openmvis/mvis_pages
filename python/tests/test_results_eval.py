@@ -414,14 +414,22 @@ def test_write_keeps_an_mdx_page_it_rewrites(tmp_path):
 def test_the_real_export_reproduces_the_committed_files():
     """collect + render on the batch's private inputs give the committed files byte for byte.
     MVIS_LEADERBOARD=<Space folder> MVIS_RESULTS_RECORDS=<records snapshot> MVIS_RESULTS_STATS=<its stats file>
-    MVIS_UZH_ROOT=<uzh study dir>. The separate studies are given no stats file, so their committed pages are carried
-    forward (three warnings) and must come back unchanged."""
+    MVIS_UZH_ROOT=<uzh study dir>. Each separate study and each page with extra families is rebuilt from the stats
+    file in MVIS_STUDY_STATS ("slug=file,slug=file"); a separate study not named there is carried on purpose (a
+    warning each) and must come back unchanged."""
+    import os
+    import warnings
+
     from conftest import env_path
     lb = json.loads((SITE / "eval/index.json").read_text())
-    with pytest.warns(UserWarning, match="NOT RE-EXPORTED"):
+    studies = dict(x.split("=", 1) for x in os.environ.get("MVIS_STUDY_STATS", "").split(",") if x)
+    carry = [d["slug"] for d in _pub()["datasets"] if d.get("study") and d["slug"] != "uzh-fpv" and d["slug"] not in studies]
+    with warnings.catch_warnings(record=True) as seen:
+        warnings.simplefilter("always")
         pages, pub, pairs, boards, private = R.collect(env_path("MVIS_LEADERBOARD"), env_path("MVIS_RESULTS_RECORDS"),
                                                        env_path("MVIS_RESULTS_STATS"), lb["batch"], lb["results_commit"],
-                                                       env_path("MVIS_UZH_ROOT"), REPO)
+                                                       env_path("MVIS_UZH_ROOT"), REPO, studies, carry)
+    assert sorted(str(w.message).split()[2] for w in seen if "NOT RE-EXPORTED" in str(w.message)) == sorted(carry)
     files = R.render(pages, pub, lb["batch"], lb["results_commit"], boards, pairs)
     assert R.problems(files, lb["results_commit"], private) == []
     for path, text in files.items():
@@ -560,72 +568,239 @@ def test_a_reference_value_centres_its_chart_and_other_charts_keep_the_mvis_medi
     assert all(x["axis"].get("by") != "reference" for x in q[1:])
 
 
-# ---------------------------------------------------------------- one MVIS lane on a carried page
+# ---------------------------------------------------------------- the one MVIS lane, and carried studies
 ENTRY = {"slug": "x-rig", "id": "x", "label": "X rig", "title": "X: a rig", "ours": False, "licence": "CC BY 4.0", "intro": "A rig.",
          "chips": [], "links": {}, "families": [{"id": "T1", "shutter": "global"}], "sensors": SID, "axis_centre": "MVIS",
          "reference": {"source": "x", "values": {"cam0 – A": {"td_ms": -4.5}}}}
 
 
-def _two_lane(page):
-    """The page as it was exported before: a default-model lane "MVIS" beside the Kalibr-model lane "MVIS (K-IMU)"."""
-    old = json.loads(json.dumps(page))
-    for f in old["families"]:
-        both = lambda xs: [y for x in xs for y in ((dict(x, col="calyx"), dict(x, label="MVIS (K-IMU)")) if x["col"] == "mvis" else (x,))]
-        f["columns"], f["model_terms"] = both(f["columns"]), both(f["model_terms"])
-        for s in f["sensors"]:
-            for q in s["params"]:
-                q["lanes"] = [dict(x, med=x["med"] + 50, text="far") if x["col"] == "calyx" and "med" in x else x for x in both(q["lanes"])]
-                q["axis"] = R.axis(q["lanes"])
-        for r in f["fit"]:
-            r["by_col"] = {"calyx": "9.999", **r["by_col"]}
-        for d in f["diffs"]:
-            d["label"] = d["label"].replace("MVIS", "MVIS (K-IMU)")
-        del f["imu_model"]
-    return old
-
-
-def test_one_lane_turns_a_committed_two_lane_page_into_what_the_export_writes():
-    page = _page(ENTRY)
-    old = _two_lane(page)
-    assert "K-IMU" in json.dumps(old) and old != page
-    assert R.one_lane(old, ENTRY) == page and R.one_lane(page, ENTRY) == page   # and it changes nothing the second time
-    assert json.dumps(R.one_lane(old, ENTRY)) == json.dumps(page)               # key order too: the files are compared as text
-
-
-def test_one_lane_leaves_camera_only_families_and_flags_a_default_model_family():
-    cam = R.dataset(dict(ENTRY, reference=None), {"pairs": PAIRS, "decimals": DECS, "families": {"T1": camimu_family()[0]}},
-                    dict(records(), families={"families": {"T1": {"mode": "camera", "title": "Cam", "n_recordings": 4}}}),
-                    {"families": {"T1": camimu_family()[1]}}, "b1", SHA, None)
-    assert R.one_lane(cam, ENTRY)["families"][0] is cam["families"][0]
-    v = _mvis_only_page()
-    bare = dict(v, families=[{k: x for k, x in f.items() if k != "imu_model"} for f in v["families"]])
-    assert R.one_lane(bare, {"sensors": SID}) == v
-    gone = dict(v, families=[dict(f, sensors=[dict(s, params=[dict(q, lanes=[dict(x, state="missing") for x in q["lanes"]]) for q in s["params"]])
-                                              for s in f["sensors"]], fit=[]) for f in v["families"]])
-    assert R.one_lane(gone, ENTRY)["families"][0]["sensors"] == []   # a chart with no drawn lane is not kept, as in sensors()
-
-
 def test_every_committed_page_has_one_mvis_lane():
-    pub = {e["slug"]: e for e in _pub()["datasets"]}
     for p in sorted((SITE / "eval").glob("*.json")):
         if p.name == "index.json":
             continue
         page = json.loads(p.read_text())
-        assert "K-IMU" not in p.read_text() and R.one_lane(page, pub[page["slug"]]) == page, p.name
+        assert "K-IMU" not in p.read_text(), p.name
         for f in page["families"]:
             assert [c["label"] for c in f["columns"] if c["tool"] == "MVIS"] == ["MVIS"], (p.name, f["id"])
             assert f.get("imu_model") == (None if f["mode"] == "cam" else "default" if f["id"] == "V5" else "kalibr"), (p.name, f["id"])
 
 
-def test_a_study_without_stats_is_carried_forward_with_a_warning(tmp_path):
+PUB = {"datasets": [{"slug": "a-rig"}, {"slug": "s-rig", "study": True}, {"slug": "t-rig", "study": True},
+                    {"slug": "m-rig", "extra": {"families": []}}, {"slug": "uzh-fpv", "study": True}]}
+
+
+def test_a_study_or_an_extra_block_without_its_stats_file_stops_the_export():
+    other, extras, found = R.check_studies(PUB, {"s-rig": "f", "t-rig": "f", "m-rig": "f"})
+    assert (sorted(other), sorted(extras), found) == (["s-rig", "t-rig"], ["m-rig"], [])
+    _, _, found = R.check_studies(PUB, {"s-rig": "f"})
+    assert found == ["m-rig: no --study stats file. Pass --study m-rig=<its stats file> (its extra families)",
+                     "t-rig: no --study stats file. Pass --study t-rig=<its stats file>, or --carry t-rig to keep its committed page as it is"]
+    assert R.check_studies(PUB, {"s-rig": "f", "m-rig": "f"}, ["t-rig"])[2] == []   # carried on purpose
+    (bad,) = R.check_studies(PUB, {"s-rig": "f", "t-rig": "f", "m-rig": "f", "a-rig": "f"})[2]
+    assert "a-rig, which public_results.yaml lists neither as a separate study nor with extra families" in bad
+    _, _, found = R.check_studies(PUB, {"s-rig": "f", "t-rig": "f"}, ["m-rig", "s-rig", "uzh-fpv"])
+    assert found == ["--carry m-rig: only a separate study can be carried, and m-rig is not one",
+                     "--carry uzh-fpv: only a separate study can be carried, and uzh-fpv is not one",
+                     "s-rig: both --study and --carry"]   # and m-rig is not "missing": it is named, wrongly
+
+
+def test_a_carried_study_keeps_its_committed_page_as_it_is_with_a_warning(tmp_path):
     page = _page(ENTRY)
     (tmp_path / R.OUT_DIR).mkdir(parents=True)
-    (tmp_path / R.OUT_DIR / "x-rig.json").write_text(json.dumps(_two_lane(page)))
-    other = {"x-rig": ENTRY, "y-rig": dict(ENTRY, slug="y-rig"), "z-rig": dict(ENTRY, slug="z-rig")}
-    with pytest.warns(UserWarning, match="NOT RE-EXPORTED: x-rig") as seen:
-        pages, found = R.carried(other, {"z-rig": "stats.json", "q-rig": "stats.json"}, tmp_path)
-    assert len(seen) == 1 and pages == {"x-rig": page}
-    assert len(found) == 2 and "q-rig, which public_results.yaml does not list" in found[0] and "y-rig: no --study stats file and no committed" in found[1]
+    (tmp_path / R.OUT_DIR / "x-rig.json").write_text(R.dumps(page))
+    with pytest.warns(UserWarning, match=r"NOT RE-EXPORTED: x-rig is carried \(--carry\)") as seen:
+        pages, found = R.carried(["x-rig", "y-rig"], tmp_path)
+    assert len(seen) == 1 and pages == {"x-rig": page} and R.dumps(pages["x-rig"]) == R.dumps(page)
+    assert found == [f"--carry y-rig: no committed {R.OUT_DIR}/y-rig.json to carry forward"]
+    assert R.carried([], tmp_path) == ({}, [])
+    assert not hasattr(R, "one_lane")
+
+
+# ---------------------------------------------------------------- study families on a leaderboard page (extra)
+def pair_family(mvis_baseline=False):
+    """A camera-only study family of one camera pair. MVIS solved each camera alone: it has fx, and no baseline."""
+    none = cell(None, None, 0, "missing", "no data")
+    rows = [row("cam0 – A", "fx", unit="px", mvis=cell(450.0, 1.0), calyx=cell(450.0, 1.0), kalibr=cell(449.0, 2.0), basalt=cell(449.5, 1.0)),
+            with_delta(row("cam1 – C", "baseline_mm", "baseline", "mm", mvis=cell(42.6, 0.05) if mvis_baseline else none,
+                           calyx=none, kalibr=cell(42.5, 0.04), basalt=cell(42.4, 0.02)), "bk", -0.1, True),
+            row("cam0 – A", "reproj_median", unit="px", mvis=cell(0.25, 0.01), kalibr=cell(0.3, 0.02), basalt=cell(0.2, 0.02))]
+    stats = {"rows": [stats_row("cam1 – C", "baseline_mm", kalibr={"a": 42.4, "b": 42.5, "c": 42.5, "d": 42.6},
+                                mvis_all={k: 42.6 for k in "abcd"} if mvis_baseline else {},
+                                basalt={"a": 42.3, "b": 42.4, "c": 42.4, "d": 42.5})]}
+    return {"rows": rows, "read_first": "Pair 02, cameras only.", "notes": []}, stats
+
+
+def extra_inputs(mode="camera", fam=None):
+    sp, st = fam or pair_family()
+    recs = {"families": {"families": {"X1": {"mode": mode, "title": "cam0 + cam2 stereo", "n_recordings": 4}}},
+            "tools": {t: {"X1": {"methods": {m: {"ran": True, "n_recordings": 4} for m in ([t, R.METHOD["mvis"]] if t == "MVIS" else [t])}}}
+                      for t in R.TOOLS}}
+    return {"pairs": PAIRS, "decimals": DECS, "families": {"X1": sp}}, recs, {"families": {"X1": st}}
+
+
+SID2 = dict(SID, **{"cam1 – C": "cam2"})
+MIXED = {"slug": "x-rig", "id": "x", "label": "X rig", "title": "X: a rig", "ours": False, "licence": "CC BY 4.0", "intro": "A rig.",
+         "chips": [], "links": {}, "sensors": SID2, "mvis": "0.4.1", "mvis_url": "https://github.com/openmvis/openmvis/tree/v0.4.1",
+         "families": [{"id": "T1", "shutter": "global", "pair": "pair 01 · cam0 + cam1"}],
+         "extra": {"stats_key": "x_pairs", "batch": "2026-11-27", "mvis": "0.4.2", "read_first": {"X1": "Pair 02."},
+                   "like_for_like": {"X1": "Same recordings."},
+                   "families": [{"id": "X1", "shutter": "global", "pair": "pair 02 · cam0 + cam2"}]},
+         "no_mvis": {"X1": "MVIS solved each camera alone, so it has no baseline here."}}
+
+
+def _mixed(entry=MIXED, extra=None, **kw):
+    sp, st = camimu_family()
+    return R.dataset(entry, {"pairs": PAIRS, "decimals": DECS, "families": {"T1": sp}}, records(), {"families": {"T1": st}},
+                     "b1", SHA, kw.get("rep_ds"), extra or extra_inputs())
+
+
+def test_study_families_follow_the_batch_families_and_stay_off_the_leaderboard():
+    p, plain = _mixed(), _page({k: v for k, v in MIXED.items() if k not in ("extra", "no_mvis")})
+    t1, x1 = p["families"]
+    assert (t1["id"], x1["id"]) == ("T1", "X1") and not p["study"] and p["batch"] == "b1"
+    # the batch family is what the page holds without study families, plus the runs behind it
+    assert {k: v for k, v in t1.items() if k != "run"} == plain["families"][0]
+    assert t1["run"] == {"batch": "b1", "mvis": "0.4.1", "outside": False, "mvis_url": "https://github.com/openmvis/openmvis/tree/v0.4.1"} and t1["pair"] == "pair 01 · cam0 + cam1"
+    assert x1["run"] == {"batch": "2026-11-27", "mvis": "0.4.2", "outside": True} and x1["pair"] == "pair 02 · cam0 + cam2"
+    assert R.outside(x1) and not R.outside(t1) and not R.outside(plain["families"][0])
+    # no public record files and no ◆ counts for a study family, though the Space compared its rows
+    assert x1["records"] == {} and x1["diffs"] == [] and x1["tally"] == {} and x1["read_first"] == "Pair 02, cameras only."
+    assert t1["tally"] == {"mk": [1, 2]}
+    # the Leaderboard and its ◆ check do not see the study family: byte for byte the page without it
+    assert R.dumps(R.leaderboard([p], _pub(), "b1", SHA)) == R.dumps(R.leaderboard([plain], _pub(), "b1", SHA))
+    board = _board("T1", [([("MVIS", "− Kalibr")], [[("d fl", "◆ +1")], [("d", "+0.1")]])])
+    files = R.render([p], _pub(), "b1", SHA, {"x": board}, PAIRS)
+    assert files[f"{R.OUT_DIR}/index.json"] == R.render([plain], _pub(), "b1", SHA, {"x": board}, PAIRS)[f"{R.OUT_DIR}/index.json"]
+    assert [f["id"] for f in json.loads(files[f"{R.OUT_DIR}/x-rig.json"])["families"]] == ["T1", "X1"]
+    assert R.problems(files, SHA) == []
+    # a bare commit hash as the MVIS version is refused by the public lint, as anywhere else
+    hashed = _mixed(dict(MIXED, extra=dict(MIXED["extra"], mvis="246a95bb")))
+    assert any("hash or device id" in x for x in R.problems({"x.json": R.dumps(hashed), "x.mdx": R.mdx(hashed)}, SHA))
+
+
+def test_a_page_without_study_families_is_written_as_before():
+    f = _page()["families"][0]
+    assert not {"pair", "run", "gravity", "no_mvis"} & set(f)
+    text = R.mdx(_page())
+    assert "## T1 · camera + IMU\n" in text and "Outside the leaderboard batch" not in text
+
+
+def test_the_mdx_names_the_pair_and_the_families_outside_the_batch():
+    text = R.mdx(_mixed())
+    assert "## T1 · camera + IMU · pair 01 · cam0 + cam1\n" in text and "## X1 · camera only · pair 02 · cam0 + cam2\n" in text
+    assert ("**Outside the leaderboard batch:** X1 is from separate runs, 2026-11-27 (MVIS 0.4.2), added to this page "
+            "beside the families of batch b1. It has no row on the Leaderboard and no ◆ counts.") in text
+    assert text.index("Outside the leaderboard batch") < text.index("## T1 ·")
+    two = dict(MIXED, extra=dict(MIXED["extra"], families=[*MIXED["extra"]["families"], {"id": "X2", "shutter": "global"}]), no_mvis={})
+    sp, recs, st = extra_inputs()
+    for d in (sp["families"], recs["families"]["families"], st["families"], *(recs["tools"][t] for t in R.TOOLS)):
+        d["X2"] = d["X1"]
+    assert "X1 and X2 are from separate runs, 2026-11-27 (MVIS 0.4.2)," in R.mdx(_mixed(two, (sp, recs, st)))
+
+
+def test_extra_families_need_their_stats_their_mvis_versions_and_a_leaderboard_page():
+    sp, st = camimu_family()
+    args = ({"pairs": PAIRS, "decimals": DECS, "families": {"T1": sp}}, records(), {"families": {"T1": st}}, "b1", SHA, None)
+    with pytest.raises(ValueError, match="extra families need their stats file .--study x-rig=<file>."):
+        R.dataset(MIXED, *args)
+    for wrong in ({"mvis": None}, {"extra": dict(MIXED["extra"], mvis="")}, {"study": True},
+                  {"extra": dict(MIXED["extra"], families=[{"id": "T1", "shutter": "global"}]), "no_mvis": {}}):
+        with pytest.raises(ValueError):
+            _mixed(dict(MIXED, **wrong))
+
+
+def test_mvis_solved_each_camera_alone_no_baseline_lane_and_one_line_why():
+    x1 = _mixed()["families"][1]
+    (fx,), (base,) = (s["params"] for s in x1["sensors"])
+    assert [x["tool"] for x in fx["lanes"]] == ["MVIS", "Kalibr", "Basalt"]
+    assert [(x["tool"], x["state"]) for x in base["lanes"]] == [("Kalibr", "ok"), ("Basalt", "ok")]   # no empty MVIS lane
+    assert base["axis"] == R.axis(base["lanes"]) and base["lanes"][0]["min"] == 42.4
+    assert x1["no_mvis"] == "MVIS solved each camera alone, so it has no baseline here."
+    assert [c["tool"] for c in x1["columns"]] == ["MVIS", "Kalibr", "Basalt"] and x1["solved"][0] == {"n": 4, "of": 4, "tool": "MVIS"}
+    assert "no_mvis" not in _mixed()["families"][0]
+    # without the yaml text the empty lane stays, as on every page before
+    bare = _mixed(dict(MIXED, no_mvis={}))["families"][1]
+    assert [(x["tool"], x["state"]) for x in bare["sensors"][1]["params"][0]["lanes"]][0] == ("MVIS", "missing") and "no_mvis" not in bare
+    # the text would be wrong on a family where MVIS has every value
+    with pytest.raises(ValueError, match="X1: no_mvis is set, but MVIS has a value on every chart"):
+        _mixed(extra=extra_inputs(fam=pair_family(mvis_baseline=True)))
+
+
+def test_a_tool_that_is_poor_on_every_recording_is_shown_grey_and_never_compared():
+    """Kalibr camera + IMU on a pair: 4 of 4 solves poor. The lanes stay, greyed; nothing on the page counts Kalibr as
+    agreeing or differing; its lanes do not set a chart's scale."""
+    sp, st = camimu_family()
+    sp["rows"] = [r for r in sp["rows"] if r["sensor"] in SID]
+    entry = dict(MIXED, no_mvis={}, poor={"X1": {"Kalibr": {"n": 4, "text": "Kalibr collapsed on all four."}}},
+                 gravity={"X1": "MVIS at 9.7931 m/s²; Kalibr at its fixed 9.80655 m/s²."})
+    x1 = _mixed(entry, extra_inputs("camera+imu", (sp, st)))["families"][1]
+    assert x1["poor"] == [{"tool": "Kalibr", "n": 4, "text": "Kalibr collapsed on all four."}]
+    k = next(s for s in x1["solved"] if s["tool"] == "Kalibr")
+    assert (k["n"], k["of"], k["poor"]) == (4, 4, 4)   # Coverage: 0 of 4 good, 4 grey squares
+    lanes = [x for s in x1["sensors"] for q in s["params"] for x in q["lanes"]]
+    assert [x for x in lanes if x["tool"] == "Kalibr"] and all(x.get("poor") for x in lanes if x["tool"] == "Kalibr")
+    assert not any(x.get("poor") for x in lanes if x["tool"] != "Kalibr")
+    assert {x["state"] for x in lanes if x["tool"] == "Kalibr"} >= {"ok", "fixed"}   # the values stay
+    for s in x1["sensors"]:
+        for q in s["params"]:
+            good = [x for x in q["lanes"] if not x.get("poor")]
+            assert q["axis"] == R.axis(good), q["key"]   # the grey lane does not set the scale
+    assert x1["diffs"] == [] and x1["tally"] == {} and x1["imu_model"] == "kalibr"
+    assert x1["gravity"] == "MVIS at 9.7931 m/s²; Kalibr at its fixed 9.80655 m/s²."
+    with pytest.raises(ValueError, match="X1: poor says 5 Kalibr solves, but only 4 of 4 solved"):
+        _mixed(dict(entry, poor={"X1": {"Kalibr": {"n": 5, "text": "x"}}}), extra_inputs("camera+imu", (sp, st)))
+
+
+@pytest.mark.parametrize("key", ["poor", "gravity", "no_mvis"])
+def test_a_family_text_for_a_family_the_page_does_not_list_stops_the_export(key):
+    with pytest.raises(ValueError, match=r"name families \['T9'\] it does not list"):
+        _mixed(dict(MIXED, **{key: {"T9": {"Kalibr": {"n": 1, "text": "x"}} if key == "poor" else "text"}}))
+
+
+def test_the_family_head_prints_every_hand_written_family_part():
+    """No Astro test harness: the component must at least read each key the export writes."""
+    head = (REPO / "site/src/components/eval/FamilyHead.astro").read_text(encoding="utf-8")
+    for key in ("f.pair", "f.run", "f.gravity", "f.no_mvis", "f.poor"):
+        assert key in head, key
+
+
+def test_study_inputs_and_export_study_on_a_page_with_extra_families(tmp_path, monkeypatch):
+    lb, stats = _study_setup(tmp_path, monkeypatch)
+    x = {"id": "m", "label": "M rig", "stats_key": "v5", "batch": "b7", "read_first": {"V5": "A.", "V5c": "B."}, "like_for_like": "Same."}
+    (rows, recs, st), found = R.study_inputs(lb, x, json.loads(stats.read_text()))
+    assert found == [] and recs["families"]["batch"] == "b7" and rows["families"]["V5c"]["read_first"] == "B."
+    pub = yaml.safe_load((tmp_path / "data/public_results.yaml").read_text())
+    pub["datasets"][0]["extra"] = {"families": []}
+    (tmp_path / "data/public_results.yaml").write_text(yaml.safe_dump(pub))
+    with pytest.raises(SystemExit, match=r"a-rig: a leaderboard page with extra study families. export_study.py cannot rebuild it, "
+                                         r"because its batch families need the batch inputs: run export_results.py with --study a-rig="):
+        R.collect_studies(lb, {"a-rig": stats})
+
+
+@pytest.mark.real_data
+def test_the_real_mgc_pair_families_build_as_extra_families():
+    """MVIS_LEADERBOARD=<Space folder> MVIS_MGC_PAIRS_STATS=<monado_mgc_pairs_stats.json>: the four pair families of the
+    2026-11-27 study pass the gate; each camera-only one has a baseline chart without an MVIS lane."""
+    from conftest import env_path
+    st = json.loads(env_path("MVIS_MGC_PAIRS_STATS").read_text())
+    ids = list(st["families"])
+    x = {"id": "monado_msd", "label": "Monado MGC", "stats_key": "monado_mgc", "batch": "2026-11-27", "mvis": "0.4.2",
+         "read_first": "r", "like_for_like": "l", "families": [{"id": T, "shutter": "global"} for T in ids]}
+    extra, found = R.study_inputs(env_path("MVIS_LEADERBOARD"), x, st)
+    assert found == []
+    cams = {f"cam{i} – Reverb G2 cam{j}": f"cam{j}" for i, j in ((0, 0), (1, 1), (0, 1), (1, 2), (1, 3))}
+    entry = dict(MIXED, sensors={**SID, **cams, "base IMU – Reverb G2 IMU": "imu0"}, extra=x,
+                 no_mvis={T: "MVIS solved each camera alone." for T in ids if T.endswith("-cam")},
+                 poor={T: {"Kalibr": {"n": 4, "text": "Poor."}} for T in ids if not T.endswith("-cam")})
+    p = _mixed(entry, extra)
+    assert [f["id"] for f in p["families"]] == ["T1", "MGC02-cam", "MGC02", "MGC13-cam", "MGC13"]
+    for f in p["families"][1:]:
+        base = [q for s in f["sensors"] for q in s["params"] if q["key"] == "baseline_mm"]
+        assert len(base) == 1 and ("MVIS" in [x["tool"] for x in base[0]["lanes"]]) == (f["mode"] == "cam+imu"), f["id"]
+        assert [s["n"] for s in f["solved"]] == [4, 4, 4] and f["diffs"] == [] and R.outside(f)
+    files = {"p.json": R.dumps(p), "p.mdx": R.mdx(p)}
+    from mvis_site.repeatability import private_words
+    assert R.problems(files, SHA, private_words(st)) == []
 
 
 # ---------------------------------------------------------------- separate studies alone
