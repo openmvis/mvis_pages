@@ -17,7 +17,13 @@ import page from '../../../../data/eval/monado-mgc.json';
 
 <E.RpOpen />
 
-## T5 · camera only
+## Notes
+
+<E.Reading page={page} />
+
+**Outside the leaderboard batch:** MGC02-cam, MGC02, MGC13-cam and MGC13 are from separate runs, 2026-11-27 (MVIS 0.4.1, development version of 2026-11-26), added to this page beside the families of batch 2026-11-24a. They have no row on the Leaderboard and no ◆ counts.
+
+## T5 · camera only · pair 01
 
 <E.FamilyHead page={page} i={0} />
 
@@ -29,7 +35,7 @@ import page from '../../../../data/eval/monado-mgc.json';
 
 <E.Parameters page={page} i={0} />
 
-## T12 · camera + IMU
+## T12 · camera + IMU · pair 01
 
 <E.FamilyHead page={page} i={1} />
 
@@ -40,3 +46,51 @@ import page from '../../../../data/eval/monado-mgc.json';
 ### Parameters by sensor
 
 <E.Parameters page={page} i={1} />
+
+## MGC02-cam · camera only · pair 02
+
+<E.FamilyHead page={page} i={2} />
+
+### Coverage
+
+<E.Coverage page={page} i={2} />
+
+### Parameters by sensor
+
+<E.Parameters page={page} i={2} />
+
+## MGC02 · camera + IMU · pair 02
+
+<E.FamilyHead page={page} i={3} />
+
+### Coverage
+
+<E.Coverage page={page} i={3} />
+
+### Parameters by sensor
+
+<E.Parameters page={page} i={3} />
+
+## MGC13-cam · camera only · pair 13
+
+<E.FamilyHead page={page} i={4} />
+
+### Coverage
+
+<E.Coverage page={page} i={4} />
+
+### Parameters by sensor
+
+<E.Parameters page={page} i={4} />
+
+## MGC13 · camera + IMU · pair 13
+
+<E.FamilyHead page={page} i={5} />
+
+### Coverage
+
+<E.Coverage page={page} i={5} />
+
+### Parameters by sensor
+
+<E.Parameters page={page} i={5} />

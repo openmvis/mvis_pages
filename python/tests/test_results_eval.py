@@ -234,16 +234,20 @@ def test_committed_diamond_counts_equal_the_committed_board():
     board = json.loads((SITE / "leaderboard/board.json").read_text())
     uzh = json.loads((SITE / "leaderboard/uzh_fpv.json").read_text())
     want = {**{k: R.board_tallies(v, PAIRS) for k, v in board["datasets"].items()}, "uzh_fpv": R.board_tallies(uzh["fragment"], PAIRS)}
-    seen = 0
+    seen = outside = 0
     for p in json.loads((SITE / "results-nav.json").read_text()):
         page = json.loads((SITE / f"eval/{p['slug']}.json").read_text())
         if page["id"] not in want:  # a study with no board (VI-Rig 5 IMUs, MVIS only) has nothing to count
             assert page["study"] and all(f["tally"] == {} and f["diffs"] == [] for f in page["families"]), page["id"]
             continue
         for f in page["families"]:
+            if R.outside(f):  # a study family on a leaderboard page (Monado MGC pairs 02 and 13): no row, no counts
+                assert f["tally"] == {} and f["diffs"] == [] and f["id"] not in want[page["id"]], (page["id"], f["id"])
+                outside += 1
+                continue
             assert f["tally"] == want[page["id"]][f["id"]], (page["id"], f["id"])
             seen += 1
-    assert seen == 15
+    assert (seen, outside) == (15, 4)
     lb = json.loads((SITE / "eval/index.json").read_text())
     got = {f["id"]: {k: [d["marked"], d["compared"]] for k, d in f["diffs"].items()} for ds in lb["datasets"] for f in ds["families"]}
     assert got["T6"] == {"mk": [21, 48]} and got["T6c"] == {"mk": [5, 24], "bk": [2, 16], "bm": [6, 16]}

@@ -209,8 +209,8 @@ datasets:
     title: "Monado MIC (Valve Index)"
     ours: false
     study: true
-    batch: "2026-11-25"
-    study_note: "Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 8 MIC camera-only and 8 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+    batch: "2026-11-27"
+    study_note: "Separate study (batch 2026-11-27): MVIS, Kalibr and Basalt on the 8 MIC camera-only and 8 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
     licence: CC BY 4.0
     intro: "The MIC calibration recordings of the Monado SLAM Datasets, made with a Valve Index headset: its front fisheye pair and its IMU, 8 camera-only and 8 camera + IMU recordings."
     chips: ["front fisheye pair", "headset IMU", "8 + 8 recordings", "AprilGrid 6×6, 30 mm"]
@@ -222,11 +222,15 @@ datasets:
     no_repeatability: "This study has no repeatability cells: they are computed for the leaderboard batch only. Each tool's spread over the 8 recordings of a family is in Parameters by sensor."
     read_first:   # by family: camera only (camcalib recordings), camera + IMU (imucalib recordings)
       MIC-cam: "Each tool calibrates both cameras and their baseline from the images alone, on the 8 camcalib recordings."
-      MIC: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them."
+      MIC: "MVIS starts from its camera-only result of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from its own camera calibration on the same camera + IMU recording; its td, lever and IMU intrinsics are solved given them."
     like_for_like:
       MIC-cam: "Every tool ran on the same 8 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
       MIC: "Every tool ran on the same 8 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+    gravity:      # family -> text: which tool ran at which gravity (from the provenance of the study's stats file)
+      MIC: "MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt estimates gravity in these runs."
     reading:
+      - "<b>Runs.</b> We ran MVIS 0.4.1 (development version of 2026-11-26) on all 16 recordings, and Kalibr and Basalt on the 8 camera-only recordings, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026. That Kalibr run uses its scale-misalignment IMU model, with a change that starts its spline from both cameras."
+      - "<b>Accelerometer scale.</b> On the camera + IMU recordings MVIS and Kalibr give an accelerometer scale of 1.055 to 1.066 on the three axes, and Basalt 1.017 to 1.024. We haven't established why the tools differ."
       - "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
     axis_centre: MVIS          # each chart is centred on the MVIS median, so another tool's poor solves do not move it
     reference:    # chart centre per parameter: the Monado authors' Basalt calibration of this headset (public, CC BY 4.0)
@@ -255,8 +259,9 @@ datasets:
     title: "Monado MGC (HP Reverb G2)"
     ours: false
     licence: CC BY 4.0
-    intro: "The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset."
-    chips: ["2 of the 4 headset cameras (front pair)", "headset IMU", "AprilGrid 6×6, 30 mm"]
+    mvis: "development version of 2026-11-24"      # the MVIS version behind the batch families T5 and T12
+    intro: "The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset: its 4 tracking cameras, recorded as three pairs (cam0 + cam1, cam0 + cam2, cam1 + cam3), and its IMU."
+    chips: ["4 headset cameras, in 3 pairs", "headset IMU", "4 + 4 recordings per pair", "AprilGrid 6×6, 30 mm"]
     image: {src: /media/sensors/hp-reverb-g2/hp-reverb-g2.jpg, alt: "HP Reverb G2 headset, front view", credit: "Photo: HP, Reverb G2 press release"}
     links:
       example: /benchmark/examples/monado/
@@ -265,15 +270,55 @@ datasets:
       hub: https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_mgc
     components:   # what this evaluation calibrated, by chip; same fields as public_sensors.yaml, plus device: the device it sits on
       cameras:
-        - {maker: OmniVision, part: OV7251, count: 2, device: HP Reverb G2, src: dataset, via: "Monado SLAM datasets paper, Table II", url: "https://arxiv.org/pdf/2508.00088"}
+        - {maker: OmniVision, part: OV7251, count: 4, device: HP Reverb G2, src: dataset, via: "Monado SLAM datasets paper, Table II", url: "https://arxiv.org/pdf/2508.00088"}
       imus:
         - {maker: TDK InvenSense, part: ICM-20602, device: HP Reverb G2, src: dataset, via: headset calibration file in the dataset, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras"}
+    reading:
+      - "<b>Three camera pairs.</b> Each recording shows the board to one pair of cameras. T5 and T12 are pair 01 (cam0 + cam1) and belong to the leaderboard batch. Pairs 02 (cam0 + cam2) and 13 (cam1 + cam3) are from separate runs of 2026-11-27 and have no row on the Leaderboard. A camera that is in two pairs has one set of values per pair."
+      - "<b>Kalibr on pairs 02 and 13.</b> We ran Kalibr camera + IMU as on pair 01 and did not tune it. It did not give a usable solve on any of the 8 recordings, so all its values there are shown grey."
     families:
-      - {id: T5, shutter: global}
-      - {id: T12, shutter: global}
+      - {id: T5, shutter: global, pair: "pair 01"}
+      - {id: T12, shutter: global, pair: "pair 01"}
+    extra:        # study families from separate runs (--study monado-mgc=<stats file>); no Leaderboard row
+      stats_key: monado_mgc
+      batch: "2026-11-27"
+      mvis: "0.4.1, development version of 2026-11-26"
+      read_first:
+        MGC02-cam: "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib02 recordings. MVIS calibrates each camera alone."
+        MGC02: "MVIS starts from its per-camera results of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from an MVIS export; its td, lever and IMU intrinsics are solved given them."
+        MGC13-cam: "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib13 recordings. MVIS calibrates each camera alone."
+        MGC13: "MVIS starts from its per-camera results of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from an MVIS export; its td, lever and IMU intrinsics are solved given them."
+      like_for_like:
+        MGC02-cam: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+        MGC02: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+        MGC13-cam: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+        MGC13: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+      families:
+        - {id: MGC02-cam, shutter: global, pair: "pair 02"}
+        - {id: MGC02, shutter: global, pair: "pair 02"}
+        - {id: MGC13-cam, shutter: global, pair: "pair 13"}
+        - {id: MGC13, shutter: global, pair: "pair 13"}
+    no_mvis:      # family -> text: MVIS has no baseline lane there
+      MGC02-cam: "solves each camera of this pair alone here, so it has no baseline. Kalibr and Basalt solve the pair together."
+      MGC13-cam: "solves each camera of this pair alone here, so it has no baseline. Kalibr and Basalt solve the pair together."
+    gravity:
+      MGC02: "MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt is held at 9.81 m/s²."
+      MGC13: "MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt is held at 9.81 m/s²."
+    poor:         # every Kalibr camera + IMU solve of pairs 02 and 13: shown grey, not tuned, not hidden
+      MGC02:
+        Kalibr:
+          n: 4
+          text: "Its IMU scales are far from 1 on every recording: gyro scale 1.2 to 12, accelerometer scale z 1.3 to 7860."
+      MGC13:
+        Kalibr:
+          n: 4
+          text: "Its IMU scales are far from 1 on every recording: gyro scale 1.6 to 7.7, accelerometer scale z 1.7 to 952."
     sensors:
       "cam0 – Reverb G2 cam0": cam0
       "cam1 – Reverb G2 cam1": cam1
+      "cam1 – Reverb G2 cam2": cam2
+      "cam0 – Reverb G2 cam1": cam1
+      "cam1 – Reverb G2 cam3": cam3
       "base IMU – Reverb G2 IMU": imu0
 
   - slug: monado-moc
@@ -285,8 +330,8 @@ datasets:
     title: "Monado MOC (Samsung Odyssey+)"
     ours: false
     study: true
-    batch: "2026-11-25"
-    study_note: "Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 4 MOC camera-only and 4 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+    batch: "2026-11-27"
+    study_note: "Separate study (batch 2026-11-27): MVIS, Kalibr and Basalt on the 4 MOC camera-only and 4 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
     licence: CC BY 4.0
     intro: "The MOC calibration recordings of the Monado SLAM Datasets, made with a Samsung Odyssey+ headset: its two tracking cameras and its IMU, 4 camera-only and 4 camera + IMU recordings."
     chips: ["2 tracking cameras", "headset IMU", "4 + 4 recordings", "AprilGrid 6×6, 30 mm"]
@@ -298,11 +343,14 @@ datasets:
     no_repeatability: "This study has no repeatability cells: they are computed for the leaderboard batch only, and 4 recordings are too few for the test. Each tool's spread is in Parameters by sensor."
     read_first:   # by family: camera only (camcalib recordings), camera + IMU (imucalib recordings)
       MOC-cam: "Each tool calibrates both cameras and their baseline from the images alone, on the 4 camcalib recordings."
-      MOC: "Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them."
+      MOC: "MVIS starts from its camera-only result of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from its own camera calibration on the same camera + IMU recording; its td, lever and IMU intrinsics are solved given them."
     like_for_like:
-      MOC-cam: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt pinhole-radtan8 (the dataset authors' model, so its intrinsics are shown, not compared)."
+      MOC-cam: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
       MOC: "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt pinhole-radtan8 (the dataset authors' model, so its intrinsics are shown, not compared)."
+    gravity:
+      MOC: "MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt estimates gravity in these runs."
     reading:
+      - "<b>Runs.</b> We ran MVIS 0.4.1 (development version of 2026-11-26) on all 8 recordings, and Kalibr and Basalt on the 4 camera-only recordings, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026. That Kalibr run uses its scale-misalignment IMU model, with a change that starts its spline from both cameras."
       - "<b>Chart centre.</b> Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.kb4.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median."
     axis_centre: MVIS
     reference:    # chart centre per parameter: the Monado authors' Basalt calibration of this headset (public, CC BY 4.0)
@@ -314,7 +362,7 @@ datasets:
       MOC:
         Kalibr:
           n: 3
-          text: "MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269)."
+          text: "On MOC05, MOC08 and MOC11 Kalibr's own camera calibration is off: fx 296–301 px, against about 270 px from MVIS on the same recordings. On MOC05 its accelerometer scale also reaches 93 on z."
     components:
       cameras:
         - {maker: OmniVision, part: OV7251, count: 2, device: Samsung Odyssey+, src: dataset, via: Monado dataset authors, url: "https://huggingface.co/datasets/collabora/monado-slam-datasets"}

@@ -5,10 +5,11 @@
  "title": "Monado MGC (HP Reverb G2)",
  "ours": false,
  "licence": "CC BY 4.0",
- "intro": "The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset.",
+ "intro": "The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset: its 4 tracking cameras, recorded as three pairs (cam0 + cam1, cam0 + cam2, cam1 + cam3), and its IMU.",
  "chips": [
-  "2 of the 4 headset cameras (front pair)",
+  "4 headset cameras, in 3 pairs",
   "headset IMU",
+  "4 + 4 recordings per pair",
   "AprilGrid 6×6, 30 mm"
  ],
  "image": {
@@ -22,6 +23,10 @@
   "sensor": "/devices/hp-reverb-g2/",
   "hub": "https://huggingface.co/datasets/calibench-vi/datasets/tree/main/converted/monado_mgc"
  },
+ "reading": [
+  "<b>Three camera pairs.</b> Each recording shows the board to one pair of cameras. T5 and T12 are pair 01 (cam0 + cam1) and belong to the leaderboard batch. Pairs 02 (cam0 + cam2) and 13 (cam1 + cam3) are from separate runs of 2026-11-27 and have no row on the Leaderboard. A camera that is in two pairs has one set of values per pair.",
+  "<b>Kalibr on pairs 02 and 13.</b> We ran Kalibr camera + IMU as on pair 01 and did not tune it. It did not give a usable solve on any of the 8 recordings, so all its values there are shown grey."
+ ],
  "study": false,
  "batch": "2026-11-24a",
  "results_commit": "41ec486781d3dc79577a53bd78b1a884375d238b",
@@ -1583,7 +1588,13 @@
     }
    ],
    "model_terms": [],
-   "has_tga": false
+   "has_tga": false,
+   "pair": "pair 01",
+   "run": {
+    "batch": "2026-11-24a",
+    "mvis": "development version of 2026-11-24",
+    "outside": false
+   }
   },
   {
    "id": "T12",
@@ -4006,7 +4017,5285 @@
     }
    ],
    "has_tga": true,
-   "imu_model": "kalibr"
+   "imu_model": "kalibr",
+   "pair": "pair 01",
+   "run": {
+    "batch": "2026-11-24a",
+    "mvis": "development version of 2026-11-24",
+    "outside": false
+   }
+  },
+  {
+   "id": "MGC02-cam",
+   "title": "cam0 + cam2 stereo",
+   "mode": "cam",
+   "shutter": "global",
+   "n": 4,
+   "columns": [
+    {
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS"
+    },
+    {
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr"
+    },
+    {
+     "col": "basalt",
+     "tool": "Basalt",
+     "label": "Basalt"
+    }
+   ],
+   "solved": [
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "MVIS"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Kalibr"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Basalt"
+    }
+   ],
+   "read_first": "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib02 recordings. MVIS calibrates each camera alone.",
+   "poor": [],
+   "notes": [
+    [
+     "Like for like",
+     "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+    ],
+    [
+     "Note",
+     "MVIS calibrates each camera of this pair alone (its joint camera-only solve of the pair fails), so it has no baseline here; Kalibr and Basalt solve the pair jointly."
+    ],
+    [
+     "Basalt",
+     "kb4, the pair solved jointly."
+    ]
+   ],
+   "records": {},
+   "fit": [],
+   "diffs": [],
+   "tally": {},
+   "sensors": [
+    {
+     "id": "cam0",
+     "label": "Reverb G2 cam0",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 270.357,
+        "h": 0.9185
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 270.839,
+         "sd": 0.203944,
+         "n": 4,
+         "text": "270.84",
+         "min": 270.721,
+         "max": 271.192
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 270.357,
+         "sd": 0.109264,
+         "n": 4,
+         "text": "270.36",
+         "min": 270.268,
+         "max": 270.526
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 270.216,
+         "sd": 0.14338,
+         "n": 4,
+         "text": "270.22",
+         "min": 270.059,
+         "max": 270.377
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 270.045,
+        "h": 0.99
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 270.647,
+         "sd": 0.157932,
+         "n": 4,
+         "text": "270.65",
+         "min": 270.601,
+         "max": 270.945
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 270.045,
+         "sd": 0.125123,
+         "n": 4,
+         "text": "270.05",
+         "min": 269.932,
+         "max": 270.229
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 269.975,
+         "sd": 0.130536,
+         "n": 4,
+         "text": "269.98",
+         "min": 269.822,
+         "max": 270.093
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 323.13,
+        "h": 0.4741
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 323.466,
+         "sd": 0.0865022,
+         "n": 4,
+         "text": "323.47",
+         "min": 323.352,
+         "max": 323.561
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 323.13,
+         "sd": 0.0348318,
+         "n": 4,
+         "text": "323.13",
+         "min": 323.107,
+         "max": 323.186
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 323.047,
+         "sd": 0.0630764,
+         "n": 4,
+         "text": "323.05",
+         "min": 322.925,
+         "max": 323.059
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 227.574,
+        "h": 0.5533
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 227.339,
+         "sd": 0.163296,
+         "n": 4,
+         "text": "227.34",
+         "min": 227.071,
+         "max": 227.44
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 227.574,
+         "sd": 0.241135,
+         "n": 4,
+         "text": "227.57",
+         "min": 227.195,
+         "max": 227.716
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 227.635,
+         "sd": 0.217148,
+         "n": 4,
+         "text": "227.63",
+         "min": 227.385,
+         "max": 227.869
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.0723696,
+        "h": 0.0158585
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.0780409,
+         "sd": 0.00116771,
+         "n": 4,
+         "text": "0.07804",
+         "min": 0.0772323,
+         "max": 0.0798346
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.0644571,
+         "sd": 0.00650428,
+         "n": 4,
+         "text": "0.06446",
+         "min": 0.0586142,
+         "max": 0.0740806
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0723696,
+         "sd": 0.00370483,
+         "n": 4,
+         "text": "0.07237",
+         "min": 0.0688692,
+         "max": 0.0755176
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0144782,
+        "h": 0.0486239
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.0364318,
+         "sd": 0.0024791,
+         "n": 4,
+         "text": "−0.03643",
+         "min": -0.0399586,
+         "max": -0.0340147
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.00962662,
+         "sd": 0.0200987,
+         "n": 4,
+         "text": "0.00963",
+         "min": -0.0217741,
+         "max": 0.0261973
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.0144782,
+         "sd": 0.011636,
+         "n": 4,
+         "text": "−0.01448",
+         "min": -0.0250844,
+         "max": -0.00334834
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.193033,
+        "h": 0.0547528
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.221782,
+         "sd": 0.00292448,
+         "n": 4,
+         "text": "0.22178",
+         "min": 0.218271,
+         "max": 0.225232
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.169605,
+         "sd": 0.0263473,
+         "n": 4,
+         "text": "0.16961",
+         "min": 0.1472,
+         "max": 0.210398
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.193033,
+         "sd": 0.0151606,
+         "n": 4,
+         "text": "0.19303",
+         "min": 0.177863,
+         "max": 0.207533
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.114214,
+        "h": 0.0208242
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.125937,
+         "sd": 0.00137756,
+         "n": 4,
+         "text": "−0.12594",
+         "min": -0.127635,
+         "max": -0.124646
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": -0.107052,
+         "sd": 0.0117691,
+         "n": 4,
+         "text": "−0.10705",
+         "min": -0.125118,
+         "max": -0.0968284
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.114214,
+         "sd": 0.00677435,
+         "n": 4,
+         "text": "−0.11421",
+         "min": -0.120941,
+         "max": -0.107535
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "cam2",
+     "label": "Reverb G2 cam2",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 272.023,
+        "h": 0.6149
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 272.299,
+         "sd": 0.277111,
+         "n": 4,
+         "text": "272.30",
+         "min": 271.864,
+         "max": 272.489
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 272.023,
+         "sd": 0.0828921,
+         "n": 4,
+         "text": "272.02",
+         "min": 271.945,
+         "max": 272.141
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 271.612,
+         "sd": 0.104701,
+         "n": 4,
+         "text": "271.61",
+         "min": 271.464,
+         "max": 271.701
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 271.92,
+        "h": 0.806612
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 272.356,
+         "sd": 0.297284,
+         "n": 4,
+         "text": "272.36",
+         "min": 271.832,
+         "max": 272.475
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 271.92,
+         "sd": 0.0874705,
+         "n": 4,
+         "text": "271.92",
+         "min": 271.856,
+         "max": 272.052
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 271.573,
+         "sd": 0.126301,
+         "n": 4,
+         "text": "271.57",
+         "min": 271.399,
+         "max": 271.684
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 324.225,
+        "h": 0.522268
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 324.001,
+         "sd": 0.250789,
+         "n": 4,
+         "text": "324.00",
+         "min": 323.779,
+         "max": 324.28
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 324.225,
+         "sd": 0.100542,
+         "n": 4,
+         "text": "324.23",
+         "min": 324.033,
+         "max": 324.247
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 324.237,
+         "sd": 0.0431194,
+         "n": 4,
+         "text": "324.24",
+         "min": 324.219,
+         "max": 324.313
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 230.2,
+        "h": 0.8547
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 230.498,
+         "sd": 0.353381,
+         "n": 4,
+         "text": "230.50",
+         "min": 230.144,
+         "max": 230.977
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 230.153,
+         "sd": 0.354759,
+         "n": 4,
+         "text": "230.15",
+         "min": 229.796,
+         "max": 230.658
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 230.2,
+         "sd": 0.164904,
+         "n": 4,
+         "text": "230.20",
+         "min": 230.19,
+         "max": 230.526
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.0788278,
+        "h": 0.0195688
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.0814385,
+         "sd": 0.00232178,
+         "n": 4,
+         "text": "0.08144",
+         "min": 0.0782726,
+         "max": 0.0838951
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.0651184,
+         "sd": 0.00293833,
+         "n": 4,
+         "text": "0.06512",
+         "min": 0.061038,
+         "max": 0.0681992
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0788278,
+         "sd": 0.00195853,
+         "n": 4,
+         "text": "0.07883",
+         "min": 0.0777838,
+         "max": 0.0822689
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0425627,
+        "h": 0.0666382
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.055243,
+         "sd": 0.00855568,
+         "n": 4,
+         "text": "−0.05524",
+         "min": -0.0568009,
+         "max": -0.0387288
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.0032445,
+         "sd": 0.00842269,
+         "n": 4,
+         "text": "0.00324",
+         "min": -0.00129553,
+         "max": 0.0180175
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.0425627,
+         "sd": 0.00567928,
+         "n": 4,
+         "text": "−0.04256",
+         "min": -0.0512133,
+         "max": -0.0375668
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.229715,
+        "h": 0.0820391
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.244999,
+         "sd": 0.0114309,
+         "n": 4,
+         "text": "0.24500",
+         "min": 0.223091,
+         "max": 0.247433
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.177934,
+         "sd": 0.0117955,
+         "n": 4,
+         "text": "0.17793",
+         "min": 0.155134,
+         "max": 0.179795
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.229715,
+         "sd": 0.00570825,
+         "n": 4,
+         "text": "0.22972",
+         "min": 0.225016,
+         "max": 0.238174
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.130441,
+        "h": 0.0332431
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.136005,
+         "sd": 0.00534943,
+         "n": 4,
+         "text": "−0.13600",
+         "min": -0.138304,
+         "max": -0.126389
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": -0.109883,
+         "sd": 0.00587831,
+         "n": 4,
+         "text": "−0.10988",
+         "min": -0.113063,
+         "max": -0.10022
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.130441,
+         "sd": 0.0019596,
+         "n": 4,
+         "text": "−0.13044",
+         "min": -0.13324,
+         "max": -0.129144
+        }
+       ]
+      },
+      {
+       "key": "baseline_mm",
+       "label": "baseline to Reverb G2 cam0",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 42.5181,
+        "h": 0.1133
+       },
+       "lanes": [
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 42.5377,
+         "sd": 0.0447938,
+         "n": 4,
+         "text": "42.538",
+         "min": 42.523,
+         "max": 42.6211
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 42.4985,
+         "sd": 0.0244187,
+         "n": 4,
+         "text": "42.498",
+         "min": 42.4732,
+         "max": 42.5313
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "model_terms": [],
+   "has_tga": false,
+   "pair": "pair 02",
+   "no_mvis": "solves each camera of this pair alone here, so it has no baseline. Kalibr and Basalt solve the pair together.",
+   "run": {
+    "batch": "2026-11-27",
+    "mvis": "0.4.1, development version of 2026-11-26",
+    "outside": true
+   }
+  },
+  {
+   "id": "MGC02",
+   "title": "cam0 + cam2 + IMU",
+   "mode": "cam+imu",
+   "shutter": "global",
+   "n": 4,
+   "columns": [
+    {
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS"
+    },
+    {
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr"
+    },
+    {
+     "col": "basalt",
+     "tool": "Basalt",
+     "label": "Basalt"
+    }
+   ],
+   "solved": [
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "MVIS"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Kalibr",
+     "poor": 4
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Basalt"
+    }
+   ],
+   "read_first": "MVIS starts from its per-camera results of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from an MVIS export; its td, lever and IMU intrinsics are solved given them.",
+   "poor": [
+    {
+     "tool": "Kalibr",
+     "n": 4,
+     "text": "Its IMU scales are far from 1 on every recording: gyro scale 1.2 to 12, accelerometer scale z 1.3 to 7860."
+    }
+   ],
+   "notes": [
+    [
+     "Like for like",
+     "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+    ],
+    [
+     "Note",
+     "MVIS starts from its per-camera camera-only results of the same round and refines the intrinsics; Kalibr's cameras are fixed at the MVIS result; no MVIS default-IMU-model run."
+    ],
+    [
+     "Basalt",
+     "kb4, seeded from Basalt's MGC02-cam round."
+    ]
+   ],
+   "records": {},
+   "fit": [
+    {
+     "sensor": "Reverb G2 cam0",
+     "by_col": {
+      "mvis": "0.102",
+      "kalibr": "0.831"
+     }
+    },
+    {
+     "sensor": "Reverb G2 cam2",
+     "by_col": {
+      "mvis": "0.101",
+      "kalibr": "0.948"
+     }
+    }
+   ],
+   "diffs": [],
+   "tally": {},
+   "sensors": [
+    {
+     "id": "cam0",
+     "label": "Reverb G2 cam0",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 270.065,
+        "h": 0.60445
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 270.118,
+         "sd": 0.291989,
+         "n": 4,
+         "text": "270.12",
+         "min": 269.977,
+         "max": 270.614
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 270.118,
+         "sd": 0.291989,
+         "n": 4,
+         "text": "270.12",
+         "note": "input",
+         "min": 269.977,
+         "max": 270.614
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 270.011,
+         "sd": 0.303803,
+         "n": 4,
+         "text": "270.01",
+         "min": 269.812,
+         "max": 270.467
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 269.76,
+        "h": 0.78705
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 269.816,
+         "sd": 0.347562,
+         "n": 4,
+         "text": "269.82",
+         "min": 269.73,
+         "max": 270.475
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 269.816,
+         "sd": 0.347562,
+         "n": 4,
+         "text": "269.82",
+         "note": "input",
+         "min": 269.73,
+         "max": 270.475
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 269.703,
+         "sd": 0.274521,
+         "n": 4,
+         "text": "269.70",
+         "min": 269.576,
+         "max": 270.169
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 323.135,
+        "h": 0.2266
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 323.226,
+         "sd": 0.0785632,
+         "n": 4,
+         "text": "323.23",
+         "min": 323.175,
+         "max": 323.341
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 323.226,
+         "sd": 0.0785632,
+         "n": 4,
+         "text": "323.23",
+         "note": "input",
+         "min": 323.175,
+         "max": 323.341
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 323.044,
+         "sd": 0.097332,
+         "n": 4,
+         "text": "323.04",
+         "min": 323.005,
+         "max": 323.22
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 227.891,
+        "h": 0.6655
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 227.849,
+         "sd": 0.333846,
+         "n": 4,
+         "text": "227.85",
+         "min": 227.286,
+         "max": 228.053
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 227.849,
+         "sd": 0.333846,
+         "n": 4,
+         "text": "227.85",
+         "note": "input",
+         "min": 227.286,
+         "max": 228.053
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 227.933,
+         "sd": 0.35485,
+         "n": 4,
+         "text": "227.93",
+         "min": 227.639,
+         "max": 228.305
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.0703578,
+        "h": 0.00837348
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.073395,
+         "sd": 0.00277663,
+         "n": 4,
+         "text": "0.07340",
+         "min": 0.0718348,
+         "max": 0.0779701
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.073395,
+         "sd": 0.00277663,
+         "n": 4,
+         "text": "0.07340",
+         "note": "input",
+         "min": 0.0718348,
+         "max": 0.0779701
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0673207,
+         "sd": 0.00310315,
+         "n": 4,
+         "text": "0.06732",
+         "min": 0.0631961,
+         "max": 0.0701002
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0147426,
+        "h": 0.027498
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.0268555,
+         "sd": 0.00723697,
+         "n": 4,
+         "text": "−0.02686",
+         "min": -0.0381504,
+         "max": -0.0230423
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.0268555,
+         "sd": 0.00723697,
+         "n": 4,
+         "text": "−0.02686",
+         "note": "input",
+         "min": -0.0381504,
+         "max": -0.0230423
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.00262963,
+         "sd": 0.0106972,
+         "n": 4,
+         "text": "−0.00263",
+         "min": -0.0118879,
+         "max": 0.0102556
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.194791,
+        "h": 0.0364309
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.210118,
+         "sd": 0.00910315,
+         "n": 4,
+         "text": "0.21012",
+         "min": 0.204547,
+         "max": 0.224276
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.210118,
+         "sd": 0.00910315,
+         "n": 4,
+         "text": "0.21012",
+         "note": "input",
+         "min": 0.204547,
+         "max": 0.224276
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.179464,
+         "sd": 0.0150636,
+         "n": 4,
+         "text": "0.17946",
+         "min": 0.161672,
+         "max": 0.191638
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.114809,
+        "h": 0.0163481
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.120968,
+         "sd": 0.00428936,
+         "n": 4,
+         "text": "−0.12097",
+         "min": -0.127601,
+         "max": -0.117833
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.120968,
+         "sd": 0.00428936,
+         "n": 4,
+         "text": "−0.12097",
+         "note": "input",
+         "min": -0.127601,
+         "max": -0.117833
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.108649,
+         "sd": 0.00725424,
+         "n": 4,
+         "text": "−0.10865",
+         "min": -0.114124,
+         "max": -0.0999466
+        }
+       ]
+      },
+      {
+       "key": "td_ms",
+       "label": "time offset td to base IMU",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": -1.02928,
+        "h": 0.555539
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -1.40751,
+         "sd": 0.0976025,
+         "n": 4,
+         "text": "−1.408",
+         "min": -1.48931,
+         "max": -1.27389
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": -6.35117,
+         "sd": 4.30159,
+         "n": 4,
+         "text": "−6.351",
+         "min": -10.4457,
+         "max": -1.31652
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.651058,
+         "sd": 0.111148,
+         "n": 4,
+         "text": "−0.651",
+         "min": -0.791998,
+         "max": -0.524249
+        }
+       ]
+      },
+      {
+       "key": "lever_mm",
+       "label": "distance to base IMU ‖p‖",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 53.1799,
+        "h": 1.1863
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 53.3262,
+         "sd": 0.250671,
+         "n": 4,
+         "text": "53.33",
+         "min": 53.0062,
+         "max": 53.5842
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 96.7933,
+         "sd": 50.6192,
+         "n": 4,
+         "text": "96.79",
+         "min": 50.3201,
+         "max": 167.992
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 53.0335,
+         "sd": 0.51874,
+         "n": 4,
+         "text": "53.03",
+         "min": 52.1014,
+         "max": 53.2737
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "cam2",
+     "label": "Reverb G2 cam2",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 271.571,
+        "h": 0.37565
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 271.647,
+         "sd": 0.200782,
+         "n": 4,
+         "text": "271.65",
+         "min": 271.399,
+         "max": 271.832
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 271.647,
+         "sd": 0.200782,
+         "n": 4,
+         "text": "271.65",
+         "note": "input",
+         "min": 271.399,
+         "max": 271.832
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 271.494,
+         "sd": 0.227728,
+         "n": 4,
+         "text": "271.49",
+         "min": 271.229,
+         "max": 271.699
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 271.57,
+        "h": 0.38005
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 271.644,
+         "sd": 0.194592,
+         "n": 4,
+         "text": "271.64",
+         "min": 271.359,
+         "max": 271.782
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 271.644,
+         "sd": 0.194592,
+         "n": 4,
+         "text": "271.64",
+         "note": "input",
+         "min": 271.359,
+         "max": 271.782
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 271.495,
+         "sd": 0.217822,
+         "n": 4,
+         "text": "271.50",
+         "min": 271.224,
+         "max": 271.674
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 323.976,
+        "h": 0.4477
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 323.802,
+         "sd": 0.0581751,
+         "n": 4,
+         "text": "323.80",
+         "min": 323.729,
+         "max": 323.862
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 323.802,
+         "sd": 0.0581751,
+         "n": 4,
+         "text": "323.80",
+         "note": "input",
+         "min": 323.729,
+         "max": 323.862
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 324.15,
+         "sd": 0.16176,
+         "n": 4,
+         "text": "324.15",
+         "min": 324.026,
+         "max": 324.383
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 230.748,
+        "h": 0.638
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 230.711,
+         "sd": 0.304991,
+         "n": 4,
+         "text": "230.71",
+         "min": 230.168,
+         "max": 230.841
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 230.711,
+         "sd": 0.304991,
+         "n": 4,
+         "text": "230.71",
+         "note": "input",
+         "min": 230.168,
+         "max": 230.841
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 230.785,
+         "sd": 0.298053,
+         "n": 4,
+         "text": "230.78",
+         "min": 230.238,
+         "max": 230.882
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.0782978,
+        "h": 0.00522819
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.0780518,
+         "sd": 0.00182322,
+         "n": 4,
+         "text": "0.07805",
+         "min": 0.0755268,
+         "max": 0.079961
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.0780518,
+         "sd": 0.00182322,
+         "n": 4,
+         "text": "0.07805",
+         "note": "input",
+         "min": 0.0755268,
+         "max": 0.079961
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0785438,
+         "sd": 0.00314801,
+         "n": 4,
+         "text": "0.07854",
+         "min": 0.0763559,
+         "max": 0.0830507
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0416512,
+        "h": 0.0168102
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.0398485,
+         "sd": 0.00732597,
+         "n": 4,
+         "text": "−0.03985",
+         "min": -0.0485444,
+         "max": -0.0306094
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.0398485,
+         "sd": 0.00732597,
+         "n": 4,
+         "text": "−0.03985",
+         "note": "input",
+         "min": -0.0485444,
+         "max": -0.0306094
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.0434539,
+         "sd": 0.00875061,
+         "n": 4,
+         "text": "−0.04345",
+         "min": -0.0569332,
+         "max": -0.0385536
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.226978,
+        "h": 0.0233701
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.222664,
+         "sd": 0.0106216,
+         "n": 4,
+         "text": "0.22266",
+         "min": 0.208591,
+         "max": 0.234546
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.222664,
+         "sd": 0.0106216,
+         "n": 4,
+         "text": "0.22266",
+         "note": "input",
+         "min": 0.208591,
+         "max": 0.234546
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.231293,
+         "sd": 0.0110247,
+         "n": 4,
+         "text": "0.23129",
+         "min": 0.225296,
+         "max": 0.248224
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.128278,
+        "h": 0.0110671
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.125449,
+         "sd": 0.00507967,
+         "n": 4,
+         "text": "−0.12545",
+         "min": -0.130928,
+         "max": -0.118557
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.125449,
+         "sd": 0.00507967,
+         "n": 4,
+         "text": "−0.12545",
+         "note": "input",
+         "min": -0.130928,
+         "max": -0.118557
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.131107,
+         "sd": 0.004745,
+         "n": 4,
+         "text": "−0.13111",
+         "min": -0.138339,
+         "max": -0.128467
+        }
+       ]
+      },
+      {
+       "key": "baseline_mm",
+       "label": "baseline to Reverb G2 cam0",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 42.5956,
+        "h": 0.12903
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 42.6573,
+         "sd": 0.0479538,
+         "n": 4,
+         "text": "42.657",
+         "min": 42.596,
+         "max": 42.7129
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 42.6573,
+         "sd": 0.0479538,
+         "n": 4,
+         "text": "42.657",
+         "note": "input",
+         "min": 42.596,
+         "max": 42.7129
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 42.5339,
+         "sd": 0.0265153,
+         "n": 4,
+         "text": "42.534",
+         "min": 42.4897,
+         "max": 42.5519
+        }
+       ]
+      },
+      {
+       "key": "td_ms",
+       "label": "time offset td to base IMU",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": -1.02132,
+        "h": 0.546777
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -1.39158,
+         "sd": 0.0870159,
+         "n": 4,
+         "text": "−1.392",
+         "min": -1.48046,
+         "max": -1.28541
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": -6.51881,
+         "sd": 4.37317,
+         "n": 4,
+         "text": "−6.519",
+         "min": -10.4471,
+         "max": -1.28735
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.651058,
+         "sd": 0.111148,
+         "n": 4,
+         "text": "−0.651",
+         "min": -0.791998,
+         "max": -0.524249
+        }
+       ]
+      },
+      {
+       "key": "lever_mm",
+       "label": "distance to base IMU ‖p‖",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 82.4175,
+        "h": 0.77935
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 82.6645,
+         "sd": 0.185971,
+         "n": 4,
+         "text": "82.66",
+         "min": 82.4548,
+         "max": 82.9036
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 130.366,
+         "sd": 56.2264,
+         "n": 4,
+         "text": "130.37",
+         "min": 74.8188,
+         "max": 206.853
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 82.1705,
+         "sd": 0.30431,
+         "n": 4,
+         "text": "82.17",
+         "min": 81.709,
+         "max": 82.4416
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "imu0",
+     "label": "Reverb G2 IMU",
+     "params": [
+      {
+       "key": "Dw[0,0]",
+       "label": "gyro Dw[0,0] scale x",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00359,
+        "h": 0.00077
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00377,
+         "sd": 0.000444878,
+         "n": 4,
+         "text": "1.00377",
+         "min": 1.00321,
+         "max": 1.00429
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 3.34943,
+         "sd": 3.84946,
+         "n": 4,
+         "text": "3.34943",
+         "min": 1.70569,
+         "max": 10.222
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00341,
+         "sd": 0.000356038,
+         "n": 4,
+         "text": "1.00341",
+         "min": 1.0031,
+         "max": 1.00395
+        }
+       ]
+      },
+      {
+       "key": "Dw[1,1]",
+       "label": "gyro Dw[1,1] scale y",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.0036,
+        "h": 0.002068
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00371,
+         "sd": 0.000930868,
+         "n": 4,
+         "text": "1.00371",
+         "min": 1.00348,
+         "max": 1.00548
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 4.61255,
+         "sd": 4.72122,
+         "n": 4,
+         "text": "4.61255",
+         "min": 1.16584,
+         "max": 12.0892
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00349,
+         "sd": 0.000963115,
+         "n": 4,
+         "text": "1.00349",
+         "min": 1.00337,
+         "max": 1.00537
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,2]",
+       "label": "gyro Dw[2,2] scale z",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00004,
+        "h": 0.0006589
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.999972,
+         "sd": 0.000488185,
+         "n": 4,
+         "text": "0.99997",
+         "min": 0.999437,
+         "max": 1.00041
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 4.4092,
+         "sd": 2.93478,
+         "n": 4,
+         "text": "4.40920",
+         "min": 1.39466,
+         "max": 7.43521
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.0001,
+         "sd": 0.000283309,
+         "n": 4,
+         "text": "1.00010",
+         "min": 0.999891,
+         "max": 1.00052
+        }
+       ]
+      },
+      {
+       "key": "Dw[1,0]",
+       "label": "gyro Dw[1,0] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": 0.000200892,
+        "h": 0.000788598
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.000286105,
+         "sd": 0.000434842,
+         "n": 4,
+         "text": "0.00029",
+         "min": -0.000477317,
+         "max": 0.000454899
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 0.886157,
+         "sd": 4.25159,
+         "n": 4,
+         "text": "0.88616",
+         "min": -2.46029,
+         "max": 7.38669
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.00011568,
+         "sd": 0.000373951,
+         "n": 4,
+         "text": "0.00012",
+         "min": -0.000516015,
+         "max": 0.000323371
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,0]",
+       "label": "gyro Dw[2,0] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": -0.00135626,
+        "h": 0.00154434
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.00160644,
+         "sd": 0.00032582,
+         "n": 4,
+         "text": "−0.00161",
+         "min": -0.00214093,
+         "max": -0.00139462
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 4.99838,
+         "sd": 6.31059,
+         "n": 4,
+         "text": "4.99838",
+         "min": 1.28492,
+         "max": 15.7761
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.00110609,
+         "sd": 0.00115377,
+         "n": 4,
+         "text": "−0.00111",
+         "min": -0.00265345,
+         "max": -6.10657e-05
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,1]",
+       "label": "gyro Dw[2,1] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": -0.000715373,
+        "h": 0.00236272
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.00108166,
+         "sd": 0.000286887,
+         "n": 4,
+         "text": "−0.00108",
+         "min": -0.00143645,
+         "max": -0.000790195
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": -1.22072,
+         "sd": 1.42255,
+         "n": 4,
+         "text": "−1.22072",
+         "min": -2.67523,
+         "max": 0.267287
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.000349086,
+         "sd": 0.000985025,
+         "n": 4,
+         "text": "−0.00035",
+         "min": -0.0006554,
+         "max": 0.00143255
+        }
+       ]
+      },
+      {
+       "key": "Da[0,0]",
+       "label": "accel Da[0,0] scale x",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00716,
+        "h": 0.003058
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00668,
+         "sd": 0.000146413,
+         "n": 4,
+         "text": "1.00668",
+         "min": 1.00654,
+         "max": 1.00682
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 3.28094,
+         "sd": 7.87463,
+         "n": 4,
+         "text": "3.28094",
+         "min": 1.62523,
+         "max": 18.2436
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00764,
+         "sd": 0.00144043,
+         "n": 4,
+         "text": "1.00764",
+         "min": 1.00655,
+         "max": 1.00994
+        }
+       ]
+      },
+      {
+       "key": "Da[1,1]",
+       "label": "accel Da[1,1] scale y",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00995,
+        "h": 0.0059345
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.01041,
+         "sd": 0.000353406,
+         "n": 4,
+         "text": "1.01041",
+         "min": 1.01004,
+         "max": 1.01089
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 1.10229,
+         "sd": 0.0932414,
+         "n": 4,
+         "text": "1.10229",
+         "min": 0.999656,
+         "max": 1.21149
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00948,
+         "sd": 0.00294616,
+         "n": 4,
+         "text": "1.00948",
+         "min": 1.00455,
+         "max": 1.01102
+        }
+       ]
+      },
+      {
+       "key": "Da[2,2]",
+       "label": "accel Da[2,2] scale z",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00824,
+        "h": 0.002772
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00912,
+         "sd": 0.000543569,
+         "n": 4,
+         "text": "1.00912",
+         "min": 1.0084,
+         "max": 1.0097
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 1095.21,
+         "sd": 3700.29,
+         "n": 4,
+         "text": "1095.21000",
+         "min": 1.24942,
+         "max": 7862.95
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00736,
+         "sd": 0.00118679,
+         "n": 4,
+         "text": "1.00736",
+         "min": 1.00572,
+         "max": 1.00824
+        }
+       ]
+      },
+      {
+       "key": "t_ga_ms",
+       "label": "t_ga gyro−accel",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": 2.493,
+        "h": 0.0506
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 2.493,
+         "sd": 0.0267958,
+         "n": 4,
+         "text": "2.493",
+         "min": 2.447,
+         "max": 2.5066
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "missing",
+         "note": "not in this tool's model"
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "missing",
+         "note": "not in this tool's model"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "model_terms": [
+    {
+     "sensor": "Reverb G2 IMU",
+     "sensor_id": "imu0",
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS",
+     "cells": {
+      "00": {
+       "med": -0.016692,
+       "sd": 0.0351545,
+       "text": "−0.017"
+      },
+      "01": {
+       "med": 0.030429,
+       "sd": 0.0603196,
+       "text": "0.030"
+      },
+      "02": {
+       "med": -0.031857,
+       "sd": 0.0674697,
+       "text": "−0.032"
+      },
+      "10": {
+       "med": 0.131924,
+       "sd": 0.0810152,
+       "text": "0.132"
+      },
+      "11": {
+       "med": 0.000338422,
+       "sd": 0.044138,
+       "text": "0.000"
+      },
+      "12": {
+       "med": -0.196929,
+       "sd": 0.0433202,
+       "text": "−0.197"
+      },
+      "20": {
+       "med": 0.0808994,
+       "sd": 0.0332231,
+       "text": "0.081"
+      },
+      "21": {
+       "med": 0.0319948,
+       "sd": 0.0786497,
+       "text": "0.032"
+      },
+      "22": {
+       "med": -0.0681596,
+       "sd": 0.0502092,
+       "text": "−0.068"
+      }
+     }
+    },
+    {
+     "sensor": "Reverb G2 IMU",
+     "sensor_id": "imu0",
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr",
+     "cells": {
+      "00": {
+       "med": -20.1693,
+       "sd": 104.305,
+       "text": "−20.169"
+      },
+      "01": {
+       "med": -0.458322,
+       "sd": 23.0675,
+       "text": "−0.458"
+      },
+      "02": {
+       "med": -0.7001,
+       "sd": 49.489,
+       "text": "−0.700"
+      },
+      "10": {
+       "med": -9.41831,
+       "sd": 65.0019,
+       "text": "−9.418"
+      },
+      "11": {
+       "med": 7.00239,
+       "sd": 23.4741,
+       "text": "7.002"
+      },
+      "12": {
+       "med": -1.67028,
+       "sd": 8.86712,
+       "text": "−1.670"
+      },
+      "20": {
+       "med": -24.0141,
+       "sd": 34.8044,
+       "text": "−24.014"
+      },
+      "21": {
+       "med": 5.1367,
+       "sd": 13.9291,
+       "text": "5.137"
+      },
+      "22": {
+       "med": 1.72659,
+       "sd": 34.7433,
+       "text": "1.727"
+      }
+     }
+    }
+   ],
+   "has_tga": true,
+   "imu_model": "kalibr",
+   "pair": "pair 02",
+   "gravity": "MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt is held at 9.81 m/s².",
+   "run": {
+    "batch": "2026-11-27",
+    "mvis": "0.4.1, development version of 2026-11-26",
+    "outside": true
+   }
+  },
+  {
+   "id": "MGC13-cam",
+   "title": "cam1 + cam3 stereo",
+   "mode": "cam",
+   "shutter": "global",
+   "n": 4,
+   "columns": [
+    {
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS"
+    },
+    {
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr"
+    },
+    {
+     "col": "basalt",
+     "tool": "Basalt",
+     "label": "Basalt"
+    }
+   ],
+   "solved": [
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "MVIS"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Kalibr"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Basalt"
+    }
+   ],
+   "read_first": "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib13 recordings. MVIS calibrates each camera alone.",
+   "poor": [],
+   "notes": [
+    [
+     "Like for like",
+     "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+    ],
+    [
+     "Note",
+     "MVIS calibrates each camera of this pair alone (its joint camera-only solve of the pair fails), so it has no baseline here; Kalibr and Basalt solve the pair jointly."
+    ],
+    [
+     "Basalt",
+     "kb4, the pair solved jointly."
+    ]
+   ],
+   "records": {},
+   "fit": [],
+   "diffs": [],
+   "tally": {},
+   "sensors": [
+    {
+     "id": "cam1",
+     "label": "Reverb G2 cam1",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 268.571,
+        "h": 1.5059
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 268.685,
+         "sd": 0.314936,
+         "n": 4,
+         "text": "268.69",
+         "min": 268.435,
+         "max": 269.179
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 268.569,
+         "sd": 0.743445,
+         "n": 4,
+         "text": "268.57",
+         "min": 267.202,
+         "max": 268.806
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 268.571,
+         "sd": 0.0924397,
+         "n": 4,
+         "text": "268.57",
+         "min": 268.464,
+         "max": 268.655
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 268.577,
+        "h": 1.595
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 268.577,
+         "sd": 0.340786,
+         "n": 4,
+         "text": "268.58",
+         "min": 268.396,
+         "max": 269.159
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 268.576,
+         "sd": 0.785731,
+         "n": 4,
+         "text": "268.58",
+         "min": 267.127,
+         "max": 268.817
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 268.605,
+         "sd": 0.0564247,
+         "n": 4,
+         "text": "268.61",
+         "min": 268.514,
+         "max": 268.647
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 323.504,
+        "h": 0.3553
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 323.504,
+         "sd": 0.207128,
+         "n": 4,
+         "text": "323.50",
+         "min": 323.336,
+         "max": 323.827
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 323.743,
+         "sd": 0.075414,
+         "n": 4,
+         "text": "323.74",
+         "min": 323.627,
+         "max": 323.802
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 323.483,
+         "sd": 0.109691,
+         "n": 4,
+         "text": "323.48",
+         "min": 323.319,
+         "max": 323.571
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 237.785,
+        "h": 0.545955
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 237.785,
+         "sd": 0.230427,
+         "n": 4,
+         "text": "237.78",
+         "min": 237.404,
+         "max": 237.922
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 237.922,
+         "sd": 0.359323,
+         "n": 4,
+         "text": "237.92",
+         "min": 237.345,
+         "max": 238.198
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 237.674,
+         "sd": 0.242752,
+         "n": 4,
+         "text": "237.67",
+         "min": 237.322,
+         "max": 237.866
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.0796152,
+        "h": 0.0576244
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.0818472,
+         "sd": 0.00425081,
+         "n": 4,
+         "text": "0.08185",
+         "min": 0.0739637,
+         "max": 0.0832405
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.0766582,
+         "sd": 0.0306776,
+         "n": 4,
+         "text": "0.07666",
+         "min": 0.0629304,
+         "max": 0.132001
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0796152,
+         "sd": 0.00326742,
+         "n": 4,
+         "text": "0.07962",
+         "min": 0.0750043,
+         "max": 0.0820363
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0423028,
+        "h": 0.178305
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.0480481,
+         "sd": 0.0143667,
+         "n": 4,
+         "text": "−0.04805",
+         "min": -0.049697,
+         "max": -0.0200294
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": -0.0332794,
+         "sd": 0.0969099,
+         "n": 4,
+         "text": "−0.03328",
+         "min": -0.204398,
+         "max": 0.0165607
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.0423028,
+         "sd": 0.00985062,
+         "n": 4,
+         "text": "−0.04230",
+         "min": -0.0491793,
+         "max": -0.0293768
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.233402,
+        "h": 0.221563
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.237274,
+         "sd": 0.0186177,
+         "n": 4,
+         "text": "0.23727",
+         "min": 0.201481,
+         "max": 0.240906
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.225632,
+         "sd": 0.118866,
+         "n": 4,
+         "text": "0.22563",
+         "min": 0.163434,
+         "max": 0.434823
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.233402,
+         "sd": 0.0126704,
+         "n": 4,
+         "text": "0.23340",
+         "min": 0.216495,
+         "max": 0.24344
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.132706,
+        "h": 0.0928169
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.133126,
+         "sd": 0.00884423,
+         "n": 4,
+         "text": "−0.13313",
+         "min": -0.13532,
+         "max": -0.116512
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": -0.131066,
+         "sd": 0.0489353,
+         "n": 4,
+         "text": "−0.13107",
+         "min": -0.217085,
+         "max": -0.105386
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.132706,
+         "sd": 0.00537028,
+         "n": 4,
+         "text": "−0.13271",
+         "min": -0.137332,
+         "max": -0.125644
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "cam3",
+     "label": "Reverb G2 cam3",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 269.721,
+        "h": 0.4092
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 269.753,
+         "sd": 0.224182,
+         "n": 4,
+         "text": "269.75",
+         "min": 269.558,
+         "max": 270.093
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 269.721,
+         "sd": 0.264007,
+         "n": 4,
+         "text": "269.72",
+         "min": 269.447,
+         "max": 270.079
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 269.664,
+         "sd": 0.187901,
+         "n": 4,
+         "text": "269.66",
+         "min": 269.458,
+         "max": 269.887
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 270.012,
+        "h": 0.4026
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 269.976,
+         "sd": 0.289152,
+         "n": 4,
+         "text": "269.98",
+         "min": 269.661,
+         "max": 270.359
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 270.036,
+         "sd": 0.308117,
+         "n": 4,
+         "text": "270.04",
+         "min": 269.646,
+         "max": 270.367
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 270.012,
+         "sd": 0.194114,
+         "n": 4,
+         "text": "270.01",
+         "min": 269.712,
+         "max": 270.168
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 320.123,
+        "h": 0.4125
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 320.064,
+         "sd": 0.0634276,
+         "n": 4,
+         "text": "320.06",
+         "min": 320.016,
+         "max": 320.166
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 320.123,
+         "sd": 0.127841,
+         "n": 4,
+         "text": "320.12",
+         "min": 320.005,
+         "max": 320.289
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 320.212,
+         "sd": 0.150342,
+         "n": 4,
+         "text": "320.21",
+         "min": 320.175,
+         "max": 320.498
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 232.108,
+        "h": 0.616
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 232.108,
+         "sd": 0.462027,
+         "n": 4,
+         "text": "232.11",
+         "min": 231.548,
+         "max": 232.61
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 232.215,
+         "sd": 0.258298,
+         "n": 4,
+         "text": "232.22",
+         "min": 231.723,
+         "max": 232.278
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 232.064,
+         "sd": 0.229668,
+         "n": 4,
+         "text": "232.06",
+         "min": 231.901,
+         "max": 232.408
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.0798734,
+        "h": 0.0208169
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.0813579,
+         "sd": 0.00468771,
+         "n": 4,
+         "text": "0.08136",
+         "min": 0.0770669,
+         "max": 0.0856482
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.0701569,
+         "sd": 0.00920798,
+         "n": 4,
+         "text": "0.07016",
+         "min": 0.0664138,
+         "max": 0.0862951
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0798734,
+         "sd": 0.00192834,
+         "n": 4,
+         "text": "0.07987",
+         "min": 0.0782678,
+         "max": 0.0826527
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0353841,
+        "h": 0.0670742
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.0415676,
+         "sd": 0.0168096,
+         "n": 4,
+         "text": "−0.04157",
+         "min": -0.0550641,
+         "max": -0.018389
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": -0.00182331,
+         "sd": 0.0274158,
+         "n": 4,
+         "text": "−0.00182",
+         "min": -0.0474082,
+         "max": 0.0118682
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.0353841,
+         "sd": 0.00501765,
+         "n": 4,
+         "text": "−0.03538",
+         "min": -0.0423026,
+         "max": -0.0307081
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.221021,
+        "h": 0.075819
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.228103,
+         "sd": 0.0248068,
+         "n": 4,
+         "text": "0.22810",
+         "min": 0.189103,
+         "max": 0.24535
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 0.182719,
+         "sd": 0.0306244,
+         "n": 4,
+         "text": "0.18272",
+         "min": 0.164861,
+         "max": 0.231167
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.221021,
+         "sd": 0.00577084,
+         "n": 4,
+         "text": "0.22102",
+         "min": 0.214019,
+         "max": 0.22683
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.126405,
+        "h": 0.0281146
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.128753,
+         "sd": 0.012923,
+         "n": 4,
+         "text": "−0.12875",
+         "min": -0.136317,
+         "max": -0.106867
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": -0.112265,
+         "sd": 0.0114187,
+         "n": 4,
+         "text": "−0.11227",
+         "min": -0.12903,
+         "max": -0.104514
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.126405,
+         "sd": 0.00229716,
+         "n": 4,
+         "text": "−0.12640",
+         "min": -0.128104,
+         "max": -0.123186
+        }
+       ]
+      },
+      {
+       "key": "baseline_mm",
+       "label": "baseline to Reverb G2 cam1",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 42.8723,
+        "h": 0.156255
+       },
+       "lanes": [
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "state": "ok",
+         "med": 42.8934,
+         "sd": 0.066503,
+         "n": 4,
+         "text": "42.893",
+         "min": 42.8672,
+         "max": 43.0143
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 42.8511,
+         "sd": 0.0459102,
+         "n": 4,
+         "text": "42.851",
+         "min": 42.8113,
+         "max": 42.8997
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "model_terms": [],
+   "has_tga": false,
+   "pair": "pair 13",
+   "no_mvis": "solves each camera of this pair alone here, so it has no baseline. Kalibr and Basalt solve the pair together.",
+   "run": {
+    "batch": "2026-11-27",
+    "mvis": "0.4.1, development version of 2026-11-26",
+    "outside": true
+   }
+  },
+  {
+   "id": "MGC13",
+   "title": "cam1 + cam3 + IMU",
+   "mode": "cam+imu",
+   "shutter": "global",
+   "n": 4,
+   "columns": [
+    {
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS"
+    },
+    {
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr"
+    },
+    {
+     "col": "basalt",
+     "tool": "Basalt",
+     "label": "Basalt"
+    }
+   ],
+   "solved": [
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "MVIS"
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Kalibr",
+     "poor": 4
+    },
+    {
+     "n": 4,
+     "of": 4,
+     "tool": "Basalt"
+    }
+   ],
+   "read_first": "MVIS starts from its per-camera results of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from an MVIS export; its td, lever and IMU intrinsics are solved given them.",
+   "poor": [
+    {
+     "tool": "Kalibr",
+     "n": 4,
+     "text": "Its IMU scales are far from 1 on every recording: gyro scale 1.6 to 7.7, accelerometer scale z 1.7 to 952."
+    }
+   ],
+   "notes": [
+    [
+     "Like for like",
+     "Every tool ran on the same 4 recordings, each with its own camera model: MVIS equidistant, Kalibr pinhole-equi and Basalt kb4, the same polynomial."
+    ],
+    [
+     "Note",
+     "MVIS starts from its per-camera camera-only results of the same round and refines the intrinsics; Kalibr's cameras are fixed at the MVIS result; no MVIS default-IMU-model run."
+    ],
+    [
+     "Basalt",
+     "kb4, seeded from Basalt's MGC13-cam round."
+    ]
+   ],
+   "records": {},
+   "fit": [
+    {
+     "sensor": "Reverb G2 cam1",
+     "by_col": {
+      "mvis": "0.107",
+      "kalibr": "0.776"
+     }
+    },
+    {
+     "sensor": "Reverb G2 cam3",
+     "by_col": {
+      "mvis": "0.102",
+      "kalibr": "0.831"
+     }
+    }
+   ],
+   "diffs": [],
+   "tally": {},
+   "sensors": [
+    {
+     "id": "cam1",
+     "label": "Reverb G2 cam1",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 268.775,
+        "h": 0.3795
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 268.947,
+         "sd": 0.128787,
+         "n": 4,
+         "text": "268.95",
+         "min": 268.831,
+         "max": 269.12
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 268.947,
+         "sd": 0.128787,
+         "n": 4,
+         "text": "268.95",
+         "note": "input",
+         "min": 268.831,
+         "max": 269.12
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 268.603,
+         "sd": 0.125971,
+         "n": 4,
+         "text": "268.60",
+         "min": 268.583,
+         "max": 268.847
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 268.824,
+        "h": 0.3443
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 268.961,
+         "sd": 0.114423,
+         "n": 4,
+         "text": "268.96",
+         "min": 268.889,
+         "max": 269.137
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 268.961,
+         "sd": 0.114423,
+         "n": 4,
+         "text": "268.96",
+         "note": "input",
+         "min": 268.889,
+         "max": 269.137
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 268.687,
+         "sd": 0.129353,
+         "n": 4,
+         "text": "268.69",
+         "min": 268.542,
+         "max": 268.848
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 323.932,
+        "h": 0.24255
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 323.974,
+         "sd": 0.130707,
+         "n": 4,
+         "text": "323.97",
+         "min": 323.872,
+         "max": 324.152
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 323.974,
+         "sd": 0.130707,
+         "n": 4,
+         "text": "323.97",
+         "note": "input",
+         "min": 323.872,
+         "max": 324.152
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 323.889,
+         "sd": 0.0890628,
+         "n": 4,
+         "text": "323.89",
+         "min": 323.718,
+         "max": 323.906
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 237.716,
+        "h": 0.2079
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 237.711,
+         "sd": 0.149071,
+         "n": 4,
+         "text": "237.71",
+         "min": 237.541,
+         "max": 237.905
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 237.711,
+         "sd": 0.149071,
+         "n": 4,
+         "text": "237.71",
+         "note": "input",
+         "min": 237.541,
+         "max": 237.905
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 237.721,
+         "sd": 0.168143,
+         "n": 4,
+         "text": "237.72",
+         "min": 237.56,
+         "max": 237.864
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.0776894,
+        "h": 0.00685102
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.0784185,
+         "sd": 0.00381016,
+         "n": 4,
+         "text": "0.07842",
+         "min": 0.0714612,
+         "max": 0.0798113
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.0784185,
+         "sd": 0.00381016,
+         "n": 4,
+         "text": "0.07842",
+         "note": "input",
+         "min": 0.0714612,
+         "max": 0.0798113
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0769603,
+         "sd": 0.00210757,
+         "n": 4,
+         "text": "0.07696",
+         "min": 0.0740853,
+         "max": 0.0790711
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.036161,
+        "h": 0.0231935
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.03891,
+         "sd": 0.0130714,
+         "n": 4,
+         "text": "−0.03891",
+         "min": -0.0437713,
+         "max": -0.015076
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.03891,
+         "sd": 0.0130714,
+         "n": 4,
+         "text": "−0.03891",
+         "note": "input",
+         "min": -0.0437713,
+         "max": -0.015076
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.033412,
+         "sd": 0.00573215,
+         "n": 4,
+         "text": "−0.03341",
+         "min": -0.0370054,
+         "max": -0.0236594
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.223411,
+        "h": 0.0322927
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.225715,
+         "sd": 0.017364,
+         "n": 4,
+         "text": "0.22571",
+         "min": 0.194054,
+         "max": 0.232498
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.225715,
+         "sd": 0.017364,
+         "n": 4,
+         "text": "0.22571",
+         "note": "input",
+         "min": 0.194054,
+         "max": 0.232498
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.221107,
+         "sd": 0.00683246,
+         "n": 4,
+         "text": "0.22111",
+         "min": 0.207953,
+         "max": 0.222353
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.127553,
+        "h": 0.0150893
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.128298,
+         "sd": 0.00794977,
+         "n": 4,
+         "text": "−0.12830",
+         "min": -0.131546,
+         "max": -0.113835
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.128298,
+         "sd": 0.00794977,
+         "n": 4,
+         "text": "−0.12830",
+         "note": "input",
+         "min": -0.131546,
+         "max": -0.113835
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.126807,
+         "sd": 0.00281147,
+         "n": 4,
+         "text": "−0.12681",
+         "min": -0.127988,
+         "max": -0.121697
+        }
+       ]
+      },
+      {
+       "key": "td_ms",
+       "label": "time offset td to base IMU",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": -0.947316,
+        "h": 0.576222
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -1.32662,
+         "sd": 0.0618423,
+         "n": 4,
+         "text": "−1.327",
+         "min": -1.44109,
+         "max": -1.30478
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": -5.10417,
+         "sd": 6.15114,
+         "n": 4,
+         "text": "−5.104",
+         "min": -11.0136,
+         "max": 3.75804
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.568013,
+         "sd": 0.0745606,
+         "n": 4,
+         "text": "−0.568",
+         "min": -0.580272,
+         "max": -0.423478
+        }
+       ]
+      },
+      {
+       "key": "lever_mm",
+       "label": "distance to base IMU ‖p‖",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 58.2409,
+        "h": 0.96921
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 58.3681,
+         "sd": 0.136795,
+         "n": 4,
+         "text": "58.37",
+         "min": 58.2171,
+         "max": 58.4838
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 75.596,
+         "sd": 44.3467,
+         "n": 4,
+         "text": "75.60",
+         "min": 42.9442,
+         "max": 143.15
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 58.1137,
+         "sd": 0.45821,
+         "n": 4,
+         "text": "58.11",
+         "min": 57.3598,
+         "max": 58.4363
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "cam3",
+     "label": "Reverb G2 cam3",
+     "params": [
+      {
+       "key": "fx",
+       "label": "fx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 269.839,
+        "h": 0.3531
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 269.92,
+         "sd": 0.16186,
+         "n": 4,
+         "text": "269.92",
+         "min": 269.779,
+         "max": 270.137
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 269.92,
+         "sd": 0.16186,
+         "n": 4,
+         "text": "269.92",
+         "note": "input",
+         "min": 269.779,
+         "max": 270.137
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 269.758,
+         "sd": 0.170982,
+         "n": 4,
+         "text": "269.76",
+         "min": 269.518,
+         "max": 269.896
+        }
+       ]
+      },
+      {
+       "key": "fy",
+       "label": "fy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 270.245,
+        "h": 0.4884
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 270.296,
+         "sd": 0.202375,
+         "n": 4,
+         "text": "270.30",
+         "min": 270.269,
+         "max": 270.689
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 270.296,
+         "sd": 0.202375,
+         "n": 4,
+         "text": "270.30",
+         "note": "input",
+         "min": 270.269,
+         "max": 270.689
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 270.194,
+         "sd": 0.153348,
+         "n": 4,
+         "text": "270.19",
+         "min": 270.026,
+         "max": 270.362
+        }
+       ]
+      },
+      {
+       "key": "cx",
+       "label": "cx",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 320.175,
+        "h": 0.399348
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 319.979,
+         "sd": 0.167044,
+         "n": 4,
+         "text": "319.98",
+         "min": 319.812,
+         "max": 320.191
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 319.979,
+         "sd": 0.167044,
+         "n": 4,
+         "text": "319.98",
+         "note": "input",
+         "min": 319.812,
+         "max": 320.191
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 320.371,
+         "sd": 0.0636515,
+         "n": 4,
+         "text": "320.37",
+         "min": 320.319,
+         "max": 320.471
+        }
+       ]
+      },
+      {
+       "key": "cy",
+       "label": "cy",
+       "unit": "px",
+       "cls": "intr",
+       "axis": {
+        "c": 232.341,
+        "h": 0.14245
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 232.363,
+         "sd": 0.0949736,
+         "n": 4,
+         "text": "232.36",
+         "min": 232.211,
+         "max": 232.412
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 232.363,
+         "sd": 0.0949736,
+         "n": 4,
+         "text": "232.36",
+         "note": "input",
+         "min": 232.211,
+         "max": 232.412
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 232.318,
+         "sd": 0.0857356,
+         "n": 4,
+         "text": "232.32",
+         "min": 232.245,
+         "max": 232.449
+        }
+       ]
+      },
+      {
+       "key": "dist[0]",
+       "label": "dist k1",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.079778,
+        "h": 0.00433032
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.080508,
+         "sd": 0.0024012,
+         "n": 4,
+         "text": "0.08051",
+         "min": 0.077851,
+         "max": 0.0837147
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.080508,
+         "sd": 0.0024012,
+         "n": 4,
+         "text": "0.08051",
+         "note": "input",
+         "min": 0.077851,
+         "max": 0.0837147
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.0790481,
+         "sd": 0.00230967,
+         "n": 4,
+         "text": "0.07905",
+         "min": 0.0761274,
+         "max": 0.0816941
+        }
+       ]
+      },
+      {
+       "key": "dist[1]",
+       "label": "dist k2",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.0358839,
+        "h": 0.0155444
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.0391118,
+         "sd": 0.00941545,
+         "n": 4,
+         "text": "−0.03911",
+         "min": -0.0475259,
+         "max": -0.0248574
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.0391118,
+         "sd": 0.00941545,
+         "n": 4,
+         "text": "−0.03911",
+         "note": "input",
+         "min": -0.0475259,
+         "max": -0.0248574
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.0326559,
+         "sd": 0.00740519,
+         "n": 4,
+         "text": "−0.03266",
+         "min": -0.0396812,
+         "max": -0.0217526
+        }
+       ]
+      },
+      {
+       "key": "dist[2]",
+       "label": "dist k3",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": 0.219131,
+        "h": 0.0202747
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.22218,
+         "sd": 0.012405,
+         "n": 4,
+         "text": "0.22218",
+         "min": 0.201779,
+         "max": 0.231017
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 0.22218,
+         "sd": 0.012405,
+         "n": 4,
+         "text": "0.22218",
+         "note": "input",
+         "min": 0.201779,
+         "max": 0.231017
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.216081,
+         "sd": 0.00926527,
+         "n": 4,
+         "text": "0.21608",
+         "min": 0.200699,
+         "max": 0.222476
+        }
+       ]
+      },
+      {
+       "key": "dist[3]",
+       "label": "dist k4",
+       "unit": "",
+       "cls": "dist",
+       "axis": {
+        "c": -0.124872,
+        "h": 0.00952985
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.125723,
+         "sd": 0.00551191,
+         "n": 4,
+         "text": "−0.12572",
+         "min": -0.128941,
+         "max": -0.116209
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": -0.125723,
+         "sd": 0.00551191,
+         "n": 4,
+         "text": "−0.12572",
+         "note": "input",
+         "min": -0.128941,
+         "max": -0.116209
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.124022,
+         "sd": 0.00389825,
+         "n": 4,
+         "text": "−0.12402",
+         "min": -0.1259,
+         "max": -0.117067
+        }
+       ]
+      },
+      {
+       "key": "baseline_mm",
+       "label": "baseline to Reverb G2 cam1",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 42.8019,
+        "h": 0.128985
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 42.7439,
+         "sd": 0.0592594,
+         "n": 4,
+         "text": "42.744",
+         "min": 42.6989,
+         "max": 42.8395
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "fixed",
+         "med": 42.7439,
+         "sd": 0.0592594,
+         "n": 4,
+         "text": "42.744",
+         "note": "input",
+         "min": 42.6989,
+         "max": 42.8395
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 42.8599,
+         "sd": 0.0212093,
+         "n": 4,
+         "text": "42.860",
+         "min": 42.8202,
+         "max": 42.8655
+        }
+       ]
+      },
+      {
+       "key": "td_ms",
+       "label": "time offset td to base IMU",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": -0.956471,
+        "h": 0.586293
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -1.34493,
+         "sd": 0.061817,
+         "n": 4,
+         "text": "−1.345",
+         "min": -1.44865,
+         "max": -1.30498
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": -4.27991,
+         "sd": 6.41333,
+         "n": 4,
+         "text": "−4.280",
+         "min": -11.6299,
+         "max": 4.05199
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": -0.568013,
+         "sd": 0.0745606,
+         "n": 4,
+         "text": "−0.568",
+         "min": -0.580272,
+         "max": -0.423478
+        }
+       ]
+      },
+      {
+       "key": "lever_mm",
+       "label": "distance to base IMU ‖p‖",
+       "unit": "mm",
+       "cls": "length",
+       "axis": {
+        "c": 87.5746,
+        "h": 0.39391
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 87.6023,
+         "sd": 0.110552,
+         "n": 4,
+         "text": "87.60",
+         "min": 87.4825,
+         "max": 87.6991
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 114.93,
+         "sd": 45.1209,
+         "n": 4,
+         "text": "114.93",
+         "min": 56.5553,
+         "max": 162.301
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 87.5469,
+         "sd": 0.210729,
+         "n": 4,
+         "text": "87.55",
+         "min": 87.2165,
+         "max": 87.7203
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "imu0",
+     "label": "Reverb G2 IMU",
+     "params": [
+      {
+       "key": "Dw[0,0]",
+       "label": "gyro Dw[0,0] scale x",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00239,
+        "h": 0.0017105
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00263,
+         "sd": 0.000771878,
+         "n": 4,
+         "text": "1.00263",
+         "min": 1.00164,
+         "max": 1.00317
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 2.24579,
+         "sd": 0.488121,
+         "n": 4,
+         "text": "2.24579",
+         "min": 1.57369,
+         "max": 2.66679
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00216,
+         "sd": 0.000944401,
+         "n": 4,
+         "text": "1.00216",
+         "min": 1.00191,
+         "max": 1.00395
+        }
+       ]
+      },
+      {
+       "key": "Dw[1,1]",
+       "label": "gyro Dw[1,1] scale y",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00083,
+        "h": 0.002618
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00006,
+         "sd": 0.000907436,
+         "n": 4,
+         "text": "1.00006",
+         "min": 0.999626,
+         "max": 1.00155
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 3.24343,
+         "sd": 1.155,
+         "n": 4,
+         "text": "3.24343",
+         "min": 1.77341,
+         "max": 4.52757
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.0016,
+         "sd": 0.00126831,
+         "n": 4,
+         "text": "1.00160",
+         "min": 1.00032,
+         "max": 1.00321
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,2]",
+       "label": "gyro Dw[2,2] scale z",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 0.998811,
+        "h": 0.0021109
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.999475,
+         "sd": 0.000431694,
+         "n": 4,
+         "text": "0.99948",
+         "min": 0.998682,
+         "max": 0.999618
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 5.2072,
+         "sd": 1.79942,
+         "n": 4,
+         "text": "5.20720",
+         "min": 3.88494,
+         "max": 7.66306
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.998147,
+         "sd": 0.00100887,
+         "n": 4,
+         "text": "0.99815",
+         "min": 0.996892,
+         "max": 0.999202
+        }
+       ]
+      },
+      {
+       "key": "Dw[1,0]",
+       "label": "gyro Dw[1,0] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": 0.00167281,
+        "h": 0.00250137
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.000857223,
+         "sd": 0.000562869,
+         "n": 4,
+         "text": "0.00086",
+         "min": 0.000440273,
+         "max": 0.00165029
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": -0.850787,
+         "sd": 1.02705,
+         "n": 4,
+         "text": "−0.85079",
+         "min": -1.23949,
+         "max": 0.967524
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.00248839,
+         "sd": 0.00145839,
+         "n": 4,
+         "text": "0.00249",
+         "min": 0.000290876,
+         "max": 0.00359693
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,0]",
+       "label": "gyro Dw[2,0] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": 0.00173242,
+        "h": 0.00188386
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 0.00150284,
+         "sd": 0.000802415,
+         "n": 4,
+         "text": "0.00150",
+         "min": 0.000894978,
+         "max": 0.00275448
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": -9.16465,
+         "sd": 5.53449,
+         "n": 4,
+         "text": "−9.16465",
+         "min": -14.2392,
+         "max": -3.86868
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.001962,
+         "sd": 0.00124676,
+         "n": 4,
+         "text": "0.00196",
+         "min": 1.98193e-05,
+         "max": 0.00286754
+        }
+       ]
+      },
+      {
+       "key": "Dw[2,1]",
+       "label": "gyro Dw[2,1] cross",
+       "unit": "",
+       "cls": "cross",
+       "axis": {
+        "c": 0.000366547,
+        "h": 0.00234181
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": -0.000465225,
+         "sd": 0.000410761,
+         "n": 4,
+         "text": "−0.00047",
+         "min": -0.000647813,
+         "max": 0.000271847
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 3.01677,
+         "sd": 3.95529,
+         "n": 4,
+         "text": "3.01677",
+         "min": -3.51061,
+         "max": 4.90085
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 0.00119832,
+         "sd": 0.000761876,
+         "n": 4,
+         "text": "0.00120",
+         "min": 0.00073896,
+         "max": 0.00249547
+        }
+       ]
+      },
+      {
+       "key": "Da[0,0]",
+       "label": "accel Da[0,0] scale x",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00642,
+        "h": 0.00143
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00584,
+         "sd": 0.000210311,
+         "n": 4,
+         "text": "1.00584",
+         "min": 1.00555,
+         "max": 1.00604
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 1.61123,
+         "sd": 0.490801,
+         "n": 4,
+         "text": "1.61123",
+         "min": 1.21243,
+         "max": 2.30847
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.007,
+         "sd": 0.000423584,
+         "n": 4,
+         "text": "1.00700",
+         "min": 1.00676,
+         "max": 1.00772
+        }
+       ]
+      },
+      {
+       "key": "Da[1,1]",
+       "label": "accel Da[1,1] scale y",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.0116,
+        "h": 0.00226208
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.01081,
+         "sd": 0.000612726,
+         "n": 4,
+         "text": "1.01081",
+         "min": 1.01049,
+         "max": 1.01188
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 1.06435,
+         "sd": 0.0277556,
+         "n": 4,
+         "text": "1.06435",
+         "min": 1.03681,
+         "max": 1.09658
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.0124,
+         "sd": 0.00126144,
+         "n": 4,
+         "text": "1.01240",
+         "min": 1.01059,
+         "max": 1.01344
+        }
+       ]
+      },
+      {
+       "key": "Da[2,2]",
+       "label": "accel Da[2,2] scale z",
+       "unit": "",
+       "cls": "scale",
+       "axis": {
+        "c": 1.00871,
+        "h": 0.002442
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 1.00869,
+         "sd": 0.000637165,
+         "n": 4,
+         "text": "1.00869",
+         "min": 1.00839,
+         "max": 1.00983
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "ok",
+         "med": 43.5538,
+         "sd": 462.61,
+         "n": 4,
+         "text": "43.55380",
+         "min": 1.64976,
+         "max": 951.656
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "ok",
+         "med": 1.00873,
+         "sd": 0.00138912,
+         "n": 4,
+         "text": "1.00873",
+         "min": 1.00649,
+         "max": 1.00978
+        }
+       ]
+      },
+      {
+       "key": "t_ga_ms",
+       "label": "t_ga gyro−accel",
+       "unit": "ms",
+       "cls": "time",
+       "axis": {
+        "c": 2.5037,
+        "h": 0.05478
+       },
+       "lanes": [
+        {
+         "col": "mvis",
+         "tool": "MVIS",
+         "label": "MVIS",
+         "state": "ok",
+         "med": 2.5037,
+         "sd": 0.0379939,
+         "n": 4,
+         "text": "2.504",
+         "min": 2.4539,
+         "max": 2.5425
+        },
+        {
+         "col": "kalibr",
+         "tool": "Kalibr",
+         "label": "Kalibr",
+         "poor": true,
+         "state": "missing",
+         "note": "not in this tool's model"
+        },
+        {
+         "col": "basalt",
+         "tool": "Basalt",
+         "label": "Basalt",
+         "state": "missing",
+         "note": "not in this tool's model"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "model_terms": [
+    {
+     "sensor": "Reverb G2 IMU",
+     "sensor_id": "imu0",
+     "col": "mvis",
+     "tool": "MVIS",
+     "label": "MVIS",
+     "cells": {
+      "00": {
+       "med": 0.065053,
+       "sd": 0.0869226,
+       "text": "0.065"
+      },
+      "01": {
+       "med": -0.0422093,
+       "sd": 0.143251,
+       "text": "−0.042"
+      },
+      "02": {
+       "med": 0.100568,
+       "sd": 0.224367,
+       "text": "0.101"
+      },
+      "10": {
+       "med": -0.0544152,
+       "sd": 0.0540154,
+       "text": "−0.054"
+      },
+      "11": {
+       "med": 0.00832768,
+       "sd": 0.0613793,
+       "text": "0.008"
+      },
+      "12": {
+       "med": -0.0684663,
+       "sd": 0.144325,
+       "text": "−0.068"
+      },
+      "20": {
+       "med": 0.0898537,
+       "sd": 0.0906541,
+       "text": "0.090"
+      },
+      "21": {
+       "med": -0.00341953,
+       "sd": 0.0256639,
+       "text": "−0.003"
+      },
+      "22": {
+       "med": 0.120546,
+       "sd": 0.109665,
+       "text": "0.121"
+      }
+     }
+    },
+    {
+     "sensor": "Reverb G2 IMU",
+     "sensor_id": "imu0",
+     "col": "kalibr",
+     "tool": "Kalibr",
+     "label": "Kalibr",
+     "cells": {
+      "00": {
+       "med": -41.6394,
+       "sd": 36.8444,
+       "text": "−41.639"
+      },
+      "01": {
+       "med": -4.11115,
+       "sd": 9.2289,
+       "text": "−4.111"
+      },
+      "02": {
+       "med": -10.273,
+       "sd": 49.9843,
+       "text": "−10.273"
+      },
+      "10": {
+       "med": -65.9244,
+       "sd": 53.7147,
+       "text": "−65.924"
+      },
+      "11": {
+       "med": -5.27302,
+       "sd": 20.7351,
+       "text": "−5.273"
+      },
+      "12": {
+       "med": -29.3219,
+       "sd": 34.5059,
+       "text": "−29.322"
+      },
+      "20": {
+       "med": 24.8387,
+       "sd": 19.3731,
+       "text": "24.839"
+      },
+      "21": {
+       "med": 0.754451,
+       "sd": 7.15466,
+       "text": "0.754"
+      },
+      "22": {
+       "med": -5.09977,
+       "sd": 38.8754,
+       "text": "−5.100"
+      }
+     }
+    }
+   ],
+   "has_tga": true,
+   "imu_model": "kalibr",
+   "pair": "pair 13",
+   "gravity": "MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt is held at 9.81 m/s².",
+   "run": {
+    "batch": "2026-11-27",
+    "mvis": "0.4.1, development version of 2026-11-26",
+    "outside": true
+   }
   }
  ],
  "full_tables": "board"
