@@ -145,8 +145,9 @@ def test_catalog_refuses_a_sensor_in_no_group():
 
 
 def test_committed_catalog_matches_the_plan_totals():
-    """Devices: 47 cameras and 19 IMUs; cameras without a named chip 10, IMUs 3 (2026-11-24: 45 after the second chip search
-    on 2026-11-20, plus the D435i infrared pair, calibrated since 2026-11-24)."""
+    """Devices: 48 cameras and 20 IMUs; cameras without a named chip 11, IMUs 4 (2026-11-24: 45 after the second chip search
+    on 2026-11-20, plus the D435i infrared pair, calibrated since 2026-11-24; 2026-11-25: plus the Astra S56's one calibrated
+    camera and its IMU, chips not published)."""
     pub = yaml.safe_load((DATA / "public_sensors.yaml").read_text(encoding="utf-8"))
     c = C.catalog(pub, DATASETS, "/devices/", "/r/")["counts"]
-    assert (c["cameras"]["total"], c["cameras"]["not_known"], c["imus"]["total"], c["imus"]["not_known"]) == (47, 10, 19, 3)
+    assert (c["cameras"]["total"], c["cameras"]["not_known"], c["imus"]["total"], c["imus"]["not_known"]) == (48, 11, 20, 4)

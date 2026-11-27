@@ -27,7 +27,7 @@ def test_t265_is_first_and_labels_keep_full_names(pub):
 
 def test_groups_follow_the_chosen_order(pub):
     assert [(g["title"], g["slugs"]) for g in sensor_groups(pub)] == [
-        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "realsense-d435i", "robobaton-neo", "zed2", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
+        ("Tracking modules", ["intel-t265", "realsense-d455", "realsense-d456", "realsense-d435i", "robobaton-neo", "astra-s56", "zed2", "looper-insight9", "dibuli-prism-a4l", "alg-avs111c", "alg-avs115d", "cyperstereo", "hampo"]),
         ("Head-worn cameras", ["gi-ego1", "gi-ego1gs", "xq20"]),
         ("VR headsets", ["valve-index", "hp-reverb-g2", "samsung-odyssey-plus"]),
         ("360° cameras", ["insta360-one-rs-1inch-360"]),
@@ -66,7 +66,8 @@ def test_unknown_shutter_is_left_out_of_the_tags(pub):
 # insta360-one-rs-1inch-360 (2026-11-12): third-party recordings under CC BY-NC-SA, linked at their source and not re-hosted; no demo clip yet.
 NO_DEMO_NOT_HOSTED = ("insta360-one-rs-1inch-360",)   # alg-avs111c hosted since 2026-11-14; cyperstereo has a demo
 # zed2 (2026-11-17): no demo clip; the WHUVID authors' bag hosted unchanged in community (CC BY 4.0, per their paper).
-NO_DEMO = NO_DEMO_NOT_HOSTED + ("zed2",)
+# astra-s56 (2026-11-27): no demo clip; the maker's bag hosted unchanged in community (CC BY 4.0, SENSING agreed per the user).
+NO_DEMO = NO_DEMO_NOT_HOSTED + ("zed2", "astra-s56")
 # realsense-d435i (2026-11-24): three-camera recordings to be hosted after the frame review; not hosted yet.
 NOT_HOSTED = NO_DEMO_NOT_HOSTED   # robobaton-neo hosted since 2026-11-20, realsense-d435i since 2026-11-24
 # cyperstereo: results-only 2026-11-15; the maker's bag hosted unchanged since 2026-11-15 (CC BY-NC 4.0, 2026-11-17; CC BY 4.0 since 2026-11-25).
@@ -107,7 +108,7 @@ def test_every_sensor_page_links_to_its_hosted_data(pub):
             assert "not hosted" in html.lower() and "calibench-vi/datasets" not in html, slug
             continue
         if slug not in ("dibuli-prism-a4l", "hampo", "xq20", "realsense-d455", "realsense-d456", "alg-avs111c", "alg-avs115d", "zed2",
-                        "robobaton-neo", "cyperstereo", "realsense-d435i"):
+                        "robobaton-neo", "cyperstereo", "realsense-d435i", "astra-s56"):
             assert "calibench-vi/datasets/tree/main/" in html, slug
 
 

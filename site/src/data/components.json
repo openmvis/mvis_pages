@@ -160,6 +160,25 @@
    ]
   },
   {
+   "slug": "astra-s56",
+   "title": "SENSING Astra S56",
+   "name": "Astra S56",
+   "group": "Tracking modules",
+   "href": "/devices/astra-s56/",
+   "cameras": [
+    {
+     "count": 1,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known</span></span>"
+    }
+   ],
+   "imus": [
+    {
+     "count": 1,
+     "html": "<span class=\"cl imu unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t>IMU not known</span></span>"
+    }
+   ]
+  },
+  {
    "slug": "zed2",
    "title": "Stereolabs ZED 2",
    "name": "ZED 2",
@@ -845,8 +864,8 @@
  ],
  "counts": {
   "cameras": {
-   "total": 47,
-   "not_known": 10,
+   "total": 48,
+   "not_known": 11,
    "by_maker": {
     "OmniVision": 19,
     "SmartSens": 15,
@@ -854,8 +873,8 @@
    }
   },
   "imus": {
-   "total": 19,
-   "not_known": 3,
+   "total": 20,
+   "not_known": 4,
    "by_maker": {
     "Bosch": 8,
     "TDK InvenSense": 8
@@ -1419,6 +1438,11 @@
  "not_known": {
   "cameras": [
    {
+    "name": "Astra S56",
+    "href": "/devices/astra-s56/",
+    "count": 1
+   },
+   {
     "name": "AVS111C-Y stereo",
     "href": "/devices/alg-avs111c/",
     "count": 2
@@ -1445,6 +1469,11 @@
    }
   ],
   "imus": [
+   {
+    "name": "Astra S56",
+    "href": "/devices/astra-s56/",
+    "count": 1
+   },
    {
     "name": "Stereo module",
     "href": "/devices/hampo/",

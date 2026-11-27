@@ -69,6 +69,12 @@ export const partners: Partner[] = [
     // people: pending the contact's OK to be named (2026-11-19)
   },
   {
+    name: 'SENSING TECH', site: 'https://www.sensing-world.com/en/',
+    shared: 'Calibration recording of their Astra S56 stereo camera',
+    devices: [{ label: 'Astra S56', href: '/devices/astra-s56/' }],
+    // people: pending the contact's OK to be named (2026-11-25)
+  },
+  {
     name: 'Feekass', full: 'Shenzhen Feekass (Feikasi Industrial), brand Borme',
     site: 'https://www.alibaba.com/product-detail/1080P-Global-Shutter-Binocular-IMU-Camera_1601882874490.html',
     shared: 'Recordings of two headset units',
