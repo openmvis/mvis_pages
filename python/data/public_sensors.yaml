@@ -332,7 +332,8 @@ sensors:
       - [Cameras, "2 × 5 MP global shutter, 2560 × 1984 at 30 fps", Maker]
       - [Images in the recording, "1 camera, 2560 × 1984 colour at 20 Hz, JPEG", Measured]
       - [Shutter, "Global", Maker]
-      - [Lens, "Wide angle, 130° or 140° horizontal by variant (S56, S56x)", Maker]
+      - [Variant, "Not stated by the maker. Likely the S56D: its listing is the 2560 × 1984 RGB model (the S56x also has 2560 × 1984)", Maker]
+      - [Lens, "Wide angle, 140° horizontal (S56D); 130° or 140° (S56x)", Maker]
       - [IMU, "6-axis, gyro and accelerometer at 400 Hz", Measured]
       - [IMU chip, "Not published", Maker]
       - [Link, "GMSL2", Maker]
@@ -359,15 +360,15 @@ sensors:
         name: SENSING TECH
         url: https://www.sensing-world.com/en/
       links:
-        product: https://www.sensing-world.com/en/h-col-132.html
-        product_label: SENSING stereo cameras
+        product: https://www.sensing-world.com/en/h-pd-353.html
+        product_label: Astra S56D product page
       image:
         kind: photo
         file: astra-s56.jpg
-        alt: Placeholder for the Astra S56 photo
-        credit: "Placeholder: photo pending"
-        url: https://www.sensing-world.com/en/h-col-132.html
-      foot: Maker values from the SENSING product pages, read 2026-11-20 · 1 recording, 58 s
+        alt: SENSING Astra S56D stereo camera, front view with its two lenses
+        credit: "Photo: SENSING TECH (Astra S56D)"
+        url: https://www.sensing-world.com/en/h-pd-353.html
+      foot: Maker values from the SENSING product pages (S56D, S56x), read 2026-11-27 · 1 recording, 58 s
       key_specs:
         cameras:
           v: "1 of 2 recorded: 2560 × 1984 at 20 Hz"
@@ -379,9 +380,9 @@ sensors:
         fov:
           auto: fov
           also:
-            v: 130° or 140° horizontal
+            v: 140° horizontal (S56D)
             tag: maker
-            src: https://www.sensing-world.com/en/h-col-132.html
+            src: https://www.sensing-world.com/en/h-pd-353.html
         baseline:
           auto: baseline
         imu:
