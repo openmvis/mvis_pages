@@ -338,7 +338,7 @@ def dataset(entry: dict, sp: dict, records: dict, stats: dict, batch: str, commi
             if "reason" in s and entry.get("not_run"):
                 s["reason"] = entry["not_run"]
     keep = ("slug", "id", "label", "title", "ours", "licence", "intro", "chips", "image", "links", "reading",
-            "no_repeatability", "study_note")
+            "no_repeatability", "study_note", "twin")
     return {**{k: entry[k] for k in keep if k in entry}, "study": bool(entry.get("study")), "batch": batch,
             "results_commit": commit, "link": f"{RESULTS}{entry['slug']}/", "has_repeatability": rep_ds is not None,
             "legacy": legacy(rep_ds, entry["id"]), "families": fams,
@@ -399,6 +399,8 @@ def mdx(page: dict) -> str:
              "<E.RpOpen />\n"]
     if page.get("reading"):
         parts += ["## Notes\n", "<E.Reading page={page} />\n"]
+    if page.get("twin"):
+        parts += [f"## {page['twin']['title']}\n", "<E.Twin page={page} />\n"]
     for i, f in enumerate(page["families"]):
         parts.append(f"## {f['id']} · {'camera + IMU' if f['mode'] == 'cam+imu' else 'camera only'}\n")
         parts.append(f"<E.FamilyHead page={{page}} i={{{i}}} />\n")

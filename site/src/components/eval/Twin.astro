@@ -1,0 +1,15 @@
+---
+// A study's digital-twin check of its calibration motion (public_results.yaml `twin`, linted at export).
+interface Props { page: any }
+const { page } = Astro.props;
+const t = page.twin;
+---
+<div class="ev-twin">
+  {t.paras.map((p: string) => <p set:html={p} />)}
+  <ul class="ev-reading">{t.bullets.map((b: string) => <li set:html={b} />)}</ul>
+  <table>
+    <caption>{t.table.caption}</caption>
+    <thead><tr>{t.table.head.map((h: string) => <th>{h}</th>)}</tr></thead>
+    <tbody>{t.table.rows.map((r: string[]) => <tr>{r.map((c: string) => <td>{c}</td>)}</tr>)}</tbody>
+  </table>
+</div>
