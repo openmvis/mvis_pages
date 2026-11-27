@@ -77,3 +77,12 @@ def test_hub_community_card_source_agrees():
     for f in folders:
         row = next(line for line in card.splitlines() if f"[`{f}/`]" in line)
         assert "CC BY 4.0" in row and "BY-NC 4.0" not in row, f
+
+
+def test_datasets_sidebar_links_the_licence_list_and_every_dataset_page():
+    """Datasets › Licences goes to the list (user, 2026-11-26). The group is listed by hand, so a new dataset page must be added."""
+    config = (SITE / "astro.config.mjs").read_text(encoding="utf-8")
+    assert "{ label: 'Licences', link: '/about/license/#datasets' }" in config
+    for f in (SITE / "src/content/docs/datasets").glob("*.mdx"):
+        url = "/datasets/" if f.stem == "index" else f"/datasets/{f.stem}/"
+        assert f"link: '{url}'" in config, f.name

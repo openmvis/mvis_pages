@@ -182,7 +182,14 @@ export default defineConfig({
           // Own section since 2026-11-12; pages order by frontmatter sidebar.order.
           label: 'Datasets',
           collapsed: true,
-          autogenerate: { directory: 'datasets' },
+          items: [
+            { label: 'Overview', link: '/datasets/' },
+            { label: 'VI-Rig 4 IMUs + 3 cams', link: '/datasets/virig-4imus-3cams/' },
+            { label: 'VI-Rig 4 IMUs + 3 cams, ArUco', link: '/datasets/virig-4imus-3cams-aruco/' },
+            { label: 'VI-Rig 4 IMUs + 4 cams', link: '/datasets/virig-4imus-4cams/' },
+            { label: 'VI-Rig 5 IMUs + 4 cams', link: '/datasets/virig-5imus-4cams/' },
+            { label: 'Licences', link: '/about/license/#datasets' },
+          ],
         },
         {
           label: 'Concepts',
