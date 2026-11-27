@@ -1,6 +1,6 @@
 ---
 title: "UZH-FPV"
-description: "One MVIS camera + IMU run per device on the UZH-FPV drone racing calibration data, compared with the dataset's own Kalibr calibration."
+description: "One MVIS camera + IMU run on the UZH-FPV Snapdragon Flight indoor 45° calibration recording, the bag whose motion calibrates the IMU most reliably, compared with the dataset's own Kalibr calibration."
 pageType: example
 wide: true
 example: uzh-fpv
@@ -27,8 +27,8 @@ import ExamplePart from '../../../../components/ExamplePart.astro';
 
 ## Config and run
 
-```yaml title="uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml" {1-6,12-18,20,24-25}
-gravity: 9.81   # m/s², Innovation Park Zürich, Dübendorf, Switzerland; local 9.8070, under 0.1 %
+```yaml title="uzh_fpv_snapdragon_indoor_45_cam_imu.yaml" {1-6,12-18,20,24-25}
+gravity: 9.8070   # m/s², Innovation Park Zürich, Dübendorf, Switzerland
 site:
   latitude_deg: 47.4
   longitude_deg: 8.62
@@ -36,7 +36,7 @@ site:
   name: Innovation Park Zürich, Dübendorf, Switzerland
 input:
   format: ros1
-  path: outdoor_forward_calib_snapdragon_imu.bag
+  path: indoor_45_calib_snapdragon_imu.bag
   imu_topics:
   - /snappy_imu
 board:
@@ -47,21 +47,21 @@ board:
   tag_spacing: 0.2
   tag_family: t36h11
 camera_input:
-  path: camera_prior_kalibr_camchain.yaml
+  path: camchain-..indoor_45_calib_snapdragon_cam.yaml
   estimate_readout: false
 solve:
   imu_intrinsics: dw_da
   estimate_t_ga: true
-  sigma_g: 0.0002999232700379165
-  sigma_a: 0.0025286614063113116
-  sigma_bg: 2.9992327003791653e-05
-  sigma_ba: 0.00025286614063113117
+  sigma_g: 0.0007110208680826167
+  sigma_a: 0.0032732613574351305
+  sigma_bg: 7.110208680826167e-05
+  sigma_ba: 0.00032732613574351307
 output:
   path: cam_imu.json
 ```
 
 ```bash title="shell"
-mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
+mvis cam-imu -c uzh_fpv_snapdragon_indoor_45_cam_imu.yaml
 ```
 
 <ExamplePart example="uzh-fpv" part="config" />
@@ -69,43 +69,6 @@ mvis cam-imu -c uzh_fpv_snapdragon_outdoor_forward_cam_imu.yaml
 ## Dataset
 
 <ExamplePart example="uzh-fpv" part="dataset" />
-
-## The other device, mDAVIS346
-
-```yaml title="uzh_fpv_davis_outdoor_forward_cam_imu.yaml" {25}
-gravity: 9.81   # m/s², Innovation Park Zürich, Dübendorf, Switzerland; local 9.8070, under 0.1 %
-site:
-  latitude_deg: 47.4
-  longitude_deg: 8.62
-  altitude_m: 440
-  name: Innovation Park Zürich, Dübendorf, Switzerland
-input:
-  format: ros1
-  path: outdoor_forward_calib_davis_imu.bag
-  imu_topics:
-  - /dvs/imu
-board:
-  board_type: apriltag
-  rows: 4
-  cols: 5
-  tag_size: 0.075
-  tag_spacing: 0.2
-  tag_family: t36h11
-camera_input:
-  path: camera_prior_kalibr_camchain.yaml
-  estimate_readout: false
-solve:
-  imu_intrinsics: dw_da
-  estimate_t_ga: true
-  sigma_g: 0.0004874105702967688
-  sigma_a: 0.0012171608940189519
-  sigma_bg: 4.874105702967688e-05
-  sigma_ba: 0.00012171608940189519
-output:
-  path: cam_imu.json
-```
-
-<ExamplePart example="uzh-fpv" part="other" />
 
 ## More on this data
 

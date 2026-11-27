@@ -66,7 +66,7 @@ Open-source camera–IMU calibration tools include Kalibr, Basalt and OpenMVIS. 
 - [TUM-VI](https://openmvis.com/benchmark/examples/tum-vi/): One MVIS camera + IMU run on the TUM-VI calibration data, compared with TUM's published Kalibr calibration.
 - [Monado (Reverb G2)](https://openmvis.com/benchmark/examples/monado/): One MVIS camera + IMU run on the Monado SLAM calibration data of an HP Reverb G2, compared with Monado's own calibration.
 - [Looper Insight 9](https://openmvis.com/benchmark/examples/looper-insight9/): One MVIS camera + IMU run on a hand-held Looper Insight 9 recording, with the rolling-shutter colour camera solved alongside the global-shutter pair.
-- [UZH-FPV](https://openmvis.com/benchmark/examples/uzh-fpv/): One MVIS camera + IMU run per device on the UZH-FPV drone racing calibration data, compared with the dataset's own Kalibr calibration.
+- [UZH-FPV](https://openmvis.com/benchmark/examples/uzh-fpv/): One MVIS camera + IMU run on the UZH-FPV Snapdragon Flight indoor 45° calibration recording, the bag whose motion calibrates the IMU most reliably, compared with the dataset's own Kalibr calibration.
 
 ## Device wiki
 
