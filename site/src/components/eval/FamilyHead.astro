@@ -15,5 +15,5 @@ const f = page.families[i];
   {f.read_first && <p class="ev-rf"><b>Read first:</b> {f.read_first}</p>}
   {f.gravity && <p class="ev-small"><b>Gravity:</b> {f.gravity}</p>}
   {f.no_mvis && <p class="ev-small"><RpShape tool="MVIS" /> <b>MVIS:</b> {f.no_mvis}</p>}
-  {(f.poor ?? []).map((p: any) => <p class="ev-poorhead"><RpShape tool={p.tool} /> <b>{p.tool}</b>: {p.n} of {f.n} solves are poor, shown grey below. {p.text}</p>)}
+  {(f.poor ?? []).map((p: any) => <p class="ev-poorhead"><RpShape tool={p.tool} /> <b>{p.tool}</b>: {p.n} of {f.n} solves are poor, shown faded below. {p.text}</p>)}
 </div>

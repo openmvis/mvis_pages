@@ -25,8 +25,9 @@
  },
  "reading": [
   "<b>Three camera pairs.</b> Each recording shows the board to one pair of cameras. T5 and T12 are pair 01 (cam0 + cam1) and belong to the leaderboard batch. Pairs 02 (cam0 + cam2) and 13 (cam1 + cam3) are from separate runs of 2026-11-27 and have no row on the Leaderboard. A camera that is in two pairs has one set of values per pair.",
-  "<b>Kalibr on pairs 02 and 13.</b> We ran Kalibr camera + IMU as on pair 01 and did not tune it. It did not give a usable solve on any of the 8 recordings, so all its values there are shown grey."
+  "<b>Kalibr on pairs 02 and 13.</b> We ran Kalibr camera + IMU as on pair 01 and did not tune it. It did not give a usable solve on any of the 8 recordings, so all its values there are shown faded."
  ],
+ "batch_note": "T5 and T12; the pair 02 and 13 families are separate runs of 2026-11-27",
  "study": false,
  "batch": "2026-11-24a",
  "results_commit": "41ec486781d3dc79577a53bd78b1a884375d238b",
@@ -4065,7 +4066,7 @@
      "tool": "Basalt"
     }
    ],
-   "read_first": "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib02 recordings. MVIS calibrates each camera alone.",
+   "read_first": "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib02 recordings. MVIS calibrates each camera alone. In these per-camera solves MVIS keeps every detected corner under a robust loss and has no outlier-removal pass, which its pair 01 solve has. On MGC09, cam2, 21 of 5996 corners are off by more than 3 px, up to 29 px, so the rms error is 1.04 px while the median is 0.11 px. They are single corners spread over the recording, not one bad frame, and why they are misplaced is not established.",
    "poor": [],
    "notes": [
     [
@@ -6701,7 +6702,7 @@
      "tool": "Basalt"
     }
    ],
-   "read_first": "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib13 recordings. MVIS calibrates each camera alone.",
+   "read_first": "Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib13 recordings. MVIS calibrates each camera alone. In these per-camera solves MVIS keeps every detected corner under a robust loss and has no outlier-removal pass, which its pair 01 solve has. On MGC03, 30 of 4956 corners of cam1 and 29 of 5216 of cam3 are off by more than 3 px, up to 29 px, so the rms errors are 1.28 and 1.26 px while the medians are 0.10 and 0.11 px. They are single corners spread over the recording, not one bad frame, and why they are misplaced is not established.",
    "poor": [],
    "notes": [
     [
@@ -7595,7 +7596,7 @@
     {
      "tool": "Kalibr",
      "n": 4,
-     "text": "Its IMU scales are far from 1 on every recording: gyro scale 1.6 to 7.7, accelerometer scale z 1.7 to 952."
+     "text": "Its IMU scales are far from 1 on every recording: gyro scale 1.6 to 7.7, accelerometer scale z 1.6 to 952."
     }
    ],
    "notes": [

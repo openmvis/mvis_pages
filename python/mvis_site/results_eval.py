@@ -458,8 +458,9 @@ def dataset(entry: dict, sp: dict, records: dict, stats: dict, batch: str, commi
         f = build(fe, *extra, {}, run(x, x["batch"], True))
         f["diffs"], f["tally"] = [], {}
         fams.append(f)
+    # ran, batch_note: header texts of a page whose runs are not all of one date (who ran what when; what the batch covers)
     keep = ("slug", "id", "label", "title", "ours", "licence", "intro", "chips", "image", "links", "reading",
-            "no_repeatability", "study_note", "twin")
+            "no_repeatability", "study_note", "twin", "ran", "batch_note")
     return {**{k: entry[k] for k in keep if k in entry}, "study": bool(entry.get("study")), "batch": batch,
             "results_commit": commit, "link": f"{RESULTS}{entry['slug']}/", "has_repeatability": rep_ds is not None,
             "legacy": legacy(rep_ds, entry["id"]), "families": fams,

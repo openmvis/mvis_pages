@@ -297,6 +297,32 @@ def test_a_dataset_page_and_its_mdx():
     assert "RepeatabilityMatrix" not in R.mdx(dict(_page(), reading=["<b>x</b>"]))
 
 
+def test_a_page_states_who_ran_what_when_only_where_the_public_text_does():
+    """`ran` replaces the header's "We ran every tool ourselves" sentence and `batch_note` follows the batch in the
+    header, on the pages whose yaml has them; every other page has neither key, so its header stays as it was."""
+    assert "ran" not in _mvis_only_page() and "batch_note" not in _mvis_only_page()
+    by = {d["slug"]: d for d in _pub()["datasets"]}
+    assert sorted(s for s, d in by.items() if "ran" in d) == ["monado-mic", "monado-moc"]
+    assert sorted(s for s, d in by.items() if "batch_note" in d) == ["monado-mgc", "monado-mic", "monado-moc"]
+    for s in ("monado-mic", "monado-moc"):  # the two dates, and the changed Kalibr, in the header and on the Leaderboard line
+        assert "2026-11-27" in by[s]["ran"] and "October 2026" in by[s]["ran"] and "both cameras" in by[s]["ran"]
+        assert "October 2026" in by[s]["batch_note"]
+        assert "2026-11-27" in by[s]["study_note"] and "October 2026" in by[s]["study_note"]
+    assert "2026-11-27" in by["monado-mgc"]["batch_note"]
+    head = (REPO / "site/src/components/eval/EvalHeader.astro").read_text(encoding="utf-8")
+    assert "page.ran ??" in head and "page.batch_note &&" in head
+
+
+def test_dataset_carries_ran_and_batch_note_to_the_page():
+    sp, st = camimu_family()
+    entry = {"slug": "v-rig", "id": "v", "label": "V rig", "title": "V: a rig", "ours": True, "licence": "CC BY 4.0",
+             "intro": "A rig.", "chips": [], "links": {}, "families": [{"id": "T1", "shutter": "global"}], "sensors": SID,
+             "study": True, "study_note": "A study.", "ran": "We ran it twice.", "batch_note": "half of it earlier"}
+    p = R.dataset(entry, {"pairs": PAIRS, "decimals": DECS, "families": {"T1": sp}}, records(),
+                  {"families": {"T1": st}}, "b9", None, None)
+    assert p["ran"] == "We ran it twice." and p["batch_note"] == "half of it earlier"
+
+
 def test_a_twin_block_gets_its_own_section_after_the_notes():
     twin = dict(title="Does the motion calibrate the IMU?", paras=["p"], bullets=["b"],
                 table=dict(caption="c", head=["h"], rows=[["r"]]))
