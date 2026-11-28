@@ -5013,9 +5013,9 @@ T12 cam0 + cam1 + IMU camera + IMU · global shutter · 4 recordings Solved 4 4 
 
 VI-Rig 5 IMUs + 4 cams separate study · batch 2026-11-02 Separate study (batch 2026-11-02), MVIS only: Kalibr and Basalt were not run on this set, so it has no row here. Results page
 
-Monado MIC separate study · batch 2026-11-25 Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 8 MIC camera-only and 8 camera + IMU recordings, run outside the leaderboard batch, so it has no row here. Results page
+Monado MIC separate study · batch 2026-11-27 Outside the leaderboard batch, so no row here. MVIS and the camera-only Kalibr and Basalt solves: 2026-11-27. Camera + IMU Kalibr and Basalt: October 2026. Results page
 
-Monado MOC separate study · batch 2026-11-25 Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 4 MOC camera-only and 4 camera + IMU recordings, run outside the leaderboard batch, so it has no row here. Results page
+Monado MOC separate study · batch 2026-11-27 Outside the leaderboard batch, so no row here. MVIS and the camera-only Kalibr and Basalt solves: 2026-11-27. Camera + IMU Kalibr and Basalt: October 2026. Results page
 
 UZH-FPV separate study · batch 2026-11-26 Separate study (batch 2026-11-26): no repeatability cells on the current schema, so it has no row here. Results page
 
@@ -7704,16 +7704,18 @@ Image: Valve, Steam store page
 
 The MIC calibration recordings of the Monado SLAM Datasets, made with a Valve Index headset: its front fisheye pair and its IMU, 8 camera-only and 8 camera + IMU recordings.
 front fisheye pair headset IMU 8 + 8 recordings AprilGrid 6×6, 30 mm
-Separate study · batch 2026-11-25 · not part of the leaderboard batch
+Separate study · batch 2026-11-27 (the camera + IMU solves of Kalibr and Basalt are from October 2026) · not part of the leaderboard batch
 Dataset page: downloads Device wiki: the device Hugging Face: the data
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
-it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
+it is right, and a difference shows that two tools disagree, not which one is wrong. We ran MVIS on every recording, and Kalibr and Basalt on the camera-only ones, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026; the Kalibr used there starts its spline from both cameras.
 
 MIC-cam · camera only MIC · camera + IMU
 
 ## Notes
 
+- Runs. We ran MVIS 0.4.1 (development version of 2026-11-26) on all 16 recordings, and Kalibr and Basalt on the 8 camera-only recordings, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026. That Kalibr run uses its scale-misalignment IMU model, with a change that starts its spline from both cameras.
+- Accelerometer scale. On the camera + IMU recordings MVIS and Kalibr give a median accelerometer scale of 1.055 to 1.066 on the three axes, and Basalt 1.017 to 1.024. The accelerometer file every tool reads here (imu0/data.csv) equals the dataset's raw file with the correction of the authors' calibration file applied twice. At rest it reads 9.22 to 9.24 m/s², against a local gravity of 9.79, so a scale near 1.06 is expected. MVIS and Kalibr keep the size of gravity fixed, so their scale takes all of it. Basalt also estimates gravity and finds 9.10 to 9.62 m/s², so its scale takes only part. We did not re-run a tool on the raw file to confirm this.
 - Chart centre. Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median.
 
 ## MIC-cam · camera only
@@ -7730,90 +7732,90 @@ Read first: Each tool calibrates both cameras and their baseline from the images
 ### Parameters by sensor
 
 2 sensors, 17 parameter charts (each tool's spread; click to fold)
-Valve Index cam0Valve Index cam1 fx px axis 421 ± 5.9 · centre: reference
-MVIS 419.01 ± 1.2 (8)
-Kalibr 418.80 ± 3.6 (8)
-Basalt 418.94 ± 1.2 (8)
+Valve Index cam0Valve Index cam1 fx px axis 421 ± 7 · centre: reference
+MVIS 419.10 ± 1.5 (8)
+Kalibr 416.48 ± 2.3 (8)
+Basalt 418.94 ± 1.3 (8)
 
-fy px axis 421 ± 5.69 · centre: reference
-MVIS 419.09 ± 1.2 (8)
-Kalibr 419.38 ± 3.6 (8)
-Basalt 419.05 ± 1.2 (8)
+fy px axis 421 ± 6.57 · centre: reference
+MVIS 419.22 ± 1.5 (8)
+Kalibr 416.98 ± 2.3 (8)
+Basalt 419.04 ± 1.2 (8)
 
-cx px axis 469 ± 2.16 · centre: reference
-MVIS 470.24 ± 0.42 (8)
-Kalibr 470.48 ± 0.87 (8)
-Basalt 469.93 ± 0.39 (8)
+cx px axis 469 ± 1.91 · centre: reference
+MVIS 469.91 ± 0.49 (8)
+Kalibr 470.21 ± 0.76 (8)
+Basalt 469.91 ± 0.37 (8)
 
-cy px axis 479 ± 0.862 · centre: reference
-MVIS 478.75 ± 0.22 (8)
-Kalibr 479.46 ± 0.35 (8)
-Basalt 478.78 ± 0.27 (8)
+cy px axis 479 ± 1.01 · centre: reference
+MVIS 479.13 ± 0.26 (8)
+Kalibr 479.29 ± 0.44 (8)
+Basalt 478.76 ± 0.25 (8)
 
-dist k1 axis 0.193 ± 0.0669 · centre: reference
-MVIS 0.18861 ± 0.0058 (8)
-Kalibr 0.20605 ± 0.025 (8)
-Basalt 0.18788 ± 0.0049 (8)
+dist k1 axis 0.193 ± 0.0152 · centre: reference
+MVIS 0.18863 ± 0.0061 (8)
+Kalibr 0.19433 ± 0.0042 (8)
+Basalt 0.18817 ± 0.0047 (8)
 
-dist k2 axis 0.0421 ± 0.212 · centre: reference
-MVIS 0.05584 ± 0.016 (8)
-Kalibr −0.00095 ± 0.08 (8)
-Basalt 0.06272 ± 0.015 (8)
+dist k2 axis 0.0421 ± 0.0437 · centre: reference
+MVIS 0.05747 ± 0.017 (8)
+Kalibr 0.04064 ± 0.016 (8)
+Basalt 0.06242 ± 0.015 (8)
 
-dist k3 axis −0.233 ± 0.262 · centre: reference
-MVIS −0.24054 ± 0.017 (8)
-Kalibr −0.18099 ± 0.1 (8)
-Basalt −0.25371 ± 0.016 (8)
+dist k3 axis −0.233 ± 0.0468 · centre: reference
+MVIS −0.24808 ± 0.019 (8)
+Kalibr −0.22769 ± 0.02 (8)
+Basalt −0.25343 ± 0.016 (8)
 
-dist k4 axis 0.0954 ± 0.111 · centre: reference
-MVIS 0.09472 ± 0.0061 (8)
-Kalibr 0.07652 ± 0.043 (8)
-Basalt 0.10256 ± 0.006 (8)
+dist k4 axis 0.0954 ± 0.0186 · centre: reference
+MVIS 0.09959 ± 0.0072 (8)
+Kalibr 0.09161 ± 0.0096 (8)
+Basalt 0.10247 ± 0.006 (8)
 
-fx px axis 421 ± 7.53 · centre: reference
-MVIS 419.46 ± 0.93 (8)
-Kalibr 421.79 ± 3.2 (8)
-Basalt 419.89 ± 0.95 (8)
+fx px axis 421 ± 4.89 · centre: reference
+MVIS 419.65 ± 1.1 (8)
+Kalibr 418.61 ± 1.8 (8)
+Basalt 419.92 ± 1 (8)
 
-fy px axis 421 ± 7.21 · centre: reference
-MVIS 419.65 ± 0.99 (8)
-Kalibr 421.81 ± 3.1 (8)
-Basalt 420.03 ± 0.99 (8)
+fy px axis 421 ± 4.96 · centre: reference
+MVIS 419.87 ± 1.2 (8)
+Kalibr 418.76 ± 1.8 (8)
+Basalt 420.08 ± 1.1 (8)
 
-cx px axis 468 ± 2.8 · centre: reference
-MVIS 467.95 ± 0.23 (8)
-Kalibr 468.82 ± 0.89 (8)
-Basalt 468.11 ± 0.28 (8)
+cx px axis 468 ± 1.9 · centre: reference
+MVIS 467.80 ± 0.34 (8)
+Kalibr 468.50 ± 0.52 (8)
+Basalt 468.12 ± 0.26 (8)
 
-cy px axis 484 ± 0.986 · centre: reference
-MVIS 483.92 ± 0.23 (8)
-Kalibr 484.88 ± 0.42 (8)
+cy px axis 484 ± 0.932 · centre: reference
+MVIS 484.08 ± 0.19 (8)
+Kalibr 484.38 ± 0.35 (8)
 Basalt 483.92 ± 0.25 (8)
 
-dist k1 axis 0.19 ± 0.0234 · centre: reference
-MVIS 0.19930 ± 0.0032 (8)
-Kalibr 0.19257 ± 0.0089 (8)
-Basalt 0.19006 ± 0.0022 (8)
+dist k1 axis 0.19 ± 0.0249 · centre: reference
+MVIS 0.20101 ± 0.0036 (8)
+Kalibr 0.19359 ± 0.011 (8)
+Basalt 0.18843 ± 0.0023 (8)
 
-dist k2 axis 0.0547 ± 0.081 · centre: reference
-MVIS 0.02650 ± 0.0082 (8)
-Kalibr 0.02739 ± 0.026 (8)
-Basalt 0.05796 ± 0.0069 (8)
+dist k2 axis 0.0547 ± 0.0993 · centre: reference
+MVIS 0.01750 ± 0.0088 (8)
+Kalibr 0.04246 ± 0.043 (8)
+Basalt 0.06088 ± 0.0078 (8)
 
-dist k3 axis −0.249 ± 0.113 · centre: reference
-MVIS −0.20388 ± 0.012 (8)
-Kalibr −0.20847 ± 0.035 (8)
-Basalt −0.24664 ± 0.0094 (8)
+dist k3 axis −0.249 ± 0.123 · centre: reference
+MVIS −0.19584 ± 0.011 (8)
+Kalibr −0.22332 ± 0.055 (8)
+Basalt −0.24900 ± 0.012 (8)
 
-dist k4 axis 0.103 ± 0.0518 · centre: reference
-MVIS 0.07917 ± 0.0055 (8)
-Kalibr 0.08526 ± 0.016 (8)
-Basalt 0.10035 ± 0.0044 (8)
+dist k4 axis 0.103 ± 0.0514 · centre: reference
+MVIS 0.07583 ± 0.0055 (8)
+Kalibr 0.08906 ± 0.024 (8)
+Basalt 0.10091 ± 0.006 (8)
 
-baseline to Valve Index cam0 mm axis 134 ± 0.246 · centre: reference
-MVIS 133.672 ± 0.026 (8)
-Kalibr 133.688 ± 0.13 (8)
-Basalt 133.746 ± 0.046 (8)
+baseline to Valve Index cam0 mm axis 134 ± 0.148 · centre: reference
+MVIS 133.686 ± 0.027 (8)
+Kalibr 133.799 ± 0.084 (8)
+Basalt 133.745 ± 0.045 (8)
 
 Whisker = lowest to highest value over the tool's solved recordings; box = median ± sd; tick =
 median. Min and max come from the per-recording values behind each record's median; only these two numbers are
@@ -7822,7 +7824,8 @@ published, not the values. Rotations are not shown: the records do not hold them
 ## MIC · camera + IMU
 
 cam0 + cam1 + IMU · 8 recordings
-Read first: Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them.
+Read first: MVIS starts from its camera-only result of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from its own camera calibration on the same camera + IMU recording; its td, lever and IMU intrinsics are solved given them.
+Gravity: MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt estimates gravity in these runs.
 
 ### Coverage
 
@@ -7832,164 +7835,164 @@ Read first: Kalibr's intrinsics and baselines are inputs from its own camera-onl
 For a fair comparison, MVIS is run here with Kalibr's IMU model, so its gyro and accel terms mean the same as Kalibr's. MVIS still estimates t_ga and refines the camera intrinsics.
 Fit: reprojection median, px (fit of each tool's own model, not accuracy)
 Camera | MVIS | Kalibr | Basalt |
-Valve Index cam0 | 0.227 | 1.114 | – |
-Valve Index cam1 | 0.221 | 0.360 | – |
+Valve Index cam0 | 0.208 | 1.114 | – |
+Valve Index cam1 | 0.205 | 0.360 | – |
 
 ### Parameters by sensor
 
 3 sensors, 31 parameter charts (each tool's spread; click to fold)
 Valve Index cam0Valve Index cam1Valve Index IMU fx px axis 421 ± 3.66 · centre: reference
-MVIS 419.33 ± 0.74 (8)
+MVIS 419.99 ± 1.1 (8)
 Kalibr 418.75 ± 1.3 (8) input
 Basalt 419.84 ± 1.1 (8)
 
 fy px axis 421 ± 3.35 · centre: reference
-MVIS 419.44 ± 0.77 (8)
+MVIS 420.11 ± 1.1 (8)
 Kalibr 419.02 ± 1.3 (8) input
 Basalt 420.00 ± 1.2 (8)
 
 cx px axis 469 ± 1.29 · centre: reference
-MVIS 469.75 ± 0.31 (8)
+MVIS 469.72 ± 0.31 (8)
 Kalibr 469.50 ± 0.73 (8) input
 Basalt 469.52 ± 0.33 (8)
 
 cy px axis 479 ± 1.01 · centre: reference
-MVIS 479.22 ± 0.31 (8)
+MVIS 479.01 ± 0.2 (8)
 Kalibr 479.80 ± 0.25 (8) input
 Basalt 479.29 ± 0.34 (8)
 
 dist k1 axis 0.193 ± 0.0307 · centre: reference
-MVIS 0.19419 ± 0.0023 (8)
+MVIS 0.19432 ± 0.0025 (8)
 Kalibr 0.20225 ± 0.0087 (8) input
 Basalt 0.19324 ± 0.0029 (8)
 
 dist k2 axis 0.0421 ± 0.106 · centre: reference
-MVIS 0.03457 ± 0.0075 (8)
+MVIS 0.03506 ± 0.0083 (8)
 Kalibr 0.00881 ± 0.031 (8) input
 Basalt 0.03527 ± 0.011 (8)
 
 dist k3 axis −0.233 ± 0.137 · centre: reference
-MVIS −0.21852 ± 0.011 (8)
+MVIS −0.21958 ± 0.012 (8)
 Kalibr −0.18802 ± 0.042 (8) input
 Basalt −0.21457 ± 0.018 (8)
 
 dist k4 axis 0.0954 ± 0.0606 · centre: reference
-MVIS 0.08768 ± 0.0052 (8)
+MVIS 0.08828 ± 0.006 (8)
 Kalibr 0.07438 ± 0.019 (8) input
 Basalt 0.08665 ± 0.0091 (8)
 
-time offset td to base IMU ms axis −0.335 ± 0.577 · centre: reference · line at 0
-MVIS −0.098 ± 0.28 (8)
+time offset td to base IMU ms axis −0.335 ± 0.617 · centre: reference · line at 0
+MVIS −0.122 ± 0.32 (8)
 Kalibr −0.118 ± 0.3 (8)
 Basalt −0.114 ± 0.29 (8)
 
 distance to base IMU ‖p‖ mm axis 140 ± 3.95 · centre: reference
-MVIS 139.79 ± 0.33 (8)
+MVIS 139.97 ± 0.43 (8)
 Kalibr 140.21 ± 0.24 (8)
 Basalt 138.89 ± 1.2 (8)
 
 fx px axis 421 ± 3.11 · centre: reference
-MVIS 420.40 ± 0.81 (8)
+MVIS 421.21 ± 1.1 (8)
 Kalibr 420.46 ± 1.6 (8) input
 Basalt 420.92 ± 1.2 (8)
 
 fy px axis 421 ± 3.05 · centre: reference
-MVIS 420.52 ± 0.87 (8)
+MVIS 421.34 ± 1.1 (8)
 Kalibr 420.55 ± 1.6 (8) input
 Basalt 421.07 ± 1.3 (8)
 
 cx px axis 468 ± 1.96 · centre: reference
-MVIS 468.43 ± 0.24 (8)
+MVIS 468.30 ± 0.32 (8)
 Kalibr 468.38 ± 0.7 (8) input
 Basalt 468.42 ± 0.3 (8)
 
-cy px axis 484 ± 0.784 · centre: reference
-MVIS 484.05 ± 0.23 (8)
+cy px axis 484 ± 0.794 · centre: reference
+MVIS 484.26 ± 0.28 (8)
 Kalibr 484.89 ± 0.15 (8) input
 Basalt 484.17 ± 0.28 (8)
 
 dist k1 axis 0.19 ± 0.0178 · centre: reference
-MVIS 0.19965 ± 0.0022 (8)
+MVIS 0.20016 ± 0.002 (8)
 Kalibr 0.20147 ± 0.0027 (8) input
 Basalt 0.19944 ± 0.0023 (8)
 
 dist k2 axis 0.0547 ± 0.0651 · centre: reference
-MVIS 0.01295 ± 0.0057 (8)
+MVIS 0.01166 ± 0.0057 (8)
 Kalibr 0.01177 ± 0.0069 (8) input
 Basalt 0.01401 ± 0.0057 (8)
 
 dist k3 axis −0.249 ± 0.0939 · centre: reference
-MVIS −0.18318 ± 0.0076 (8)
+MVIS −0.18448 ± 0.0065 (8)
 Kalibr −0.18326 ± 0.011 (8) input
 Basalt −0.18919 ± 0.0077 (8)
 
 dist k4 axis 0.103 ± 0.0467 · centre: reference
-MVIS 0.07149 ± 0.0041 (8)
+MVIS 0.07222 ± 0.0035 (8)
 Kalibr 0.07194 ± 0.0062 (8) input
 Basalt 0.07529 ± 0.0045 (8)
 
 baseline to Valve Index cam0 mm axis 134 ± 0.173 · centre: reference
-MVIS 133.723 ± 0.028 (8)
+MVIS 133.777 ± 0.035 (8)
 Kalibr 133.835 ± 0.11 (8) input
 Basalt 133.782 ± 0.06 (8)
 
-time offset td to base IMU ms axis −0.335 ± 0.643 · centre: reference · line at 0
-MVIS −0.092 ± 0.3 (8)
+time offset td to base IMU ms axis −0.335 ± 0.657 · centre: reference · line at 0
+MVIS −0.106 ± 0.33 (8)
 Kalibr −0.138 ± 0.31 (8)
 Basalt −0.114 ± 0.29 (8)
 
 distance to base IMU ‖p‖ mm axis 71.5 ± 1.99 · centre: reference
-MVIS 71.42 ± 0.35 (8)
+MVIS 71.88 ± 0.32 (8)
 Kalibr 71.35 ± 0.37 (8)
 Basalt 72.09 ± 0.66 (8)
 
-gyro Dw[0,0] scale x axis 0.988 ± 0.00794 · centre: MVIS median
-MVIS 0.98798 ± 0.0016 (8)
+gyro Dw[0,0] scale x axis 0.988 ± 0.00847 · centre: MVIS median
+MVIS 0.98750 ± 0.0019 (8)
 Kalibr 0.98982 ± 0.0026 (8)
 Basalt 0.98825 ± 0.0021 (8)
 
-gyro Dw[1,1] scale y axis 0.991 ± 0.00552 · centre: MVIS median
-MVIS 0.99140 ± 0.0017 (8)
+gyro Dw[1,1] scale y axis 0.992 ± 0.00436 · centre: MVIS median
+MVIS 0.99246 ± 0.0018 (8)
 Kalibr 0.99401 ± 0.0019 (8)
 Basalt 0.99111 ± 0.0021 (8)
 
-gyro Dw[2,2] scale z axis 1 ± 0.000572 · centre: MVIS median
-MVIS 1.00093 ± 0.00017 (8)
+gyro Dw[2,2] scale z axis 1 ± 0.00115 · centre: MVIS median
+MVIS 1.00142 ± 0.00048 (8)
 Kalibr 1.00114 ± 0.00022 (8)
 Basalt 1.00096 ± 0.00022 (8)
 
-gyro Dw[1,0] cross axis −0.00482 ± 0.00209 · centre: MVIS median
-MVIS −0.00482 ± 0.00083 (8)
+gyro Dw[1,0] cross axis −0.00535 ± 0.00529 · centre: MVIS median
+MVIS −0.00535 ± 0.002 (8)
 Kalibr −0.00445 ± 0.0008 (8)
 Basalt −0.00443 ± 0.001 (8)
 
-gyro Dw[2,0] cross axis −0.00491 ± 0.00358 · centre: MVIS median
-MVIS −0.00491 ± 0.00069 (8)
+gyro Dw[2,0] cross axis −0.00453 ± 0.00316 · centre: MVIS median
+MVIS −0.00453 ± 0.0012 (8)
 Kalibr −0.00427 ± 0.0013 (8)
 Basalt −0.00457 ± 0.00087 (8)
 
-gyro Dw[2,1] cross axis −0.00547 ± 0.00147 · centre: MVIS median
-MVIS −0.00547 ± 0.00048 (8)
+gyro Dw[2,1] cross axis −0.00589 ± 0.0028 · centre: MVIS median
+MVIS −0.00589 ± 0.0014 (8)
 Kalibr −0.00487 ± 0.00036 (8)
 Basalt −0.00542 ± 0.00075 (8)
 
-accel Da[0,0] scale x axis 1.06 ± 0.0971 · centre: MVIS median · line at 1
-MVIS 1.05550 ± 0.0017 (8)
+accel Da[0,0] scale x axis 1.06 ± 0.0967 · centre: MVIS median · line at 1
+MVIS 1.05520 ± 0.0013 (8)
 Kalibr 1.05537 ± 0.0015 (8)
 Basalt 1.01683 ± 0.027 (8)
 
-accel Da[1,1] scale y axis 1.06 ± 0.084 · centre: MVIS median · line at 1
-MVIS 1.05880 ± 0.0005 (8)
+accel Da[1,1] scale y axis 1.06 ± 0.0826 · centre: MVIS median · line at 1
+MVIS 1.05756 ± 0.00052 (8)
 Kalibr 1.05864 ± 0.00053 (8)
 Basalt 1.01860 ± 0.023 (8)
 
-accel Da[2,2] scale z axis 1.07 ± 0.0917 · centre: MVIS median · line at 1
-MVIS 1.06514 ± 0.0015 (8)
+accel Da[2,2] scale z axis 1.06 ± 0.0902 · centre: MVIS median · line at 1
+MVIS 1.06377 ± 0.0019 (8)
 Kalibr 1.06566 ± 0.0025 (8)
 Basalt 1.02406 ± 0.026 (8)
 
-t_ga gyro−accel ms axis −0.876 ± 0.253 · centre: MVIS median
-MVIS −0.876 ± 0.096 (8)
+t_ga gyro−accel ms axis −0.896 ± 0.221 · centre: MVIS median
+MVIS −0.896 ± 0.12 (8)
 Kalibr not in this tool's model
 Basalt not in this tool's model
 
@@ -8006,19 +8009,27 @@ URL: https://openmvis.com/benchmark/results/monado-mgc/
 
 Photo: HP, Reverb G2 press release
 
-The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset.
-2 of the 4 headset cameras (front pair) headset IMU AprilGrid 6×6, 30 mm
-Batch 2026-11-24a · results commit 41ec486 · Leaderboard · Methodology
+The MGC calibration recordings of the Monado SLAM Datasets, made with an HP Reverb G2 headset: its 4 tracking cameras, recorded as three pairs (cam0 + cam1, cam0 + cam2, cam1 + cam3), and its IMU.
+4 headset cameras, in 3 pairs headset IMU 4 + 4 recordings per pair AprilGrid 6×6, 30 mm
+Batch 2026-11-24a (T5 and T12; the pair 02 and 13 families are separate runs of 2026-11-27) · results commit 41ec486 · Leaderboard · Methodology
 Example: how MVIS calibrates it Dataset page: downloads Device wiki: the device Hugging Face: the data
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
 it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
 
-T5 · camera only T12 · camera + IMU
+T5 · camera only T12 · camera + IMU MGC02-cam · camera only MGC02 · camera + IMU MGC13-cam · camera only MGC13 · camera + IMU
 
-## T5 · camera only
+## Notes
 
-cam0 + cam1 stereo · 4 recordings
+- Three camera pairs. Each recording shows the board to one pair of cameras. T5 and T12 are pair 01 (cam0 + cam1) and belong to the leaderboard batch. Pairs 02 (cam0 + cam2) and 13 (cam1 + cam3) are from separate runs of 2026-11-27 and have no row on the Leaderboard. A camera that is in two pairs has one set of values per pair.
+- Kalibr on pairs 02 and 13. We ran Kalibr camera + IMU as on pair 01 and did not tune it. It did not give a usable solve on any of the 8 recordings, so all its values there are shown faded.
+
+Outside the leaderboard batch: MGC02-cam, MGC02, MGC13-cam and MGC13 are from separate runs, 2026-11-27 (MVIS 0.4.1, development version of 2026-11-26), added to this page beside the families of batch 2026-11-24a. They have no row on the Leaderboard and no ◆ counts.
+
+## T5 · camera only · pair 01
+
+cam0 + cam1 stereo · pair 01 · 4 recordings
+Leaderboard batch 2026-11-24a · MVIS development version of 2026-11-24
 
 ### Coverage
 
@@ -8119,9 +8130,10 @@ Whisker = lowest to highest value over the tool's solved recordings; box = media
 median. Min and max come from the per-recording values behind each record's median; only these two numbers are
 published, not the values. Rotations are not shown: the records do not hold them yet.
 
-## T12 · camera + IMU
+## T12 · camera + IMU · pair 01
 
-cam0 + cam1 + IMU · 4 recordings
+cam0 + cam1 + IMU · pair 01 · 4 recordings
+Leaderboard batch 2026-11-24a · MVIS development version of 2026-11-24
 Read first: Kalibr's intrinsics and baselines are inputs from an MVIS export; its td and lever are solved given them.
 
 ### Coverage
@@ -8298,6 +8310,576 @@ Whisker = lowest to highest value over the tool's solved recordings; box = media
 median. Min and max come from the per-recording values behind each record's median; only these two numbers are
 published, not the values. Rotations are not shown: the records do not hold them yet.
 
+## MGC02-cam · camera only · pair 02
+
+cam0 + cam2 stereo · pair 02 · 4 recordings
+Separate runs · batch 2026-11-27 · MVIS 0.4.1, development version of 2026-11-26 · not in the leaderboard batch
+Read first: Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib02 recordings. MVIS calibrates each camera alone. In these per-camera solves MVIS keeps every detected corner under a robust loss and has no outlier-removal pass, which its pair 01 solve has. On MGC09, cam2, 21 of 5996 corners are off by more than 3 px, up to 29 px, so the rms error is 1.04 px while the median is 0.11 px. They are single corners spread over the recording, not one bad frame, and why they are misplaced is not established.
+MVIS: solves each camera of this pair alone here, so it has no baseline. Kalibr and Basalt solve the pair together.
+
+### Coverage
+
+- MVIS 4 of 4
+- Kalibr 4 of 4
+- Basalt 4 of 4
+
+### Parameters by sensor
+
+2 sensors, 17 parameter charts (each tool's spread; click to fold)
+Reverb G2 cam0Reverb G2 cam2 fx px axis 270 ± 0.918
+MVIS 270.84 ± 0.2 (4)
+Kalibr 270.36 ± 0.11 (4)
+Basalt 270.22 ± 0.14 (4)
+
+fy px axis 270 ± 0.99
+MVIS 270.65 ± 0.16 (4)
+Kalibr 270.05 ± 0.13 (4)
+Basalt 269.98 ± 0.13 (4)
+
+cx px axis 323 ± 0.474
+MVIS 323.47 ± 0.087 (4)
+Kalibr 323.13 ± 0.035 (4)
+Basalt 323.05 ± 0.063 (4)
+
+cy px axis 228 ± 0.553
+MVIS 227.34 ± 0.16 (4)
+Kalibr 227.57 ± 0.24 (4)
+Basalt 227.63 ± 0.22 (4)
+
+dist k1 axis 0.0724 ± 0.0159
+MVIS 0.07804 ± 0.0012 (4)
+Kalibr 0.06446 ± 0.0065 (4)
+Basalt 0.07237 ± 0.0037 (4)
+
+dist k2 axis −0.0145 ± 0.0486
+MVIS −0.03643 ± 0.0025 (4)
+Kalibr 0.00963 ± 0.02 (4)
+Basalt −0.01448 ± 0.012 (4)
+
+dist k3 axis 0.193 ± 0.0548
+MVIS 0.22178 ± 0.0029 (4)
+Kalibr 0.16961 ± 0.026 (4)
+Basalt 0.19303 ± 0.015 (4)
+
+dist k4 axis −0.114 ± 0.0208
+MVIS −0.12594 ± 0.0014 (4)
+Kalibr −0.10705 ± 0.012 (4)
+Basalt −0.11421 ± 0.0068 (4)
+
+fx px axis 272 ± 0.615
+MVIS 272.30 ± 0.28 (4)
+Kalibr 272.02 ± 0.083 (4)
+Basalt 271.61 ± 0.1 (4)
+
+fy px axis 272 ± 0.807
+MVIS 272.36 ± 0.3 (4)
+Kalibr 271.92 ± 0.087 (4)
+Basalt 271.57 ± 0.13 (4)
+
+cx px axis 324 ± 0.522
+MVIS 324.00 ± 0.25 (4)
+Kalibr 324.23 ± 0.1 (4)
+Basalt 324.24 ± 0.043 (4)
+
+cy px axis 230 ± 0.855
+MVIS 230.50 ± 0.35 (4)
+Kalibr 230.15 ± 0.35 (4)
+Basalt 230.20 ± 0.16 (4)
+
+dist k1 axis 0.0788 ± 0.0196
+MVIS 0.08144 ± 0.0023 (4)
+Kalibr 0.06512 ± 0.0029 (4)
+Basalt 0.07883 ± 0.002 (4)
+
+dist k2 axis −0.0426 ± 0.0666
+MVIS −0.05524 ± 0.0086 (4)
+Kalibr 0.00324 ± 0.0084 (4)
+Basalt −0.04256 ± 0.0057 (4)
+
+dist k3 axis 0.23 ± 0.082
+MVIS 0.24500 ± 0.011 (4)
+Kalibr 0.17793 ± 0.012 (4)
+Basalt 0.22972 ± 0.0057 (4)
+
+dist k4 axis −0.13 ± 0.0332
+MVIS −0.13600 ± 0.0053 (4)
+Kalibr −0.10988 ± 0.0059 (4)
+Basalt −0.13044 ± 0.002 (4)
+
+baseline to Reverb G2 cam0 mm axis 42.5 ± 0.113
+Kalibr 42.538 ± 0.045 (4)
+Basalt 42.498 ± 0.024 (4)
+
+Whisker = lowest to highest value over the tool's solved recordings; box = median ± sd; tick =
+median. Min and max come from the per-recording values behind each record's median; only these two numbers are
+published, not the values. Rotations are not shown: the records do not hold them yet.
+
+## MGC02 · camera + IMU · pair 02
+
+cam0 + cam2 + IMU · pair 02 · 4 recordings
+Separate runs · batch 2026-11-27 · MVIS 0.4.1, development version of 2026-11-26 · not in the leaderboard batch
+Read first: MVIS starts from its per-camera results of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from an MVIS export; its td, lever and IMU intrinsics are solved given them.
+Gravity: MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt is held at 9.81 m/s².
+Kalibr: 4 of 4 solves are poor, shown faded below. Its IMU scales are far from 1 on every recording: gyro scale 1.2 to 12, accelerometer scale z 1.2 to 7860.
+
+### Coverage
+
+- MVIS 4 of 4
+- Kalibr 0 of 4 4 more solved, poor quality (grey)
+- Basalt 4 of 4
+For a fair comparison, MVIS is run here with Kalibr's IMU model, so its gyro and accel terms mean the same as Kalibr's. MVIS still estimates t_ga and refines the camera intrinsics.
+Fit: reprojection median, px (fit of each tool's own model, not accuracy)
+Camera | MVIS | Kalibr | Basalt |
+Reverb G2 cam0 | 0.102 | 0.831 | – |
+Reverb G2 cam2 | 0.101 | 0.948 | – |
+
+### Parameters by sensor
+
+3 sensors, 31 parameter charts (each tool's spread; click to fold)
+Reverb G2 cam0Reverb G2 cam2Reverb G2 IMU fx px axis 270 ± 0.604
+MVIS 270.12 ± 0.29 (4)
+Kalibr 270.12 ± 0.29 (4) input
+Basalt 270.01 ± 0.3 (4)
+
+fy px axis 270 ± 0.787
+MVIS 269.82 ± 0.35 (4)
+Kalibr 269.82 ± 0.35 (4) input
+Basalt 269.70 ± 0.27 (4)
+
+cx px axis 323 ± 0.227
+MVIS 323.23 ± 0.079 (4)
+Kalibr 323.23 ± 0.079 (4) input
+Basalt 323.04 ± 0.097 (4)
+
+cy px axis 228 ± 0.665
+MVIS 227.85 ± 0.33 (4)
+Kalibr 227.85 ± 0.33 (4) input
+Basalt 227.93 ± 0.35 (4)
+
+dist k1 axis 0.0704 ± 0.00837
+MVIS 0.07340 ± 0.0028 (4)
+Kalibr 0.07340 ± 0.0028 (4) input
+Basalt 0.06732 ± 0.0031 (4)
+
+dist k2 axis −0.0147 ± 0.0275
+MVIS −0.02686 ± 0.0072 (4)
+Kalibr −0.02686 ± 0.0072 (4) input
+Basalt −0.00263 ± 0.011 (4)
+
+dist k3 axis 0.195 ± 0.0364
+MVIS 0.21012 ± 0.0091 (4)
+Kalibr 0.21012 ± 0.0091 (4) input
+Basalt 0.17946 ± 0.015 (4)
+
+dist k4 axis −0.115 ± 0.0163
+MVIS −0.12097 ± 0.0043 (4)
+Kalibr −0.12097 ± 0.0043 (4) input
+Basalt −0.10865 ± 0.0073 (4)
+
+time offset td to base IMU ms axis −1.03 ± 0.556
+MVIS −1.408 ± 0.098 (4)
+Kalibr −6.351 ± 4.3 (4)
+Basalt −0.651 ± 0.11 (4)
+
+distance to base IMU ‖p‖ mm axis 53.2 ± 1.19
+MVIS 53.33 ± 0.25 (4)
+Kalibr 96.79 ± 51 (4)
+Basalt 53.03 ± 0.52 (4)
+
+fx px axis 272 ± 0.376
+MVIS 271.65 ± 0.2 (4)
+Kalibr 271.65 ± 0.2 (4) input
+Basalt 271.49 ± 0.23 (4)
+
+fy px axis 272 ± 0.38
+MVIS 271.64 ± 0.19 (4)
+Kalibr 271.64 ± 0.19 (4) input
+Basalt 271.50 ± 0.22 (4)
+
+cx px axis 324 ± 0.448
+MVIS 323.80 ± 0.058 (4)
+Kalibr 323.80 ± 0.058 (4) input
+Basalt 324.15 ± 0.16 (4)
+
+cy px axis 231 ± 0.638
+MVIS 230.71 ± 0.3 (4)
+Kalibr 230.71 ± 0.3 (4) input
+Basalt 230.78 ± 0.3 (4)
+
+dist k1 axis 0.0783 ± 0.00523
+MVIS 0.07805 ± 0.0018 (4)
+Kalibr 0.07805 ± 0.0018 (4) input
+Basalt 0.07854 ± 0.0031 (4)
+
+dist k2 axis −0.0417 ± 0.0168
+MVIS −0.03985 ± 0.0073 (4)
+Kalibr −0.03985 ± 0.0073 (4) input
+Basalt −0.04345 ± 0.0088 (4)
+
+dist k3 axis 0.227 ± 0.0234
+MVIS 0.22266 ± 0.011 (4)
+Kalibr 0.22266 ± 0.011 (4) input
+Basalt 0.23129 ± 0.011 (4)
+
+dist k4 axis −0.128 ± 0.0111
+MVIS −0.12545 ± 0.0051 (4)
+Kalibr −0.12545 ± 0.0051 (4) input
+Basalt −0.13111 ± 0.0047 (4)
+
+baseline to Reverb G2 cam0 mm axis 42.6 ± 0.129
+MVIS 42.657 ± 0.048 (4)
+Kalibr 42.657 ± 0.048 (4) input
+Basalt 42.534 ± 0.027 (4)
+
+time offset td to base IMU ms axis −1.02 ± 0.547
+MVIS −1.392 ± 0.087 (4)
+Kalibr −6.519 ± 4.4 (4)
+Basalt −0.651 ± 0.11 (4)
+
+distance to base IMU ‖p‖ mm axis 82.4 ± 0.779
+MVIS 82.66 ± 0.19 (4)
+Kalibr 130.37 ± 56 (4)
+Basalt 82.17 ± 0.3 (4)
+
+gyro Dw[0,0] scale x axis 1 ± 0.00077
+MVIS 1.00377 ± 0.00044 (4)
+Kalibr 3.34943 ± 3.8 (4)
+Basalt 1.00341 ± 0.00036 (4)
+
+gyro Dw[1,1] scale y axis 1 ± 0.00207
+MVIS 1.00371 ± 0.00093 (4)
+Kalibr 4.61255 ± 4.7 (4)
+Basalt 1.00349 ± 0.00096 (4)
+
+gyro Dw[2,2] scale z axis 1 ± 0.000659 · line at 1
+MVIS 0.99997 ± 0.00049 (4)
+Kalibr 4.40920 ± 2.9 (4)
+Basalt 1.00010 ± 0.00028 (4)
+
+gyro Dw[1,0] cross axis 0.000201 ± 0.000789
+MVIS 0.00029 ± 0.00043 (4)
+Kalibr 0.88616 ± 4.3 (4)
+Basalt 0.00012 ± 0.00037 (4)
+
+gyro Dw[2,0] cross axis −0.00136 ± 0.00154
+MVIS −0.00161 ± 0.00033 (4)
+Kalibr 4.99838 ± 6.3 (4)
+Basalt −0.00111 ± 0.0012 (4)
+
+gyro Dw[2,1] cross axis −0.000715 ± 0.00236
+MVIS −0.00108 ± 0.00029 (4)
+Kalibr −1.22072 ± 1.4 (4)
+Basalt −0.00035 ± 0.00099 (4)
+
+accel Da[0,0] scale x axis 1.01 ± 0.00306
+MVIS 1.00668 ± 0.00015 (4)
+Kalibr 3.28094 ± 7.9 (4)
+Basalt 1.00764 ± 0.0014 (4)
+
+accel Da[1,1] scale y axis 1.01 ± 0.00593
+MVIS 1.01041 ± 0.00035 (4)
+Kalibr 1.10229 ± 0.093 (4)
+Basalt 1.00948 ± 0.0029 (4)
+
+accel Da[2,2] scale z axis 1.01 ± 0.00277
+MVIS 1.00912 ± 0.00054 (4)
+Kalibr 1095.21000 ± 3700 (4)
+Basalt 1.00736 ± 0.0012 (4)
+
+t_ga gyro−accel ms axis 2.49 ± 0.0506
+MVIS 2.493 ± 0.027 (4)
+Kalibr not in this tool's model
+Basalt not in this tool's model
+
+Whisker = lowest to highest value over the tool's solved recordings; box = median ± sd; tick =
+median. Min and max come from the per-recording values behind each record's median; only these two numbers are
+published, not the values. Rotations are not shown: the records do not hold them yet.
+
+## MGC13-cam · camera only · pair 13
+
+cam1 + cam3 stereo · pair 13 · 4 recordings
+Separate runs · batch 2026-11-27 · MVIS 0.4.1, development version of 2026-11-26 · not in the leaderboard batch
+Read first: Kalibr and Basalt calibrate both cameras and their baseline from the images alone, on the 4 camcalib13 recordings. MVIS calibrates each camera alone. In these per-camera solves MVIS keeps every detected corner under a robust loss and has no outlier-removal pass, which its pair 01 solve has. On MGC03, 30 of 4956 corners of cam1 and 29 of 5216 of cam3 are off by more than 3 px, up to 29 px, so the rms errors are 1.28 and 1.26 px while the medians are 0.10 and 0.11 px. They are single corners spread over the recording, not one bad frame, and why they are misplaced is not established.
+MVIS: solves each camera of this pair alone here, so it has no baseline. Kalibr and Basalt solve the pair together.
+
+### Coverage
+
+- MVIS 4 of 4
+- Kalibr 4 of 4
+- Basalt 4 of 4
+
+### Parameters by sensor
+
+2 sensors, 17 parameter charts (each tool's spread; click to fold)
+Reverb G2 cam1Reverb G2 cam3 fx px axis 269 ± 1.51
+MVIS 268.69 ± 0.31 (4)
+Kalibr 268.57 ± 0.74 (4)
+Basalt 268.57 ± 0.092 (4)
+
+fy px axis 269 ± 1.59
+MVIS 268.58 ± 0.34 (4)
+Kalibr 268.58 ± 0.79 (4)
+Basalt 268.61 ± 0.056 (4)
+
+cx px axis 324 ± 0.355
+MVIS 323.50 ± 0.21 (4)
+Kalibr 323.74 ± 0.075 (4)
+Basalt 323.48 ± 0.11 (4)
+
+cy px axis 238 ± 0.546
+MVIS 237.78 ± 0.23 (4)
+Kalibr 237.92 ± 0.36 (4)
+Basalt 237.67 ± 0.24 (4)
+
+dist k1 axis 0.0796 ± 0.0576
+MVIS 0.08185 ± 0.0043 (4)
+Kalibr 0.07666 ± 0.031 (4)
+Basalt 0.07962 ± 0.0033 (4)
+
+dist k2 axis −0.0423 ± 0.178
+MVIS −0.04805 ± 0.014 (4)
+Kalibr −0.03328 ± 0.097 (4)
+Basalt −0.04230 ± 0.0099 (4)
+
+dist k3 axis 0.233 ± 0.222
+MVIS 0.23727 ± 0.019 (4)
+Kalibr 0.22563 ± 0.12 (4)
+Basalt 0.23340 ± 0.013 (4)
+
+dist k4 axis −0.133 ± 0.0928
+MVIS −0.13313 ± 0.0088 (4)
+Kalibr −0.13107 ± 0.049 (4)
+Basalt −0.13271 ± 0.0054 (4)
+
+fx px axis 270 ± 0.409
+MVIS 269.75 ± 0.22 (4)
+Kalibr 269.72 ± 0.26 (4)
+Basalt 269.66 ± 0.19 (4)
+
+fy px axis 270 ± 0.403
+MVIS 269.98 ± 0.29 (4)
+Kalibr 270.04 ± 0.31 (4)
+Basalt 270.01 ± 0.19 (4)
+
+cx px axis 320 ± 0.412
+MVIS 320.06 ± 0.063 (4)
+Kalibr 320.12 ± 0.13 (4)
+Basalt 320.21 ± 0.15 (4)
+
+cy px axis 232 ± 0.616
+MVIS 232.11 ± 0.46 (4)
+Kalibr 232.22 ± 0.26 (4)
+Basalt 232.06 ± 0.23 (4)
+
+dist k1 axis 0.0799 ± 0.0208
+MVIS 0.08136 ± 0.0047 (4)
+Kalibr 0.07016 ± 0.0092 (4)
+Basalt 0.07987 ± 0.0019 (4)
+
+dist k2 axis −0.0354 ± 0.0671
+MVIS −0.04157 ± 0.017 (4)
+Kalibr −0.00182 ± 0.027 (4)
+Basalt −0.03538 ± 0.005 (4)
+
+dist k3 axis 0.221 ± 0.0758
+MVIS 0.22810 ± 0.025 (4)
+Kalibr 0.18272 ± 0.031 (4)
+Basalt 0.22102 ± 0.0058 (4)
+
+dist k4 axis −0.126 ± 0.0281
+MVIS −0.12875 ± 0.013 (4)
+Kalibr −0.11227 ± 0.011 (4)
+Basalt −0.12640 ± 0.0023 (4)
+
+baseline to Reverb G2 cam1 mm axis 42.9 ± 0.156
+Kalibr 42.893 ± 0.067 (4)
+Basalt 42.851 ± 0.046 (4)
+
+Whisker = lowest to highest value over the tool's solved recordings; box = median ± sd; tick =
+median. Min and max come from the per-recording values behind each record's median; only these two numbers are
+published, not the values. Rotations are not shown: the records do not hold them yet.
+
+## MGC13 · camera + IMU · pair 13
+
+cam1 + cam3 + IMU · pair 13 · 4 recordings
+Separate runs · batch 2026-11-27 · MVIS 0.4.1, development version of 2026-11-26 · not in the leaderboard batch
+Read first: MVIS starts from its per-camera results of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from an MVIS export; its td, lever and IMU intrinsics are solved given them.
+Gravity: MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt is held at 9.81 m/s².
+Kalibr: 4 of 4 solves are poor, shown faded below. Its IMU scales are far from 1 on every recording: gyro scale 1.6 to 7.7, accelerometer scale z 1.6 to 952.
+
+### Coverage
+
+- MVIS 4 of 4
+- Kalibr 0 of 4 4 more solved, poor quality (grey)
+- Basalt 4 of 4
+For a fair comparison, MVIS is run here with Kalibr's IMU model, so its gyro and accel terms mean the same as Kalibr's. MVIS still estimates t_ga and refines the camera intrinsics.
+Fit: reprojection median, px (fit of each tool's own model, not accuracy)
+Camera | MVIS | Kalibr | Basalt |
+Reverb G2 cam1 | 0.107 | 0.776 | – |
+Reverb G2 cam3 | 0.102 | 0.831 | – |
+
+### Parameters by sensor
+
+3 sensors, 31 parameter charts (each tool's spread; click to fold)
+Reverb G2 cam1Reverb G2 cam3Reverb G2 IMU fx px axis 269 ± 0.38
+MVIS 268.95 ± 0.13 (4)
+Kalibr 268.95 ± 0.13 (4) input
+Basalt 268.60 ± 0.13 (4)
+
+fy px axis 269 ± 0.344
+MVIS 268.96 ± 0.11 (4)
+Kalibr 268.96 ± 0.11 (4) input
+Basalt 268.69 ± 0.13 (4)
+
+cx px axis 324 ± 0.243
+MVIS 323.97 ± 0.13 (4)
+Kalibr 323.97 ± 0.13 (4) input
+Basalt 323.89 ± 0.089 (4)
+
+cy px axis 238 ± 0.208
+MVIS 237.71 ± 0.15 (4)
+Kalibr 237.71 ± 0.15 (4) input
+Basalt 237.72 ± 0.17 (4)
+
+dist k1 axis 0.0777 ± 0.00685
+MVIS 0.07842 ± 0.0038 (4)
+Kalibr 0.07842 ± 0.0038 (4) input
+Basalt 0.07696 ± 0.0021 (4)
+
+dist k2 axis −0.0362 ± 0.0232
+MVIS −0.03891 ± 0.013 (4)
+Kalibr −0.03891 ± 0.013 (4) input
+Basalt −0.03341 ± 0.0057 (4)
+
+dist k3 axis 0.223 ± 0.0323
+MVIS 0.22571 ± 0.017 (4)
+Kalibr 0.22571 ± 0.017 (4) input
+Basalt 0.22111 ± 0.0068 (4)
+
+dist k4 axis −0.128 ± 0.0151
+MVIS −0.12830 ± 0.0079 (4)
+Kalibr −0.12830 ± 0.0079 (4) input
+Basalt −0.12681 ± 0.0028 (4)
+
+time offset td to base IMU ms axis −0.947 ± 0.576
+MVIS −1.327 ± 0.062 (4)
+Kalibr −5.104 ± 6.2 (4)
+Basalt −0.568 ± 0.075 (4)
+
+distance to base IMU ‖p‖ mm axis 58.2 ± 0.969
+MVIS 58.37 ± 0.14 (4)
+Kalibr 75.60 ± 44 (4)
+Basalt 58.11 ± 0.46 (4)
+
+fx px axis 270 ± 0.353
+MVIS 269.92 ± 0.16 (4)
+Kalibr 269.92 ± 0.16 (4) input
+Basalt 269.76 ± 0.17 (4)
+
+fy px axis 270 ± 0.488
+MVIS 270.30 ± 0.2 (4)
+Kalibr 270.30 ± 0.2 (4) input
+Basalt 270.19 ± 0.15 (4)
+
+cx px axis 320 ± 0.399
+MVIS 319.98 ± 0.17 (4)
+Kalibr 319.98 ± 0.17 (4) input
+Basalt 320.37 ± 0.064 (4)
+
+cy px axis 232 ± 0.142
+MVIS 232.36 ± 0.095 (4)
+Kalibr 232.36 ± 0.095 (4) input
+Basalt 232.32 ± 0.086 (4)
+
+dist k1 axis 0.0798 ± 0.00433
+MVIS 0.08051 ± 0.0024 (4)
+Kalibr 0.08051 ± 0.0024 (4) input
+Basalt 0.07905 ± 0.0023 (4)
+
+dist k2 axis −0.0359 ± 0.0155
+MVIS −0.03911 ± 0.0094 (4)
+Kalibr −0.03911 ± 0.0094 (4) input
+Basalt −0.03266 ± 0.0074 (4)
+
+dist k3 axis 0.219 ± 0.0203
+MVIS 0.22218 ± 0.012 (4)
+Kalibr 0.22218 ± 0.012 (4) input
+Basalt 0.21608 ± 0.0093 (4)
+
+dist k4 axis −0.125 ± 0.00953
+MVIS −0.12572 ± 0.0055 (4)
+Kalibr −0.12572 ± 0.0055 (4) input
+Basalt −0.12402 ± 0.0039 (4)
+
+baseline to Reverb G2 cam1 mm axis 42.8 ± 0.129
+MVIS 42.744 ± 0.059 (4)
+Kalibr 42.744 ± 0.059 (4) input
+Basalt 42.860 ± 0.021 (4)
+
+time offset td to base IMU ms axis −0.956 ± 0.586
+MVIS −1.345 ± 0.062 (4)
+Kalibr −4.280 ± 6.4 (4)
+Basalt −0.568 ± 0.075 (4)
+
+distance to base IMU ‖p‖ mm axis 87.6 ± 0.394
+MVIS 87.60 ± 0.11 (4)
+Kalibr 114.93 ± 45 (4)
+Basalt 87.55 ± 0.21 (4)
+
+gyro Dw[0,0] scale x axis 1 ± 0.00171
+MVIS 1.00263 ± 0.00077 (4)
+Kalibr 2.24579 ± 0.49 (4)
+Basalt 1.00216 ± 0.00094 (4)
+
+gyro Dw[1,1] scale y axis 1 ± 0.00262 · line at 1
+MVIS 1.00006 ± 0.00091 (4)
+Kalibr 3.24343 ± 1.2 (4)
+Basalt 1.00160 ± 0.0013 (4)
+
+gyro Dw[2,2] scale z axis 0.999 ± 0.00211 · line at 1
+MVIS 0.99948 ± 0.00043 (4)
+Kalibr 5.20720 ± 1.8 (4)
+Basalt 0.99815 ± 0.001 (4)
+
+gyro Dw[1,0] cross axis 0.00167 ± 0.0025
+MVIS 0.00086 ± 0.00056 (4)
+Kalibr −0.85079 ± 1 (4)
+Basalt 0.00249 ± 0.0015 (4)
+
+gyro Dw[2,0] cross axis 0.00173 ± 0.00188
+MVIS 0.00150 ± 0.0008 (4)
+Kalibr −9.16465 ± 5.5 (4)
+Basalt 0.00196 ± 0.0012 (4)
+
+gyro Dw[2,1] cross axis 0.000367 ± 0.00234
+MVIS −0.00047 ± 0.00041 (4)
+Kalibr 3.01677 ± 4 (4)
+Basalt 0.00120 ± 0.00076 (4)
+
+accel Da[0,0] scale x axis 1.01 ± 0.00143
+MVIS 1.00584 ± 0.00021 (4)
+Kalibr 1.61123 ± 0.49 (4)
+Basalt 1.00700 ± 0.00042 (4)
+
+accel Da[1,1] scale y axis 1.01 ± 0.00226
+MVIS 1.01081 ± 0.00061 (4)
+Kalibr 1.06435 ± 0.028 (4)
+Basalt 1.01240 ± 0.0013 (4)
+
+accel Da[2,2] scale z axis 1.01 ± 0.00244
+MVIS 1.00869 ± 0.00064 (4)
+Kalibr 43.55380 ± 460 (4)
+Basalt 1.00873 ± 0.0014 (4)
+
+t_ga gyro−accel ms axis 2.5 ± 0.0548
+MVIS 2.504 ± 0.038 (4)
+Kalibr not in this tool's model
+Basalt not in this tool's model
+
+Whisker = lowest to highest value over the tool's solved recordings; box = median ± sd; tick =
+median. Min and max come from the per-recording values behind each record's median; only these two numbers are
+published, not the values. Rotations are not shown: the records do not hold them yet.
+
 
 ---
 
@@ -8309,16 +8891,17 @@ Photo: Samsung Newsroom Brasil
 
 The MOC calibration recordings of the Monado SLAM Datasets, made with a Samsung Odyssey+ headset: its two tracking cameras and its IMU, 4 camera-only and 4 camera + IMU recordings.
 2 tracking cameras headset IMU 4 + 4 recordings AprilGrid 6×6, 30 mm
-Separate study · batch 2026-11-25 · not part of the leaderboard batch
+Separate study · batch 2026-11-27 (the camera + IMU solves of Kalibr and Basalt are from October 2026) · not part of the leaderboard batch
 Dataset page: downloads Device wiki: the device Hugging Face: the data
 
 Repeatability, not accuracy. There is no ground truth: a small spread shows that a tool repeats, not that
-it is right, and a difference shows that two tools disagree, not which one is wrong. We ran every tool ourselves, including Kalibr and Basalt.
+it is right, and a difference shows that two tools disagree, not which one is wrong. We ran MVIS on every recording, and Kalibr and Basalt on the camera-only ones, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026; the Kalibr used there starts its spline from both cameras.
 
 MOC-cam · camera only MOC · camera + IMU
 
 ## Notes
 
+- Runs. We ran MVIS 0.4.1 (development version of 2026-11-26) on all 8 recordings, and Kalibr and Basalt on the 4 camera-only recordings, on 2026-11-27. The camera + IMU solves of Kalibr and Basalt are from October 2026. That Kalibr run uses its scale-misalignment IMU model, with a change that starts its spline from both cameras.
 - Chart centre. Each chart is centred on the Monado authors' own Basalt calibration of this headset, made from one recording: extras/calibration.raw.json for the camera–IMU distance, baseline and time offset, and its kb4 version (calibration.kb4.json) for the intrinsics. Their IMU terms are not used: the released recordings appear to carry the authors' IMU correction already, so those charts, and t_ga, are centred on the MVIS median.
 
 ## MOC-cam · camera only
@@ -8335,90 +8918,90 @@ Read first: Each tool calibrates both cameras and their baseline from the images
 ### Parameters by sensor
 
 2 sensors, 17 parameter charts (each tool's spread; click to fold)
-Odyssey+ cam0Odyssey+ cam1 fx px axis 269 ± 1.72 · centre: reference
-MVIS 269.87 ± 0.28 (4)
-Kalibr 269.85 ± 0.25 (4)
-Basalt 269.67 different model, not compared
+Odyssey+ cam0Odyssey+ cam1 fx px axis 269 ± 1.91 · centre: reference
+MVIS 269.86 ± 0.31 (4)
+Kalibr 269.92 ± 0.49 (4)
+Basalt 269.56 ± 0.16 (4)
 
-fy px axis 269 ± 1.74 · centre: reference
-MVIS 269.81 ± 0.28 (4)
-Kalibr 269.72 ± 0.25 (4)
-Basalt 269.71 different model, not compared
+fy px axis 269 ± 1.91 · centre: reference
+MVIS 269.79 ± 0.3 (4)
+Kalibr 269.79 ± 0.47 (4)
+Basalt 269.52 ± 0.11 (4)
 
-cx px axis 323 ± 0.591 · centre: reference
-MVIS 323.02 ± 0.34 (4)
-Kalibr 322.90 ± 0.25 (4)
-Basalt 323.46 different model, not compared
+cx px axis 323 ± 0.89 · centre: reference
+MVIS 323.16 ± 0.38 (4)
+Kalibr 323.00 ± 0.28 (4)
+Basalt 323.08 ± 0.28 (4)
 
-cy px axis 246 ± 0.484 · centre: reference
-MVIS 245.97 ± 0.32 (4)
-Kalibr 245.80 ± 0.24 (4)
-Basalt 245.47 different model, not compared
+cy px axis 246 ± 0.455 · centre: reference
+MVIS 245.90 ± 0.32 (4)
+Kalibr 245.90 ± 0.17 (4)
+Basalt 245.76 ± 0.2 (4)
 
-dist k1 axis 0.0797 ± 0.0194 · centre: reference
-MVIS 0.07921 ± 0.0018 (4)
-Kalibr 0.07197 ± 0.0082 (4)
-Basalt 0.54627 different model, not compared
+dist k1 axis 0.0797 ± 0.0317 · centre: reference
+MVIS 0.07930 ± 0.0017 (4)
+Kalibr 0.06621 ± 0.011 (4)
+Basalt 0.07681 ± 0.0016 (4)
 
-dist k2 axis −0.0282 ± 0.0649 · centre: reference
-MVIS −0.02961 ± 0.0059 (4)
-Kalibr 0.00179 ± 0.025 (4)
-Basalt 0.32547 different model, not compared
+dist k2 axis −0.0282 ± 0.0945 · centre: reference
+MVIS −0.02926 ± 0.0053 (4)
+Kalibr 0.01429 ± 0.03 (4)
+Basalt −0.02331 ± 0.0044 (4)
 
-dist k3 axis 0.203 ± 0.0768 · centre: reference
-MVIS 0.20910 ± 0.0058 (4)
-Kalibr 0.16995 ± 0.031 (4)
-Basalt −0.00023 different model, not compared
+dist k3 axis 0.203 ± 0.103 · centre: reference
+MVIS 0.20759 ± 0.0053 (4)
+Kalibr 0.15864 ± 0.034 (4)
+Basalt 0.20372 ± 0.0062 (4)
 
-dist k4 axis −0.117 ± 0.0303 · centre: reference
-MVIS −0.12087 ± 0.002 (4)
-Kalibr −0.10579 ± 0.013 (4)
-Basalt 0.00017 different model, not compared
+dist k4 axis −0.117 ± 0.0376 · centre: reference
+MVIS −0.12061 ± 0.0022 (4)
+Kalibr −0.10211 ± 0.013 (4)
+Basalt −0.11986 ± 0.0028 (4)
 
-fx px axis 270 ± 0.859 · centre: reference
-MVIS 270.84 ± 0.31 (4)
-Kalibr 270.88 ± 0.11 (4)
-Basalt 270.94 different model, not compared
+fx px axis 270 ± 0.911 · centre: reference
+MVIS 270.80 ± 0.39 (4)
+Kalibr 270.85 ± 0.32 (4)
+Basalt 270.69 ± 0.19 (4)
 
-fy px axis 271 ± 0.985 · centre: reference
-MVIS 271.43 ± 0.36 (4)
-Kalibr 271.32 ± 0.083 (4)
-Basalt 270.96 different model, not compared
+fy px axis 271 ± 1.02 · centre: reference
+MVIS 271.37 ± 0.45 (4)
+Kalibr 271.32 ± 0.36 (4)
+Basalt 271.17 ± 0.23 (4)
 
-cx px axis 323 ± 2.37 · centre: reference
-MVIS 324.14 ± 0.4 (4)
-Kalibr 324.44 ± 0.3 (4)
-Basalt 323.99 different model, not compared
+cx px axis 323 ± 2.28 · centre: reference
+MVIS 324.25 ± 0.41 (4)
+Kalibr 324.19 ± 0.38 (4)
+Basalt 323.54 ± 0.25 (4)
 
-cy px axis 251 ± 1.12 · centre: reference
-MVIS 251.05 ± 0.36 (4)
-Kalibr 251.37 ± 0.33 (4)
-Basalt 250.75 different model, not compared
+cy px axis 251 ± 0.889 · centre: reference
+MVIS 250.99 ± 0.42 (4)
+Kalibr 251.24 ± 0.15 (4)
+Basalt 250.60 ± 0.26 (4)
 
-dist k1 axis 0.0592 ± 0.00894 · centre: reference
-MVIS 0.06601 ± 0.001 (4)
-Kalibr 0.05960 ± 0.0057 (4)
-Basalt 0.54467 different model, not compared
+dist k1 axis 0.0592 ± 0.00903 · centre: reference
+MVIS 0.06546 ± 0.00092 (4)
+Kalibr 0.05480 ± 0.0038 (4)
+Basalt 0.06528 ± 0.0016 (4)
 
-dist k2 axis 0.000849 ± 0.0253 · centre: reference
-MVIS −0.02000 ± 0.0018 (4)
-Kalibr 0.00567 ± 0.018 (4)
-Basalt 0.25472 different model, not compared
+dist k2 axis 0.000849 ± 0.0331 · centre: reference
+MVIS −0.01827 ± 0.0024 (4)
+Kalibr 0.01866 ± 0.012 (4)
+Basalt −0.01008 ± 0.0027 (4)
 
-dist k3 axis 0.187 ± 0.0386 · centre: reference
-MVIS 0.20695 ± 0.0027 (4)
-Kalibr 0.17362 ± 0.022 (4)
-Basalt −0.00001 different model, not compared
+dist k3 axis 0.187 ± 0.0468 · centre: reference
+MVIS 0.20494 ± 0.0045 (4)
+Kalibr 0.15937 ± 0.015 (4)
+Basalt 0.19438 ± 0.003 (4)
 
-dist k4 axis −0.116 ± 0.0182 · centre: reference
-MVIS −0.12213 ± 0.0014 (4)
-Kalibr −0.10799 ± 0.0087 (4)
-Basalt 0.00092 different model, not compared
+dist k4 axis −0.116 ± 0.0215 · centre: reference
+MVIS −0.12141 ± 0.0024 (4)
+Kalibr −0.10244 ± 0.0061 (4)
+Basalt −0.11759 ± 0.0014 (4)
 
-baseline to Odyssey+ cam0 mm axis 105 ± 0.0924 · centre: reference
-MVIS 105.457 ± 0.011 (4)
-Kalibr 105.443 ± 0.014 (4)
-Basalt 105.456 ± 0.051 (4)
+baseline to Odyssey+ cam0 mm axis 105 ± 0.0913 · centre: reference
+MVIS 105.462 ± 0.021 (4)
+Kalibr 105.516 ± 0.024 (4)
+Basalt 105.450 ± 0.045 (4)
 
 Whisker = lowest to highest value over the tool's solved recordings; box = median ± sd; tick =
 median. Min and max come from the per-recording values behind each record's median; only these two numbers are
@@ -8427,8 +9010,9 @@ published, not the values. Rotations are not shown: the records do not hold them
 ## MOC · camera + IMU
 
 cam0 + cam1 + IMU · 4 recordings
-Read first: Kalibr's intrinsics and baselines are inputs from its own camera-only calibration; its td, lever and IMU intrinsics are solved given them.
-Kalibr: 3 of 4 solves are poor, shown grey below. MOC05 did not converge (reprojection 2.9 px); on MOC08 and MOC11 Kalibr's own camera calibration is wrong (fx about 296–300 px against 269).
+Read first: MVIS starts from its camera-only result of the same round and refines the intrinsics. Kalibr's intrinsics and baselines are inputs from its own camera calibration on the same camera + IMU recording; its td, lever and IMU intrinsics are solved given them.
+Gravity: MVIS solves at the local gravity of Córdoba, 9.7931 m/s² (0.17 % below 9.81). Kalibr uses its fixed 9.80655 m/s². Basalt estimates gravity in these runs.
+Kalibr: 3 of 4 solves are poor, shown faded below. On MOC05, MOC08 and MOC11 Kalibr's own camera calibration is off: fx 296–301 px, against about 270 px from MVIS on the same recordings. On MOC05 its accelerometer scale also reaches 93 on z.
 
 ### Coverage
 
@@ -8438,164 +9022,164 @@ Kalibr: 3 of 4 solves are poor, shown grey below. MOC05 did not converge (reproj
 For a fair comparison, MVIS is run here with Kalibr's IMU model, so its gyro and accel terms mean the same as Kalibr's. MVIS still estimates t_ga and refines the camera intrinsics.
 Fit: reprojection median, px (fit of each tool's own model, not accuracy)
 Camera | MVIS | Kalibr | Basalt |
-Odyssey+ cam0 | 0.129 | 0.680 | – |
-Odyssey+ cam1 | 0.137 | 0.685 | – |
+Odyssey+ cam0 | 0.120 | 0.680 | – |
+Odyssey+ cam1 | 0.131 | 0.685 | – |
 
 ### Parameters by sensor
 
 3 sensors, 31 parameter charts (each tool's spread; click to fold)
-Odyssey+ cam0Odyssey+ cam1Odyssey+ IMU fx px axis 269 ± 0.752 · centre: reference
-MVIS 269.26 ± 0.18 (4)
+Odyssey+ cam0Odyssey+ cam1Odyssey+ IMU fx px axis 269 ± 1.02 · centre: reference
+MVIS 269.51 ± 0.18 (4)
 Kalibr 296.14 ± 14 (4) input
 Basalt 269.80 different model, not compared
 
-fy px axis 269 ± 0.874 · centre: reference
-MVIS 269.20 ± 0.22 (4)
+fy px axis 269 ± 1.14 · centre: reference
+MVIS 269.44 ± 0.22 (4)
 Kalibr 297.49 ± 14 (4) input
 Basalt 269.68 different model, not compared
 
-cx px axis 323 ± 0.455 · centre: reference
-MVIS 323.24 ± 0.17 (4)
+cx px axis 323 ± 0.3 · centre: reference
+MVIS 323.07 ± 0.21 (4)
 Kalibr 299.06 ± 13 (4) input
 Basalt 323.49 different model, not compared
 
-cy px axis 246 ± 0.304 · centre: reference
-MVIS 245.67 ± 0.096 (4)
+cy px axis 246 ± 0.297 · centre: reference
+MVIS 245.87 ± 0.14 (4)
 Kalibr 266.61 ± 17 (4) input
 Basalt 245.71 different model, not compared
 
-dist k1 axis 0.0797 ± 0.00882 · centre: reference
-MVIS 0.07398 ± 0.0023 (4)
+dist k1 axis 0.0797 ± 0.0088 · centre: reference
+MVIS 0.07378 ± 0.0021 (4)
 Kalibr 0.05880 ± 0.0084 (4) input
 Basalt 0.50950 different model, not compared
 
-dist k2 axis −0.0282 ± 0.0263 · centre: reference
-MVIS −0.01480 ± 0.0073 (4)
+dist k2 axis −0.0282 ± 0.0252 · centre: reference
+MVIS −0.01399 ± 0.0063 (4)
 Kalibr 0.02018 ± 0.022 (4) input
 Basalt 0.23801 different model, not compared
 
-dist k3 axis 0.203 ± 0.0343 · centre: reference
-MVIS 0.18930 ± 0.01 (4)
+dist k3 axis 0.203 ± 0.0325 · centre: reference
+MVIS 0.18805 ± 0.0086 (4)
 Kalibr 0.11884 ± 0.041 (4) input
 Basalt −0.00019 different model, not compared
 
-dist k4 axis −0.117 ± 0.0153 · centre: reference
-MVIS −0.11166 ± 0.0048 (4)
+dist k4 axis −0.117 ± 0.0145 · centre: reference
+MVIS −0.11141 ± 0.004 (4)
 Kalibr −0.07877 ± 0.023 (4) input
 Basalt 0.00019 different model, not compared
 
-time offset td to base IMU ms axis −1.04 ± 1.66 · centre: reference · line at 0
-MVIS −1.475 ± 1.1 (4)
+time offset td to base IMU ms axis −1.04 ± 1.68 · centre: reference · line at 0
+MVIS −1.478 ± 1.1 (4)
 Kalibr −1.578 ± 2.2 (4)
 Basalt −1.357 ± 1.1 (4)
 
 distance to base IMU ‖p‖ mm axis 83.5 ± 1.6 · centre: reference
-MVIS 84.26 ± 0.044 (4)
+MVIS 84.32 ± 0.087 (4)
 Kalibr 88.75 ± 7.1 (4)
 Basalt 84.12 ± 0.59 (4)
 
-fx px axis 270 ± 0.359 · centre: reference
-MVIS 270.48 ± 0.23 (4)
+fx px axis 270 ± 0.721 · centre: reference
+MVIS 270.68 ± 0.3 (4)
 Kalibr 296.12 ± 13 (4) input
 Basalt 271.11 different model, not compared
 
-fy px axis 271 ± 0.433 · centre: reference
-MVIS 271.06 ± 0.22 (4)
+fy px axis 271 ± 0.722 · centre: reference
+MVIS 271.26 ± 0.29 (4)
 Kalibr 298.34 ± 14 (4) input
 Basalt 271.06 different model, not compared
 
-cx px axis 323 ± 0.921 · centre: reference
-MVIS 323.35 ± 0.08 (4)
+cx px axis 323 ± 0.901 · centre: reference
+MVIS 323.31 ± 0.096 (4)
 Kalibr 348.26 ± 12 (4) input
 Basalt 324.04 different model, not compared
 
-cy px axis 251 ± 0.46 · centre: reference
-MVIS 250.94 ± 0.17 (4)
+cy px axis 251 ± 0.643 · centre: reference
+MVIS 251.18 ± 0.17 (4)
 Kalibr 273.20 ± 17 (4) input
 Basalt 250.95 different model, not compared
 
-dist k1 axis 0.0592 ± 0.00603 · centre: reference
-MVIS 0.05687 ± 0.0031 (4)
+dist k1 axis 0.0592 ± 0.00363 · centre: reference
+MVIS 0.05827 ± 0.0023 (4)
 Kalibr 0.05970 ± 0.002 (4) input
 Basalt 0.50372 different model, not compared
 
-dist k2 axis 0.000849 ± 0.0198 · centre: reference
-MVIS 0.00661 ± 0.011 (4)
+dist k2 axis 0.000849 ± 0.0138 · centre: reference
+MVIS 0.00381 ± 0.0089 (4)
 Kalibr 0.00196 ± 0.0085 (4) input
 Basalt 0.18258 different model, not compared
 
-dist k3 axis 0.187 ± 0.0312 · centre: reference
-MVIS 0.17732 ± 0.015 (4)
+dist k3 axis 0.187 ± 0.0247 · centre: reference
+MVIS 0.18097 ± 0.012 (4)
 Kalibr 0.15860 ± 0.015 (4) input
 Basalt 0.00000 different model, not compared
 
-dist k4 axis −0.116 ± 0.0157 · centre: reference
-MVIS −0.11040 ± 0.0065 (4)
+dist k4 axis −0.116 ± 0.0131 · centre: reference
+MVIS −0.11219 ± 0.0056 (4)
 Kalibr −0.09551 ± 0.012 (4) input
 Basalt 0.00089 different model, not compared
 
-baseline to Odyssey+ cam0 mm axis 105 ± 0.101 · centre: reference
-MVIS 105.421 ± 0.039 (4)
+baseline to Odyssey+ cam0 mm axis 105 ± 0.0825 · centre: reference
+MVIS 105.476 ± 0.058 (4)
 Kalibr 105.606 ± 0.1 (4) input
 Basalt 105.459 ± 0.047 (4)
 
-time offset td to base IMU ms axis −1.04 ± 1.66 · centre: reference · line at 0
-MVIS −1.480 ± 1.1 (4)
+time offset td to base IMU ms axis −1.04 ± 1.68 · centre: reference · line at 0
+MVIS −1.482 ± 1.1 (4)
 Kalibr −1.497 ± 2.3 (4)
 Basalt −1.357 ± 1.1 (4)
 
-distance to base IMU ‖p‖ mm axis 23 ± 1.4 · centre: reference
-MVIS 21.78 ± 0.056 (4)
+distance to base IMU ‖p‖ mm axis 23 ± 1.38 · centre: reference
+MVIS 21.83 ± 0.098 (4)
 Kalibr 32.91 ± 24 (4)
 Basalt 22.65 ± 0.61 (4)
 
-gyro Dw[0,0] scale x axis 1 ± 0.00927 · centre: MVIS median · line at 1
-MVIS 1.00115 ± 0.00047 (4)
+gyro Dw[0,0] scale x axis 0.999 ± 0.00729 · centre: MVIS median · line at 1
+MVIS 0.99935 ± 0.00087 (4)
 Kalibr 0.99244 ± 0.041 (4)
 Basalt 0.99742 ± 0.0029 (4)
 
-gyro Dw[1,1] scale y axis 1 ± 0.0102 · centre: MVIS median · line at 1
-MVIS 1.00126 ± 0.00028 (4)
+gyro Dw[1,1] scale y axis 1 ± 0.0085 · centre: MVIS median · line at 1
+MVIS 0.99974 ± 0.00046 (4)
 Kalibr 0.98970 ± 0.016 (4)
 Basalt 0.99694 ± 0.0033 (4)
 
-gyro Dw[2,2] scale z axis 1 ± 0.000546 · centre: MVIS median · line at 1
-MVIS 0.99993 ± 0.00028 (4)
+gyro Dw[2,2] scale z axis 1 ± 0.000711 · centre: MVIS median · line at 1
+MVIS 1.00008 ± 0.00029 (4)
 Kalibr 1.00115 ± 0.032 (4)
 Basalt 0.99977 ± 0.00033 (4)
 
-gyro Dw[1,0] cross axis 0.000383 ± 0.000581 · centre: MVIS median
-MVIS 0.00038 ± 0.00033 (4)
+gyro Dw[1,0] cross axis 0.000698 ± 0.00135 · centre: MVIS median
+MVIS 0.00070 ± 0.00072 (4)
 Kalibr 0.00317 ± 0.038 (4)
 Basalt 0.00011 ± 0.00021 (4)
 
-gyro Dw[2,0] cross axis 0.0000989 ± 0.00163 · centre: MVIS median
-MVIS 0.00010 ± 0.000093 (4)
+gyro Dw[2,0] cross axis −0.000229 ± 0.00127 · centre: MVIS median
+MVIS −0.00023 ± 0.000057 (4)
 Kalibr −0.00317 ± 0.034 (4)
 Basalt −0.00037 ± 0.00091 (4)
 
-gyro Dw[2,1] cross axis −0.000989 ± 0.0034 · centre: MVIS median
-MVIS −0.00099 ± 0.00011 (4)
+gyro Dw[2,1] cross axis −0.000697 ± 0.00308 · centre: MVIS median
+MVIS −0.00070 ± 0.00026 (4)
 Kalibr 0.00623 ± 0.027 (4)
 Basalt 0.00048 ± 0.00089 (4)
 
-accel Da[0,0] scale x axis 1.01 ± 0.0176 · centre: MVIS median · line at 1
-MVIS 1.00952 ± 0.00033 (4)
+accel Da[0,0] scale x axis 1.01 ± 0.0161 · centre: MVIS median · line at 1
+MVIS 1.00811 ± 0.0004 (4)
 Kalibr 1.01227 ± 0.36 (4)
 Basalt 1.00222 ± 0.0059 (4)
 
-accel Da[1,1] scale y axis 1.01 ± 0.0174 · centre: MVIS median · line at 1
-MVIS 1.00766 ± 0.00015 (4)
+accel Da[1,1] scale y axis 1.01 ± 0.0168 · centre: MVIS median · line at 1
+MVIS 1.00708 ± 0.00042 (4)
 Kalibr 1.01498 ± 0.019 (4)
 Basalt 1.00165 ± 0.0061 (4)
 
-accel Da[2,2] scale z axis 1.01 ± 0.0235 · centre: MVIS median · line at 1
-MVIS 1.01394 ± 0.00031 (4)
+accel Da[2,2] scale z axis 1.01 ± 0.0206 · centre: MVIS median · line at 1
+MVIS 1.01129 ± 0.00085 (4)
 Kalibr 1.06038 ± 46 (4)
 Basalt 1.00251 ± 0.0065 (4)
 
-t_ga gyro−accel ms axis 2.26 ± 0.0458 · centre: MVIS median
-MVIS 2.259 ± 0.034 (4)
+t_ga gyro−accel ms axis 2.26 ± 0.0432 · centre: MVIS median
+MVIS 2.265 ± 0.03 (4)
 Kalibr not in this tool's model
 Basalt not in this tool's model
 
@@ -19508,13 +20092,13 @@ Bosch 8 TDK InvenSense 8 not known 4
 
 ### OmniVision
 
-Image sensors · 19 cameras on devices · 14 in datasets
+Image sensors · 19 cameras on devices · 18 in datasets
 
 - OV9282 T265 ×2 D435i ×2 VI-Rig 4 IMUs + 3 cams ×2 VI-Rig 4 IMUs + 4 cams ×2 VI-Rig 5 IMUs + 4 cams ×4
 - OV9782 D455 ×3 D456 ×3
 - OV2740 D435i
 - OV4689 ZED 2 ×2
-- OV7251 Dataset Reverb G2 ×4 Odyssey+ ×2 Monado MGC ×2 UZH-FPV ×2
+- OV7251 Dataset Reverb G2 ×4 Odyssey+ ×2 Monado MGC ×4 Monado MOC ×2 UZH-FPV ×2
 - OV9750 VI-Rig 4 IMUs + 4 cams ×2
 
 ### SmartSens
@@ -19561,11 +20145,11 @@ IMU chips · 8 IMUs on devices · 6 in datasets
 
 ### TDK InvenSense
 
-IMU chips · 8 IMUs on devices · 3 in datasets
+IMU chips · 8 IMUs on devices · 5 in datasets
 
 - ICM-42670-P Neo
 - ICM-45686 Prism-A4L AVS111C-Y stereo AVS115D-Y stereo
-- ICM-20602 Teardown Dataset Index Reverb G2 Odyssey+ Monado MGC
+- ICM-20602 Teardown Dataset Index Reverb G2 Odyssey+ Monado MIC Monado MGC Monado MOC
 - ICM-40609 ONE RS 1-Inch 360
 - MPU-6500 UZH-FPV
 - MPU-9250 UZH-FPV
@@ -19653,7 +20237,7 @@ Insta360 ONE RS 1-Inch 360 Edition 2 cameras · 1 IMU | Sony IMX283 ×2 ONE RS f
 | TDK InvenSense ICM-40609 gyro type in the metadata of a 1-Inch 360 sample video (360 Rumors) · the camera writes its gyro type into every video; the ONE RS firmware supports ICM-20948 and ICM-40609
 |
 
-7 evaluations. A part used in several evaluations is counted in each; the tiles above count devices only.
+9 evaluations. A part used in several evaluations is counted in each; the tiles above count devices only.
 Our rig: VI-Rig
 
 ### VI-Rig 4 IMUs + 3 cams
@@ -19723,16 +20307,38 @@ IMUs
 
 - Bosch BMI088 Insight 9
 
-### Monado MGC
+### Monado MIC
 
 Results
 2 cameras, 1 IMU
 cameras
 
-- OmniVision OV7251 ×2 Dataset HP Reverb G2
+- Camera not known ×2 Valve Index
+IMUs
+
+- TDK InvenSense ICM-20602 Teardown Valve Index
+
+### Monado MGC
+
+Results
+4 cameras, 1 IMU
+cameras
+
+- OmniVision OV7251 ×4 Dataset HP Reverb G2
 IMUs
 
 - TDK InvenSense ICM-20602 Dataset HP Reverb G2
+
+### Monado MOC
+
+Results
+2 cameras, 1 IMU
+cameras
+
+- OmniVision OV7251 ×2 Dataset Samsung Odyssey+
+IMUs
+
+- TDK InvenSense ICM-20602 Dataset Samsung Odyssey+
 
 ### UZH-FPV
 
