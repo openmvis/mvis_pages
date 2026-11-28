@@ -1,0 +1,80 @@
+---
+// /why/imu/ section 2: one card per headset, in the style of the answer cards: the median OpenVINS error on the
+// original and the MVIS-corrected data, the drop, and a dot strip of every recording on both data sets (log axis).
+// No online calibration. Data from src/data/why/imu.json (export_why_imu.py). A recording that fails on both data sets
+// is left out of the numbers and named under the card. Hover a dot for its recording and value.
+import data from '../data/why/imu.json';
+
+interface Props { cam?: 'mono' | 'stereo' }
+const { cam = 'mono' } = Astro.props;
+const fam: any = (data as any)[cam];
+
+const fail = 1000;                                          // mm: a run this far off has failed
+const med = (v: number[]) => { const s = [...v].sort((a, b) => a - b), n = s.length;
+  return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; };
+const mm = (v: number) => (v >= 100 ? v.toFixed(0) : v.toFixed(1));
+const W = 240, H = 78, L = 52, R = 14, lo = 2, hi = 300;   // mm, the same axis as the section 3 dot plot
+const ticks = [3, 10, 30, 100, 300];
+const x = (v: number) => L + (Math.log10(Math.min(Math.max(v, lo), hi)) - Math.log10(lo)) / (Math.log10(hi) - Math.log10(lo)) * (W - L - R);
+const rows = [{ key: 'raw', label: 'original', y: 16, cls: 'wc-raw' }, { key: 'corrected', label: 'MVIS', y: 38, cls: 'wc-corr' }];
+
+const cards = (data as any).devices.map((d: any) => {
+  const all = fam.recordings.filter((r: any) => r.device === d.id);
+  const ok = all.filter((r: any) => !(r.raw > fail && r.corrected > fail));
+  const a = med(ok.map((r: any) => r.raw)), b = med(ok.map((r: any) => r.corrected));
+  return { d, ok, a, b, cut: Math.round((1 - b / a) * 100), better: ok.filter((r: any) => r.corrected < r.raw).length,
+           failed: all.filter((r: any) => r.raw > fail && r.corrected > fail).map((r: any) => r.id) };
+});
+---
+<div class="wc not-content" role="list">
+  {cards.map((c: any) => (
+    <div class="wc-card" role="listitem">
+      <div class="wc-top">
+        <span class="wc-name">{c.d.label}</span>
+        <span class="wc-cut">−{c.cut} %</span>
+      </div>
+      <span class="wc-big">{mm(c.a)} → {mm(c.b)} <small>mm</small></span>
+      <span class="wc-line">median error, original → MVIS</span>
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${c.d.label}: errors per recording, original and MVIS-corrected`}>
+        {ticks.map((t) => (
+          <g>
+            <line class="rp-grid" x1={x(t)} x2={x(t)} y1="6" y2="46" />
+            <text class="rp-tick" x={x(t)} y={H - 18} text-anchor="middle">{t}</text>
+          </g>
+        ))}
+        <text class="rp-tick" x={(L + W - R) / 2} y={H - 3} text-anchor="middle">ATE (mm, log scale)</text>
+        {rows.map((row) => (
+          <g class={row.cls}>
+            <text class="wc-rl" x={L - 6} y={row.y + 3.5} text-anchor="end">{row.label}</text>
+            {c.ok.map((r: any) => (
+              <circle class="wc-dot" cx={x(r[row.key])} cy={row.y} r="4"><title>{`${r.id}: ${mm(r[row.key])} mm`}</title></circle>
+            ))}
+            <line class="wc-med" x1={x(row.key === 'raw' ? c.a : c.b)} x2={x(row.key === 'raw' ? c.a : c.b)} y1={row.y - 8} y2={row.y + 8} />
+          </g>
+        ))}
+      </svg>
+      {c.failed.length > 0 && <span class="wc-foot">{c.failed.join(', ')} fails with and without the correction and is left out</span>}
+    </div>
+  ))}
+</div>
+<p class="wc-cap">{cam === 'mono' ? 'Mono' : 'Stereo'} odometry, no online calibration. Position error in mm, log scale; one dot per recording; bars: medians.</p>
+
+<style>
+  .wc { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.75rem; margin: 1.25rem 0 0.3rem; }
+  .wc-card { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.9rem 1rem 0.85rem; border: 1px solid var(--rp-line); border-radius: 0.75rem; }
+  .wc-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .wc-name { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rp-mut); }
+  .wc-cut { font-size: 0.8rem; font-weight: 700; padding: 0.05rem 0.5rem; border-radius: 999px; color: var(--rp-ink);
+    background: color-mix(in srgb, var(--rp-mvis) 14%, var(--sl-color-bg)); }
+  .wc-big { font-size: 1.6rem; font-weight: 700; line-height: 1.2; color: var(--rp-ink); margin-top: 0.2rem; }
+  .wc-big small { font-size: 0.9rem; font-weight: 600; color: var(--rp-mut); }
+  .wc-line { font-size: 0.78rem; color: var(--rp-mut); }
+  .wc-card svg { display: block; width: 100%; height: auto; margin: 0.4rem 0 0.1rem; color: var(--rp-ink); }
+  .wc-rl { font-size: 9.5px; fill: var(--sl-color-gray-2); }
+  .wc-dot { fill: var(--wc-c); fill-opacity: 0.8; stroke: var(--sl-color-bg); stroke-width: 1.5; }
+  .wc-raw { --wc-c: var(--sl-color-gray-4); }
+  .wc-corr { --wc-c: var(--rp-mvis); }
+  .wc-med { stroke: var(--rp-ink); stroke-width: 2.5; stroke-linecap: round; }
+  .wc-foot { font-size: 0.78rem; color: var(--rp-mut); margin-top: auto; padding-top: 0.45rem; border-top: 1px solid var(--rp-line); }
+  .wc-cap { font-size: 0.75rem; color: var(--rp-mut); margin: 0 0 1.25rem; max-width: 46rem; }
+</style>

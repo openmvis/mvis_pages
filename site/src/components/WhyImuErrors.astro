@@ -1,0 +1,40 @@
+---
+// /why/imu/ section 1: how each IMU error grows between camera frames, as four cards, each with a small curve of its
+// growth shape (t, t², t³ against time; a step per turn for gyro scale). Shapes only, no data.
+import katex from 'katex';
+
+const tex = (t: string) => katex.renderToString(t, { throwOnError: false });
+const W = 64, H = 34;
+const curve = (p: number) => Array.from({ length: 21 }, (_, i) => {
+  const t = i / 20;
+  return `${i ? 'L' : 'M'}${(4 + t * (W - 8)).toFixed(1)},${(H - 4 - Math.pow(t, p) * (H - 8)).toFixed(1)}`;
+}).join(' ');
+const steps = 'M4,30 H18 V22 H34 V14 H50 V6 H60';
+const cards = [
+  { name: 'Accel bias', what: 'position drifts', grow: '\\tfrac12\\, b_a t^2', d: curve(2) },
+  { name: 'Gyro bias', what: 'tilt grows; part of gravity is taken for motion', grow: '\\tfrac16\\, g\\, b_g t^3', d: curve(3) },
+  { name: 'Gyro scale', what: 'orientation error proportional to the rotation angle', grow: '\\varepsilon_g\\, \\theta', d: steps },
+  { name: 'Camera time offset', what: 'images and IMU samples are misaligned in time', grow: '\\omega\\, t_d,\\ v\\, t_d', d: curve(1) },
+];
+---
+<div class="we not-content" role="list">
+  {cards.map((c) => (
+    <div class="we-card" role="listitem">
+      <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true"><line x1="4" x2={W - 4} y1={H - 4} y2={H - 4} class="we-axis" /><path d={c.d} class="we-curve" /></svg>
+      <span class="we-name">{c.name}</span>
+      <span class="we-grow" set:html={tex(c.grow)} />
+      <span class="we-what">{c.what}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .we { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.6rem; margin: 1rem 0 1.25rem; max-width: 46rem; }
+  .we-card { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.75rem 0.85rem; border: 1px solid var(--rp-line); border-radius: 0.75rem; }
+  .we-card svg { width: 4rem; height: auto; margin-bottom: 0.3rem; }
+  .we-axis { stroke: var(--rp-line); stroke-width: 1; }
+  .we-curve { fill: none; stroke: var(--rp-mvis); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .we-name { font-weight: 700; font-size: 0.9rem; color: var(--rp-ink); }
+  .we-grow { font-size: 0.95rem; color: var(--rp-ink); }
+  .we-what { font-size: 0.8rem; line-height: 1.35; color: var(--rp-mut); }
+</style>

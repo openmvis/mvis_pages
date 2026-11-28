@@ -1,0 +1,106 @@
+---
+// /why/imu/ section 3: OpenVINS SE3 ATE per recording on the original data with each online setting, beside the
+// corrected recording with nothing online. One dot per recording on the section 2 log axis, a bar at each column's
+// median. Data from src/data/why/imu.json (export_why_imu.py), rendered at build time in the results-page chart style.
+// The corrected column's dots wear the MVIS blue and sit on a shaded band; the column labels and the legend name it,
+// so colour is never the only cue. Text stays in text tokens.
+import katex from 'katex';
+import data from '../data/why/imu.json';
+
+interface Props { cam?: 'mono' | 'stereo'; caption?: string }
+const { cam = 'mono', caption } = Astro.props;
+const fam: any = (data as any)[cam];
+
+const cols = [
+  { top: 'no online calib', values: Object.fromEntries(fam.recordings.map((r: any) => [r.id, r.raw])), med: fam.main.ate.baseline, corr: false },
+  ...fam.online_raw.map((o: any) => ({ top: `online ${o.label.replace('IMU intrinsics', 'IMU')}`, values: o.values, med: o.baseline, corr: false })),
+  { top: 'no online calib', values: Object.fromEntries(fam.recordings.map((r: any) => [r.id, r.corrected])), med: fam.main.ate.treatment, corr: true },
+];
+const W = 640, H = 266, L = 54, R = 10, T = 14, B = 8;
+const lo = 2, hi = 300;                                // mm, the same axis as the section 2 cards
+const ticks = [3, 10, 30, 100, 300];
+const y = (v: number) => T + (Math.log10(hi) - Math.log10(Math.min(Math.max(v, lo), hi))) / (Math.log10(hi) - Math.log10(lo)) * (H - T - B);
+const gap = 18;                                        // extra air between the original-data group and the corrected column
+const cw = (W - L - R - gap) / cols.length;
+const cx = (i: number) => L + cw * (i + 0.5) + (i === cols.length - 1 ? gap : 0);
+// Dots ordered by value and spread sideways, so equal values never hide each other.
+const spread = (n: number, k: number) => (n < 2 ? 0 : (k / (n - 1) - 0.5) * cw * 0.56);
+const mm = (v: number) => (v >= 100 ? v.toFixed(0) : v.toFixed(1));
+const placed = cols.map((c) => {
+  const ids = Object.keys(c.values).sort((a, b) => c.values[a] - c.values[b]);
+  return ids.map((id, k) => ({ id, v: c.values[id], dx: spread(ids.length, k) }));
+});
+const nRaw = cols.length - 1;
+// Column labels sit in HTML under the plot, so td renders as math (KaTeX); the grid matches the SVG columns.
+const label = (t: string) => t.split('td').map((part, k) => (k ? katex.renderToString('t_d', { throwOnError: false }) : '') + part).join('');
+const pct = (v: number) => `${(v / W) * 100}%`;
+const aria = cols.map((c) => `${c.corr ? 'MVIS-corrected data' : 'original data'}, ${c.top}: median ${c.med} mm`).join('; ');
+---
+<figure class="wi-fig wi-online">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Odometry error per recording, ${cam}. ${aria}.`}>
+    <rect class="wi-band" x={cx(nRaw) - cw / 2 + 4} y={T - 8} width={cw - 8} height={H - T - B + 16} rx="8" />
+    {ticks.map((t) => (
+      <g>
+        <line class="rp-grid" x1={L} x2={W - R} y1={y(t)} y2={y(t)} />
+        <text class="rp-tick wi-num" x={L - 6} y={y(t) + 3.5} text-anchor="end">{t}</text>
+      </g>
+    ))}
+    <text class="rp-tick" x="10" y={(T + H - B) / 2} text-anchor="middle" transform={`rotate(-90 10 ${(T + H - B) / 2})`}>ATE (mm, log scale)</text>
+    {cols.map((c, i) => (
+      <g class={c.corr ? 'wi-corr' : 'wi-raw'}>
+        {placed[i].map((p) => {
+          const xx = cx(i) + p.dx;
+          return p.v > hi
+            ? <path class="wi-mark" d={`M${xx - 5},${T + 2} L${xx + 5},${T + 2} L${xx},${T - 6} Z`}><title>{`${p.id}: ${mm(p.v)} mm`}</title></path>
+            : <circle class="wi-mark" cx={xx} cy={y(p.v)} r="4"><title>{`${p.id}: ${mm(p.v)} mm`}</title></circle>;
+        })}
+        <g class="wi-med">
+          <line x1={cx(i) - cw * 0.36} x2={cx(i) + cw * 0.36} y1={y(c.med)} y2={y(c.med)} />
+          <text class="wi-num" x={cx(i) + cw * 0.36} y={y(c.med) - 7} text-anchor="end">{mm(c.med)}</text>
+        </g>
+      </g>
+    ))}
+  </svg>
+  <div class="wi-cols" style={`padding: 0 ${pct(R)} 0 ${pct(L)}; grid-template-columns: repeat(${nRaw}, ${cw}fr) ${gap}fr ${cw}fr;`}>
+    {cols.map((c, i) => (
+      <>
+        {i === nRaw && <span />}
+        <span class={c.corr ? 'wi-col wi-colb' : 'wi-col'} set:html={label(c.top)} />
+      </>
+    ))}
+    <span class="wi-grp" style={`grid-column: 1 / span ${nRaw}`}>original data · what the odometry calibrates online</span>
+    <span />
+    <span class="wi-grp wi-colb">MVIS-corrected</span>
+  </div>
+  <div class="wi-legend" aria-hidden="true">
+    <span><svg width="12" height="12"><circle class="wi-key-raw" cx="6" cy="6" r="4" /></svg>original data</span>
+    <span><svg width="12" height="12"><circle class="wi-key-corr" cx="6" cy="6" r="4" /></svg>MVIS-corrected</span>
+    <span><svg width="22" height="10"><line class="wi-medkey" x1="4" x2="18" y1="5" y2="5" /></svg>median (mm)</span>
+    <span><svg width="14" height="10"><path class="wi-tri" d="M2,9 L12,9 L7,1 Z" /></svg>above {hi} mm</span>
+  </div>
+  <figcaption>{caption ?? `${cam === 'mono' ? 'Mono' : 'Stereo'} odometry. Position error in mm, log scale; one dot per recording; bars: medians. "Online" means the odometry estimates that calibration while it runs.`}</figcaption>
+</figure>
+
+<style>
+  .wi-fig { margin: 1.25rem 0; max-width: 46rem; }
+  .wi-online svg { display: block; width: 100%; height: auto; color: var(--rp-ink); }
+  .wi-band { fill: var(--sl-color-gray-6); }
+  .wi-num { font-variant-numeric: tabular-nums; }
+  .wi-raw { --wi-c: var(--sl-color-gray-4); }
+  .wi-corr { --wi-c: var(--rp-mvis); }
+  .wi-mark { fill: var(--wi-c); stroke: var(--sl-color-bg); stroke-width: 2; paint-order: stroke; }
+  .wi-med line { stroke: var(--rp-ink); stroke-width: 3.5; stroke-linecap: round; }
+  .wi-med text { font-size: 11px; font-weight: 600; fill: var(--rp-ink); paint-order: stroke; stroke: var(--sl-color-bg); stroke-width: 4px; stroke-linejoin: round; }
+  .wi-cols { display: grid; row-gap: 0.35rem; margin-top: 0.2rem; font-size: 0.75rem; line-height: 1.3; text-align: center; }
+  .wi-col { color: var(--sl-color-gray-2); }
+  .wi-grp { color: var(--rp-mut); padding-top: 0.3rem; border-top: 1px solid var(--rp-line); }
+  .wi-colb { font-weight: 600; color: var(--rp-ink); }
+  .wi-grp.wi-colb { border-top-color: transparent; }
+  .wi-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin-top: 0.4rem; font-size: 0.8rem; color: var(--sl-color-gray-2); }
+  .wi-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .wi-key-raw { fill: var(--sl-color-gray-4); }
+  .wi-key-corr { fill: var(--rp-mvis); }
+  .wi-medkey { stroke: var(--rp-ink); stroke-width: 3.5; stroke-linecap: round; }
+  .wi-tri { fill: var(--sl-color-gray-4); }
+  .wi-fig figcaption { font-size: 0.75rem; color: var(--rp-mut); margin-top: 0.3rem; }
+</style>

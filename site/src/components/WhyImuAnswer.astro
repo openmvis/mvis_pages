@@ -1,0 +1,43 @@
+---
+// /why/imu/ "The answer first": four cards, each one claim with its headline number, from src/data/why/imu.json
+// (export_why_imu.py). The first card is the page's main result and wears the MVIS tint; numbers stay in text tokens.
+import data from '../data/why/imu.json';
+
+const d: any = data;
+const M = d.mono, S = d.stereo;
+const pct = (a: number, b: number) => `−${Math.round((1 - b / a) * 100)} %`;
+const mm = (v: number) => v.toFixed(1);
+const closest = M.online_raw.reduce((a: any, b: any) => (b.baseline < a.baseline ? b : a));
+const tdGap = Math.max(...d.online_values.map((v: any) => Math.abs(v.ov_td_ms - v.mvis_td_ms)));
+const cards = [
+  { lead: true, kicker: 'Mono odometry', big: pct(M.main.ate.baseline, M.main.ate.treatment),
+    line: `median error ${mm(M.main.ate.baseline)} → ${mm(M.main.ate.treatment)} mm with the MVIS correction` },
+  { kicker: 'Stereo odometry', big: pct(S.main.ate.baseline, S.main.ate.treatment),
+    line: `median error ${mm(S.main.ate.baseline)} → ${mm(S.main.ate.treatment)} mm with the MVIS correction` },
+  { kicker: 'Even with online calibration', big: `${mm(closest.baseline)} mm`,
+    line: `the original data with the most accurate online calibration setting, against ${mm(M.main.ate.treatment)} mm with MVIS` },
+  { kicker: 'Online estimate agrees', big: `≤ ${tdGap.toFixed(2)} ms`,
+    line: 'between the camera time offset calibrated online from zero and the MVIS one' },
+];
+---
+<div class="wa not-content" role="list">
+  {cards.map((c) => (
+    <div class={c.lead ? 'wa-card wa-lead' : 'wa-card'} role="listitem">
+      <span class="wa-kicker">{c.kicker}</span>
+      <span class="wa-big">{c.big}</span>
+      <span class="wa-line">{c.line}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .wa { display: grid; grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr)); gap: 0.75rem; margin: 1.25rem 0 1.5rem; }
+  .wa-card { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.95rem 1.05rem 1rem; border: 1px solid var(--rp-line);
+    border-radius: 0.75rem; background: var(--sl-color-bg); }
+  .wa-lead { border-color: color-mix(in srgb, var(--rp-mvis) 45%, transparent);
+    background: color-mix(in srgb, var(--rp-mvis) 8%, var(--sl-color-bg)); }
+  .wa-kicker { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rp-mut); }
+  .wa-lead .wa-kicker { color: var(--sl-color-accent); }
+  .wa-big { font-size: 2.1rem; font-weight: 700; line-height: 1.15; color: var(--rp-ink); margin-top: 0.15rem; }
+  .wa-line { font-size: 0.88rem; line-height: 1.4; color: var(--sl-color-gray-2); }
+</style>

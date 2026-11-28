@@ -1,0 +1,19 @@
+---
+// /why/imu/: the data in one small box under the intro; the details sit in the Data section at the end.
+import data from '../data/why/imu.json';
+
+const devs: any[] = (data as any).devices;
+const n = devs.reduce((a, d) => a + d.n, 0);
+---
+<p class="wd not-content">
+  <span class="wd-k">Data</span>
+  <span>{n} calibration recordings from three VR headsets ({devs.map((d) => d.label).join(', ')}) in the
+    <a href="https://huggingface.co/datasets/collabora/monado-slam-datasets">Monado SLAM Datasets</a>, scored against the
+    dataset's ground-truth poses. <a href="#data">More</a></span>
+</p>
+
+<style>
+  .wd { display: flex; gap: 0.7rem; align-items: baseline; margin: 0.75rem 0 1rem; padding: 0.55rem 0.85rem; max-width: 46rem;
+    border: 1px solid var(--rp-line); border-radius: 0.6rem; font-size: 0.85rem; line-height: 1.45; color: var(--sl-color-gray-2); }
+  .wd-k { flex: none; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rp-mut); }
+</style>

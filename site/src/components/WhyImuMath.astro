@@ -1,0 +1,8 @@
+---
+// Inline math for /why/imu/ where Markdown math cannot reach (HTML tables, components): KaTeX at build time.
+import katex from 'katex';
+
+interface Props { tex: string }
+const html = katex.renderToString(Astro.props.tex, { throwOnError: false });
+---
+<Fragment set:html={html} />
