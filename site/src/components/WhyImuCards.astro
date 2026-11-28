@@ -13,7 +13,7 @@ const fail = 1000;                                          // mm: a run this fa
 const med = (v: number[]) => { const s = [...v].sort((a, b) => a - b), n = s.length;
   return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; };
 const mm = (v: number) => (v >= 100 ? v.toFixed(0) : v.toFixed(1));
-const W = 240, H = 64, L = 52, R = 14, lo = 2, hi = 300;
+const W = 240, H = 78, L = 52, R = 14, lo = 2, hi = 300;   // mm, the same axis as the section 3 dot plot
 const ticks = [3, 10, 30, 100, 300];
 const x = (v: number) => L + (Math.log10(Math.min(Math.max(v, lo), hi)) - Math.log10(lo)) / (Math.log10(hi) - Math.log10(lo)) * (W - L - R);
 const rows = [{ key: 'raw', label: 'original', y: 16, cls: 'wc-raw' }, { key: 'corrected', label: 'MVIS', y: 38, cls: 'wc-corr' }];
@@ -39,9 +39,10 @@ const cards = (data as any).devices.map((d: any) => {
         {ticks.map((t) => (
           <g>
             <line class="rp-grid" x1={x(t)} x2={x(t)} y1="6" y2="46" />
-            <text class="rp-tick" x={x(t)} y={H - 4} text-anchor="middle">{t}</text>
+            <text class="rp-tick" x={x(t)} y={H - 18} text-anchor="middle">{t}</text>
           </g>
         ))}
+        <text class="rp-tick" x={(L + W - R) / 2} y={H - 3} text-anchor="middle">ATE (mm, log scale)</text>
         {rows.map((row) => (
           <g class={row.cls}>
             <text class="wc-rl" x={L - 6} y={row.y + 3.5} text-anchor="end">{row.label}</text>
@@ -56,7 +57,7 @@ const cards = (data as any).devices.map((d: any) => {
     </div>
   ))}
 </div>
-<p class="wc-cap">{cam === 'mono' ? 'Mono' : 'Stereo'} odometry, no online calibration. Dots: one per recording, error in mm on a log scale; ticks: medians.</p>
+<p class="wc-cap">{cam === 'mono' ? 'Mono' : 'Stereo'} odometry, no online calibration. Position error in mm, log scale; one dot per recording; bars: medians.</p>
 
 <style>
   .wc { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.75rem; margin: 1.25rem 0 0.3rem; }
