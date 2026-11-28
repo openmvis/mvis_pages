@@ -122,19 +122,6 @@ Our own rig shows it too. In the [VI-Rig 4 IMUs + 4 cameras results](/benchmark/
 (15 recordings), MVIS finds the T265 IMU's accelerometer 1.7–2.0 % off on every axis, while the Xsens on the same
 rig stays within 0.1 %.
 
-## Limits
-
-<div class="not-content rp-honest">
-  <ul>
-    <li><b>Same recordings:</b> MVIS was calibrated on the recordings it then corrects; other recordings are not tested yet.</li>
-    <li><b>Same geometry:</b> both runs use the MVIS camera calibration; only the IMU and timing differ.</li>
-    <li><b>The original data is not raw:</b> the dataset already applies its own IMU correction, twice on the Valve
-      Index, which explains part of its error.</li>
-    <li><b>Corrections not separated:</b> IMU intrinsics, bias and time offsets are corrected together, not one by one.</li>
-    <li><b>Who ran it:</b> we ran every solve.</li>
-  </ul>
-</div>
-
 ## Data
 
 - **Monado:** the IMU calibration recordings of the
