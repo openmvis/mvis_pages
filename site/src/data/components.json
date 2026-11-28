@@ -781,6 +781,31 @@
    ]
   },
   {
+   "slug": "monado-mic",
+   "name": "Monado MIC",
+   "ours": false,
+   "href": "/benchmark/results/monado-mic/",
+   "cameras": [
+    {
+     "device": "Valve Index",
+     "count": 2,
+     "html": "<span class=\"cl cam unk\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t>Camera not known <span class=x>×2</span></span></span>"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
+     "device": "Valve Index",
+     "via": "iFixit chip ID",
+     "url": "https://www.ifixit.com/Guide/Valve+Index+Chip+ID/155948",
+     "count": 1,
+     "src": "Teardown",
+     "html": "<span class=\"cl imu\" title=\"iFixit chip ID\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
+    }
+   ]
+  },
+  {
    "slug": "monado-mgc",
    "name": "Monado MGC",
    "ours": false,
@@ -792,9 +817,9 @@
      "device": "HP Reverb G2",
      "via": "Monado SLAM datasets paper, Table II",
      "url": "https://arxiv.org/pdf/2508.00088",
-     "count": 2,
+     "count": 4,
      "src": "Dataset",
-     "html": "<span class=\"cl cam\" title=\"Monado SLAM datasets paper, Table II\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV7251</span> <span class=x>×2</span></span></span>"
+     "html": "<span class=\"cl cam\" title=\"Monado SLAM datasets paper, Table II\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV7251</span> <span class=x>×4</span></span></span>"
     }
    ],
    "imus": [
@@ -804,6 +829,36 @@
      "device": "HP Reverb G2",
      "via": "headset calibration file in the dataset",
      "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets/tree/main/M_monado_datasets/MG_reverb_g2/extras",
+     "count": 1,
+     "src": "Dataset",
+     "html": "<span class=\"cl imu\" title=\"headset calibration file in the dataset\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
+    }
+   ]
+  },
+  {
+   "slug": "monado-moc",
+   "name": "Monado MOC",
+   "ours": false,
+   "href": "/benchmark/results/monado-moc/",
+   "cameras": [
+    {
+     "maker": "OmniVision",
+     "part": "OV7251",
+     "device": "Samsung Odyssey+",
+     "via": "Monado dataset authors",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
+     "count": 2,
+     "src": "Dataset",
+     "html": "<span class=\"cl cam\" title=\"Monado dataset authors\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"4\" width=\"13\" height=\"9\" rx=\"2\"/><circle cx=\"8\" cy=\"8.5\" r=\"2.6\"/><path d=\"M5.5 4l1-1.6h3l1 1.6\"/></svg><span class=t><b>OmniVision</b> <span class=p>OV7251</span> <span class=x>×2</span></span></span>"
+    }
+   ],
+   "imus": [
+    {
+     "maker": "TDK InvenSense",
+     "part": "ICM-20602",
+     "device": "Samsung Odyssey+",
+     "via": "headset calibration file in the dataset",
+     "url": "https://huggingface.co/datasets/collabora/monado-slam-datasets",
      "count": 1,
      "src": "Dataset",
      "html": "<span class=\"cl imu\" title=\"headset calibration file in the dataset\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"8\" height=\"8\" rx=\"1.2\"/><path d=\"M6.5 4V2M9.5 4V2M6.5 14v-2M9.5 14v-2M4 6.5H2M4 9.5H2M14 6.5h-2M14 9.5h-2\"/></svg><span class=t><b>TDK InvenSense</b> <span class=p>ICM-20602</span></span></span>"
@@ -887,7 +942,7 @@
    "maker": "OmniVision",
    "key": "omnivision",
    "on_devices": 19,
-   "in_datasets": 14,
+   "in_datasets": 18,
    "parts": [
     {
      "part": "OV9282",
@@ -988,6 +1043,12 @@
       {
        "name": "Monado MGC",
        "href": "/benchmark/results/monado-mgc/",
+       "count": 4,
+       "dataset": true
+      },
+      {
+       "name": "Monado MOC",
+       "href": "/benchmark/results/monado-moc/",
        "count": 2,
        "dataset": true
       },
@@ -1325,7 +1386,7 @@
    "maker": "TDK InvenSense",
    "key": "tdk-invensense",
    "on_devices": 8,
-   "in_datasets": 3,
+   "in_datasets": 5,
    "parts": [
     {
      "part": "ICM-42670-P",
@@ -1389,8 +1450,20 @@
        "dataset": false
       },
       {
+       "name": "Monado MIC",
+       "href": "/benchmark/results/monado-mic/",
+       "count": 1,
+       "dataset": true
+      },
+      {
        "name": "Monado MGC",
        "href": "/benchmark/results/monado-mgc/",
+       "count": 1,
+       "dataset": true
+      },
+      {
+       "name": "Monado MOC",
+       "href": "/benchmark/results/monado-moc/",
        "count": 1,
        "dataset": true
       }

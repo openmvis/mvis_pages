@@ -8,6 +8,8 @@ const LINKS: [string, string][] = [['example', 'Example: how MVIS calibrates it'
   ['sensor', 'Device wiki: the device'], ['hub', 'Hugging Face: the data']];
 const MODE: Record<string, string> = { cam: 'camera only', 'cam+imu': 'camera + IMU' };
 const others = page.families.some((f: any) => f.columns.some((c: any) => c.tool !== 'MVIS'));
+// page.batch_note: what the batch does not cover; page.ran: who ran what when, on a page whose runs are not all of one date
+const note = page.batch_note && ` (${page.batch_note})`;
 ---
 <div class={`not-content ev-head${page.image ? '' : ' ev-noimg'}`}>
   {page.image && (
@@ -23,17 +25,17 @@ const others = page.families.some((f: any) => f.columns.some((c: any) => c.tool 
       {page.chips.map((c: string) => <span class="ev-chip">{c}</span>)}
     </p>
     <p class="ev-prov">
-      {page.study ? <>Separate study · batch {page.batch} · not part of the leaderboard batch</>
-        : <>Batch {page.batch} · results commit <a href={`${RESULTS}/tree/${page.results_commit}`}><code>{page.results_commit.slice(0, 7)}</code></a> · <a href="/benchmark/results/">Leaderboard</a> · <a href="/benchmark/methodology/">Methodology</a></>}
+      {page.study ? <>Separate study · batch {page.batch}{note} · not part of the leaderboard batch</>
+        : <>Batch {page.batch}{note} · results commit <a href={`${RESULTS}/tree/${page.results_commit}`}><code>{page.results_commit.slice(0, 7)}</code></a> · <a href="/benchmark/results/">Leaderboard</a> · <a href="/benchmark/methodology/">Methodology</a></>}
     </p>
     <p class="ev-links">{LINKS.filter(([k]) => page.links[k]).map(([k, t]) => <a href={page.links[k]}>{t}</a>)}</p>
   </div>
 </div>
 <div class="not-content rp-honest ev-honest">
   <p><b>Repeatability, not accuracy.</b> There is no ground truth: a small spread shows that a tool repeats, not that
-    it is right, and a difference shows that two tools disagree, not which one is wrong. {others
+    it is right, and a difference shows that two tools disagree, not which one is wrong. {page.ran ?? (others
       ? 'We ran every tool ourselves, including Kalibr and Basalt.'
-      : 'We made every run ourselves; only MVIS was run on this set.'}</p>
+      : 'We made every run ourselves; only MVIS was run on this set.')}</p>
 </div>
 <nav class="not-content ev-fams" aria-label="Families">
   {page.families.map((f: any) => <a href={`#${f.id}`}><b>{f.id}</b>&nbsp;· {MODE[f.mode]}</a>)}

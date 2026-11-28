@@ -5,10 +5,11 @@ the Results sidebar (results-nav.json). Records are local (a snapshot of one bat
       --stats <the batch's stats file> --batch <batch> --results-commit <full sha of the snapshot> --uzh-root <uzh study dir> \
       --study virig-5imus-4cams=<its stats file> --study monado-mic=<its stats file> --study monado-moc=<its stats file>
 
-One --study per separate study of python/data/public_results.yaml (study: true) other than UZH-FPV: today those
-three. A study left out is not re-exported: its committed page is carried forward with a warning, numbers and texts
-as last exported, with the one MVIS lane the pages show (results_eval.carried). A slug that is not such a study stops
-the run.
+One --study per separate study of python/data/public_results.yaml (study: true) other than UZH-FPV, and one per
+leaderboard page that lists study families (extra:), whose stats file feeds those families. A stats file left out
+stops the run. To keep a separate study's committed page as it is, numbers and texts as last exported, name it with
+--carry <slug>: it is then not re-exported, with a warning (results_eval.carried). A page with extra families cannot
+be carried. A slug that is neither stops the run.
 
 Run after export_board.py, export_uzh.py and export_repeatability.py of the same batch: it refuses when those files,
 the records and the stats file are not one batch and one commit, when a ◆ count differs from the rendered board, and
@@ -32,14 +33,16 @@ ap.add_argument("--batch", required=True)
 ap.add_argument("--results-commit", required=True, help="the snapshot's full 40-hex sha")
 ap.add_argument("--uzh-root", type=Path, required=True, help="the UZH-FPV study folder (three_way/ stats)")
 ap.add_argument("--study", action="append", default=[], metavar="SLUG=FILE",
-                help="stats file of a separate study (public_results.yaml study: true); one per study, a study left out keeps its committed page")
+                help="stats file of a separate study (public_results.yaml study: true) or of a page's extra families; one per such page")
+ap.add_argument("--carry", action="append", default=[], metavar="SLUG",
+                help="a separate study to keep as committed instead of re-exporting it (no --study for it)")
 ap.add_argument("--site", type=Path, default=_lib.REPO, help="the checkout to write into")
 a = ap.parse_args()
 if any("=" not in s for s in a.study):
     ap.error("--study takes SLUG=FILE, e.g. virig-5imus-4cams=stats.json")
 x = lambda p: p.expanduser()
 pages, pub, pairs, boards, private = R.collect(x(a.leaderboard), x(a.records), x(a.stats), a.batch, a.results_commit, x(a.uzh_root), x(a.site),
-                                           {k: x(Path(v)) for k, v in (s.split("=", 1) for s in a.study)})
+                                           {k: x(Path(v)) for k, v in (s.split("=", 1) for s in a.study)}, a.carry)
 files = R.render(pages, pub, a.batch, a.results_commit, boards, pairs)
 for p in R.write(files, x(a.site), a.results_commit, private):
     print("wrote", p)

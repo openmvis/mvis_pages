@@ -559,14 +559,14 @@
   {
    "label": "Monado MIC",
    "link": "/benchmark/results/monado-mic/",
-   "batch": "2026-11-25",
-   "note": "Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 8 MIC camera-only and 8 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+   "batch": "2026-11-27",
+   "note": "Outside the leaderboard batch, so no row here. MVIS and the camera-only Kalibr and Basalt solves: 2026-11-27. Camera + IMU Kalibr and Basalt: October 2026."
   },
   {
    "label": "Monado MOC",
    "link": "/benchmark/results/monado-moc/",
-   "batch": "2026-11-25",
-   "note": "Separate study (batch 2026-11-25): MVIS, Kalibr and Basalt on the 4 MOC camera-only and 4 camera + IMU recordings, run outside the leaderboard batch, so it has no row here."
+   "batch": "2026-11-27",
+   "note": "Outside the leaderboard batch, so no row here. MVIS and the camera-only Kalibr and Basalt solves: 2026-11-27. Camera + IMU Kalibr and Basalt: October 2026."
   },
   {
    "label": "UZH-FPV",

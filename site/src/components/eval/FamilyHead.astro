@@ -1,5 +1,8 @@
 ---
-// A family's anchor (#T6), its title, the read-first line and, once for the family, why a tool's solves are poor. The repeatability strip is off the dataset pages since
+// A family's anchor (#T6), its title with the camera pair where the page names one (f.pair), the runs behind it on a
+// page whose families are not one batch (f.run: study families beside the leaderboard batch's), the read-first line,
+// which tool ran at which gravity (f.gravity), why MVIS has no lane on some charts (f.no_mvis) and, once for the
+// family, why a tool's solves are poor. The repeatability strip is off the dataset pages since
 // 2026-11-11 (coverage and parameters only); the Leaderboard keeps its cells.
 import RpShape from '../RpShape.astro';
 interface Props { page: any; i: number }
@@ -7,7 +10,10 @@ const { page, i } = Astro.props;
 const f = page.families[i];
 ---
 <div class="not-content ev-fam" id={f.id}>
-  <p class="ev-ft"><b>{f.title}</b> · {f.n} recordings</p>
+  <p class="ev-ft"><b>{f.title}</b>{f.pair && <> · {f.pair}</>} · {f.n} recordings</p>
+  {f.run && <p class="ev-small">{f.run.outside ? 'Separate runs · batch' : 'Leaderboard batch'} {f.run.batch} · MVIS {f.run.mvis_url ? <a href={f.run.mvis_url}>{f.run.mvis}</a> : f.run.mvis}{f.run.outside && ' · not in the leaderboard batch'}</p>}
   {f.read_first && <p class="ev-rf"><b>Read first:</b> {f.read_first}</p>}
-  {(f.poor ?? []).map((p: any) => <p class="ev-poorhead"><RpShape tool={p.tool} /> <b>{p.tool}</b>: {p.n} of {f.n} solves are poor, shown grey below. {p.text}</p>)}
+  {f.gravity && <p class="ev-small"><b>Gravity:</b> {f.gravity}</p>}
+  {f.no_mvis && <p class="ev-small"><RpShape tool="MVIS" /> <b>MVIS:</b> {f.no_mvis}</p>}
+  {(f.poor ?? []).map((p: any) => <p class="ev-poorhead"><RpShape tool={p.tool} /> <b>{p.tool}</b>: {p.n} of {f.n} solves are poor, shown faded below. {p.text}</p>)}
 </div>
