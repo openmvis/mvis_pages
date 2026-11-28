@@ -1,0 +1,1046 @@
+{
+ "devices": [
+  {
+   "id": "valve_index",
+   "label": "Valve Index",
+   "link": "/devices/valve-index/",
+   "n": 8
+  },
+  {
+   "id": "reverb_g2",
+   "label": "HP Reverb G2",
+   "link": "/devices/hp-reverb-g2/",
+   "n": 12
+  },
+  {
+   "id": "odyssey_plus",
+   "label": "Samsung Odyssey+",
+   "link": "/devices/samsung-odyssey-plus/",
+   "n": 4
+  }
+ ],
+ "mvis": [
+  {
+   "id": "valve_index",
+   "da_pct": [
+    5.6,
+    5.9,
+    6.5
+   ],
+   "da_spread_pct": 0.16
+  },
+  {
+   "id": "reverb_g2",
+   "da_pct": [
+    0.7,
+    1.1,
+    1.0
+   ],
+   "da_spread_pct": 0.05
+  },
+  {
+   "id": "odyssey_plus",
+   "da_pct": [
+    1.0,
+    0.8,
+    1.4
+   ],
+   "da_spread_pct": 0.03
+  }
+ ],
+ "mono": {
+  "main": {
+   "ate": {
+    "n": 23,
+    "baseline": 27.58,
+    "treatment": 11.13,
+    "wins": 22,
+    "losses": 1,
+    "p": 0.00015
+   },
+   "rpe": {
+    "n": 23,
+    "baseline": 9.71,
+    "treatment": 6.29,
+    "wins": 22,
+    "losses": 1,
+    "p": 0.00015
+   },
+   "scale": {
+    "n": 23,
+    "baseline": 4.12,
+    "treatment": 1.21,
+    "wins": 16,
+    "losses": 7,
+    "p": 0.00048
+   }
+  },
+  "by_device": [
+   {
+    "id": "valve_index",
+    "n": 7,
+    "baseline": 8.39,
+    "treatment": 5.55,
+    "wins": 6,
+    "losses": 1,
+    "p": 0.3
+   },
+   {
+    "id": "reverb_g2",
+    "n": 12,
+    "baseline": 28.37,
+    "treatment": 10.5,
+    "wins": 12,
+    "losses": 0,
+    "p": 0.00049
+   },
+   {
+    "id": "odyssey_plus",
+    "n": 4,
+    "baseline": 44.45,
+    "treatment": 13.21,
+    "wins": 4,
+    "losses": 0,
+    "p": 0.12
+   }
+  ],
+  "recordings": [
+   {
+    "id": "MGC04",
+    "device": "reverb_g2",
+    "raw": 10.05,
+    "corrected": 9.87,
+    "raw_s": 0.988,
+    "corrected_s": 0.981
+   },
+   {
+    "id": "MGC05",
+    "device": "reverb_g2",
+    "raw": 47.22,
+    "corrected": 7.04,
+    "raw_s": 0.857,
+    "corrected_s": 1.0
+   },
+   {
+    "id": "MGC06",
+    "device": "reverb_g2",
+    "raw": 34.5,
+    "corrected": 11.21,
+    "raw_s": 0.942,
+    "corrected_s": 0.978
+   },
+   {
+    "id": "MGC11",
+    "device": "reverb_g2",
+    "raw": 15.21,
+    "corrected": 7.28,
+    "raw_s": 0.989,
+    "corrected_s": 0.978
+   },
+   {
+    "id": "MGC12",
+    "device": "reverb_g2",
+    "raw": 53.59,
+    "corrected": 9.06,
+    "raw_s": 0.868,
+    "corrected_s": 0.989
+   },
+   {
+    "id": "MGC13",
+    "device": "reverb_g2",
+    "raw": 27.58,
+    "corrected": 13.34,
+    "raw_s": 0.991,
+    "corrected_s": 0.991
+   },
+   {
+    "id": "MGC18",
+    "device": "reverb_g2",
+    "raw": 17.45,
+    "corrected": 7.19,
+    "raw_s": 0.971,
+    "corrected_s": 0.999
+   },
+   {
+    "id": "MGC19",
+    "device": "reverb_g2",
+    "raw": 29.15,
+    "corrected": 11.13,
+    "raw_s": 0.954,
+    "corrected_s": 0.985
+   },
+   {
+    "id": "MGC20",
+    "device": "reverb_g2",
+    "raw": 13.93,
+    "corrected": 7.49,
+    "raw_s": 0.975,
+    "corrected_s": 0.989
+   },
+   {
+    "id": "MGC25",
+    "device": "reverb_g2",
+    "raw": 22.09,
+    "corrected": 12.06,
+    "raw_s": 0.959,
+    "corrected_s": 0.987
+   },
+   {
+    "id": "MGC26",
+    "device": "reverb_g2",
+    "raw": 97.35,
+    "corrected": 18.97,
+    "raw_s": 0.71,
+    "corrected_s": 0.976
+   },
+   {
+    "id": "MGC27",
+    "device": "reverb_g2",
+    "raw": 53.31,
+    "corrected": 12.75,
+    "raw_s": 0.852,
+    "corrected_s": 1.001
+   },
+   {
+    "id": "MIC04",
+    "device": "valve_index",
+    "raw": 12.39,
+    "corrected": 9.18,
+    "raw_s": 1.063,
+    "corrected_s": 1.034
+   },
+   {
+    "id": "MIC05",
+    "device": "valve_index",
+    "raw": 8.39,
+    "corrected": 4.33,
+    "raw_s": 0.996,
+    "corrected_s": 1.008
+   },
+   {
+    "id": "MIC09",
+    "device": "valve_index",
+    "raw": 33.22,
+    "corrected": 12.32,
+    "raw_s": 0.885,
+    "corrected_s": 0.996
+   },
+   {
+    "id": "MIC10",
+    "device": "valve_index",
+    "raw": 285790.56,
+    "corrected": 332820.3,
+    "raw_s": 0.0,
+    "corrected_s": 0.0
+   },
+   {
+    "id": "MIC12",
+    "device": "valve_index",
+    "raw": 6.52,
+    "corrected": 5.55,
+    "raw_s": 1.041,
+    "corrected_s": 1.025
+   },
+   {
+    "id": "MIC15",
+    "device": "valve_index",
+    "raw": 7.27,
+    "corrected": 3.0,
+    "raw_s": 0.981,
+    "corrected_s": 1.012
+   },
+   {
+    "id": "MIC16",
+    "device": "valve_index",
+    "raw": 5.76,
+    "corrected": 4.91,
+    "raw_s": 1.003,
+    "corrected_s": 1.005
+   },
+   {
+    "id": "MOC02",
+    "device": "odyssey_plus",
+    "raw": 39.8,
+    "corrected": 28.31,
+    "raw_s": 0.985,
+    "corrected_s": 0.996
+   },
+   {
+    "id": "MOC05",
+    "device": "odyssey_plus",
+    "raw": 137.17,
+    "corrected": 12.28,
+    "raw_s": 0.678,
+    "corrected_s": 0.988
+   },
+   {
+    "id": "MOC08",
+    "device": "odyssey_plus",
+    "raw": 49.11,
+    "corrected": 12.29,
+    "raw_s": 0.937,
+    "corrected_s": 0.988
+   },
+   {
+    "id": "MOC11",
+    "device": "odyssey_plus",
+    "raw": 20.98,
+    "corrected": 14.12,
+    "raw_s": 0.975,
+    "corrected_s": 0.973
+   }
+  ],
+  "online_raw": [
+   {
+    "key": "td",
+    "label": "td",
+    "n": 23,
+    "baseline": 15.12,
+    "treatment": 11.13,
+    "wins": 18,
+    "losses": 5,
+    "p": 0.00074,
+    "values": {
+     "MGC04": 9.37,
+     "MGC05": 15.12,
+     "MGC06": 10.41,
+     "MGC11": 39.25,
+     "MGC12": 19.03,
+     "MGC13": 20.62,
+     "MGC18": 14.92,
+     "MGC19": 9.92,
+     "MGC20": 10.13,
+     "MGC25": 13.88,
+     "MGC26": 46.3,
+     "MGC27": 40.36,
+     "MIC04": 13.59,
+     "MIC05": 13.25,
+     "MIC09": 39.44,
+     "MIC10": 220206.49,
+     "MIC12": 6.92,
+     "MIC15": 6.67,
+     "MIC16": 4.67,
+     "MOC02": 46.5,
+     "MOC05": 93.41,
+     "MOC08": 33.22,
+     "MOC11": 30.55
+    },
+    "corrected": {
+     "MGC04": 9.93,
+     "MGC05": 7.04,
+     "MGC06": 11.21,
+     "MGC11": 7.28,
+     "MGC12": 9.06,
+     "MGC13": 13.34,
+     "MGC18": 7.19,
+     "MGC19": 11.13,
+     "MGC20": 7.49,
+     "MGC25": 12.06,
+     "MGC26": 18.97,
+     "MGC27": 12.75,
+     "MIC04": 9.18,
+     "MIC05": 4.33,
+     "MIC09": 12.32,
+     "MIC10": 332161.32,
+     "MIC12": 5.55,
+     "MIC15": 3.0,
+     "MIC16": 4.91,
+     "MOC02": 28.31,
+     "MOC05": 12.28,
+     "MOC08": 12.3,
+     "MOC11": 14.13
+    }
+   },
+   {
+    "key": "imu",
+    "label": "IMU intrinsics",
+    "n": 23,
+    "baseline": 26.17,
+    "treatment": 11.13,
+    "wins": 22,
+    "losses": 1,
+    "p": 0.00015,
+    "values": {
+     "MGC04": 14.82,
+     "MGC05": 19.59,
+     "MGC06": 46.25,
+     "MGC11": 22.39,
+     "MGC12": 42.84,
+     "MGC13": 32.57,
+     "MGC18": 42.11,
+     "MGC19": 28.32,
+     "MGC20": 13.55,
+     "MGC25": 26.17,
+     "MGC26": 82.92,
+     "MGC27": 27.87,
+     "MIC04": 12.02,
+     "MIC05": 4.91,
+     "MIC09": 13.0,
+     "MIC10": 172497.88,
+     "MIC12": 7.89,
+     "MIC15": 5.13,
+     "MIC16": 5.66,
+     "MOC02": 36.93,
+     "MOC05": 164.06,
+     "MOC08": 67.59,
+     "MOC11": 17.8
+    },
+    "corrected": {
+     "MGC04": 9.87,
+     "MGC05": 7.04,
+     "MGC06": 11.21,
+     "MGC11": 7.28,
+     "MGC12": 9.06,
+     "MGC13": 13.34,
+     "MGC18": 7.19,
+     "MGC19": 11.13,
+     "MGC20": 7.49,
+     "MGC25": 12.06,
+     "MGC26": 18.97,
+     "MGC27": 12.75,
+     "MIC04": 9.18,
+     "MIC05": 4.33,
+     "MIC09": 12.32,
+     "MIC10": 332820.3,
+     "MIC12": 5.55,
+     "MIC15": 3.0,
+     "MIC16": 4.91,
+     "MOC02": 28.31,
+     "MOC05": 12.28,
+     "MOC08": 12.29,
+     "MOC11": 14.12
+    }
+   },
+   {
+    "key": "imu_td",
+    "label": "IMU intrinsics + td",
+    "n": 23,
+    "baseline": 11.79,
+    "treatment": 11.13,
+    "wins": 19,
+    "losses": 4,
+    "p": 0.00074,
+    "values": {
+     "MGC04": 13.77,
+     "MGC05": 10.87,
+     "MGC06": 28.3,
+     "MGC11": 11.79,
+     "MGC12": 18.2,
+     "MGC13": 17.75,
+     "MGC18": 11.33,
+     "MGC19": 10.86,
+     "MGC20": 8.2,
+     "MGC25": 11.22,
+     "MGC26": 34.35,
+     "MGC27": 16.42,
+     "MIC04": 10.5,
+     "MIC05": 7.46,
+     "MIC09": 10.94,
+     "MIC10": 20.51,
+     "MIC12": 7.16,
+     "MIC15": 5.44,
+     "MIC16": 6.08,
+     "MOC02": 37.51,
+     "MOC05": 23.94,
+     "MOC08": 14.8,
+     "MOC11": 17.42
+    },
+    "corrected": {
+     "MGC04": 9.93,
+     "MGC05": 7.04,
+     "MGC06": 11.21,
+     "MGC11": 7.28,
+     "MGC12": 9.06,
+     "MGC13": 13.34,
+     "MGC18": 7.19,
+     "MGC19": 11.13,
+     "MGC20": 7.49,
+     "MGC25": 12.06,
+     "MGC26": 18.97,
+     "MGC27": 12.75,
+     "MIC04": 9.18,
+     "MIC05": 4.33,
+     "MIC09": 12.32,
+     "MIC10": 332161.32,
+     "MIC12": 5.55,
+     "MIC15": 3.0,
+     "MIC16": 4.91,
+     "MOC02": 28.31,
+     "MOC05": 12.28,
+     "MOC08": 12.3,
+     "MOC11": 14.13
+    }
+   }
+  ],
+  "beats_every_online": {
+   "k": 16,
+   "n": 23
+  },
+  "online_corrected": [
+   {
+    "key": "td",
+    "label": "td",
+    "n": 23,
+    "baseline": 11.13,
+    "treatment": 11.15,
+    "wins": 12,
+    "losses": 11,
+    "p": 0.8
+   },
+   {
+    "key": "imu",
+    "label": "IMU intrinsics",
+    "n": 23,
+    "baseline": 11.15,
+    "treatment": 11.36,
+    "wins": 10,
+    "losses": 13,
+    "p": 0.21
+   },
+   {
+    "key": "imu_td",
+    "label": "IMU intrinsics + td",
+    "n": 23,
+    "baseline": 11.13,
+    "treatment": 11.07,
+    "wins": 7,
+    "losses": 16,
+    "p": 0.098
+   }
+  ]
+ },
+ "stereo": {
+  "main": {
+   "ate": {
+    "n": 24,
+    "baseline": 11.08,
+    "treatment": 6.42,
+    "wins": 24,
+    "losses": 0,
+    "p": 1.2e-07
+   },
+   "rpe": {
+    "n": 24,
+    "baseline": 5.5,
+    "treatment": 4.51,
+    "wins": 19,
+    "losses": 5,
+    "p": 3e-05
+   },
+   "scale": {
+    "n": 24,
+    "baseline": 1.21,
+    "treatment": 1.12,
+    "wins": 12,
+    "losses": 12,
+    "p": 0.21
+   }
+  },
+  "by_device": [
+   {
+    "id": "valve_index",
+    "n": 8,
+    "baseline": 3.68,
+    "treatment": 2.76,
+    "wins": 8,
+    "losses": 0,
+    "p": 0.0078
+   },
+   {
+    "id": "reverb_g2",
+    "n": 12,
+    "baseline": 12.73,
+    "treatment": 6.99,
+    "wins": 12,
+    "losses": 0,
+    "p": 0.00049
+   },
+   {
+    "id": "odyssey_plus",
+    "n": 4,
+    "baseline": 24.58,
+    "treatment": 9.93,
+    "wins": 4,
+    "losses": 0,
+    "p": 0.12
+   }
+  ],
+  "recordings": [
+   {
+    "id": "MGC04",
+    "device": "reverb_g2",
+    "raw": 7.21,
+    "corrected": 6.45,
+    "raw_s": 0.995,
+    "corrected_s": 0.993
+   },
+   {
+    "id": "MGC05",
+    "device": "reverb_g2",
+    "raw": 10.91,
+    "corrected": 5.8,
+    "raw_s": 0.98,
+    "corrected_s": 0.994
+   },
+   {
+    "id": "MGC06",
+    "device": "reverb_g2",
+    "raw": 21.33,
+    "corrected": 10.15,
+    "raw_s": 0.962,
+    "corrected_s": 0.979
+   },
+   {
+    "id": "MGC11",
+    "device": "reverb_g2",
+    "raw": 7.98,
+    "corrected": 7.7,
+    "raw_s": 0.982,
+    "corrected_s": 0.979
+   },
+   {
+    "id": "MGC12",
+    "device": "reverb_g2",
+    "raw": 15.56,
+    "corrected": 7.33,
+    "raw_s": 0.995,
+    "corrected_s": 0.993
+   },
+   {
+    "id": "MGC13",
+    "device": "reverb_g2",
+    "raw": 13.89,
+    "corrected": 4.98,
+    "raw_s": 0.986,
+    "corrected_s": 0.987
+   },
+   {
+    "id": "MGC18",
+    "device": "reverb_g2",
+    "raw": 12.18,
+    "corrected": 6.39,
+    "raw_s": 0.962,
+    "corrected_s": 0.983
+   },
+   {
+    "id": "MGC19",
+    "device": "reverb_g2",
+    "raw": 7.17,
+    "corrected": 5.28,
+    "raw_s": 0.999,
+    "corrected_s": 0.989
+   },
+   {
+    "id": "MGC20",
+    "device": "reverb_g2",
+    "raw": 11.25,
+    "corrected": 7.37,
+    "raw_s": 0.976,
+    "corrected_s": 0.979
+   },
+   {
+    "id": "MGC25",
+    "device": "reverb_g2",
+    "raw": 19.58,
+    "corrected": 6.65,
+    "raw_s": 0.953,
+    "corrected_s": 0.987
+   },
+   {
+    "id": "MGC26",
+    "device": "reverb_g2",
+    "raw": 22.26,
+    "corrected": 7.94,
+    "raw_s": 0.972,
+    "corrected_s": 0.986
+   },
+   {
+    "id": "MGC27",
+    "device": "reverb_g2",
+    "raw": 13.28,
+    "corrected": 10.49,
+    "raw_s": 0.984,
+    "corrected_s": 0.981
+   },
+   {
+    "id": "MIC04",
+    "device": "valve_index",
+    "raw": 2.94,
+    "corrected": 2.62,
+    "raw_s": 1.01,
+    "corrected_s": 1.006
+   },
+   {
+    "id": "MIC05",
+    "device": "valve_index",
+    "raw": 4.07,
+    "corrected": 2.89,
+    "raw_s": 1.009,
+    "corrected_s": 1.005
+   },
+   {
+    "id": "MIC06",
+    "device": "valve_index",
+    "raw": 3.84,
+    "corrected": 2.31,
+    "raw_s": 1.0,
+    "corrected_s": 1.006
+   },
+   {
+    "id": "MIC09",
+    "device": "valve_index",
+    "raw": 7.9,
+    "corrected": 5.17,
+    "raw_s": 1.006,
+    "corrected_s": 1.007
+   },
+   {
+    "id": "MIC10",
+    "device": "valve_index",
+    "raw": 3.51,
+    "corrected": 2.52,
+    "raw_s": 1.008,
+    "corrected_s": 1.011
+   },
+   {
+    "id": "MIC12",
+    "device": "valve_index",
+    "raw": 3.33,
+    "corrected": 2.93,
+    "raw_s": 1.007,
+    "corrected_s": 1.009
+   },
+   {
+    "id": "MIC15",
+    "device": "valve_index",
+    "raw": 4.09,
+    "corrected": 3.26,
+    "raw_s": 1.005,
+    "corrected_s": 1.007
+   },
+   {
+    "id": "MIC16",
+    "device": "valve_index",
+    "raw": 2.79,
+    "corrected": 2.1,
+    "raw_s": 0.999,
+    "corrected_s": 1.005
+   },
+   {
+    "id": "MOC02",
+    "device": "odyssey_plus",
+    "raw": 13.21,
+    "corrected": 9.21,
+    "raw_s": 0.995,
+    "corrected_s": 0.985
+   },
+   {
+    "id": "MOC05",
+    "device": "odyssey_plus",
+    "raw": 64.41,
+    "corrected": 21.77,
+    "raw_s": 0.929,
+    "corrected_s": 0.976
+   },
+   {
+    "id": "MOC08",
+    "device": "odyssey_plus",
+    "raw": 35.74,
+    "corrected": 9.94,
+    "raw_s": 0.958,
+    "corrected_s": 1.006
+   },
+   {
+    "id": "MOC11",
+    "device": "odyssey_plus",
+    "raw": 13.42,
+    "corrected": 9.91,
+    "raw_s": 0.977,
+    "corrected_s": 0.983
+   }
+  ],
+  "online_raw": [
+   {
+    "key": "td",
+    "label": "td",
+    "n": 24,
+    "baseline": 7.23,
+    "treatment": 6.47,
+    "wins": 20,
+    "losses": 4,
+    "p": 0.00057,
+    "values": {
+     "MGC04": 3.44,
+     "MGC05": 9.26,
+     "MGC06": 12.37,
+     "MGC11": 6.91,
+     "MGC12": 7.17,
+     "MGC13": 6.07,
+     "MGC18": 8.29,
+     "MGC19": 4.61,
+     "MGC20": 7.97,
+     "MGC25": 11.73,
+     "MGC26": 9.69,
+     "MGC27": 11.09,
+     "MIC04": 3.21,
+     "MIC05": 3.57,
+     "MIC06": 3.34,
+     "MIC09": 7.29,
+     "MIC10": 4.15,
+     "MIC12": 3.3,
+     "MIC15": 4.26,
+     "MIC16": 2.8,
+     "MOC02": 13.99,
+     "MOC05": 45.03,
+     "MOC08": 14.23,
+     "MOC11": 15.07
+    },
+    "corrected": {
+     "MGC04": 6.45,
+     "MGC05": 5.79,
+     "MGC06": 10.17,
+     "MGC11": 7.7,
+     "MGC12": 7.33,
+     "MGC13": 4.98,
+     "MGC18": 6.48,
+     "MGC19": 5.28,
+     "MGC20": 7.4,
+     "MGC25": 6.65,
+     "MGC26": 7.94,
+     "MGC27": 10.49,
+     "MIC04": 2.6,
+     "MIC05": 2.92,
+     "MIC06": 2.31,
+     "MIC09": 5.17,
+     "MIC10": 2.52,
+     "MIC12": 2.93,
+     "MIC15": 3.24,
+     "MIC16": 2.15,
+     "MOC02": 9.22,
+     "MOC05": 21.77,
+     "MOC08": 9.94,
+     "MOC11": 9.91
+    }
+   },
+   {
+    "key": "imu",
+    "label": "IMU intrinsics",
+    "n": 24,
+    "baseline": 10.9,
+    "treatment": 6.42,
+    "wins": 23,
+    "losses": 1,
+    "p": 2.4e-07,
+    "values": {
+     "MGC04": 6.05,
+     "MGC05": 9.92,
+     "MGC06": 18.58,
+     "MGC11": 8.56,
+     "MGC12": 13.86,
+     "MGC13": 17.12,
+     "MGC18": 12.76,
+     "MGC19": 6.77,
+     "MGC20": 11.88,
+     "MGC25": 19.17,
+     "MGC26": 23.15,
+     "MGC27": 16.74,
+     "MIC04": 4.09,
+     "MIC05": 4.28,
+     "MIC06": 3.56,
+     "MIC09": 8.52,
+     "MIC10": 4.8,
+     "MIC12": 4.1,
+     "MIC15": 4.48,
+     "MIC16": 2.95,
+     "MOC02": 14.54,
+     "MOC05": 81.39,
+     "MOC08": 38.84,
+     "MOC11": 18.29
+    },
+    "corrected": {
+     "MGC04": 6.45,
+     "MGC05": 5.8,
+     "MGC06": 10.15,
+     "MGC11": 7.7,
+     "MGC12": 7.33,
+     "MGC13": 4.98,
+     "MGC18": 6.39,
+     "MGC19": 5.28,
+     "MGC20": 7.37,
+     "MGC25": 6.65,
+     "MGC26": 7.94,
+     "MGC27": 10.49,
+     "MIC04": 2.62,
+     "MIC05": 2.89,
+     "MIC06": 2.31,
+     "MIC09": 5.17,
+     "MIC10": 2.52,
+     "MIC12": 2.93,
+     "MIC15": 3.26,
+     "MIC16": 2.1,
+     "MOC02": 9.21,
+     "MOC05": 21.77,
+     "MOC08": 9.94,
+     "MOC11": 9.91
+    }
+   },
+   {
+    "key": "imu_td",
+    "label": "IMU intrinsics + td",
+    "n": 24,
+    "baseline": 7.53,
+    "treatment": 6.47,
+    "wins": 21,
+    "losses": 3,
+    "p": 3.9e-06,
+    "values": {
+     "MGC04": 6.23,
+     "MGC05": 6.18,
+     "MGC06": 11.18,
+     "MGC11": 7.21,
+     "MGC12": 8.54,
+     "MGC13": 6.48,
+     "MGC18": 9.51,
+     "MGC19": 4.57,
+     "MGC20": 8.41,
+     "MGC25": 9.55,
+     "MGC26": 11.53,
+     "MGC27": 14.99,
+     "MIC04": 4.34,
+     "MIC05": 5.06,
+     "MIC06": 3.26,
+     "MIC09": 7.85,
+     "MIC10": 4.64,
+     "MIC12": 4.18,
+     "MIC15": 4.01,
+     "MIC16": 2.67,
+     "MOC02": 13.41,
+     "MOC05": 41.22,
+     "MOC08": 18.63,
+     "MOC11": 16.1
+    },
+    "corrected": {
+     "MGC04": 6.45,
+     "MGC05": 5.79,
+     "MGC06": 10.17,
+     "MGC11": 7.73,
+     "MGC12": 7.33,
+     "MGC13": 4.98,
+     "MGC18": 6.48,
+     "MGC19": 5.28,
+     "MGC20": 7.4,
+     "MGC25": 6.65,
+     "MGC26": 7.94,
+     "MGC27": 10.49,
+     "MIC04": 2.6,
+     "MIC05": 2.89,
+     "MIC06": 2.31,
+     "MIC09": 5.17,
+     "MIC10": 2.52,
+     "MIC12": 2.93,
+     "MIC15": 3.24,
+     "MIC16": 2.15,
+     "MOC02": 9.22,
+     "MOC05": 21.77,
+     "MOC08": 9.94,
+     "MOC11": 9.91
+    }
+   }
+  ],
+  "beats_every_online": {
+   "k": 20,
+   "n": 24
+  },
+  "online_corrected": [
+   {
+    "key": "td",
+    "label": "td",
+    "n": 24,
+    "baseline": 6.47,
+    "treatment": 6.45,
+    "wins": 7,
+    "losses": 17,
+    "p": 0.011
+   },
+   {
+    "key": "imu",
+    "label": "IMU intrinsics",
+    "n": 24,
+    "baseline": 6.52,
+    "treatment": 6.19,
+    "wins": 3,
+    "losses": 21,
+    "p": 0.0025
+   },
+   {
+    "key": "imu_td",
+    "label": "IMU intrinsics + td",
+    "n": 24,
+    "baseline": 6.47,
+    "treatment": 6.49,
+    "wins": 4,
+    "losses": 20,
+    "p": 0.0035
+   }
+  ]
+ },
+ "online_values": [
+  {
+   "id": "valve_index",
+   "label": "Valve Index",
+   "mvis_td_ms": -0.1,
+   "ov_td_ms": -0.17,
+   "ov_td_corrected_ms": -0.03,
+   "mvis_da_pct": [
+    5.55,
+    5.88,
+    6.51
+   ],
+   "ov_da_pct": [
+    3.46,
+    5.63,
+    5.68
+   ],
+   "ov_reached": 0.76,
+   "n": 8
+  },
+  {
+   "id": "reverb_g2",
+   "label": "HP Reverb G2",
+   "mvis_td_ms": -1.32,
+   "ov_td_ms": -1.13,
+   "ov_td_corrected_ms": 0.05,
+   "mvis_da_pct": [
+    0.75,
+    1.13,
+    1.04
+   ],
+   "ov_da_pct": [
+    0.4,
+    0.61,
+    0.73
+   ],
+   "ov_reached": 0.54,
+   "n": 12
+  },
+  {
+   "id": "odyssey_plus",
+   "label": "Samsung Odyssey+",
+   "mvis_td_ms": -1.48,
+   "ov_td_ms": -1.22,
+   "ov_td_corrected_ms": 0.03,
+   "mvis_da_pct": [
+    0.95,
+    0.77,
+    1.39
+   ],
+   "ov_da_pct": [
+    0.86,
+    0.73,
+    1.28
+   ],
+   "ov_reached": 0.74,
+   "n": 4
+  }
+ ]
+}

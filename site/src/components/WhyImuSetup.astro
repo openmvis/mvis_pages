@@ -1,0 +1,49 @@
+---
+// /why/imu/ "The setup" as two lanes: the same recording runs through OpenVINS as the original data and after mvis apply-calib.
+// HTML only, so it reflows on a phone; the corrected lane wears the MVIS tint.
+---
+<figure class="ws not-content">
+  <div class="ws-lanes">
+    <div class="ws-lane">
+      <span class="ws-tag">Original data</span>
+      <span class="ws-step ws-muted">no change</span>
+      <span class="ws-arrow" aria-hidden="true">→</span>
+      <span class="ws-step">odometry</span>
+      <span class="ws-arrow" aria-hidden="true">→</span>
+      <span class="ws-step">error vs ground truth</span>
+    </div>
+    <div class="ws-lane ws-corr">
+      <span class="ws-tag">MVIS-corrected</span>
+      <span class="ws-step ws-mvis"><code>mvis apply-calib</code><small>IMU intrinsics · bias · time offsets</small></span>
+      <span class="ws-arrow" aria-hidden="true">→</span>
+      <span class="ws-step">odometry</span>
+      <span class="ws-arrow" aria-hidden="true">→</span>
+      <span class="ws-step">error vs ground truth</span>
+    </div>
+  </div>
+  <div class="ws-same">
+    <span class="ws-kicker">Same in both runs</span>
+    the images, the camera calibration and every odometry setting
+  </div>
+</figure>
+
+<style>
+  .ws { margin: 1.25rem 0 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; max-width: 46rem; font-size: 0.88rem; line-height: 1.4; }
+  .ws-kicker { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rp-mut); margin-bottom: 0.15rem; }
+  .ws-same { padding: 0.7rem 0.9rem; border: 1px solid var(--rp-line); border-radius: 0.75rem; color: var(--sl-color-gray-2); }
+  .ws-same { background: var(--sl-color-gray-6); border-color: transparent; }
+  .ws-lanes { display: flex; flex-direction: column; gap: 0.5rem; }
+  .ws-lane { display: grid; grid-template-columns: 7rem 13rem 1rem 6.5rem 1rem 1fr; align-items: center; gap: 0.4rem;
+    padding: 0.6rem 0.75rem; border: 1px solid var(--rp-line); border-radius: 0.75rem; }
+  .ws-lane > .ws-step { justify-self: start; }
+  .ws-corr { border-color: color-mix(in srgb, var(--rp-mvis) 45%, transparent); background: color-mix(in srgb, var(--rp-mvis) 8%, var(--sl-color-bg)); }
+  .ws-tag { font-weight: 700; color: var(--rp-ink); }
+  .ws-step { display: inline-flex; flex-direction: column; padding: 0.25rem 0.6rem; border-radius: 0.5rem; background: var(--sl-color-bg);
+    border: 1px solid var(--rp-line); color: var(--rp-ink); }
+  .ws-step small { font-size: 0.72rem; color: var(--rp-mut); }
+  .ws-muted { color: var(--rp-mut); border-style: dashed; }
+  .ws-mvis { border-color: var(--rp-mvis); }
+  .ws-arrow { color: var(--rp-mut); }
+  .ws code { font-size: 0.82em; }
+  @media (max-width: 44rem) { .ws-lane { display: flex; flex-wrap: wrap; } .ws-tag { min-width: 100%; } }
+</style>
